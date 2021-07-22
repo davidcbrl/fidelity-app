@@ -1,0 +1,44 @@
+name: fidelity
+description: Our tcc project
+
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+
+  get: any
+  dio: any
+  get_storage: any
+
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+
+
+
+
+flutter:
+
+  assets:
+    - assets/img/
+
+
+  fonts:
+    - family: Manrope
+      fonts:
+        - asset: assets/font/Manrope-VariableFont_wght.ttf
+
+  uses-material-design: true
+
