@@ -1,4 +1,7 @@
-import 'package:flutter/cupertino.dart';
+import 'package:fidelity/widget/fidelity_button.dart';
+import 'package:fidelity/widget/fidelity_page.dart';
+import 'package:fidelity/widget/fidelity_text_button.dart';
+import 'package:fidelity/widget/fidelity_text_field.dart';
 import 'package:flutter/material.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -7,147 +10,100 @@ class LoginScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return FidelityPage(
       body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 80,
+        child: Column(
+          children: [
+            SizedBox(
+              height: 80,
+            ),
+            Center(
+              child: Image.asset(
+                'assets/img/logo.png',
+                width: 50,
               ),
-              Container(
-                child: Center(
-                  child: Image.asset(
-                    'assets/img/logo.png',
-                    width: 80,
-                  ),
-                ),
+            ),
+            SizedBox(
+              height: 50,
+            ),
+            FidelityTextField(
+              _emailController,
+              'E-mail',
+              'skywalker@jedi.com',
+              Icon(
+                Icons.person_outline,
+                size: 20,
+              )
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            FidelityTextField(
+              _passwordController,
+              'Senha',
+              '*****',
+              Icon(
+                Icons.lock_outline,
+                size: 20,
               ),
-              SizedBox(
-                height: 50,
-              ),
-              TextField(
-                controller: _emailController,
-                style: TextStyle(color: Theme.of(context).primaryColor),
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2.0,
-                      color: Color(0xFF2167E8),
-                    ),
-                  ),
-                  hintText: 'skywalker@jedi.com',
-                  hintStyle: TextStyle(
-                    color: Color(0xFFBDBDBD),
-                  ),
-                  labelText: 'E-mail',
-                  suffixIcon: Icon(Icons.person),
-                  border: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2.0,
-                      color: Color(0xFFE0E0E0),
-                    ),
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              TextField(
-                controller: _passwordController,
-                obscureText: true,
-                style: TextStyle(color: Theme.of(context).primaryColor),
-                decoration: InputDecoration(
-                  hintText: '*****',
-                  hintStyle: TextStyle(
-                    color: Color(0xFFBDBDBD),
-                  ),
-                  labelText: 'Senha',
-                  suffixIcon: Icon(Icons.lock),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(
-                      width: 2.0,
-                      color: Color(0xFF2167E8),
-                    ),
-                  ),
-                  border: OutlineInputBorder(
-                      borderSide: BorderSide(
-                    width: 2.0,
-                    color: Color(0xFFE0E0E0),
-                  )),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Checkbox(value: true, onChanged: (value) {}),
-                          Text(
-                            'Lembrar usuário e senha',
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor),
-                          ),
-                        ],
+              hideText: true,
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 20,
+                      child: Checkbox(
+                        value: true,
+                        activeColor: Theme.of(context).primaryColor,
+                        onChanged: (value) {
+                          print(value);
+                        }
                       ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            'Esqueci minha senha',
-                            style: TextStyle(
-                                color: Theme.of(context)
-                                    .primaryTextTheme
-                                    .bodyText1!
-                                    .color),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Column(
-                children: [
-                  SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(
-                        Color(0xFF2167E8),
-                      ),),
-                      onPressed: () {},
-                      child: Text('Entrar'),
                     ),
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Text(
-                    'Não possui conta? Cadastre-se',
-                    style: TextStyle(
-                        color: Theme.of(context)
-                            .primaryTextTheme
-                            .bodyText1!
-                            .color),
-                  ),
-                ],
-              ),
-            ],
-          ),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      'Lembrar e-mail e senha',
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ],
+                ),
+                Text(
+                  'Esqueci minha senha',
+                  style: Theme.of(context).textTheme.headline2,
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Column(
+              children: [
+                FidelityButton(
+                  'Entrar',
+                  () {
+                    print('Click');
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                FidelityTextButton(
+                  'Não possui conta? Cadastre-se',
+                  () {
+                    print('Click');
+                  },
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

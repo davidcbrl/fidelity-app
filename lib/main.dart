@@ -10,21 +10,38 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-
       title: 'Fidelity',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
-        primaryColor: Color(0xFF828282),
-        primaryTextTheme: TextTheme(
-          bodyText1: TextStyle(
+        primaryColor: Color(0xFF2167E8),
+        backgroundColor: Color(0xFFF7F7F7),
+        accentColor: Color(0xFFFFFFFF),
+        textTheme: TextTheme(
+          headline1: TextStyle(
             color: Color(0xFF2167E8),
-            fontSize: 14
-          )
+            fontSize: 20,
+            fontWeight: FontWeight.bold
+          ),
+          headline2: TextStyle(
+            color: Color(0xFF2167E8),
+            fontSize: 14,
+            fontWeight: FontWeight.normal
+          ),
+          bodyText1: TextStyle(
+            color: Color(0xFF828282),
+            fontSize: 14,
+            fontWeight: FontWeight.normal
+          ),
+          bodyText2: TextStyle(
+            color: Color(0xFFBDBDBD),
+            fontSize: 14,
+            fontWeight: FontWeight.normal
+          ),
+          button: TextStyle(
+            color: Color(0xFFFFFFFF),
+            fontSize: 14,
+            fontWeight: FontWeight.bold
+          ),
         ),
-        buttonTheme: ButtonThemeData(
-          buttonColor: Color(0xFF2167E8),
-          textTheme: ButtonTextTheme.primary
-        )
       ),
       home: LoginScreen(),
     );

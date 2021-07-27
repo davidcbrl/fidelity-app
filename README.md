@@ -1,4 +1,4 @@
-# tcc
+# fidelity-app
 
 Our tcc project
 
