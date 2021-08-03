@@ -1,4 +1,4 @@
-import 'package:fidelity/auth/login.dart';
+import 'package:fidelity/pages/auth/login_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: LoginScreen(),
+      home: LoginPage(),
     );
   }
 }
