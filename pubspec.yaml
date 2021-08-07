@@ -11,11 +11,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   get: any
   dio: any
   get_storage: any
   cupertino_icons: ^1.0.2
+  fa_stepper: ^0.0.1
 
 dev_dependencies:
   flutter_test:

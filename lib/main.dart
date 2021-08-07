@@ -1,4 +1,4 @@
-import 'package:fidelity/pages/auth/login_page.dart';
+import 'package:fidelity/pages/signin/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,34 +17,28 @@ class MyApp extends StatelessWidget {
         accentColor: Color(0xFFFFFFFF),
         textTheme: TextTheme(
           headline1: TextStyle(
-            color: Color(0xFF2167E8),
-            fontSize: 20,
-            fontWeight: FontWeight.bold
-          ),
+              color: Color(0xFF2167E8),
+              fontSize: 20,
+              fontWeight: FontWeight.bold),
           headline2: TextStyle(
-            color: Color(0xFF2167E8),
-            fontSize: 14,
-            fontWeight: FontWeight.normal
-          ),
+              color: Color(0xFF2167E8),
+              fontSize: 14,
+              fontWeight: FontWeight.normal),
           bodyText1: TextStyle(
-            color: Color(0xFF828282),
-            fontSize: 14,
-            fontWeight: FontWeight.normal
-          ),
+              color: Color(0xFF828282),
+              fontSize: 14,
+              fontWeight: FontWeight.normal),
           bodyText2: TextStyle(
-            color: Color(0xFFBDBDBD),
-            fontSize: 14,
-            fontWeight: FontWeight.normal
-          ),
+              color: Color(0xFFBDBDBD),
+              fontSize: 14,
+              fontWeight: FontWeight.normal),
           button: TextStyle(
-            color: Color(0xFFFFFFFF),
-            fontSize: 14,
-            fontWeight: FontWeight.bold
-          ),
+              color: Color(0xFFFFFFFF),
+              fontSize: 14,
+              fontWeight: FontWeight.bold),
         ),
       ),
-      home: LoginPage(),
+      home: SignUp(),
     );
   }
 }
-
