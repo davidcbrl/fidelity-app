@@ -1,4 +1,4 @@
-import 'package:fidelity/widgets/CustomStepper.dart';
+import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
@@ -8,16 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class SecondStep extends StatefulWidget {
-  const SecondStep({
+class SecondStepBody extends StatefulWidget {
+  const SecondStepBody({
     Key? key,
   }) : super(key: key);
 
   @override
-  _SecondStepState createState() => _SecondStepState();
+  _SecondStepBodyState createState() => _SecondStepBodyState();
 }
 
-class _SecondStepState extends State<SecondStep> {
+class _SecondStepBodyState extends State<SecondStepBody> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _senhaController = TextEditingController();
   TextEditingController _confirmController = TextEditingController();
@@ -41,7 +41,7 @@ class _SecondStepState extends State<SecondStep> {
               SizedBox(
                 height: 20,
               ),
-              CustomStepper(1),
+              FidelityStepper(1),
               SizedBox(
                 height: 20,
               ),
@@ -76,7 +76,7 @@ class _SecondStepState extends State<SecondStep> {
             _emailController,
             "E-mail",
             "skywalker@jedi.com",
-            Icon(Icons.apartment),
+            Icon(Icons.email_outlined),
             formatter: MaskTextInputFormatter(mask: ""),
             validator: (value) {
               if (value == null || value.isEmpty) return "Campo vazio";
@@ -92,7 +92,7 @@ class _SecondStepState extends State<SecondStep> {
             _senhaController,
             "Senha",
             "*****",
-            Icon(Icons.lock),
+            Icon(Icons.lock_outline),
             formatter: MaskTextInputFormatter(mask: ""),
             hideText: true,
             validator: (value) {
@@ -109,7 +109,7 @@ class _SecondStepState extends State<SecondStep> {
             _confirmController,
             "Confirmação",
             "*****",
-            Icon(Icons.lock),
+            Icon(Icons.lock_outline),
             formatter: MaskTextInputFormatter(mask: ""),
             validator: (value) {
               if (value == null || value.isEmpty) return "Campo vazio";
@@ -143,7 +143,9 @@ class _SecondStepState extends State<SecondStep> {
               ),
               FidelityTextButton(
                 "Voltar",
-                () {},
+                () {
+                  Get.back();
+                },
               ),
             ],
           ),

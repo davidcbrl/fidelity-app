@@ -1,5 +1,5 @@
-import 'package:fidelity/pages/signup/widgets/SecondStep.dart';
-import 'package:fidelity/widgets/CustomStepper.dart';
+import 'package:fidelity/pages/signup/second_step_body.dart';
+import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
@@ -8,16 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class FirstStep extends StatefulWidget {
-  const FirstStep({
-    Key? key,
-  }) : super(key: key);
-
+class FirstStepBody extends StatefulWidget {
   @override
-  _FirstStepState createState() => _FirstStepState();
+  _FirstStepBodyState createState() => _FirstStepBodyState();
 }
 
-class _FirstStepState extends State<FirstStep> {
+class _FirstStepBodyState extends State<FirstStepBody> {
   TextEditingController _empresaController = TextEditingController();
   TextEditingController _cpnjController = TextEditingController();
   TextEditingController _contatoController = TextEditingController();
@@ -43,7 +39,7 @@ class _FirstStepState extends State<FirstStep> {
               SizedBox(
                 height: 20,
               ),
-              CustomStepper(0),
+              FidelityStepper(0),
               SizedBox(
                 height: 20,
               ),
@@ -95,7 +91,7 @@ class _FirstStepState extends State<FirstStep> {
             _cpnjController,
             "CNPJ",
             "00.000.000/0000-00",
-            Icon(Icons.business_center),
+            Icon(Icons.business_center_outlined),
             formatter: MaskTextInputFormatter(mask: "##.###.###/####-##"),
             validator: (value) {
               if (value == null || value.isEmpty) return "Campo vazio";
@@ -137,16 +133,19 @@ class _FirstStepState extends State<FirstStep> {
                 "Próximo",
                 () {
                   if (_formKey.currentState!.validate()) {
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   const SnackBar(content: Text('Processing Data')),
-                    // );
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SecondStep()));
+                    Navigator.push(
+                      context, MaterialPageRoute(
+                        builder: (context) => SecondStepBody()
+                      )
+                    );
                   }
                 },
               ),
               FidelityTextButton(
                 "Voltar",
-                () {},
+                () {
+                  Get.back();
+                },
               ),
             ],
           ),
