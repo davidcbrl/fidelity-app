@@ -1,6 +1,6 @@
-import 'package:fidelity/pages/signup/widgets/SecondStep.dart';
 import 'package:fidelity/widgets/CustomStepper.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
+import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/cupertino.dart';
@@ -8,30 +8,28 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class FirstStep extends StatefulWidget {
-  const FirstStep({
+class SecondStep extends StatefulWidget {
+  const SecondStep({
     Key? key,
   }) : super(key: key);
 
   @override
-  _FirstStepState createState() => _FirstStepState();
+  _SecondStepState createState() => _SecondStepState();
 }
 
-class _FirstStepState extends State<FirstStep> {
-  TextEditingController _empresaController = TextEditingController();
-  TextEditingController _cpnjController = TextEditingController();
-  TextEditingController _contatoController = TextEditingController();
+class _SecondStepState extends State<SecondStep> {
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _senhaController = TextEditingController();
+  TextEditingController _confirmController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: SingleChildScrollView(
+    return FidelityPage(
+      body: SingleChildScrollView(
         child: Container(
           height: Get.height - 40,
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(
                 height: 30,
@@ -43,15 +41,14 @@ class _FirstStepState extends State<FirstStep> {
               SizedBox(
                 height: 20,
               ),
-              CustomStepper(0),
+              CustomStepper(1),
               SizedBox(
                 height: 20,
               ),
               Container(
                 height: 100,
                 child: Text(
-                  "Vamos começar com alguns dados essenciais sobre "
-                  "sua empresa, você poderá completar os dados posteriormente",
+                  "Agora, informe seu e-mail e uma senha, serão os dados utilizados para acessar o app",
                   style: TextStyle(fontSize: 17),
                   textAlign: TextAlign.center,
                 ),
@@ -76,9 +73,9 @@ class _FirstStepState extends State<FirstStep> {
       child: Column(
         children: [
           FidelityTextFieldMasked(
-            _empresaController,
-            "Empresa",
-            "Luke Skywalker LTDA",
+            _emailController,
+            "E-mail",
+            "skywalker@jedi.com",
             Icon(Icons.apartment),
             formatter: MaskTextInputFormatter(mask: ""),
             validator: (value) {
@@ -92,11 +89,12 @@ class _FirstStepState extends State<FirstStep> {
             height: 20,
           ),
           FidelityTextFieldMasked(
-            _cpnjController,
-            "CNPJ",
-            "00.000.000/0000-00",
-            Icon(Icons.business_center),
-            formatter: MaskTextInputFormatter(mask: "##.###.###/####-##"),
+            _senhaController,
+            "Senha",
+            "*****",
+            Icon(Icons.lock),
+            formatter: MaskTextInputFormatter(mask: ""),
+            hideText: true,
             validator: (value) {
               if (value == null || value.isEmpty) return "Campo vazio";
             },
@@ -108,11 +106,11 @@ class _FirstStepState extends State<FirstStep> {
             height: 20,
           ),
           FidelityTextFieldMasked(
-            _contatoController,
-            "Contato",
-            "(99) 9 9999-9999",
-            Icon(Icons.phone),
-            formatter: MaskTextInputFormatter(mask: "(##) # ####-####"),
+            _confirmController,
+            "Confirmação",
+            "*****",
+            Icon(Icons.lock),
+            formatter: MaskTextInputFormatter(mask: ""),
             validator: (value) {
               if (value == null || value.isEmpty) return "Campo vazio";
             },
@@ -137,10 +135,9 @@ class _FirstStepState extends State<FirstStep> {
                 "Próximo",
                 () {
                   if (_formKey.currentState!.validate()) {
-                    // ScaffoldMessenger.of(context).showSnackBar(
-                    //   const SnackBar(content: Text('Processing Data')),
-                    // );
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SecondStep()));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(content: Text('Processing Data')),
+                    );
                   }
                 },
               ),
