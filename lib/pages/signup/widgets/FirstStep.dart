@@ -43,11 +43,14 @@ class _FirstStepState extends State<FirstStep> {
             SizedBox(
               height: 20,
             ),
-            Text(
-              "Vamos começar com alguns dados essenciais sobre "
-              "sua empresa, você poderá completar os dados posteriormente",
-              style: TextStyle(fontSize: 17),
-              textAlign: TextAlign.center,
+            Container(
+              height: 100,
+              child: Text(
+                "Vamos começar com alguns dados essenciais sobre "
+                "sua empresa, você poderá completar os dados posteriormente",
+                style: TextStyle(fontSize: 17),
+                textAlign: TextAlign.center,
+              ),
             ),
             SizedBox(
               height: 20,
