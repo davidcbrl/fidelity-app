@@ -1,3 +1,4 @@
+import 'package:fidelity/pages/signup/third_step_body.dart';
 import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
@@ -9,10 +10,6 @@ import 'package:get/get.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SecondStepBody extends StatefulWidget {
-  const SecondStepBody({
-    Key? key,
-  }) : super(key: key);
-
   @override
   _SecondStepBodyState createState() => _SecondStepBodyState();
 }
@@ -35,7 +32,7 @@ class _SecondStepBodyState extends State<SecondStepBody> {
                 height: 30,
               ),
               Image.asset(
-                "assets/img/fidelidadeText.png",
+                'assets/img/fidelidadeText.png',
                 width: 120,
               ),
               SizedBox(
@@ -45,13 +42,10 @@ class _SecondStepBodyState extends State<SecondStepBody> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                height: 100,
-                child: Text(
-                  "Agora, informe seu e-mail e uma senha, serão os dados utilizados para acessar o app",
-                  style: TextStyle(fontSize: 17),
-                  textAlign: TextAlign.center,
-                ),
+              Text(
+                'Agora, informe seu e-mail e uma senha, serão os dados utilizados para acessar o app',
+                style: Theme.of(context).textTheme.bodyText1,
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 20,
@@ -74,12 +68,12 @@ class _SecondStepBodyState extends State<SecondStepBody> {
         children: [
           FidelityTextFieldMasked(
             _emailController,
-            "E-mail",
-            "skywalker@jedi.com",
+            'E-mail',
+            'skywalker@jedi.com',
             Icon(Icons.email_outlined),
-            formatter: MaskTextInputFormatter(mask: ""),
+            formatter: MaskTextInputFormatter(mask: ''),
             validator: (value) {
-              if (value == null || value.isEmpty) return "Campo vazio";
+              if (value == null || value.isEmpty) return 'Campo vazio';
             },
             onChanged: (value) {
               if (value.isNotEmpty) _formKey.currentState!.validate();
@@ -90,13 +84,13 @@ class _SecondStepBodyState extends State<SecondStepBody> {
           ),
           FidelityTextFieldMasked(
             _senhaController,
-            "Senha",
-            "*****",
+            'Senha',
+            '*****',
             Icon(Icons.lock_outline),
-            formatter: MaskTextInputFormatter(mask: ""),
+            formatter: MaskTextInputFormatter(mask: ''),
             hideText: true,
             validator: (value) {
-              if (value == null || value.isEmpty) return "Campo vazio";
+              if (value == null || value.isEmpty) return 'Campo vazio';
             },
             onChanged: (value) {
               if (value.isNotEmpty) _formKey.currentState!.validate();
@@ -107,12 +101,13 @@ class _SecondStepBodyState extends State<SecondStepBody> {
           ),
           FidelityTextFieldMasked(
             _confirmController,
-            "Confirmação",
-            "*****",
+            'Confirmação',
+            '*****',
             Icon(Icons.lock_outline),
-            formatter: MaskTextInputFormatter(mask: ""),
+            formatter: MaskTextInputFormatter(mask: ''),
+            hideText: true,
             validator: (value) {
-              if (value == null || value.isEmpty) return "Campo vazio";
+              if (value == null || value.isEmpty) return 'Campo vazio';
             },
             onChanged: (value) {
               if (value.isNotEmpty) _formKey.currentState!.validate();
@@ -132,17 +127,19 @@ class _SecondStepBodyState extends State<SecondStepBody> {
           child: Column(
             children: [
               FidelityButton(
-                "Próximo",
+                'Próximo',
                 () {
                   if (_formKey.currentState!.validate()) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text('Processing Data')),
+                    Navigator.push(
+                      context, MaterialPageRoute(
+                        builder: (context) => ThirdStepBody(),
+                      ),
                     );
                   }
                 },
               ),
               FidelityTextButton(
-                "Voltar",
+                'Voltar',
                 () {
                   Get.back();
                 },

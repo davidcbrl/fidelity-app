@@ -9,17 +9,20 @@ class FidelityTextFieldMasked extends StatefulWidget {
   final bool hideText;
   final MaskTextInputFormatter? formatter;
   final FormFieldValidator<String>? validator;
-  Function(String)? onChanged;
+  final Function(String)? onChanged;
+
   FidelityTextFieldMasked(
     this.controller,
     this.label,
     this.placeholder,
-    this.icon, {
-    this.onChanged,
-    this.hideText = false,
-    this.validator,
-    this.formatter,
-  });
+    this.icon,
+    {
+      this.onChanged,
+      this.hideText = false,
+      this.validator,
+      this.formatter,
+    }
+  );
 
   @override
   _FidelityTextFieldMaskedState createState() => _FidelityTextFieldMaskedState();

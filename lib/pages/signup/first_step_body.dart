@@ -33,7 +33,7 @@ class _FirstStepBodyState extends State<FirstStepBody> {
                 height: 30,
               ),
               Image.asset(
-                "assets/img/fidelidadeText.png",
+                'assets/img/fidelidadeText.png',
                 width: 120,
               ),
               SizedBox(
@@ -43,14 +43,10 @@ class _FirstStepBodyState extends State<FirstStepBody> {
               SizedBox(
                 height: 20,
               ),
-              Container(
-                height: 100,
-                child: Text(
-                  "Vamos começar com alguns dados essenciais sobre "
-                  "sua empresa, você poderá completar os dados posteriormente",
-                  style: TextStyle(fontSize: 17),
-                  textAlign: TextAlign.center,
-                ),
+              Text(
+                'Vamos começar com alguns dados essenciais sobre sua empresa, você poderá completar os dados posteriormente',
+                style: Theme.of(context).textTheme.bodyText1,
+                textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 20,
@@ -73,12 +69,12 @@ class _FirstStepBodyState extends State<FirstStepBody> {
         children: [
           FidelityTextFieldMasked(
             _empresaController,
-            "Empresa",
-            "Luke Skywalker LTDA",
+            'Empresa',
+            'Luke Skywalker LTDA',
             Icon(Icons.apartment),
-            formatter: MaskTextInputFormatter(mask: ""),
+            formatter: MaskTextInputFormatter(mask: ''),
             validator: (value) {
-              if (value == null || value.isEmpty) return "Campo vazio";
+              if (value == null || value.isEmpty) return 'Campo vazio';
             },
             onChanged: (value) {
               if (value.isNotEmpty) _formKey.currentState!.validate();
@@ -89,12 +85,12 @@ class _FirstStepBodyState extends State<FirstStepBody> {
           ),
           FidelityTextFieldMasked(
             _cpnjController,
-            "CNPJ",
-            "00.000.000/0000-00",
+            'CNPJ',
+            '00.000.000/0000-00',
             Icon(Icons.business_center_outlined),
-            formatter: MaskTextInputFormatter(mask: "##.###.###/####-##"),
+            formatter: MaskTextInputFormatter(mask: '##.###.###/####-##'),
             validator: (value) {
-              if (value == null || value.isEmpty) return "Campo vazio";
+              if (value == null || value.isEmpty) return 'Campo vazio';
             },
             onChanged: (value) {
               if (value.isNotEmpty) _formKey.currentState!.validate();
@@ -105,12 +101,12 @@ class _FirstStepBodyState extends State<FirstStepBody> {
           ),
           FidelityTextFieldMasked(
             _contatoController,
-            "Contato",
-            "(99) 9 9999-9999",
+            'Contato',
+            '(99) 9 9999-9999',
             Icon(Icons.phone),
-            formatter: MaskTextInputFormatter(mask: "(##) # ####-####"),
+            formatter: MaskTextInputFormatter(mask: '(##) # ####-####'),
             validator: (value) {
-              if (value == null || value.isEmpty) return "Campo vazio";
+              if (value == null || value.isEmpty) return 'Campo vazio';
             },
             onChanged: (value) {
               if (value.isNotEmpty) _formKey.currentState!.validate();
@@ -130,7 +126,7 @@ class _FirstStepBodyState extends State<FirstStepBody> {
           child: Column(
             children: [
               FidelityButton(
-                "Próximo",
+                'Próximo',
                 () {
                   if (_formKey.currentState!.validate()) {
                     Navigator.push(
@@ -142,7 +138,7 @@ class _FirstStepBodyState extends State<FirstStepBody> {
                 },
               ),
               FidelityTextButton(
-                "Voltar",
+                'Voltar',
                 () {
                   Get.back();
                 },

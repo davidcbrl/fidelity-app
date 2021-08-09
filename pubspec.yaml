@@ -15,8 +15,8 @@ dependencies:
   dio: any
   get_storage: any
   cupertino_icons: ^1.0.2
-  fa_stepper: ^0.0.1
   mask_text_input_formatter: ^2.0.0
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

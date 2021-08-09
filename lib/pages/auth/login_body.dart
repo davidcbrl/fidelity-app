@@ -1,7 +1,9 @@
+import 'package:fidelity/pages/signup/sign_up_page.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginBody extends StatefulWidget {
   @override
@@ -101,7 +103,7 @@ class _LoginBodyState extends State<LoginBody> {
               FidelityTextButton(
                 'Não possui conta? Cadastre-se',
                 () {
-                  print('Click');
+                  Get.to(SignUpPage(), transition: Transition.rightToLeft);
                 },
               ),
             ],
