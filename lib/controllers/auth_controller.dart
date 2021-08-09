@@ -30,11 +30,11 @@ class AuthController extends GetxController with StateMixin {
           message: response.message,
         );
       }
-      user = User((b) => b
-        ..id = (response.result as dynamic).Property.Id
-        ..name = (response.result as dynamic).Property.Name
-      );
-      box.write('jwt', (response.result as dynamic).Token.data);
+      // user = User((b) => b
+      //   ..id = (response.result as dynamic).Property.Id
+      //   ..name = (response.result as dynamic).Property.Name
+      // );
+      // box.write('jwt', (response.result as dynamic).Token.data);
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);

@@ -15,8 +15,8 @@ abstract class ApiResponse implements Built<ApiResponse, ApiResponseBuilder> {
   String get message;
   @BuiltValueField(wireName: 'Count')
   int get count;
-  @BuiltValueField(wireName: 'Result')
-  Object? get result;
+  // @BuiltValueField(wireName: 'Result')
+  // Object? get result;
 
   ApiResponse._();
 

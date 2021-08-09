@@ -27,14 +27,7 @@ class _$ApiResponseSerializer implements StructuredSerializer<ApiResponse> {
       'Count',
       serializers.serialize(object.count, specifiedType: const FullType(int)),
     ];
-    Object? value;
-    value = object.result;
-    if (value != null) {
-      result
-        ..add('Result')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(Object)));
-    }
+
     return result;
   }
 
@@ -61,10 +54,6 @@ class _$ApiResponseSerializer implements StructuredSerializer<ApiResponse> {
           result.count = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
-        case 'Result':
-          result.result = serializers.deserialize(value,
-              specifiedType: const FullType(Object));
-          break;
       }
     }
 
@@ -79,17 +68,12 @@ class _$ApiResponse extends ApiResponse {
   final String message;
   @override
   final int count;
-  @override
-  final Object? result;
 
   factory _$ApiResponse([void Function(ApiResponseBuilder)? updates]) =>
       (new ApiResponseBuilder()..update(updates)).build();
 
   _$ApiResponse._(
-      {required this.success,
-      required this.message,
-      required this.count,
-      this.result})
+      {required this.success, required this.message, required this.count})
       : super._() {
     BuiltValueNullFieldError.checkNotNull(success, 'ApiResponse', 'success');
     BuiltValueNullFieldError.checkNotNull(message, 'ApiResponse', 'message');
@@ -109,15 +93,13 @@ class _$ApiResponse extends ApiResponse {
     return other is ApiResponse &&
         success == other.success &&
         message == other.message &&
-        count == other.count &&
-        result == other.result;
+        count == other.count;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc($jc(0, success.hashCode), message.hashCode), count.hashCode),
-        result.hashCode));
+    return $jf(
+        $jc($jc($jc(0, success.hashCode), message.hashCode), count.hashCode));
   }
 
   @override
@@ -125,8 +107,7 @@ class _$ApiResponse extends ApiResponse {
     return (newBuiltValueToStringHelper('ApiResponse')
           ..add('success', success)
           ..add('message', message)
-          ..add('count', count)
-          ..add('result', result))
+          ..add('count', count))
         .toString();
   }
 }
@@ -146,10 +127,6 @@ class ApiResponseBuilder implements Builder<ApiResponse, ApiResponseBuilder> {
   int? get count => _$this._count;
   set count(int? count) => _$this._count = count;
 
-  Object? _result;
-  Object? get result => _$this._result;
-  set result(Object? result) => _$this._result = result;
-
   ApiResponseBuilder();
 
   ApiResponseBuilder get _$this {
@@ -158,7 +135,6 @@ class ApiResponseBuilder implements Builder<ApiResponse, ApiResponseBuilder> {
       _success = $v.success;
       _message = $v.message;
       _count = $v.count;
-      _result = $v.result;
       _$v = null;
     }
     return this;
@@ -184,8 +160,7 @@ class ApiResponseBuilder implements Builder<ApiResponse, ApiResponseBuilder> {
             message: BuiltValueNullFieldError.checkNotNull(
                 message, 'ApiResponse', 'message'),
             count: BuiltValueNullFieldError.checkNotNull(
-                count, 'ApiResponse', 'count'),
-            result: result);
+                count, 'ApiResponse', 'count'));
     replace(_$result);
     return _$result;
   }
