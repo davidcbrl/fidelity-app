@@ -7,7 +7,7 @@ class FidelityTextFieldMasked extends StatefulWidget {
   final String placeholder;
   final Icon icon;
   final bool hideText;
-  final MaskTextInputFormatter? formatter;
+  final String? mask;
   final FormFieldValidator<String>? validator;
   final Function(String)? onChanged;
 
@@ -20,7 +20,7 @@ class FidelityTextFieldMasked extends StatefulWidget {
       this.onChanged,
       this.hideText = false,
       this.validator,
-      this.formatter,
+      this.mask,
     }
   );
 
@@ -31,14 +31,12 @@ class FidelityTextFieldMasked extends StatefulWidget {
 class _FidelityTextFieldMaskedState extends State<FidelityTextFieldMasked> {
   @override
   Widget build(BuildContext context) {
-    var informatter;
-    if (widget.formatter != null) informatter = widget.formatter!;
     return TextFormField(
       onChanged: widget.onChanged,
       controller: widget.controller,
       style: Theme.of(context).textTheme.bodyText1,
       obscureText: widget.hideText,
-      inputFormatters: [informatter],
+      inputFormatters: [MaskTextInputFormatter(mask: widget.mask ?? '')],
       validator: widget.validator,
       decoration: InputDecoration(
         labelText: widget.label,

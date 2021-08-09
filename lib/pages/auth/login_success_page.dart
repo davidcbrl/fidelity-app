@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:fidelity/widgets/fidelity_success.dart';
 import 'package:get/get.dart';
 
-class SuccessPage extends StatelessWidget {
+class LoginSuccessPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FidelityPage(
       body: FidelitySuccess(
-        'Parabéns! Você acaba de adquirir o melhor sistema de gestão de fidelidades do mercado!',
-        'Pronto para aumentar o engajamento de seus clientes e alavancar seu negócio? Então, vamos começar os trabalhos!',
-        'Começar os trabalhos',
+        'Login realizado com successo!',
+        'Essa é uma tela temporária para successo na autenticação. Dashboard em construção.',
+        'Voltar para autenticação',
         () {
           Get.offAll(LoginPage(), transition: Transition.leftToRight);
         }

@@ -6,7 +6,6 @@ import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class FirstStepBody extends StatefulWidget {
   @override
@@ -14,9 +13,9 @@ class FirstStepBody extends StatefulWidget {
 }
 
 class _FirstStepBodyState extends State<FirstStepBody> {
-  TextEditingController _empresaController = TextEditingController();
+  TextEditingController _companyController = TextEditingController();
   TextEditingController _cpnjController = TextEditingController();
-  TextEditingController _contatoController = TextEditingController();
+  TextEditingController _contactController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
   @override
@@ -32,9 +31,9 @@ class _FirstStepBodyState extends State<FirstStepBody> {
               SizedBox(
                 height: 30,
               ),
-              Image.asset(
-                'assets/img/fidelidadeText.png',
-                width: 120,
+              Text(
+                'Cadastro',
+                style: Theme.of(context).textTheme.headline1,
               ),
               SizedBox(
                 height: 20,
@@ -68,11 +67,10 @@ class _FirstStepBodyState extends State<FirstStepBody> {
       child: Column(
         children: [
           FidelityTextFieldMasked(
-            _empresaController,
+            _companyController,
             'Empresa',
             'Luke Skywalker LTDA',
             Icon(Icons.apartment),
-            formatter: MaskTextInputFormatter(mask: ''),
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
             },
@@ -88,7 +86,7 @@ class _FirstStepBodyState extends State<FirstStepBody> {
             'CNPJ',
             '00.000.000/0000-00',
             Icon(Icons.business_center_outlined),
-            formatter: MaskTextInputFormatter(mask: '##.###.###/####-##'),
+            mask: '##.###.###/####-##',
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
             },
@@ -100,11 +98,11 @@ class _FirstStepBodyState extends State<FirstStepBody> {
             height: 20,
           ),
           FidelityTextFieldMasked(
-            _contatoController,
+            _contactController,
             'Contato',
             '(99) 9 9999-9999',
             Icon(Icons.phone),
-            formatter: MaskTextInputFormatter(mask: '(##) # ####-####'),
+            mask: '(##) # ####-####',
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
             },

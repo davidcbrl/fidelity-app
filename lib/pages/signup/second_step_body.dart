@@ -7,7 +7,6 @@ import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class SecondStepBody extends StatefulWidget {
   @override
@@ -16,7 +15,7 @@ class SecondStepBody extends StatefulWidget {
 
 class _SecondStepBodyState extends State<SecondStepBody> {
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _senhaController = TextEditingController();
+  TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
@@ -31,9 +30,9 @@ class _SecondStepBodyState extends State<SecondStepBody> {
               SizedBox(
                 height: 30,
               ),
-              Image.asset(
-                'assets/img/fidelidadeText.png',
-                width: 120,
+              Text(
+                'Cadastro',
+                style: Theme.of(context).textTheme.headline1,
               ),
               SizedBox(
                 height: 20,
@@ -71,7 +70,6 @@ class _SecondStepBodyState extends State<SecondStepBody> {
             'E-mail',
             'skywalker@jedi.com',
             Icon(Icons.email_outlined),
-            formatter: MaskTextInputFormatter(mask: ''),
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
             },
@@ -83,11 +81,10 @@ class _SecondStepBodyState extends State<SecondStepBody> {
             height: 20,
           ),
           FidelityTextFieldMasked(
-            _senhaController,
+            _passwordController,
             'Senha',
             '*****',
             Icon(Icons.lock_outline),
-            formatter: MaskTextInputFormatter(mask: ''),
             hideText: true,
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
@@ -104,7 +101,6 @@ class _SecondStepBodyState extends State<SecondStepBody> {
             'Confirmação',
             '*****',
             Icon(Icons.lock_outline),
-            formatter: MaskTextInputFormatter(mask: ''),
             hideText: true,
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';

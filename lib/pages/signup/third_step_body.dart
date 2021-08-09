@@ -1,4 +1,4 @@
-import 'package:fidelity/pages/signup/success_page.dart';
+import 'package:fidelity/pages/signup/sign_up_success_page.dart';
 import 'package:fidelity/widgets/fidelity_plan_card.dart';
 import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
@@ -25,9 +25,9 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
           SizedBox(
             height: 30,
           ),
-          Image.asset(
-            'assets/img/fidelidadeText.png',
-            width: 120,
+          Text(
+            'Cadastro',
+            style: Theme.of(context).textTheme.headline1,
           ),
           SizedBox(
             height: 20,
@@ -109,7 +109,7 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
               FidelityButton(
                 'Concluir',
                 () {
-                  Get.to(SuccessPage(), transition: Transition.rightToLeft);
+                  Get.to(SignUpSuccessPage(), transition: Transition.rightToLeft);
                 },
               ),
               FidelityTextButton(

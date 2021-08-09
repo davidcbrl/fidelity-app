@@ -5,9 +5,9 @@ class DioProvider {
 
   DioProvider() {
     _dio.options = BaseOptions(
-      baseUrl: 'https://localhost/',
-      connectTimeout: 2000,
-      receiveTimeout: 2000,
+      baseUrl: 'https://fidelity.conveyor.cloud/',
+      connectTimeout: 10000,
+      receiveTimeout: 10000,
     );
     _setupInterceptor();
   }
@@ -29,6 +29,7 @@ class DioProvider {
       InterceptorsWrapper(
         onRequest:(options, handler){
           print('REQUEST[${options.method}] => PATH: ${options.path}');
+          if (options.method == 'POST') print('REQUEST[${options.method}] => PAYLOAD: ${options.data}');
           return handler.next(options);
         },
         onResponse:(response, handler) {
@@ -36,7 +37,7 @@ class DioProvider {
           return handler.next(response);
         },
         onError: (DioError error, handler) {
-          print('ERROR[$error]');
+          print('ERROR\n[\n$error]');
           return handler.next(error);
         }
       )

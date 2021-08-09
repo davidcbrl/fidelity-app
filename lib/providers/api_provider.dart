@@ -22,20 +22,18 @@ class ApiProvider {
     }
   }
 
-  static Future post({required String path, dynamic data}) async {
+  static Future post({required String path, dynamic data, Function(Object serialized)? fromJson}) async {
     try {
       Response response = await DioProvider().post(path, data);
-      return response;
+      return fromJson != null ? fromJson(response.data) : response.data;
     } on DioError catch (error) {
       print(error.response);
       return throw RequestException(
         message: 'Request error',
-        statusCode: '',
       );
     } catch (error) {
       return throw RequestException(
         message: error.toString(),
-        statusCode: '',
       );
     }
   }
