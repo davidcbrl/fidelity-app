@@ -31,17 +31,17 @@ class _FidelityTextFieldState extends State<FidelityTextField> {
         hintText: widget.placeholder,
         hintStyle: Theme.of(context).textTheme.bodyText2,
         filled: true,
-        fillColor: Theme.of(context).accentColor,
+        fillColor: Theme.of(context).colorScheme.surface,
         suffixIcon: widget.icon,
         border: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.primary,
             width: 2,
           ),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.primary,
             width: 2,
           ),
         ),

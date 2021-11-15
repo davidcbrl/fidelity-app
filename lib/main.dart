@@ -1,4 +1,4 @@
-import 'package:fidelity/pages/auth/login_page.dart';
+import 'package:fidelity/pages/auth/login.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -12,11 +12,21 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Fidelity',
       theme: ThemeData(
-        primaryColor: Color(0xFF2167E8),
-        backgroundColor: Color(0xFFF7F7F7),
-        accentColor: Color(0xFFFFFFFF),
-        errorColor: Color(0xFFEB5757),
-        highlightColor: Color(0xFF23D09A),
+        colorScheme: ColorScheme(
+          primary: Color(0xFF2167E8),
+          onPrimary: Color(0xFF2167E8),
+          primaryVariant: Color(0xFF2167E8),
+          secondary: Color(0xFF23D09A),
+          onSecondary: Color(0xFF23D09A),
+          secondaryVariant: Color(0xFF23D09A),
+          error: Color(0xFFEB5757),
+          onError: Color(0xFFEB5757),
+          background: Color(0xFFF7F7F7),
+          onBackground: Color(0xFFF7F7F7),
+          surface: Color(0xFFFFFFFF),
+          onSurface: Color(0xFFFFFFFF),
+          brightness: Brightness.light,
+        ),
         textTheme: TextTheme(
           headline1: TextStyle(
             color: Color(0xFF2167E8),

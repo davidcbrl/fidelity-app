@@ -29,7 +29,7 @@ class _FidelityPlanCardState extends State<FidelityPlanCard> {
         color: Colors.white,
         border: Border.all(
           width: 2,
-          color: widget.selected ? Theme.of(context).primaryColor : Theme.of(context).accentColor,
+          color: widget.selected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,
         ),
       ),
       child: Padding(

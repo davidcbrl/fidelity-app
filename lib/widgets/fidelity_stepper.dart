@@ -23,7 +23,7 @@ class _CustomStepperState extends State<FidelityStepper> {
             children: [
               Text(
                 "Empresa",
-                style: TextStyle(color: Theme.of(context).primaryColor),
+                style: TextStyle(color: Theme.of(context).colorScheme.primary),
               ),
               SizedBox(
                 width: 100,
@@ -31,7 +31,7 @@ class _CustomStepperState extends State<FidelityStepper> {
               Text(
                 "Acesso",
                 style: TextStyle(
-                  color: widget.currentStep >= 1 ? Theme.of(context).primaryColor : Color(0xFFBDBDBD),
+                  color: widget.currentStep >= 1 ? Theme.of(context).colorScheme.primary : Color(0xFFBDBDBD),
                 ),
               ),
               SizedBox(
@@ -40,7 +40,7 @@ class _CustomStepperState extends State<FidelityStepper> {
               Text(
                 "Plano",
                 style: TextStyle(
-                  color: widget.currentStep == 2 ? Theme.of(context).primaryColor : Color(0xFFBDBDBD),
+                  color: widget.currentStep == 2 ? Theme.of(context).colorScheme.primary : Color(0xFFBDBDBD),
                 ),
               ),
             ],

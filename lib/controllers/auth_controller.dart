@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:fidelity/models/api_response.dart';
 import 'package:fidelity/models/auth.dart';
 import 'package:fidelity/models/request_exception.dart';

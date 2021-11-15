@@ -28,7 +28,7 @@ class _FidelitySuccessState extends State<FidelitySuccess> {
         Icon(
           Icons.check_circle,
           size: 100,
-          color: Theme.of(context).highlightColor,
+          color: Theme.of(context).colorScheme.secondary,
         ),
         SizedBox(
           height: 25,
@@ -37,7 +37,7 @@ class _FidelitySuccessState extends State<FidelitySuccess> {
           widget.title,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Theme.of(context).highlightColor,
+            color: Theme.of(context).colorScheme.secondary,
             fontSize: 16,
             fontWeight: FontWeight.bold,
           ),

@@ -22,7 +22,7 @@ class _FidelityButtonState extends State<FidelityButton> {
       child: ElevatedButton(
         style: ButtonStyle(
           backgroundColor: MaterialStateProperty.all<Color>(
-            Theme.of(context).primaryColor,
+            Theme.of(context).colorScheme.primary,
           ),
         ),
         onPressed: widget.onPressed,

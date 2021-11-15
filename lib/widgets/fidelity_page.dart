@@ -12,7 +12,7 @@ class FidelityPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar,
-      backgroundColor: Theme.of(context).backgroundColor,
+      backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
         padding: hasPadding ? EdgeInsets.all(20) : EdgeInsets.zero,
         child: body,

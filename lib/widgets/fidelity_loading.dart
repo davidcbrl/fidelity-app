@@ -16,7 +16,7 @@ class _FidelityLoadingState extends State<FidelityLoading> {
     return (widget.loading)
       ? Container(
           alignment: Alignment.center,
-          color: Theme.of(context).backgroundColor,
+          color: Theme.of(context).colorScheme.background,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

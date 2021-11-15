@@ -23,7 +23,7 @@ class _FidelityTextButtonState extends State<FidelityTextButton> {
           widget.label,
           textAlign: TextAlign.center,
           style: TextStyle(
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).colorScheme.primary,
             fontSize: 14,
             fontWeight: FontWeight.bold,
           ),
