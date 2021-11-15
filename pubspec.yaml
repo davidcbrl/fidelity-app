@@ -11,9 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  get: any
+  get: 4.0.0
   dio: any
-  built_value: any
   get_storage: any
   cupertino_icons: ^1.0.2
   mask_text_input_formatter: ^2.0.0
@@ -22,7 +21,6 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner: any
-  built_value_generator: any
 
 flutter:
 

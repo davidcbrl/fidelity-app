@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fidelity/models/api_response.dart';
 import 'package:fidelity/models/auth.dart';
 import 'package:fidelity/models/request_exception.dart';
@@ -15,26 +17,23 @@ class AuthController extends GetxController with StateMixin {
   Future<void> auth() async {
     change([], status: RxStatus.loading());
     try {
-      AuthRequest request = AuthRequest((b) => b
-        ..email = email.value
-        ..password = password.value
-        ..type = 'C'
+      Auth request = Auth(
+        email: email.value,
+        password: password.value,
+        type: 'C',
       );
-      ApiResponse response = await ApiProvider.post(
-        path: 'login',
+      Map<String, dynamic> json = await ApiProvider.post(
+        path: 'auth',
         data: request.toJson(),
-        fromJson: ApiResponse.fromJson,
       );
+      ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
         throw RequestException(
           message: response.message,
         );
       }
-      // user = User((b) => b
-      //   ..id = (response.result as dynamic).Property.Id
-      //   ..name = (response.result as dynamic).Property.Name
-      // );
-      // box.write('jwt', (response.result as dynamic).Token.data);
+      user = User.fromJson(response.result);
+      box.write('jwt', response.result.Token.data);
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);
