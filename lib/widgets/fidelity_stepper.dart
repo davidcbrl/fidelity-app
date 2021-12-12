@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 class FidelityStepper extends StatefulWidget {
   final int currentStep;
 
-  FidelityStepper(this.currentStep);
+  FidelityStepper({required this.currentStep});
 
   @override
   _CustomStepperState createState() => _CustomStepperState();

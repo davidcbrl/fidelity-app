@@ -4,10 +4,10 @@ class FidelityTextButton extends StatefulWidget {
   final String label;
   final Function() onPressed;
 
-  FidelityTextButton(
-    this.label,
-    this.onPressed,
-  );
+  FidelityTextButton({
+    required this.label,
+    required this.onPressed,
+  });
 
   @override
   _FidelityTextButtonState createState() => _FidelityTextButtonState();

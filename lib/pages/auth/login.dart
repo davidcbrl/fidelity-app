@@ -34,7 +34,7 @@ class _LoginBodyState extends State<LoginBody> {
   Widget build(BuildContext context) {
     return (_loadingController)
       ? FidelityLoading(
-          _loadingController,
+          loading: _loadingController,
           text: 'Entrando...',
         )
       : SingleChildScrollView(
@@ -55,10 +55,10 @@ class _LoginBodyState extends State<LoginBody> {
                   height: 50,
                 ),
                 FidelityTextFieldMasked(
-                  _emailController,
-                  'E-mail',
-                  'skywalker@jedi.com',
-                  Icon(Icons.email_outlined),
+                  controller: _emailController,
+                  label: 'E-mail',
+                  placeholder: 'skywalker@jedi.com',
+                  icon: Icon(Icons.email_outlined),
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'Campo vazio';
                   },
@@ -70,10 +70,10 @@ class _LoginBodyState extends State<LoginBody> {
                   height: 20,
                 ),
                 FidelityTextFieldMasked(
-                  _passwordController,
-                  'Senha',
-                  '*****',
-                  Icon(Icons.lock_outline),
+                  controller: _passwordController,
+                  label: 'Senha',
+                  placeholder: '*****',
+                  icon: Icon(Icons.lock_outline),
                   hideText: true,
                   validator: (value) {
                     if (value == null || value.isEmpty) return 'Campo vazio';
@@ -88,8 +88,8 @@ class _LoginBodyState extends State<LoginBody> {
                 Column(
                   children: [
                     FidelityButton(
-                      'Entrar',
-                      () {
+                      label: 'Entrar',
+                      onPressed: () {
                         _authenticate(context);
                       },
                     ),
@@ -97,8 +97,8 @@ class _LoginBodyState extends State<LoginBody> {
                       height: 20,
                     ),
                     FidelityTextButton(
-                      'Não possui conta? Cadastre-se',
-                      () {
+                      label: 'Não possui conta? Cadastre-se',
+                      onPressed: () {
                         Get.to(SignUpPage(), transition: Transition.rightToLeft);
                       },
                     ),
@@ -142,8 +142,8 @@ class _LoginBodyState extends State<LoginBody> {
                 right: 10,
               ),
               child: FidelityButton(
-                'OK',
-                () {
+                label: 'OK',
+                onPressed: () {
                   Get.back();
                 }
               ),

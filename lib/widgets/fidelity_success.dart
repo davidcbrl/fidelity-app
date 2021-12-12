@@ -54,8 +54,8 @@ class _FidelitySuccessState extends State<FidelitySuccess> {
           height: 20,
         ),
         FidelityButton(
-          widget.buttonText,
-          widget.onPressed,
+          label: widget.buttonText,
+          onPressed: widget.onPressed,
         ),
       ],
     );

@@ -32,7 +32,7 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
           SizedBox(
             height: 20,
           ),
-          FidelityStepper(3),
+          FidelityStepper(currentStep: 3),
           SizedBox(
             height: 20,
           ),
@@ -66,10 +66,10 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
             scale: i == _index ? 1 : 0.8,
             child: [
               FidelityPlanCard(
-                'Simples',
-                '100',
-                'Funcionalidades padrões de gestão de fidelidades, relatórios gerenciais e cadastros limitados.',
-                () {
+                title: 'Simples',
+                value: '100',
+                description: 'Funcionalidades padrões de gestão de fidelidades, relatórios gerenciais e cadastros limitados.',
+                onPressed: () {
                   setState(() {
                     for (int i = 0; i < _selected.length; i++) {
                       _selected[i] = i == _index;
@@ -79,10 +79,10 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
                 selected: _selected[i],
               ),
               FidelityPlanCard(
-                'Avançado',
-                '250',
-                'Todas as vantagens do plano Simples + destaque para clientes e cadastros ilimitados.',
-                () {
+                title: 'Avançado',
+                value: '250',
+                description: 'Todas as vantagens do plano Simples + destaque para clientes e cadastros ilimitados.',
+                onPressed: () {
                   setState(() {
                     for (int i = 0; i < _selected.length; i++) {
                       _selected[i] = i == _index;
@@ -107,14 +107,14 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
           child: Column(
             children: [
               FidelityButton(
-                'Concluir',
-                () {
+                label: 'Concluir',
+                onPressed: () {
                   Get.to(SignUpSuccessPage(), transition: Transition.rightToLeft);
                 },
               ),
               FidelityTextButton(
-                'Voltar',
-                () {},
+                label: 'Voltar',
+                onPressed: () {},
               ),
             ],
           ),

@@ -8,13 +8,13 @@ class FidelityPlanCard extends StatefulWidget {
   final Function() onPressed;
   final bool selected;
 
-  FidelityPlanCard(
-    this.title,
-    this.value,
-    this.description,
-    this.onPressed,
-    {this.selected = false}
-  );
+  FidelityPlanCard({
+    required this.title,
+    required this.value,
+    required this.description,
+    required this.onPressed,
+    this.selected = false
+  });
 
   @override
   _FidelityPlanCardState createState() => _FidelityPlanCardState();
@@ -72,8 +72,8 @@ class _FidelityPlanCardState extends State<FidelityPlanCard> {
               height: 20,
             ),
             FidelityButton(
-              'Escolher',
-              widget.onPressed
+              label: 'Escolher',
+              onPressed: widget.onPressed
             ),
           ],
         ),

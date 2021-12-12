@@ -38,7 +38,7 @@ class _FirstStepBodyState extends State<FirstStepBody> {
               SizedBox(
                 height: 20,
               ),
-              FidelityStepper(0),
+              FidelityStepper(currentStep: 0),
               SizedBox(
                 height: 20,
               ),
@@ -67,10 +67,10 @@ class _FirstStepBodyState extends State<FirstStepBody> {
       child: Column(
         children: [
           FidelityTextFieldMasked(
-            _companyController,
-            'Empresa',
-            'Luke Skywalker LTDA',
-            Icon(Icons.apartment),
+            controller: _companyController,
+            label: 'Empresa',
+            placeholder: 'Luke Skywalker LTDA',
+            icon: Icon(Icons.apartment),
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
             },
@@ -82,10 +82,10 @@ class _FirstStepBodyState extends State<FirstStepBody> {
             height: 20,
           ),
           FidelityTextFieldMasked(
-            _cpnjController,
-            'CNPJ',
-            '00.000.000/0000-00',
-            Icon(Icons.business_center_outlined),
+            controller: _cpnjController,
+            label: 'CNPJ',
+            placeholder: '00.000.000/0000-00',
+            icon: Icon(Icons.business_center_outlined),
             mask: '##.###.###/####-##',
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
@@ -98,10 +98,10 @@ class _FirstStepBodyState extends State<FirstStepBody> {
             height: 20,
           ),
           FidelityTextFieldMasked(
-            _contactController,
-            'Contato',
-            '(99) 9 9999-9999',
-            Icon(Icons.phone),
+            controller: _contactController,
+            label: 'Contato',
+            placeholder: '(99) 9 9999-9999',
+            icon: Icon(Icons.phone),
             mask: '(##) # ####-####',
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
@@ -124,8 +124,8 @@ class _FirstStepBodyState extends State<FirstStepBody> {
           child: Column(
             children: [
               FidelityButton(
-                'Próximo',
-                () {
+                label: 'Próximo',
+                onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     Navigator.push(
                       context, MaterialPageRoute(
@@ -136,8 +136,8 @@ class _FirstStepBodyState extends State<FirstStepBody> {
                 },
               ),
               FidelityTextButton(
-                'Voltar',
-                () {
+                label: 'Voltar',
+                onPressed: () {
                   Get.back();
                 },
               ),

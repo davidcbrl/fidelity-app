@@ -7,13 +7,13 @@ class FidelityTextField extends StatefulWidget {
   final Icon icon;
   final bool hideText;
 
-  FidelityTextField(
-    this.controller,
-    this.label,
-    this.placeholder,
-    this.icon,
-    {this.hideText = false}
-  );
+  FidelityTextField({
+    required this.controller,
+    required this.label,
+    required this.placeholder,
+    required this.icon,
+    this.hideText = false,
+  });
 
   @override
   _FidelityTextFieldState createState() => _FidelityTextFieldState();

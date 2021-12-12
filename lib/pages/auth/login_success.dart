@@ -10,7 +10,7 @@ class LoginSuccessPage extends StatelessWidget {
     return FidelityPage(
       body: FidelitySuccess(
         'Login realizado com successo!',
-        'Essa é uma tela temporária para successo na autenticação. Dashboard em construção.',
+        'Essa é uma tela temporária para sucesso na autenticação. Dashboard em construção.',
         'Voltar para autenticação',
         () {
           Get.offAll(LoginPage(), transition: Transition.leftToRight);

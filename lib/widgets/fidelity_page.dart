@@ -6,7 +6,12 @@ class FidelityPage extends StatelessWidget {
   final Widget? bottomBar;
   final bool hasPadding;
 
-  FidelityPage({this.appBar, this.body, this.bottomBar, this.hasPadding = true});
+  FidelityPage({
+    this.appBar,
+    this.body,
+    this.bottomBar,
+    this.hasPadding = true,
+  });
 
   @override
   Widget build(BuildContext context) {

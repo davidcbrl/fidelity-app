@@ -37,7 +37,7 @@ class _SecondStepBodyState extends State<SecondStepBody> {
               SizedBox(
                 height: 20,
               ),
-              FidelityStepper(1),
+              FidelityStepper(currentStep: 1),
               SizedBox(
                 height: 20,
               ),
@@ -66,10 +66,10 @@ class _SecondStepBodyState extends State<SecondStepBody> {
       child: Column(
         children: [
           FidelityTextFieldMasked(
-            _emailController,
-            'E-mail',
-            'skywalker@jedi.com',
-            Icon(Icons.email_outlined),
+            controller: _emailController,
+            label: 'E-mail',
+            placeholder: 'skywalker@jedi.com',
+            icon: Icon(Icons.email_outlined),
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
             },
@@ -81,10 +81,10 @@ class _SecondStepBodyState extends State<SecondStepBody> {
             height: 20,
           ),
           FidelityTextFieldMasked(
-            _passwordController,
-            'Senha',
-            '*****',
-            Icon(Icons.lock_outline),
+            controller: _passwordController,
+            label: 'Senha',
+            placeholder: '*****',
+            icon: Icon(Icons.lock_outline),
             hideText: true,
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
@@ -97,10 +97,10 @@ class _SecondStepBodyState extends State<SecondStepBody> {
             height: 20,
           ),
           FidelityTextFieldMasked(
-            _confirmController,
-            'Confirmação',
-            '*****',
-            Icon(Icons.lock_outline),
+            controller: _confirmController,
+            label: 'Confirmação',
+            placeholder: '*****',
+            icon: Icon(Icons.lock_outline),
             hideText: true,
             validator: (value) {
               if (value == null || value.isEmpty) return 'Campo vazio';
@@ -123,8 +123,8 @@ class _SecondStepBodyState extends State<SecondStepBody> {
           child: Column(
             children: [
               FidelityButton(
-                'Próximo',
-                () {
+                label: 'Próximo',
+                onPressed: () {
                   if (_formKey.currentState!.validate()) {
                     Navigator.push(
                       context, MaterialPageRoute(
@@ -135,8 +135,8 @@ class _SecondStepBodyState extends State<SecondStepBody> {
                 },
               ),
               FidelityTextButton(
-                'Voltar',
-                () {
+                label: 'Voltar',
+                onPressed: () {
                   Get.back();
                 },
               ),

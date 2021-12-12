@@ -4,7 +4,10 @@ class FidelityLoading extends StatefulWidget {
   final bool loading;
   final String text;
 
-  const FidelityLoading(this.loading, {this.text = ''});
+  const FidelityLoading({
+    required this.loading,
+    this.text = '',
+  });
 
   @override
   _FidelityLoadingState createState() => _FidelityLoadingState();
