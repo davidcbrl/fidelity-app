@@ -1,12 +1,16 @@
 import 'package:fidelity/pages/auth/login.dart';
+import 'package:fidelity/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  GetStorage box = GetStorage();
+
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -18,7 +22,7 @@ class MyApp extends StatelessWidget {
           primaryVariant: Color(0xFF2167E8),
           secondary: Color(0xFF23D09A),
           onSecondary: Color(0xFF23D09A),
-          secondaryVariant: Color(0xFF23D09A),
+          secondaryVariant: Color(0xFF828282),
           error: Color(0xFFEB5757),
           onError: Color(0xFFEB5757),
           background: Color(0xFFF7F7F7),
@@ -55,7 +59,17 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      home: LoginPage(),
+      initialRoute: box.read('jwt').toString().isNotEmpty ? '/home' : '/auth',
+      getPages: [
+        GetPage(
+          name: '/auth',
+          page: () => LoginPage(),
+        ),
+        GetPage(
+          name: '/home',
+          page: () => HomePage(),
+        ),
+      ],
     );
   }
 }
