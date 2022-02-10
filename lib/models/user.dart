@@ -1,18 +1,22 @@
 class User {
   final int? id;
+  final int? companyId;
   final String? name;
 
   User({
     this.id,
+    this.companyId,
     this.name,
   });
 
   User.fromJson(Map<String, dynamic> json):
-    id = json['id'],
-    name = json['name'];
+    id = json['UserId'],
+    companyId = json['Id'],
+    name = json['Name'];
 
   Map<String, dynamic> toJson() => {
-    'id': id,
-    'name': name,
+    'UserId': id,
+    'Id': companyId,
+    'Name': name,
   };
 }

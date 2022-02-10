@@ -12,10 +12,10 @@ class ApiResponse {
   );
 
   ApiResponse.fromJson(Map<String, dynamic> json):
-    success = json['success'],
-    message = json['message'],
-    count = json['count'],
-    result = json['result'];
+    success = json['Success'],
+    message = json['Message'],
+    count = json['Count'],
+    result = json['Result'];
 
   Map<String, dynamic> toJson() => {
     'success': success,

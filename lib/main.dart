@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
           ),
         ),
       ),
-      initialRoute: box.read('jwt').toString().isNotEmpty ? '/home' : '/auth',
+      initialRoute: box.read('jwt') != null ? '/home' : '/auth',
       getPages: [
         GetPage(
           name: '/auth',

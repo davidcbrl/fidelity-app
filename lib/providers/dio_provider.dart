@@ -28,7 +28,7 @@ class DioProvider {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest:(options, handler){
-          print('REQUEST[${options.method}] => PATH: ${options.path}');
+          print('REQUEST[${options.method}] => PATH: ${options.baseUrl}${options.path}');
           if (options.method == 'POST') print('REQUEST[${options.method}] => PAYLOAD: ${options.data}');
           return handler.next(options);
         },

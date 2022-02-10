@@ -1,5 +1,5 @@
 import 'package:fidelity/controllers/auth_controller.dart';
-import 'package:fidelity/pages/auth/login_success.dart';
+import 'package:fidelity/pages/home/home.dart';
 import 'package:fidelity/pages/signup/sign_up.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
@@ -119,7 +119,7 @@ class _LoginBodyState extends State<LoginBody> {
       await authController.auth();
       if (authController.status.isSuccess) {
         setState(() => _loadingController = false);
-        Get.to(LoginSuccessPage(), transition: Transition.rightToLeft);
+        Get.to(HomePage(), transition: Transition.rightToLeft);
         return;
       }
       setState(() => _loadingController = false);
@@ -135,18 +135,11 @@ class _LoginBodyState extends State<LoginBody> {
             style: Theme.of(context).textTheme.bodyText1,
           ),
           actions: [
-            Padding(
-              padding: EdgeInsets.only(
-                bottom: 10,
-                left: 10,
-                right: 10,
-              ),
-              child: FidelityButton(
-                label: 'OK',
-                onPressed: () {
-                  Get.back();
-                }
-              ),
+            FidelityButton(
+              label: 'OK',
+              onPressed: () {
+                Get.back();
+              }
             ),
           ],
         ),

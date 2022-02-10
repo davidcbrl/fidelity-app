@@ -22,10 +22,9 @@ class AuthController extends GetxController with StateMixin {
       Auth request = Auth(
         email: email.value,
         password: password.value,
-        type: 'C',
       );
       Map<String, dynamic> json = await ApiProvider.post(
-        path: 'auth',
+        path: 'login',
         data: request.toJson(),
       );
       ApiResponse response = ApiResponse.fromJson(json);
@@ -34,8 +33,8 @@ class AuthController extends GetxController with StateMixin {
           message: response.message,
         );
       }
-      user = User.fromJson(response.result);
-      box.write('jwt', response.result.Token.data);
+      user = User.fromJson(response.result['Property']);
+      box.write('jwt', response.result['Token']['data']);
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);

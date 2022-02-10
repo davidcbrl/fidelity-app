@@ -27,7 +27,7 @@ class ApiProvider {
   static Future post({required String path, dynamic data}) async {
     try {
       Response response = await DioProvider().post(path, data);
-      return jsonDecode(response.data);
+      return response.data;
     } on DioError catch (error) {
       print(error.response);
       return throw RequestException(
