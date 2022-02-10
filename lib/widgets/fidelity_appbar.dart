@@ -16,7 +16,6 @@ class FidelityAppbarWidget extends StatelessWidget implements PreferredSizeWidge
       ),
       centerTitle: true,
       backgroundColor: Theme.of(context).colorScheme.background,
-      shadowColor: Colors.transparent,
     );
   }
 

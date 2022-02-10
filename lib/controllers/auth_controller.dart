@@ -11,6 +11,7 @@ class AuthController extends GetxController with StateMixin {
   User user = User();
   var email = "".obs;
   var password = "".obs;
+  var loadingController = false.obs;
 
   Future<void> auth() async {
     change([], status: RxStatus.loading());

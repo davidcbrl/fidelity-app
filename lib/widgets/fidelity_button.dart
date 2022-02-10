@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class FidelityButton extends StatefulWidget {
+class FidelityButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
 
@@ -9,11 +9,6 @@ class FidelityButton extends StatefulWidget {
     required this.onPressed,
   });
 
-  @override
-  _FidelityButtonState createState() => _FidelityButtonState();
-}
-
-class _FidelityButtonState extends State<FidelityButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -25,9 +20,9 @@ class _FidelityButtonState extends State<FidelityButton> {
             Theme.of(context).colorScheme.primary,
           ),
         ),
-        onPressed: widget.onPressed,
+        onPressed: onPressed,
         child: Text(
-          widget.label,
+          label,
           style: Theme.of(context).textTheme.button,
         ),
       ),
