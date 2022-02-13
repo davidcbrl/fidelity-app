@@ -1,5 +1,6 @@
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../models/product.dart';
 import '../../widgets/fidelity_appbar.dart';
@@ -13,7 +14,7 @@ class ProductListPage extends StatelessWidget {
       appBar: FidelityAppbarWidget(
         title: 'Produtos',
       ),
-      body: ProductListBody(),
+      body: Container(height: Get.height, child: SingleChildScrollView(child: ProductListBody())),
     );
   }
 }
@@ -26,6 +27,7 @@ class ProductListBody extends StatelessWidget {
     return Container(
       child: Column(
         children: [
+          SizedBox(height: 20,),
           _searchField(),
           SizedBox(
             height: 20,
@@ -34,31 +36,45 @@ class ProductListBody extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          Container(
-            height: 70,
-            alignment: Alignment.center,
-            color: Colors.white,
-            child: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Image.asset(
-                    'assets/img/productSquare.png',
-                    height: 50,
-                  ),
-                ),
-                Text("1"),
-                SizedBox(
-                  width: 20,
-                ),
-                Expanded(
-                  child: Text("Nome"),
-                ),
-                Icon(Icons.arrow_left)
-              ],
-            ),
+          Column(
+            children: _fakeGetList().products!.map((e) => productByProduct(e)).toList(),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget productByProduct(Product product) {
+    return Container(
+      padding: EdgeInsets.only(bottom: 10),
+      child: Container(
+        height: 70,
+        alignment: Alignment.center,
+        color: Colors.white,
+        child: Row(
+          children: [
+            Container(
+              padding: EdgeInsets.only(left: 10),
+              child: product.photo != null
+                  ? Image.network(product.photo!)
+                  : Image.asset(
+                      'assets/img/productSquare.png',
+                      height: 50,
+                    ),
+            ),
+            SizedBox(
+              width: 20,
+            ),
+            Text("1"),
+            SizedBox(
+              width: 20,
+            ),
+            Expanded(
+              child: Text(product.name!),
+            ),
+            Icon(Icons.arrow_right)
+          ],
+        ),
       ),
     );
   }
@@ -85,13 +101,13 @@ class ProductListBody extends StatelessWidget {
 
   ProductEntries _fakeGetList() {
     ProductEntries products = new ProductEntries();
-    Product product;
-    for (int i = 0; i < 5; i++) {
-      product = new Product();
-      product.name = "name" + i.toString();
-      product.id = i;
-      products.products?.add(product);
-    }
+    products.products = new List.generate(10, (index) {
+      Product product = new Product();
+      product.name = "nome" + index.toString();
+      product.id = index;
+      return product;
+    });
+
     return products;
   }
 }

@@ -6,14 +6,15 @@ class FidelityTextField extends StatelessWidget {
   final String placeholder;
   final Icon icon;
   final bool hideText;
+  final dynamic onChanged;
 
-  FidelityTextField({
-    required this.controller,
-    required this.label,
-    required this.placeholder,
-    required this.icon,
-    this.hideText = false,
-  });
+  FidelityTextField(
+      {required this.controller,
+      required this.label,
+      required this.placeholder,
+      required this.icon,
+      this.hideText = false,
+      this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -21,6 +22,7 @@ class FidelityTextField extends StatelessWidget {
       controller: controller,
       style: Theme.of(context).textTheme.bodyText1,
       obscureText: hideText,
+      onChanged: onChanged,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.only(left: 10),
         labelText: label,

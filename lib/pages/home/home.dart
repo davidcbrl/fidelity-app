@@ -54,21 +54,23 @@ class HomeBody extends StatelessWidget {
           SettingsPage(),
         ],
       ),
-      bottomBar: BottomNavigationBar(
-        currentIndex: routeController.pageIndex.value,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        unselectedItemColor: Theme.of(context).colorScheme.secondaryVariant,
-        items: List.generate(menu.length, (index) {
-          return BottomNavigationBarItem(
-            icon: Icon(menuIcons[index]),
-            label: menu[index],
-          );
-        }),
-        onTap: (index) {
-          routeController.pageIndex.value = index;
-          pageController.jumpToPage(index);
-        },
+      bottomBar: Obx(
+        () => BottomNavigationBar(
+          currentIndex: routeController.pageIndex.value,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Theme.of(context).colorScheme.primary,
+          unselectedItemColor: Theme.of(context).colorScheme.secondaryVariant,
+          items: List.generate(menu.length, (index) {
+            return BottomNavigationBarItem(
+              icon: Icon(menuIcons[index]),
+              label: menu[index],
+            );
+          }),
+          onTap: (index) {
+            routeController.pageIndex.value = index;
+            pageController.jumpToPage(index);
+          },
+        ),
       ),
     );
   }
