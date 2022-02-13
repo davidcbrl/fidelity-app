@@ -1,6 +1,8 @@
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/models/product_category.dart';
+import 'package:fidelity/pages/products/product_fidelities_page.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
+import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_text_field.dart';
 import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/cupertino.dart';
@@ -151,18 +153,25 @@ class ProductAddBody extends StatelessWidget {
             ),
           ),
           FidelityButton(
-              label: "Proximo",
-              onPressed: () {
-                controller.setCurrentAddProduct(
-                    name: _nameController.text, photo: _photoController.text, value: _valueController.text);
-              }),
+            label: "Proximo",
+            onPressed: () {
+              controller.setCurrentAddProduct(
+                name: _nameController.text,
+                photo: _photoController.text,
+                value: _valueController.text
+              );
+              Get.to(() => ProductFidelitiesPage());
+            }
+          ),
+          FidelityTextButton(
+            label: 'Voltar',
+            onPressed: () {
+              Get.back();
+            }
+          ),
           SizedBox(
             height: 20,
           ),
-          GestureDetector(behavior: HitTestBehavior.opaque, onTap: () => Get.back(), child: Text("Voltar")),
-          SizedBox(
-            height: 20,
-          )
         ],
       ),
     );
