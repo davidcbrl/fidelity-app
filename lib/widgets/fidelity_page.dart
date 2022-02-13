@@ -19,7 +19,7 @@ class FidelityPage extends StatelessWidget {
       appBar: appBar,
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Padding(
-        padding: hasPadding ? EdgeInsets.all(20) : EdgeInsets.zero,
+        padding: hasPadding ? EdgeInsets.symmetric(horizontal: 15) : EdgeInsets.zero,
         child: body,
       ),
       bottomNavigationBar: bottomBar,
