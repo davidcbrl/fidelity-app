@@ -25,19 +25,19 @@ class FidelityTextFieldMasked extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onChanged: widget.onChanged,
-      controller: widget.controller,
+      onChanged: onChanged,
+      controller: controller,
       style: Theme.of(context).textTheme.bodyText1,
-      obscureText: widget.hideText,
-      inputFormatters: [MaskTextInputFormatter(mask: widget.mask ?? '')],
-      validator: widget.validator,
+      obscureText: hideText,
+      inputFormatters: [MaskTextInputFormatter(mask: mask ?? '')],
+      validator: validator,
       decoration: InputDecoration(
-        labelText: widget.label,
-        hintText: widget.placeholder,
+        labelText: label,
+        hintText: placeholder,
         hintStyle: Theme.of(context).textTheme.bodyText2,
         filled: true,
         fillColor: Theme.of(context).colorScheme.surface,
-        suffixIcon: widget.icon,
+        suffixIcon: icon,
         border: OutlineInputBorder(
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.primary,
