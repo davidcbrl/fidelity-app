@@ -121,8 +121,8 @@ class LoginBody extends StatelessWidget {
       authController.loadingController.value = true;
       authController.email.value = _emailController.text;
       authController.password.value = _passwordController.text;
-      //await authController.auth();
-      if (true) {
+      await authController.auth();
+      if (authController.status.isSuccess) {
         authController.loadingController.value = false;
         Get.to(HomePage(), transition: Transition.rightToLeft);
         return;
