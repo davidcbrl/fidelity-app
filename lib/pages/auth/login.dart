@@ -47,6 +47,15 @@ class LoginBody extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
+                      height: 10,
+                    ),
+                    Center(
+                      child: Image.asset(
+                        'assets/img/fidelity-text.png',
+                        width: 100,
+                      ),
+                    ),
+                    SizedBox(
                       height: 50,
                     ),
                     FidelityTextFieldMasked(
@@ -131,11 +140,16 @@ class LoginBody extends StatelessWidget {
             style: Theme.of(context).textTheme.bodyText1,
           ),
           actions: [
-            FidelityButton(
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: FidelityButton(
                 label: 'OK',
+                width: double.maxFinite,
                 onPressed: () {
                   Get.back();
-                }),
+                }
+              ),
+            ),
           ],
         ),
       );
