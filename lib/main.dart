@@ -1,5 +1,8 @@
+import 'package:fidelity/controllers/product_controller.dart';
+import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/pages/auth/login.dart';
 import 'package:fidelity/pages/home/home.dart';
+import 'package:fidelity/pages/products/product_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -60,6 +63,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       initialRoute: box.read('jwt') != null ? '/home' : '/auth',
+      initialBinding: BindingsBuilder(() => Get.put<RouteController>(new RouteController())),
       getPages: [
         GetPage(
           name: '/auth',
@@ -68,7 +72,13 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/home',
           page: () => HomePage(),
+          binding: BindingsBuilder(() =>
+              Get.put<PageController>(new PageController(initialPage: Get.find<RouteController>().pageIndex.value))),
         ),
+        GetPage(
+            name: "/product",
+            page: () => ProductListPage(),
+            binding: BindingsBuilder(() => Get.put<ProductController>(new ProductController())))
       ],
     );
   }
