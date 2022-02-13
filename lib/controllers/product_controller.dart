@@ -1,3 +1,4 @@
+import 'package:fidelity/models/product_category.dart';
 import 'package:get/get.dart';
 
 import '../models/api_response.dart';
@@ -7,8 +8,22 @@ import '../providers/api_provider.dart';
 
 class ProductController extends GetxController with StateMixin {
   var currentProduct = Product().obs;
+
+  //List Product
   var currentListProducts = ProductEntries().obs;
 
+  //Add Product
+  var currentAddProduct = Product().obs;
+
+  setCurrentAddProduct({String? name, String? value, ProductCategory? category, String? photo, bool? active}) {
+    currentAddProduct.value.name = name;
+    currentAddProduct.value.value = value;
+    currentAddProduct.value.category = category;
+    currentAddProduct.value.photo = photo;
+    currentAddProduct.value.active == null ? null : currentAddProduct.value.active = active;
+  }
+
+  //ApiProvider
   Future<void> getList() async {
     change([], status: RxStatus.loading());
     try {

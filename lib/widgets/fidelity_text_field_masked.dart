@@ -10,28 +10,34 @@ class FidelityTextFieldMasked extends StatelessWidget {
   final String? mask;
   final FormFieldValidator<String>? validator;
   final Function(String)? onChanged;
+  final bool? readOnly;
+  final dynamic onTap;
 
-  FidelityTextFieldMasked({
-    required this.controller,
-    required this.label,
-    required this.placeholder,
-    required this.icon,
-    this.onChanged,
-    this.hideText = false,
-    this.validator,
-    this.mask,
-  });
+  FidelityTextFieldMasked(
+      {required this.controller,
+      required this.label,
+      required this.placeholder,
+      required this.icon,
+      this.onChanged,
+      this.hideText = false,
+      this.validator,
+      this.mask,
+      this.onTap,
+      this.readOnly});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       onChanged: onChanged,
+      readOnly: readOnly ?? false,
+      onTap: onTap,
       controller: controller,
       style: Theme.of(context).textTheme.bodyText1,
       obscureText: hideText,
       inputFormatters: [MaskTextInputFormatter(mask: mask ?? '')],
       validator: validator,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(left: 10),
         labelText: label,
         hintText: placeholder,
         hintStyle: Theme.of(context).textTheme.bodyText2,

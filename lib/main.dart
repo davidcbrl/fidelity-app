@@ -2,6 +2,7 @@ import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/pages/auth/login.dart';
 import 'package:fidelity/pages/home/home.dart';
+import 'package:fidelity/pages/products/product_add_page.dart';
 import 'package:fidelity/pages/products/product_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -78,7 +79,8 @@ class MyApp extends StatelessWidget {
         GetPage(
             name: "/product",
             page: () => ProductListPage(),
-            binding: BindingsBuilder(() => Get.put<ProductController>(new ProductController())))
+            binding: BindingsBuilder(() => Get.put<ProductController>(new ProductController())),
+            children: [GetPage(name: "/add", page: () => ProductAddPage())])
       ],
     );
   }

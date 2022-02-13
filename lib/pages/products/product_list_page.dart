@@ -1,3 +1,5 @@
+import 'package:fidelity/controllers/product_controller.dart';
+import 'package:fidelity/pages/products/product_add_page.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -20,14 +22,20 @@ class ProductListPage extends StatelessWidget {
 }
 
 class ProductListBody extends StatelessWidget {
-  final TextEditingController _textEditingController = new TextEditingController();
+  ProductListBody();
+
+  TextEditingController _textEditingController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    ProductController controller = new ProductController();
+    Get.put(controller);
     return Container(
       child: Column(
         children: [
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           _searchField(),
           SizedBox(
             height: 20,
@@ -82,7 +90,9 @@ class ProductListBody extends StatelessWidget {
   Container _newProductBtn() {
     return Container(
       child: FidelityButton(
-        onPressed: () {},
+        onPressed: () {
+          Get.to(ProductAddPage(), transition: Transition.cupertino);
+        },
         label: "Novo produto",
       ),
     );
