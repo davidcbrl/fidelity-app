@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-class FidelityTextFieldMasked extends StatefulWidget {
+class FidelityTextFieldMasked extends StatelessWidget {
   final TextEditingController controller;
   final String label;
   final String placeholder;
@@ -22,11 +22,6 @@ class FidelityTextFieldMasked extends StatefulWidget {
     this.mask,
   });
 
-  @override
-  _FidelityTextFieldMaskedState createState() => _FidelityTextFieldMaskedState();
-}
-
-class _FidelityTextFieldMaskedState extends State<FidelityTextFieldMasked> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
