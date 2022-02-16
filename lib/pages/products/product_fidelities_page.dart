@@ -1,8 +1,11 @@
 import 'package:fidelity/controllers/product_controller.dart';
+import 'package:fidelity/controllers/route_controller.dart';
+import 'package:fidelity/pages/home/home.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_link_item.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -21,13 +24,13 @@ class ProductFidelitiesPage extends StatelessWidget {
 
 class ProductFidelitiesBody extends StatelessWidget {
   ProductController authController = Get.find();
+  RouteController routeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        SingleChildScrollView(
+        Expanded(
           child: Column(
             children: [
               Padding(
@@ -52,7 +55,7 @@ class ProductFidelitiesBody extends StatelessWidget {
               ),
               Column(
                 children: List.generate(3, (index) => FidelityLinkItem(
-                  id: 1,
+                  id: index + 1,
                   label: 'Clube de pontos',
                   description: 'Quantidade - Cupom de desconto',
                   selected: index == 0,
@@ -67,8 +70,19 @@ class ProductFidelitiesBody extends StatelessWidget {
         FidelityButton(
           label: 'Concluir',
           onPressed: () {
-            print('CLICOU');
+            routeController.pageIndex.value = 3;
+            Get.off(() => HomePage());
           }
+        ),
+        FidelityTextButton(
+          label: 'Voltar',
+          onPressed: () {
+            Get.back();
+            FocusScope.of(context).unfocus();
+          }
+        ),
+        SizedBox(
+          height: 10,
         ),
       ],
     );
