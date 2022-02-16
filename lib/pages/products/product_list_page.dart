@@ -81,7 +81,13 @@ class ProductListBody extends StatelessWidget {
             Expanded(
               child: Text(product.name!),
             ),
-            Icon(Icons.arrow_right)
+            Icon(
+              Icons.chevron_right_outlined,
+              color: Colors.grey.shade400,
+            ),
+            SizedBox(
+              width: 10,
+            ),
           ],
         ),
       ),

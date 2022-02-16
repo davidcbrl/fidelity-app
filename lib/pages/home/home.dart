@@ -41,6 +41,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     pageController = new PageController(initialPage: widget.pageIndex ?? 0);
+    routeController.pageIndex.value = widget.pageIndex ?? 0;
     super.initState();
   }
 
@@ -62,21 +63,23 @@ class _HomePageState extends State<HomePage> {
           SettingsPage(),
         ],
       ),
-      bottomBar: BottomNavigationBar(
-        currentIndex: routeController.pageIndex.value,
-        type: BottomNavigationBarType.fixed,
-        selectedItemColor: Theme.of(context).colorScheme.primary,
-        unselectedItemColor: Theme.of(context).colorScheme.secondaryVariant,
-        items: List.generate(menu.length, (index) {
-          return BottomNavigationBarItem(
-            icon: Icon(menuIcons[index]),
-            label: menu[index],
-          );
-        }),
-        onTap: (index) {
-          routeController.pageIndex.value = index;
-          pageController.jumpToPage(index);
-        },
+      bottomBar: Obx(
+        () => BottomNavigationBar(
+          currentIndex: routeController.pageIndex.value,
+          type: BottomNavigationBarType.fixed,
+          selectedItemColor: Theme.of(context).colorScheme.primary,
+          unselectedItemColor: Theme.of(context).colorScheme.secondaryVariant,
+          items: List.generate(menu.length, (index) {
+            return BottomNavigationBarItem(
+              icon: Icon(menuIcons[index]),
+              label: menu[index],
+            );
+          }),
+          onTap: (index) {
+            routeController.pageIndex.value = index;
+            pageController.jumpToPage(index);
+          },
+        ),
       ),
     );
   }

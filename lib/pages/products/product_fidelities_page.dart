@@ -21,13 +21,22 @@ class ProductFidelitiesPage extends StatelessWidget {
   }
 }
 
-class ProductFidelitiesBody extends StatelessWidget {
+class ProductFidelitiesBody extends StatefulWidget {
+  @override
+  _ProductFidelitiesBodyState createState() => _ProductFidelitiesBodyState();
+}
+
+class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
   ProductController authController = Get.find();
+  List<bool> _fidelities = [false, false, false];
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
+        SizedBox(
+          height: 20,
+        ),
         Expanded(
           child: Column(
             children: [
@@ -52,11 +61,16 @@ class ProductFidelitiesBody extends StatelessWidget {
                 height: 20,
               ),
               Column(
-                children: List.generate(3, (index) => FidelityLinkItem(
+                children: List.generate(_fidelities.length, (index) => FidelityLinkItem(
                   id: index + 1,
                   label: 'Clube de pontos',
                   description: 'Quantidade - Cupom de desconto',
-                  selected: index == 0,
+                  selected: _fidelities[index],
+                  onPressed: () {
+                    setState(() {
+                      _fidelities[index] = !_fidelities[index];
+                    });
+                  },
                 )),
               ),
               SizedBox(
