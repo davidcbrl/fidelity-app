@@ -8,6 +8,7 @@ class DashboardPage extends StatelessWidget {
     return FidelityPage(
       appBar: FidelityAppbarWidget(
         title: 'Dashboard',
+        hasBackButton: false,
       ),
       body: DashboardBody(),
     );

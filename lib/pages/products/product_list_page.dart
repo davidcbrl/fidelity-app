@@ -15,6 +15,7 @@ class ProductListPage extends StatelessWidget {
     return FidelityPage(
       appBar: FidelityAppbarWidget(
         title: 'Produtos',
+        hasBackButton: false,
       ),
       body: Container(height: Get.height, child: SingleChildScrollView(child: ProductListBody())),
     );

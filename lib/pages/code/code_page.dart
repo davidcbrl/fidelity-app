@@ -8,6 +8,7 @@ class CodePage extends StatelessWidget {
     return FidelityPage(
       appBar: FidelityAppbarWidget(
         title: 'Escanear Código QR',
+        hasBackButton: false,
       ),
       body: CodeBody(),
     );

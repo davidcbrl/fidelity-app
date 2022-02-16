@@ -8,6 +8,7 @@ class FidelityListPage extends StatelessWidget {
     return FidelityPage(
       appBar: FidelityAppbarWidget(
         title: 'Fidelidades',
+        hasBackButton: false,
       ),
       body: FidelityListBody(),
     );

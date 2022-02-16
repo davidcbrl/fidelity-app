@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FidelityAppbarWidget extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final bool hasBackButton;
 
   FidelityAppbarWidget({
     required this.title,
+    this.hasBackButton = true,
   });
 
   @override
@@ -17,6 +20,18 @@ class FidelityAppbarWidget extends StatelessWidget implements PreferredSizeWidge
       centerTitle: true,
       backgroundColor: Theme.of(context).colorScheme.background,
       shadowColor: Colors.transparent,
+      automaticallyImplyLeading: hasBackButton,
+      leading: hasBackButton
+        ? IconButton(
+            icon: Icon(
+              Icons.arrow_back_outlined,
+              color: Theme.of(context).colorScheme.primary,
+            ),
+            onPressed: () {
+              Get.back();
+            }
+          )
+        : Container(),
     );
   }
 

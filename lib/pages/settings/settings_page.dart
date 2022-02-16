@@ -8,6 +8,7 @@ class SettingsPage extends StatelessWidget {
     return FidelityPage(
       appBar: FidelityAppbarWidget(
         title: 'Ajustes',
+        hasBackButton: false,
       ),
       body: SettingsBody(),
     );

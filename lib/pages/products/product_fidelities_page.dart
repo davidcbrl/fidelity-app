@@ -1,5 +1,4 @@
 import 'package:fidelity/controllers/product_controller.dart';
-import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/pages/home/home.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
@@ -24,7 +23,6 @@ class ProductFidelitiesPage extends StatelessWidget {
 
 class ProductFidelitiesBody extends StatelessWidget {
   ProductController authController = Get.find();
-  RouteController routeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -70,8 +68,7 @@ class ProductFidelitiesBody extends StatelessWidget {
         FidelityButton(
           label: 'Concluir',
           onPressed: () {
-            routeController.pageIndex.value = 3;
-            Get.off(() => HomePage());
+            Get.off(() => HomePage(pageIndex: 3));
           }
         ),
         FidelityTextButton(

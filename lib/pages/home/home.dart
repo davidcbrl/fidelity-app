@@ -9,14 +9,16 @@ import 'package:get/get.dart';
 
 import '../products/product_list_page.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  final pageIndex;
+
+  HomePage({this.pageIndex = 0});
+
   @override
-  Widget build(BuildContext context) {
-    return HomeBody();
-  }
+  _HomePageState createState() => _HomePageState();
 }
 
-class HomeBody extends StatelessWidget {
+class _HomePageState extends State<HomePage> {
   PageController pageController = new PageController();
   RouteController routeController = Get.put(RouteController(), permanent: true);
 
@@ -37,6 +39,12 @@ class HomeBody extends StatelessWidget {
   ];
 
   @override
+  void initState() {
+    pageController = new PageController(initialPage: widget.pageIndex ?? 0);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FidelityPage(
       body: PageView(
@@ -54,23 +62,21 @@ class HomeBody extends StatelessWidget {
           SettingsPage(),
         ],
       ),
-      bottomBar: Obx(
-        () => BottomNavigationBar(
-          currentIndex: routeController.pageIndex.value,
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Theme.of(context).colorScheme.primary,
-          unselectedItemColor: Theme.of(context).colorScheme.secondaryVariant,
-          items: List.generate(menu.length, (index) {
-            return BottomNavigationBarItem(
-              icon: Icon(menuIcons[index]),
-              label: menu[index],
-            );
-          }),
-          onTap: (index) {
-            routeController.pageIndex.value = index;
-            pageController.jumpToPage(index);
-          },
-        ),
+      bottomBar: BottomNavigationBar(
+        currentIndex: routeController.pageIndex.value,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Theme.of(context).colorScheme.primary,
+        unselectedItemColor: Theme.of(context).colorScheme.secondaryVariant,
+        items: List.generate(menu.length, (index) {
+          return BottomNavigationBarItem(
+            icon: Icon(menuIcons[index]),
+            label: menu[index],
+          );
+        }),
+        onTap: (index) {
+          routeController.pageIndex.value = index;
+          pageController.jumpToPage(index);
+        },
       ),
     );
   }
