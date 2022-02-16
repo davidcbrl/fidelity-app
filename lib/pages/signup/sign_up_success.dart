@@ -13,7 +13,7 @@ class SignUpSuccessPage extends StatelessWidget {
         'Pronto para aumentar o engajamento de seus clientes e alavancar seu negócio? Então, vamos começar os trabalhos!',
         'Voltar para autenticação',
         () {
-          Get.offAll(LoginPage(), transition: Transition.leftToRight);
+          Get.off(LoginPage(), transition: Transition.leftToRight);
         }
       ),
     );

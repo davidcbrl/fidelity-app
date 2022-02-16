@@ -13,7 +13,7 @@ class LoginSuccessPage extends StatelessWidget {
         'Essa é uma tela temporária para sucesso na autenticação. Dashboard em construção.',
         'Voltar para autenticação',
         () {
-          Get.offAll(LoginPage(), transition: Transition.leftToRight);
+          Get.off(LoginPage(), transition: Transition.leftToRight);
         }
       ),
     );

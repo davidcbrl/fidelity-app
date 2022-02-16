@@ -1,21 +1,20 @@
+import 'dart:io';
+
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/models/product_category.dart';
 import 'package:fidelity/pages/products/product_fidelities_page.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
-import 'package:fidelity/widgets/fidelity_text_field.dart';
 import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../widgets/fidelity_appbar.dart';
 import '../../widgets/fidelity_page.dart';
 
 class ProductAddPage extends StatelessWidget {
-  const ProductAddPage({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return FidelityPage(
@@ -27,11 +26,17 @@ class ProductAddPage extends StatelessWidget {
   }
 }
 
-class ProductAddBody extends StatelessWidget {
-  ProductAddBody({Key? key}) : super(key: key);
+class ProductAddBody extends StatefulWidget {
+  @override
+  _ProductAddBodyState createState() => _ProductAddBodyState();
+}
+
+class _ProductAddBodyState extends State<ProductAddBody> {
   GlobalKey<FormState> _formProductAddKey = new GlobalKey<FormState>();
   ProductController controller = Get.find<ProductController>();
   TextEditingController categoryController = new TextEditingController();
+  final ImagePicker _picker = ImagePicker();
+  XFile? _selectedImage;
 
   @override
   Widget build(BuildContext context) {
@@ -130,11 +135,65 @@ class ProductAddBody extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    FidelityTextField(
-                      controller: _photoController,
-                      icon: Icon(Icons.image_outlined),
-                      label: "Foto",
-                      placeholder: "Toque para trocar a foto",
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).colorScheme.surface,
+                        borderRadius: BorderRadius.circular(5),
+                        border: Border.all(
+                          width: _selectedImage == null ? 1 : 2,
+                          color: _selectedImage == null ? Theme.of(context).colorScheme.secondaryVariant : Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                      child: InkWell(
+                        onTap: () async {
+                          _selectedImage = await _picker.pickImage(source: ImageSource.gallery);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                if (_selectedImage != null)
+                                  Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                      image: new DecorationImage(
+                                        fit: BoxFit.cover,
+                                        image: FileImage(File(_selectedImage!.path)),
+                                      ),
+                                    ),
+                                  ),
+                                if (_selectedImage == null)
+                                  Container(
+                                    height: 50,
+                                    width: 50,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(5),
+                                    ),
+                                    child: Image.asset(
+                                      'assets/img/productSquare.png',
+                                      height: 50,
+                                    ),
+                                  ),
+                                SizedBox(
+                                  width: 10,
+                                ),
+                                Text(
+                                  'Foto do produto',
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                              ],
+                            ),
+                            Icon(
+                              Icons.image_outlined,
+                              color: _selectedImage == null ? Theme.of(context).colorScheme.secondaryVariant : Theme.of(context).colorScheme.primary,
+                            ),
+                          ],
+                        ),
+                      ),
                     ),
                     SizedBox(
                       height: 10,
@@ -145,8 +204,9 @@ class ProductAddBody extends StatelessWidget {
                           () => Switch(
                               value: controller.currentAddProduct.value.active ?? true,
                               onChanged: (value) {
-                                value = !value;
-                                controller.currentAddProduct.value.active = value;
+                                setState(() {
+                                  controller.currentAddProduct.value.active = value;
+                                });
                               }),
                         ),
                         Text(
