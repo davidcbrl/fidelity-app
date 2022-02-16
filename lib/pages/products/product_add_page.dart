@@ -171,7 +171,7 @@ class ProductAddBody extends StatelessWidget {
                 photo: _photoController.text,
                 value: _valueController.text
               );
-              Get.to(() => ProductFidelitiesPage());
+              Get.to(() => ProductFidelitiesPage(), transition: Transition.rightToLeft);
             }
           ),
           FidelityTextButton(

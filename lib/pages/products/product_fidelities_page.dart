@@ -1,5 +1,6 @@
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/pages/home/home.dart';
+import 'package:fidelity/pages/products/product_success.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_link_item.dart';
@@ -82,7 +83,7 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
         FidelityButton(
           label: 'Concluir',
           onPressed: () {
-            Get.off(() => HomePage(pageIndex: 3));
+            Get.off(() => ProductSuccessPage(), transition: Transition.rightToLeft);
           }
         ),
         FidelityTextButton(
