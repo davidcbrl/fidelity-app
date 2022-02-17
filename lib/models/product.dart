@@ -1,5 +1,3 @@
-import 'package:fidelity/models/product_category.dart';
-
 class ProductEntries {
   List<Product>? products;
 
@@ -8,26 +6,43 @@ class ProductEntries {
 
 class Product {
   int? id;
+  int? companyId;
   String? name;
+  double? value;
+  String? category;
   String? photo;
   bool? active;
-  ProductCategory? category;
-  String? value;
+  String? status;
 
-  Product();
+  Product({
+    this.id,
+    this.companyId,
+    this.name,
+    this.value,
+    this.category,
+    this.photo,
+    this.active, 
+    this.status, 
+  });
 
-  Product.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['nome'],
-        photo = json['photo'],
-        value = json['value'],
-        active = json['active'];
+  Product.fromJson(Map<String, dynamic> json):
+    id = json['Id'],
+    companyId = json['EnterpriseId'],
+    name = json['Name'],
+    value = json['Value'],
+    photo = json['Photo'],
+    category = json['Category'],
+    active = json['Active'],
+    status = json['Status'];
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'photo': photo,
-        'value': value,
-        'active': active,
-      };
+    'Id': id,
+    'EnterpriseId': companyId,
+    'Name': name,
+    'Value': value,
+    'Category': category,
+    'Photo': photo,
+    'Active': active,
+    'Status': status,
+  };
 }

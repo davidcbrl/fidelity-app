@@ -28,6 +28,7 @@ class FidelityAppbarWidget extends StatelessWidget implements PreferredSizeWidge
             ),
             onPressed: () {
               Get.back();
+              FocusScope.of(context).unfocus();
             }
           )
         : Container(),

@@ -1,5 +1,4 @@
 import 'package:fidelity/controllers/product_controller.dart';
-import 'package:fidelity/pages/home/home.dart';
 import 'package:fidelity/pages/products/product_success.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
@@ -90,7 +89,6 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
           label: 'Voltar',
           onPressed: () {
             Get.back();
-            FocusScope.of(context).unfocus();
           }
         ),
         SizedBox(

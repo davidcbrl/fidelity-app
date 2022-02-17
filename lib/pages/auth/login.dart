@@ -115,7 +115,7 @@ class LoginBody extends StatelessWidget {
     );
   }
 
-  _authenticate(BuildContext context) async {
+  void _authenticate(BuildContext context) async {
     final FormState? form = _formKey.currentState;
     if (form!.validate()) {
       authController.loadingController.value = true;

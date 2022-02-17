@@ -1,13 +1,14 @@
-import 'package:fidelity/models/product_category.dart';
+import 'package:fidelity/models/api_response.dart';
+import 'package:fidelity/models/product.dart';
+import 'package:fidelity/models/request_exception.dart';
+import 'package:fidelity/providers/api_provider.dart';
 import 'package:get/get.dart';
-
-import '../models/api_response.dart';
-import '../models/product.dart';
-import '../models/request_exception.dart';
-import '../providers/api_provider.dart';
+import 'package:get_storage/get_storage.dart';
 
 class ProductController extends GetxController with StateMixin {
-  var currentProduct = Product().obs;
+  GetStorage box = new GetStorage();
+  var product = Product().obs;
+  var loading = false.obs;
 
   //List Product
   var currentListProducts = ProductEntries().obs;
@@ -15,12 +16,12 @@ class ProductController extends GetxController with StateMixin {
   //Add Product
   var currentAddProduct = Product().obs;
 
-  setCurrentAddProduct({String? name, String? value, ProductCategory? category, String? photo, bool? active}) {
+  setCurrentAddProduct({String? name, double? value, String? category, String? photo, bool? active}) {
     currentAddProduct.value.name = name;
     currentAddProduct.value.value = value;
     currentAddProduct.value.category = category;
     currentAddProduct.value.photo = photo;
-    currentAddProduct.value.active == null ? null : currentAddProduct.value.active = active;
+    currentAddProduct.value.active = currentAddProduct.value.active == null ? null : currentAddProduct.value.active = active;
   }
 
   //ApiProvider
@@ -38,7 +39,29 @@ class ProductController extends GetxController with StateMixin {
           message: response.message,
         );
       }
+      change([], status: RxStatus.success());
+    } on RequestException catch (error) {
+      print(error);
+      change([], status: RxStatus.error(error.message));
+    } catch (error) {
+      print(error);
+      change([], status: RxStatus.error('Erro ao autenticar'));
+    }
+  }
 
+  Future<void> saveProduct() async {
+    change([], status: RxStatus.loading());
+    try {
+      Map<String, dynamic> json = await ApiProvider.post(
+        path: 'new/product',
+        data: product.toJson(),
+      );
+      ApiResponse response = ApiResponse.fromJson(json);
+      if (!response.success) {
+        throw RequestException(
+          message: response.message,
+        );
+      }
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);
