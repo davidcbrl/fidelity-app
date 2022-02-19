@@ -1,6 +1,8 @@
+import 'package:fidelity/controllers/customer_signup_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/pages/auth/login.dart';
+import 'package:fidelity/pages/customer/customer_signup.dart';
 import 'package:fidelity/pages/home/home.dart';
 import 'package:fidelity/pages/products/product_add_page.dart';
 import 'package:fidelity/pages/products/product_list_page.dart';
@@ -77,10 +79,19 @@ class MyApp extends StatelessWidget {
               Get.put<PageController>(new PageController(initialPage: Get.find<RouteController>().pageIndex.value))),
         ),
         GetPage(
-            name: "/product",
-            page: () => ProductListPage(),
-            binding: BindingsBuilder(() => Get.put<ProductController>(new ProductController())),
-            children: [GetPage(name: "/add", page: () => ProductAddPage())])
+          name: "/product",
+          page: () => ProductListPage(),
+          binding: BindingsBuilder(() => Get.put<ProductController>(new ProductController())),
+          children: [
+            GetPage(name: "/add", page: () => ProductAddPage()),
+          ],
+        ),
+        GetPage(
+          name: "/customer/signup",
+          page: () => CustomerSignupPage(),
+          transition: Transition.cupertino,
+          binding: BindingsBuilder(() => Get.put(new CustomerSignupController())),
+        ),
       ],
     );
   }

@@ -1,6 +1,5 @@
 import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/pages/home/home.dart';
-import 'package:fidelity/pages/signup/sign_up.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
@@ -103,7 +102,8 @@ class LoginBody extends StatelessWidget {
                         FidelityTextButton(
                           label: 'Não possui conta? Cadastre-se',
                           onPressed: () {
-                            Get.to(SignUpPage(), transition: Transition.rightToLeft);
+                            //Get.to(SignUpPage(), transition: Transition.rightToLeft);
+                            Get.toNamed("/customer/signup");
                           },
                         ),
                       ],
@@ -143,12 +143,11 @@ class LoginBody extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: FidelityButton(
-                label: 'OK',
-                width: double.maxFinite,
-                onPressed: () {
-                  Get.back();
-                }
-              ),
+                  label: 'OK',
+                  width: double.maxFinite,
+                  onPressed: () {
+                    Get.back();
+                  }),
             ),
           ],
         ),

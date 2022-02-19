@@ -45,160 +45,161 @@ class _ProductAddBodyState extends State<ProductAddBody> {
   Widget build(BuildContext context) {
     return Obx(
       () => productController.loading.value
-      ? FidelityLoading(
-          loading: productController.loading.value,
-          text: 'Salvando produto...',
-        )
-      : Container(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: _formProductAddKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        FidelityTextFieldMasked(
-                          controller: _nameController,
-                          label: 'Nome',
-                          placeholder: 'Nome do produto',
-                          icon: Icon(Icons.shopping_bag_outlined),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) return 'Campo vazio';
-                          },
-                          onChanged: (value) {
-                            if (value.isNotEmpty) _formProductAddKey.currentState!.validate();
-                          },
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        FidelityTextFieldMasked(
-                          controller: _valueController,
-                          label: 'Valor',
-                          placeholder: 'R\$',
-                          icon: Icon(Icons.attach_money_outlined),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) return 'Campo vazio';
-                          },
-                          onChanged: (value) {
-                            if (value.isNotEmpty) _formProductAddKey.currentState!.validate();
-                          },
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Container(
-                          child: FidelityTextFieldMasked(
-                            controller: _categoryController,
-                            label: "Categoria",
-                            onTap: () {
-                              showModalBottomSheet<void>(
-                                context: context,
-                                isScrollControlled: true,
-                                enableDrag: false,
-                                builder: (BuildContext context) {
-                                  return Container(
-                                    height: 200,
-                                    color: Theme.of(context).colorScheme.surface,
-                                    child: SingleChildScrollView(
-                                      physics: AlwaysScrollableScrollPhysics(),
-                                      child: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                          SizedBox(
-                                            height: 20,
+          ? FidelityLoading(
+              loading: productController.loading.value,
+              text: 'Salvando produto...',
+            )
+          : Container(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Form(
+                        key: _formProductAddKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            FidelityTextFieldMasked(
+                              controller: _nameController,
+                              label: 'CPF',
+                              placeholder: 'Nome do produto',
+                              mask: "xxx.xxx.xxx-xx",
+                              icon: Icon(Icons.shopping_bag_outlined),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) return 'Campo vazio';
+                              },
+                              onChanged: (value) {
+                                if (value.isNotEmpty) _formProductAddKey.currentState!.validate();
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            FidelityTextFieldMasked(
+                              controller: _valueController,
+                              label: 'Valor',
+                              placeholder: 'R\$',
+                              icon: Icon(Icons.attach_money_outlined),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) return 'Campo vazio';
+                              },
+                              onChanged: (value) {
+                                if (value.isNotEmpty) _formProductAddKey.currentState!.validate();
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Container(
+                              child: FidelityTextFieldMasked(
+                                controller: _categoryController,
+                                label: "Categoria",
+                                onTap: () {
+                                  showModalBottomSheet<void>(
+                                    context: context,
+                                    isScrollControlled: true,
+                                    enableDrag: false,
+                                    builder: (BuildContext context) {
+                                      return Container(
+                                        height: 200,
+                                        color: Theme.of(context).colorScheme.surface,
+                                        child: SingleChildScrollView(
+                                          physics: AlwaysScrollableScrollPhysics(),
+                                          child: Column(
+                                            mainAxisAlignment: MainAxisAlignment.start,
+                                            mainAxisSize: MainAxisSize.min,
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: 20,
+                                              ),
+                                              Text(
+                                                'Categorias',
+                                                style: Theme.of(context).textTheme.headline2,
+                                              ),
+                                              SizedBox(
+                                                height: 10,
+                                              ),
+                                              Column(
+                                                children: _fakeGetCategoryList()
+                                                    .categories!
+                                                    .map((e) => categoryByCategory(e))
+                                                    .toList(),
+                                              ),
+                                            ],
                                           ),
-                                          Text(
-                                            'Categorias',
-                                            style: Theme.of(context).textTheme.headline2,
-                                          ),
-                                          SizedBox(
-                                            height: 10,
-                                          ),
-                                          Column(
-                                            children: _fakeGetCategoryList().categories!.map((e) => categoryByCategory(e)).toList(),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
+                                        ),
+                                      );
+                                    },
                                   );
                                 },
-                              );
-                            },
-                            readOnly: true,
-                            placeholder: "Selecione",
-                            icon: Icon(Icons.list_outlined),
-                            validator: (value) {
-                              if (value == null || value.isEmpty) return 'Campo vazio';
-                            },
-                            onChanged: (value) {
-                              if (value.isNotEmpty) _formProductAddKey.currentState!.validate();
-                            },
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        FidelityImagePicker(
-                          image: _selectedImage,
-                          label: 'Foto do produto',
-                          emptyImagePath: 'assets/img/productSquare.png',
-                          onSelect: () async {
-                            _selectedImage = await _picker.pickImage(source: ImageSource.gallery);
-                          },
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
-                          children: [
-                            Switch(
-                              value: _activeController,
-                              onChanged: (value) {
-                                setState(() {
-                                  _activeController = value;
-                                });
-                              }
+                                readOnly: true,
+                                placeholder: "Selecione",
+                                icon: Icon(Icons.list_outlined),
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) return 'Campo vazio';
+                                },
+                                onChanged: (value) {
+                                  if (value.isNotEmpty) _formProductAddKey.currentState!.validate();
+                                },
+                              ),
                             ),
-                            Text(
-                              "Produto ativo",
-                              style: Theme.of(context).textTheme.bodyText1,
+                            SizedBox(
+                              height: 20,
+                            ),
+                            FidelityImagePicker(
+                              image: _selectedImage,
+                              label: 'Foto do produto',
+                              emptyImagePath: 'assets/img/productSquare.png',
+                              onSelect: () async {
+                                _selectedImage = await _picker.pickImage(source: ImageSource.gallery);
+                              },
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                Switch(
+                                    value: _activeController,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        _activeController = value;
+                                      });
+                                    }),
+                                Text(
+                                  "Produto ativo",
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                  FidelityButton(
+                      label: 'Concluir',
+                      onPressed: () {
+                        _saveProduct(context);
+                      }),
+                  FidelityTextButton(
+                      label: 'Voltar',
+                      onPressed: () {
+                        Get.back();
+                      }),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
               ),
-              FidelityButton(
-                label: 'Concluir',
-                onPressed: () {
-                  _saveProduct(context);
-                }
-              ),
-              FidelityTextButton(
-                label: 'Voltar',
-                onPressed: () {
-                  Get.back();
-                }
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
-        ),
+            ),
     );
   }
 
@@ -273,12 +274,11 @@ class _ProductAddBodyState extends State<ProductAddBody> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: FidelityButton(
-                label: 'OK',
-                width: double.maxFinite,
-                onPressed: () {
-                  Get.back();
-                }
-              ),
+                  label: 'OK',
+                  width: double.maxFinite,
+                  onPressed: () {
+                    Get.back();
+                  }),
             ),
           ],
         ),
