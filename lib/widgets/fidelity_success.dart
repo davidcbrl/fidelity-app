@@ -7,12 +7,12 @@ class FidelitySuccess extends StatefulWidget {
   final String buttonText;
   final Function() onPressed;
 
-  FidelitySuccess(
-    this.title,
-    this.description,
-    this.buttonText,
-    this.onPressed,
-  );
+  FidelitySuccess({
+    required this.title,
+    required this.description,
+    required this.buttonText,
+    required this.onPressed,
+  });
 
   @override
   _FidelitySuccessState createState() => _FidelitySuccessState();
@@ -25,10 +25,8 @@ class _FidelitySuccessState extends State<FidelitySuccess> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Icon(
-          Icons.check_circle,
-          size: 100,
-          color: Theme.of(context).colorScheme.secondary,
+        Image.asset(
+          'assets/img/ok.png',
         ),
         SizedBox(
           height: 25,
@@ -36,11 +34,7 @@ class _FidelitySuccessState extends State<FidelitySuccess> {
         Text(
           widget.title,
           textAlign: TextAlign.center,
-          style: TextStyle(
-            color: Theme.of(context).colorScheme.secondary,
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-          ),
+          style: Theme.of(context).textTheme.headline1,
         ),
         SizedBox(
           height: 20,

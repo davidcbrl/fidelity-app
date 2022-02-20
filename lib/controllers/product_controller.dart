@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class ProductController extends GetxController with StateMixin {
-  GetStorage box = new GetStorage();
+  GetStorage box = GetStorage();
   var product = Product().obs;
   var loading = false.obs;
 

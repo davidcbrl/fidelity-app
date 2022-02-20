@@ -13,17 +13,18 @@ class FidelityTextFieldMasked extends StatelessWidget {
   final bool? readOnly;
   final dynamic onTap;
 
-  FidelityTextFieldMasked(
-      {required this.controller,
-      required this.label,
-      required this.placeholder,
-      required this.icon,
-      this.onChanged,
-      this.hideText = false,
-      this.validator,
-      this.mask,
-      this.onTap,
-      this.readOnly});
+  FidelityTextFieldMasked({
+    required this.controller,
+    required this.label,
+    required this.placeholder,
+    required this.icon,
+    this.onChanged,
+    this.hideText = false,
+    this.validator,
+    this.mask,
+    this.onTap,
+    this.readOnly
+  });
 
   @override
   Widget build(BuildContext context) {

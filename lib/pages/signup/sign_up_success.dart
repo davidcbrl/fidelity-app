@@ -9,11 +9,11 @@ class SignUpSuccessPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FidelityPage(
       body: FidelitySuccess(
-        'Parabéns! Você acaba de adquirir o melhor sistema de gestão de fidelidades do mercado!',
-        'Pronto para aumentar o engajamento de seus clientes e alavancar seu negócio? Então, vamos começar os trabalhos!',
-        'Voltar para autenticação',
-        () {
-          Get.off(LoginPage(), transition: Transition.leftToRight);
+        title: 'Parabéns! Você acaba de adquirir o melhor sistema de gestão de fidelidades do mercado!',
+        description: 'Pronto para aumentar o engajamento de seus clientes e alavancar seu negócio? Então, vamos começar os trabalhos!',
+        buttonText: 'Voltar para autenticação',
+        onPressed: () {
+          Get.off(() => LoginPage(), transition: Transition.leftToRight);
         }
       ),
     );

@@ -1,5 +1,7 @@
 import 'package:fidelity/controllers/auth_controller.dart';
+import 'package:fidelity/pages/customer/customer_signup.dart';
 import 'package:fidelity/pages/home/home.dart';
+import 'package:fidelity/pages/signup/sign_up.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
@@ -97,13 +99,25 @@ class LoginBody extends StatelessWidget {
                           },
                         ),
                         SizedBox(
-                          height: 20,
+                          height: 30,
+                        ),
+                        Text(
+                          'Não possui conta?',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         FidelityTextButton(
-                          label: 'Não possui conta? Cadastre-se',
+                          label: 'Cadastre-se como empresa',
                           onPressed: () {
-                            //Get.to(SignUpPage(), transition: Transition.rightToLeft);
-                            Get.toNamed("/customer/signup");
+                            Get.to(() => SignUpPage(), transition: Transition.rightToLeft);
+                          },
+                        ),
+                        FidelityTextButton(
+                          label: 'Cadastre-se como cliente',
+                          onPressed: () {
+                            Get.to(() => CustomerSignupPage(), transition: Transition.rightToLeft);
                           },
                         ),
                       ],

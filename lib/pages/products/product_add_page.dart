@@ -65,9 +65,8 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                           children: [
                             FidelityTextFieldMasked(
                               controller: _nameController,
-                              label: 'CPF',
+                              label: 'Nome',
                               placeholder: 'Nome do produto',
-                              mask: "xxx.xxx.xxx-xx",
                               icon: Icon(Icons.shopping_bag_outlined),
                               validator: (value) {
                                 if (value == null || value.isEmpty) return 'Campo vazio';

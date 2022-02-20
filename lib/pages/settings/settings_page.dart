@@ -1,6 +1,10 @@
+import 'package:fidelity/pages/auth/login.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:fidelity/widgets/fidelity_select_item.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class SettingsPage extends StatelessWidget {
   @override
@@ -16,6 +20,8 @@ class SettingsPage extends StatelessWidget {
 }
 
 class SettingsBody extends StatelessWidget {
+  GetStorage box = GetStorage();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,70 +30,57 @@ class SettingsBody extends StatelessWidget {
           SizedBox(
             height: 20,
           ),
-          SettingItem("Perfil", "Visualize os dados sobre o seu cadastro"),
+          FidelitySelectItem(
+            label: 'Perfil',
+            description: 'Edite os dados do seu cadastro',
+            onPressed: () {},
+          ),
           SizedBox(
             height: 10,
           ),
-          SettingItem("Funcionarios", "Gerencie perfis de funcionarios"),
+          FidelitySelectItem(
+            label: 'Funcionários',
+            description: 'Gerencie perfis de funcionários',
+            onPressed: () {},
+          ),
           SizedBox(
             height: 10,
           ),
-          SettingItem("Tema", "Customize a aparencia do app"),
+          FidelitySelectItem(
+            label: 'Tema',
+            description: 'Customize a aparência do app',
+            onPressed: () {},
+          ),
           SizedBox(
             height: 10,
           ),
-          SettingItem("Sobre", "Visualize informacoes sobre o app"),
+          FidelitySelectItem(
+            label: 'Sobre',
+            description: 'Visualize informações sobre o app',
+            onPressed: () {},
+          ),
           SizedBox(
             height: 10,
           ),
-          SettingItem("Sair", "Encerrar sua sessao"),
+          FidelitySelectItem(
+            label: 'Sair',
+            description: 'Encerrar sua sessão',
+            onPressed: () {
+              logout();
+            },
+          ),
         ],
       ),
     );
   }
 
-  Widget SettingItem(String name, String desc) {
-    return Container(
-      child: Container(
-        height: 70,
-        alignment: Alignment.center,
-        color: Colors.white,
-        child: Row(
-          children: [
-            SizedBox(
-              width: 10,
-            ),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      Text(name!),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      // Text(
-                      //   "Acesso restrito*",
-                      //   style: TextStyle(color: Colors.red),
-                      // )
-                    ],
-                  ),
-                  Text(desc!),
-                ],
-              ),
-            ),
-            Icon(
-              Icons.chevron_right_outlined,
-              color: Colors.grey.shade400,
-            ),
-            SizedBox(
-              width: 10,
-            ),
-          ],
-        ),
-      ),
-    );
+  void logout() {
+    if (box.hasData('jwt')) {
+      box.remove('jwt');
+    }
+    if (box.hasData('companyId')) {
+      box.remove('companyId');
+    }
+    Get.offAll(() => LoginPage(), transition: Transition.rightToLeft);
   }
 }
