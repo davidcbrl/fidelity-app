@@ -56,10 +56,10 @@ class _CustomStepperState extends State<FidelityStepper> with TickerProviderStat
               Column(
                 children: [
                   SizedBox(
-                    height: 1,
+                    height: Get.height * 0.01,
                   ),
                   LinearPercentIndicator(
-                    lineHeight: 22.0,
+                    lineHeight: 10.0,
                     percent: widget.currentStep > 0
                         ? widget.currentStep > 1
                             ? 1.0
