@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 class FidelityStepper extends StatefulWidget {
   final int currentStep;
@@ -11,8 +12,17 @@ class FidelityStepper extends StatefulWidget {
   _CustomStepperState createState() => _CustomStepperState();
 }
 
-class _CustomStepperState extends State<FidelityStepper> {
-  var screenHeight = Get.width;
+class _CustomStepperState extends State<FidelityStepper> with TickerProviderStateMixin {
+  var screenHeight = Get.height;
+  var screenWidth = Get.width;
+  void initState() {
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,18 +35,14 @@ class _CustomStepperState extends State<FidelityStepper> {
                 "Empresa",
                 style: TextStyle(color: Theme.of(context).colorScheme.primary),
               ),
-              SizedBox(
-                width: 100,
-              ),
+              Spacer(),
               Text(
                 "Acesso",
                 style: TextStyle(
                   color: widget.currentStep >= 1 ? Theme.of(context).colorScheme.primary : Color(0xFFBDBDBD),
                 ),
               ),
-              SizedBox(
-                width: 110,
-              ),
+              Spacer(),
               Text(
                 "Plano",
                 style: TextStyle(
@@ -45,46 +51,75 @@ class _CustomStepperState extends State<FidelityStepper> {
               ),
             ],
           ),
-          SizedBox(
-            height: 5,
-          ),
-          Row(
+          Stack(
             children: [
-              SizedBox(
-                width: 15,
+              Column(
+                children: [
+                  SizedBox(
+                    height: 1,
+                  ),
+                  LinearPercentIndicator(
+                    lineHeight: 22.0,
+                    percent: widget.currentStep > 0
+                        ? widget.currentStep > 1
+                            ? 1.0
+                            : 0.5
+                        : 0.0,
+                    backgroundColor: Colors.grey,
+                    progressColor: Colors.blue,
+                  ),
+                ],
               ),
-              Image.asset(
-                widget.currentStep == 0 ? "assets/img/lineCircleBlue.png" : "assets/img/checkedBlueCircle.png",
-                width: 25,
-              ),
-              Container(
-                height: 10,
-                width: 130,
-                color: widget.currentStep > 0 ? Colors.blueAccent : Color(0xFFE0E0E0),
-              ),
-              if (widget.currentStep == 0)
-                Image.asset(
-                  "assets/img/lineCircleGrey.png",
-                  width: 25,
-                ),
-              if (widget.currentStep > 0)
-                Image.asset(
-                  widget.currentStep > 1 ? "assets/img/checkedBlueCircle.png" : "assets/img/lineCircleBlue.png",
-                  width: 25,
-                ),
-              Container(
-                height: 10,
-                width: 125,
-                color: widget.currentStep > 1 ? Colors.blueAccent : Color(0xFFE0E0E0),
-              ),
-              Image.asset(
-                widget.currentStep >= 2 ? "assets/img/lineCircleBlue.png" : "assets/img/lineCircleGrey.png",
-                width: 25,
+              Row(
+                children: [
+                  Container(
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                    child: Image.asset(
+                      widget.currentStep == 0 ? "assets/img/lineCircleBlue.png" : "assets/img/checkedBlueCircle.png",
+                      width: 25,
+                    ),
+                  ),
+                  Spacer(),
+                  if (widget.currentStep == 0)
+                    Container(
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                      child: Image.asset(
+                        "assets/img/lineCircleGrey.png",
+                        width: 25,
+                      ),
+                    ),
+                  if (widget.currentStep > 0)
+                    Container(
+                      decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                      child: Image.asset(
+                        widget.currentStep > 1 ? "assets/img/checkedBlueCircle.png" : "assets/img/lineCircleBlue.png",
+                        width: 25,
+                      ),
+                    ),
+                  Spacer(),
+                  Container(
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.white),
+                    child: Image.asset(
+                      widget.currentStep >= 2 ? "assets/img/lineCircleBlue.png" : "assets/img/lineCircleGrey.png",
+                      width: 25,
+                    ),
+                  ),
+                ],
               ),
             ],
           ),
         ],
       ),
     );
+  }
+
+  setSizeWidth(double number) {
+    double size = Get.width / 100;
+    return number * size;
+  }
+
+  setSizeHeight(double number) {
+    double size = Get.height / 100;
+    return number * size;
   }
 }

@@ -19,6 +19,7 @@ dependencies:
   flutter_sizer: any
   platform: ^3.1.0
   image_picker: any
+  percent_indicator: ^3.4.0
 
 dev_dependencies:
   flutter_test:
