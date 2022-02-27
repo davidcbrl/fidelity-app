@@ -208,7 +208,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: () {
-        productController.currentAddProduct.value.category = category.name;
+        productController.currentAddProduct.value.categoryId = category.id;
         _categoryController.text = category.name ?? '';
         Get.back();
       },
@@ -246,9 +246,10 @@ class _ProductAddBodyState extends State<ProductAddBody> {
     if (form!.validate()) {
       productController.loading.value = true;
       productController.product.value = new Product(
+        companyId: 2,
         name: _nameController.text,
         value: double.parse(_valueController.text),
-        category: _categoryController.text,
+        categoryId: int.parse(_categoryController.text),
         status: _activeController ? '1' : '0',
       );
       await productController.saveProduct();

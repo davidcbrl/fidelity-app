@@ -1,4 +1,5 @@
 import 'package:fidelity/controllers/customer_signup_controller.dart';
+import 'package:fidelity/models/user.dart';
 import 'package:fidelity/pages/auth/login.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -172,18 +173,19 @@ class CustomerSignupBody extends StatelessWidget {
     );
   }
 
-  void saveCustomer(BuildContext context) {
+  void saveCustomer(BuildContext context) async {
     final FormState? form = _formCustomerSignupKey.currentState;
     if (form!.validate()) {
       controller.loading.value = true;
-      Customer customer = new Customer(
-        name: _nameController.text,
+      User user = new User(
         email: _emailController.text,
-        cpf: _cpfController.text,
         password: _passwordController.text,
+        customer: new Customer(
+          name: _nameController.text,
+          cpf: _cpfController.text,
+        ),
       );
-      controller.setCurrentAddCustomer(customer);
-      //await controller.saveCustomer();
+      await controller.signup(user);
       if (controller.status.isSuccess) {
         controller.loading.value = false;
         Get.to(() => LoginPage(), transition: Transition.leftToRight);

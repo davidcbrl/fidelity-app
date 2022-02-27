@@ -22,15 +22,24 @@ class ProductListPage extends StatelessWidget {
   }
 }
 
-class ProductListBody extends StatelessWidget {
-  ProductListBody();
+class ProductListBody extends StatefulWidget {
+  const ProductListBody({ Key? key }) : super(key: key);
 
+  @override
+  _ProductListBodyState createState() => _ProductListBodyState();
+}
+
+class _ProductListBodyState extends State<ProductListBody> {
+  ProductController productController = Get.put(ProductController());
   TextEditingController _textEditingController = new TextEditingController();
+
+  void initState() {
+    listProducts();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    ProductController controller = new ProductController();
-    Get.put(controller);
     return Container(
       child: Column(
         children: [
@@ -64,8 +73,8 @@ class ProductListBody extends StatelessWidget {
           children: [
             Container(
               padding: EdgeInsets.only(left: 10),
-              child: product.photo != null
-                  ? Image.network(product.photo!)
+              child: product.image != null
+                  ? Image.network(product.image!)
                   : Image.asset(
                       'assets/img/productSquare.png',
                       height: 50,
@@ -126,5 +135,14 @@ class ProductListBody extends StatelessWidget {
     });
 
     return products;
+  }
+
+  Future<void> listProducts() async {
+    await productController.getList();
+    if (productController.status.isSuccess) {
+      return;
+    }
+    print('DEU ERRO');
+    // showDialog(context: context, builder: builder)
   }
 }

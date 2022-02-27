@@ -16,22 +16,19 @@ class ProductController extends GetxController with StateMixin {
   //Add Product
   var currentAddProduct = Product().obs;
 
-  setCurrentAddProduct({String? name, double? value, String? category, String? photo, bool? active}) {
+  setCurrentAddProduct({String? name, double? value, int? categoryId, String? image, bool? active}) {
     currentAddProduct.value.name = name;
     currentAddProduct.value.value = value;
-    currentAddProduct.value.category = category;
-    currentAddProduct.value.photo = photo;
+    currentAddProduct.value.categoryId = categoryId;
+    currentAddProduct.value.image = image;
     currentAddProduct.value.active = currentAddProduct.value.active == null ? null : currentAddProduct.value.active = active;
   }
 
-  //ApiProvider
   Future<void> getList() async {
     change([], status: RxStatus.loading());
     try {
-      Product request = Product();
-      Map<String, dynamic> json = await ApiProvider.post(
-        path: 'list_product',
-        data: request.toJson(),
+      Map<String, dynamic> json = await ApiProvider.get(
+        path: 'products',
       );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
@@ -39,6 +36,9 @@ class ProductController extends GetxController with StateMixin {
           message: response.message,
         );
       }
+      currentListProducts.value = new ProductEntries(
+        products: response.result.map((e) => Product.fromJson(e)).toList()
+      );
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);

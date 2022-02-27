@@ -9,11 +9,12 @@ class ApiProvider {
   static Future get({required String path}) async {
     try {
       Response response = await DioProvider().get(path);
-      return jsonDecode(response.data);
+      return response.data;
     } on DioError catch (error) {
       print(error.response);
+      var errorMessage = error.response?.data['Message'] != null ? error.response?.data['Message'] : error.error;
       return throw RequestException(
-        message: 'Request error',
+        message: errorMessage,
         statusCode: '',
       );
     } catch (error) {

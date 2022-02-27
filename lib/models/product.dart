@@ -1,7 +1,9 @@
 class ProductEntries {
   List<Product>? products;
 
-  ProductEntries();
+  ProductEntries({
+    this.products,
+  });
 }
 
 class Product {
@@ -9,18 +11,19 @@ class Product {
   int? companyId;
   String? name;
   double? value;
-  String? category;
-  String? photo;
+  int? categoryId;
+  String? image;
   bool? active;
   String? status;
+  List<dynamic>? fidelities;
 
   Product({
     this.id,
     this.companyId,
     this.name,
     this.value,
-    this.category,
-    this.photo,
+    this.categoryId,
+    this.image,
     this.active, 
     this.status, 
   });
@@ -30,19 +33,21 @@ class Product {
     companyId = json['EnterpriseId'],
     name = json['Name'],
     value = json['Value'],
-    photo = json['Photo'],
-    category = json['Category'],
+    image = json['Image'],
+    categoryId = json['CategoryId'],
     active = json['Active'],
-    status = json['Status'];
+    status = json['Status'],
+    fidelities = json['FidelityList'];
 
   Map<String, dynamic> toJson() => {
     'Id': id,
     'EnterpriseId': companyId,
     'Name': name,
     'Value': value,
-    'Category': category,
-    'Photo': photo,
+    'CategoryId': categoryId,
+    'Image': image,
     'Active': active,
     'Status': status,
+    'FidelityList': fidelities,
   };
 }

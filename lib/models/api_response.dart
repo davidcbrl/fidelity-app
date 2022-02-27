@@ -1,6 +1,6 @@
 class ApiResponse {
   final bool success;
-  final String message;
+  final String? message;
   final int count;
   final dynamic result;
 
@@ -18,9 +18,9 @@ class ApiResponse {
     result = json['Result'];
 
   Map<String, dynamic> toJson() => {
-    'success': success,
-    'message': message,
-    'count': count,
-    'result': result,
+    'Success': success,
+    'Message': message,
+    'Count': count,
+    'Result': result,
   };
 }
