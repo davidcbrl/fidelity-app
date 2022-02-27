@@ -7,11 +7,9 @@ import 'package:get_storage/get_storage.dart';
 
 class ProductController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
-  var product = Product().obs;
   var loading = false.obs;
-
-  //List Product
-  var currentListProducts = ProductEntries().obs;
+  var product = Product().obs;
+  var productsList = <Product>[].obs;
 
   //Add Product
   var currentAddProduct = Product().obs;
@@ -24,7 +22,7 @@ class ProductController extends GetxController with StateMixin {
     currentAddProduct.value.active = currentAddProduct.value.active == null ? null : currentAddProduct.value.active = active;
   }
 
-  Future<void> getList() async {
+  Future<void> getProducts() async {
     change([], status: RxStatus.loading());
     try {
       Map<String, dynamic> json = await ApiProvider.get(
@@ -36,9 +34,12 @@ class ProductController extends GetxController with StateMixin {
           message: response.message,
         );
       }
-      currentListProducts.value = new ProductEntries(
-        products: response.result.map((e) => Product.fromJson(e)).toList()
-      );
+      if (response.result.length == 0 || response.result == null) {
+        change([], status: RxStatus.empty());
+        return;
+      }
+      List<dynamic> list = response.result;
+      productsList.value = list.map((e) => Product.fromJson(e)).toList();
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);

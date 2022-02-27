@@ -152,7 +152,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                             FidelityImagePicker(
                               image: _selectedImage,
                               label: 'Foto do produto',
-                              emptyImagePath: 'assets/img/productSquare.png',
+                              emptyImagePath: 'assets/img/product.png',
                               onSelect: () async {
                                 _selectedImage = await _picker.pickImage(source: ImageSource.gallery);
                               },

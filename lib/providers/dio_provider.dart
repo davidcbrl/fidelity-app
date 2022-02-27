@@ -1,7 +1,9 @@
 import 'package:dio/dio.dart';
+import 'package:get_storage/get_storage.dart';
 
 class DioProvider {
   Dio _dio = Dio();
+  GetStorage box = GetStorage();
 
   DioProvider() {
     _dio.options = BaseOptions(
@@ -28,6 +30,9 @@ class DioProvider {
     _dio.interceptors.add(
       InterceptorsWrapper(
         onRequest:(options, handler){
+          if (box.hasData('jwt')) {
+            options.headers['Authorization'] = 'Bearer ${box.read('jwt')}';
+          }
           print('REQUEST[${options.method}] => PATH: ${options.baseUrl}${options.path}');
           if (options.method == 'POST') print('REQUEST[${options.method}] => PAYLOAD: ${options.data}');
           return handler.next(options);

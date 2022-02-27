@@ -4,11 +4,15 @@ class FidelitySelectItem extends StatelessWidget {
   final String label;
   final Function() onPressed;
   final String? description;
+  final int? id;
+  final Widget? image;
 
   FidelitySelectItem({
     required this.label,
     required this.onPressed,
     this.description,
+    this.id,
+    this.image,
   });
 
   @override
@@ -27,19 +31,38 @@ class FidelitySelectItem extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  Row(
                     children: [
-                      Text(
-                        label,
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      if (description != null) ...[
-                        Text(
-                          description ?? '',
-                          style: Theme.of(context).textTheme.bodyText2,
+                      if (image != null) ...[
+                        image ?? Container(),
+                        SizedBox(
+                          width: 10,
                         ),
-                      ]
+                      ],
+                      if (id != null) ...[
+                        Text(
+                          id.toString(),
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                      ],
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            label,
+                            style: Theme.of(context).textTheme.bodyText1,
+                          ),
+                          if (description != null) ...[
+                            Text(
+                              description ?? '',
+                              style: Theme.of(context).textTheme.bodyText2,
+                            ),
+                          ]
+                        ],
+                      ),
                     ],
                   ),
                   Icon(
@@ -50,6 +73,9 @@ class FidelitySelectItem extends StatelessWidget {
               ),
             ),
           ),
+        ),
+        SizedBox(
+          height: 5,
         ),
       ],
     );

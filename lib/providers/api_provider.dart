@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:fidelity/models/request_exception.dart';
 import 'package:fidelity/providers/dio_provider.dart';
