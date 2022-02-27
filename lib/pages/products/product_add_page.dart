@@ -1,7 +1,7 @@
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/models/product.dart';
 import 'package:fidelity/models/product_category.dart';
-import 'package:fidelity/pages/products/product_success.dart';
+import 'package:fidelity/pages/products/product_fidelities_page.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_image_picker.dart';
@@ -186,7 +186,8 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                   FidelityButton(
                       label: 'Concluir',
                       onPressed: () {
-                        _saveProduct(context);
+                        _preSaveProduct(context);
+                        Get.to(() => ProductFidelitiesPage(), transition: Transition.cupertino);
                       }),
                   FidelityTextButton(
                       label: 'Voltar',
@@ -241,10 +242,9 @@ class _ProductAddBodyState extends State<ProductAddBody> {
     return categories;
   }
 
-  void _saveProduct(BuildContext context) async {
+  void _preSaveProduct(BuildContext context) async {
     final FormState? form = _formProductAddKey.currentState;
     if (form!.validate()) {
-      productController.loading.value = true;
       productController.product.value = new Product(
         companyId: 2,
         name: _nameController.text,
@@ -252,38 +252,6 @@ class _ProductAddBodyState extends State<ProductAddBody> {
         categoryId: int.parse(_categoryController.text),
         status: _activeController ? '1' : '0',
       );
-      await productController.saveProduct();
-      if (productController.status.isSuccess) {
-        productController.loading.value = false;
-        Get.to(() => ProductSuccessPage(), transition: Transition.rightToLeft);
-        return;
-      }
-      productController.loading.value = false;
-      showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-          title: Text(
-            'Salvar produto',
-            style: Theme.of(context).textTheme.headline1,
-          ),
-          content: Text(
-            productController.status.errorMessage ?? 'Erro ao salvar produto',
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-          actions: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: FidelityButton(
-                  label: 'OK',
-                  width: double.maxFinite,
-                  onPressed: () {
-                    Get.back();
-                  }),
-            ),
-          ],
-        ),
-      );
-      return;
     }
   }
 }

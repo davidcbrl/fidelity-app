@@ -8,7 +8,6 @@ import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
 class ProductFidelitiesPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -52,26 +51,27 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
                 height: 20,
               ),
               FidelityButton(
-                label: 'Nova fidelidade',
-                onPressed: () {
-                  print('CLICOU');
-                }
-              ),
+                  label: 'Nova fidelidade',
+                  onPressed: () {
+                    print('CLICOU');
+                  }),
               SizedBox(
                 height: 20,
               ),
               Column(
-                children: List.generate(_fidelities.length, (index) => FidelityLinkItem(
-                  id: index + 1,
-                  label: 'Clube de pontos',
-                  description: 'Quantidade - Cupom de desconto',
-                  selected: _fidelities[index],
-                  onPressed: () {
-                    setState(() {
-                      _fidelities[index] = !_fidelities[index];
-                    });
-                  },
-                )),
+                children: List.generate(
+                    _fidelities.length,
+                    (index) => FidelityLinkItem(
+                          id: index + 1,
+                          label: 'Clube de pontos',
+                          description: 'Quantidade - Cupom de desconto',
+                          selected: _fidelities[index],
+                          onPressed: () {
+                            setState(() {
+                              _fidelities[index] = !_fidelities[index];
+                            });
+                          },
+                        )),
               ),
               SizedBox(
                 height: 20,
@@ -80,21 +80,59 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
           ),
         ),
         FidelityButton(
-          label: 'Concluir',
-          onPressed: () {
-            Get.off(() => ProductSuccessPage(), transition: Transition.rightToLeft);
-          }
-        ),
+            label: 'Concluir',
+            onPressed: () {
+              _saveProduct(context);
+              Get.off(() => ProductSuccessPage(), transition: Transition.rightToLeft);
+            }),
         FidelityTextButton(
-          label: 'Voltar',
-          onPressed: () {
-            Get.back();
-          }
-        ),
+            label: 'Voltar',
+            onPressed: () {
+              Get.back();
+            }),
         SizedBox(
           height: 10,
         ),
       ],
     );
+  }
+
+  void _saveProduct(BuildContext context) async {
+    ProductController productController = Get.find<ProductController>();
+
+    productController.loading.value = true;
+    productController.currentAddProduct.value.fidelities = _fidelities.map((e) => e).toList();
+    await productController.saveProduct();
+    if (productController.status.isSuccess) {
+      productController.loading.value = false;
+      Get.to(() => ProductSuccessPage(), transition: Transition.rightToLeft);
+      return;
+    }
+    productController.loading.value = false;
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(
+          'Salvar produto',
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        content: Text(
+          productController.status.errorMessage ?? 'Erro ao salvar produto',
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FidelityButton(
+                label: 'OK',
+                width: double.maxFinite,
+                onPressed: () {
+                  Get.back();
+                }),
+          ),
+        ],
+      ),
+    );
+    return;
   }
 }
