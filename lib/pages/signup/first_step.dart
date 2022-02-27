@@ -1,6 +1,7 @@
+import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/pages/signup/second_step.dart';
-import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
+import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/cupertino.dart';
@@ -20,6 +21,8 @@ class _FirstStepBodyState extends State<FirstStepBody> {
 
   @override
   Widget build(BuildContext context) {
+    EnterpriseController controller = new EnterpriseController();
+    Get.put(controller);
     return Container(
       child: SingleChildScrollView(
         child: Container(
@@ -116,6 +119,8 @@ class _FirstStepBodyState extends State<FirstStepBody> {
   }
 
   Widget _navigationButtons() {
+    EnterpriseController controller = Get.find();
+
     return Expanded(
       child: Align(
         alignment: Alignment.bottomCenter,
@@ -127,11 +132,10 @@ class _FirstStepBodyState extends State<FirstStepBody> {
                 label: 'Próximo',
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    Navigator.push(
-                      context, MaterialPageRoute(
-                        builder: (context) => SecondStepBody()
-                      )
-                    );
+                    controller.signupEnterprise.value.name = _companyController.text;
+                    controller.signupEnterprise.value.cnpj = _cpnjController.text;
+                    controller.signupEnterprise.value.tel = _contactController.text;
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => SecondStepBody()));
                   }
                 },
               ),

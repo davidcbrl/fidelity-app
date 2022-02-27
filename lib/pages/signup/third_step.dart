@@ -1,12 +1,15 @@
 import 'package:fidelity/pages/signup/sign_up_success.dart';
-import 'package:fidelity/widgets/fidelity_plan_card.dart';
-import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:fidelity/widgets/fidelity_plan_card.dart';
+import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../controllers/enterprise_controller.dart';
+import '../auth/login.dart';
 
 class ThirdStepBody extends StatefulWidget {
   @override
@@ -15,7 +18,7 @@ class ThirdStepBody extends StatefulWidget {
 
 class _ThirdStepBodyState extends State<ThirdStepBody> {
   int _index = 0;
-  List<bool> _selected = [false, false];
+  List<bool> _selected = [true, false];
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +71,8 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
               FidelityPlanCard(
                 title: 'Simples',
                 value: '100',
-                description: 'Funcionalidades padrões de gestão de fidelidades, relatórios gerenciais e cadastros limitados.',
+                description:
+                    'Funcionalidades padrões de gestão de fidelidades, relatórios gerenciais e cadastros limitados.',
                 onPressed: () {
                   setState(() {
                     for (int i = 0; i < _selected.length; i++) {
@@ -99,6 +103,8 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
   }
 
   Widget _navigationButtons() {
+    EnterpriseController controller = Get.find();
+
     return Expanded(
       child: Align(
         alignment: Alignment.bottomCenter,
@@ -109,6 +115,8 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
               FidelityButton(
                 label: 'Concluir',
                 onPressed: () {
+                  controller.signupEnterprise.value.membershipId = _index + 2;
+                  saveEnterprise(context);
                   Get.to(SignUpSuccessPage(), transition: Transition.rightToLeft);
                 },
               ),
@@ -121,5 +129,44 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
         ),
       ),
     );
+  }
+
+  void saveEnterprise(BuildContext context) async {
+    EnterpriseController controller = Get.find();
+
+    controller.loading.value = true;
+    controller.userSignup.value.enterprise = controller.signupEnterprise.value;
+    await controller.signup();
+    if (controller.status.isSuccess) {
+      controller.loading.value = false;
+      Get.to(() => LoginPage(), transition: Transition.leftToRight);
+      return;
+    }
+    controller.loading.value = false;
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(
+          'Cadastrar-se como cliente',
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        content: Text(
+          controller.status.errorMessage ?? 'Erro ao cadastrar',
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FidelityButton(
+                label: 'OK',
+                width: double.maxFinite,
+                onPressed: () {
+                  Get.back();
+                }),
+          ),
+        ],
+      ),
+    );
+    return;
   }
 }

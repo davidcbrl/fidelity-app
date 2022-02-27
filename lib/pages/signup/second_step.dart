@@ -1,7 +1,8 @@
+import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/pages/signup/third_step.dart';
-import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/cupertino.dart';
@@ -115,6 +116,8 @@ class _SecondStepBodyState extends State<SecondStepBody> {
   }
 
   Widget _navigationButtons() {
+    EnterpriseController controller = Get.find();
+
     return Expanded(
       child: Align(
         alignment: Alignment.bottomCenter,
@@ -126,8 +129,11 @@ class _SecondStepBodyState extends State<SecondStepBody> {
                 label: 'Próximo',
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
+                    controller.userSignup.value.email = _emailController.text;
+                    controller.userSignup.value.password = _passwordController.text;
                     Navigator.push(
-                      context, MaterialPageRoute(
+                      context,
+                      MaterialPageRoute(
                         builder: (context) => ThirdStepBody(),
                       ),
                     );
