@@ -52,9 +52,14 @@ class FidelityLinkItem extends StatelessWidget {
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                           if (description != null)
-                            Text(
-                              description ?? '',
-                              style: Theme.of(context).textTheme.bodyText2,
+                            Container(
+                              width: 300,
+                              child: Text(
+                                description ?? '',
+                                overflow: TextOverflow.ellipsis,
+                                maxLines: 1,
+                                style: Theme.of(context).textTheme.bodyText2,
+                              ),
                             ),
                         ],
                       ),

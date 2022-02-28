@@ -67,7 +67,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                               controller: _nameController,
                               label: 'Nome',
                               placeholder: 'Nome do produto',
-                              icon: Icon(Icons.shopping_bag_outlined),
+                              icon: Icon(Icons.label_important_outline),
                               validator: (value) {
                                 if (value == null || value.isEmpty) return 'Campo vazio';
                               },
@@ -184,16 +184,17 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                     ),
                   ),
                   FidelityButton(
-                      label: 'Concluir',
-                      onPressed: () {
-                        _preSaveProduct(context);
-                        Get.to(() => ProductFidelitiesPage(), transition: Transition.cupertino);
-                      }),
+                    label: 'Próximo',
+                    onPressed: () {
+                      _preSaveProduct(context);
+                    },
+                  ),
                   FidelityTextButton(
-                      label: 'Voltar',
-                      onPressed: () {
-                        Get.back();
-                      }),
+                    label: 'Voltar',
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
                   SizedBox(
                     height: 10,
                   ),
@@ -249,9 +250,10 @@ class _ProductAddBodyState extends State<ProductAddBody> {
         companyId: 2,
         name: _nameController.text,
         value: double.parse(_valueController.text),
-        categoryId: int.parse(_categoryController.text),
+        categoryId: 1,
         status: _activeController ? '1' : '0',
       );
+      Get.to(() => ProductFidelitiesPage(), transition: Transition.rightToLeft);
     }
   }
 }

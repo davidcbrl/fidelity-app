@@ -46,34 +46,26 @@ class _ProductListBodyState extends State<ProductListBody> {
         SizedBox(
           height: 20,
         ),
-        _searchField(),
+        FidelityTextField(
+          controller: _textEditingController,
+          label: 'Filtrar',
+          placeholder: 'Nome do produto',
+          icon: Icon(Icons.search),
+        ),
         SizedBox(
           height: 20,
         ),
-        _newProductBtn(),
+        FidelityButton(
+          onPressed: () {
+            Get.to(() => ProductAddPage(), transition: Transition.rightToLeft);
+          },
+          label: 'Novo produto',
+        ),
         SizedBox(
           height: 20,
         ),
         _productsList(),
       ],
-    );
-  }
-
-  Widget _newProductBtn() {
-    return FidelityButton(
-      onPressed: () {
-        Get.to(() => ProductAddPage(), transition: Transition.rightToLeft);
-      },
-      label: 'Novo produto',
-    );
-  }
-
-  Widget _searchField() {
-    return FidelityTextField(
-      controller: _textEditingController,
-      label: 'Filtrar',
-      placeholder: 'Nome do produto',
-      icon: Icon(Icons.search),
     );
   }
 
@@ -124,11 +116,11 @@ class _ProductListBodyState extends State<ProductListBody> {
       context: context,
       builder: (_) => AlertDialog(
         title: Text(
-          'Lista de produtos',
+          'Produtos',
           style: Theme.of(context).textTheme.headline1,
         ),
         content: Text(
-          productController.status.errorMessage ?? 'Erro ao autenticar',
+          productController.status.errorMessage ?? 'Erro ao listar produtos',
           style: Theme.of(context).textTheme.bodyText1,
         ),
         actions: [
