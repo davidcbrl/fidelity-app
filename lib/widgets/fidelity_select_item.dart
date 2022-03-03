@@ -6,6 +6,7 @@ class FidelitySelectItem extends StatelessWidget {
   final String? description;
   final int? id;
   final Widget? image;
+  final IconData? icon;
 
   FidelitySelectItem({
     required this.label,
@@ -13,6 +14,7 @@ class FidelitySelectItem extends StatelessWidget {
     this.description,
     this.id,
     this.image,
+    this.icon,
   });
 
   @override
@@ -51,16 +53,30 @@ class FidelitySelectItem extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            label,
-                            style: Theme.of(context).textTheme.bodyText1,
+                          Row(
+                            children: [
+                              if (icon != null) ...[
+                                Icon(
+                                  icon,
+                                  size: 20,
+                                  color: Theme.of(context).colorScheme.secondaryVariant,
+                                ),
+                                SizedBox(
+                                  width: 5,
+                                ),
+                              ],
+                              Text(
+                                label,
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                            ],
                           ),
                           if (description != null) ...[
                             Text(
                               description ?? '',
                               style: Theme.of(context).textTheme.bodyText2,
                             ),
-                          ]
+                          ],
                         ],
                       ),
                     ],

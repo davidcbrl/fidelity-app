@@ -253,7 +253,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
         categoryId: 1,
         status: _activeController ? '1' : '0',
       );
-      Get.to(() => ProductFidelitiesPage(), transition: Transition.rightToLeft);
+      Get.to(() => ProductFidelitiesPage(), transition: Transition.cupertino);
     }
   }
 }

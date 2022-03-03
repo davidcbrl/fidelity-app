@@ -1,4 +1,4 @@
-import 'package:fidelity/controllers/customer_signup_controller.dart';
+import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/pages/auth/login.dart';
@@ -75,8 +75,7 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: '/home',
           page: () => HomePage(),
-          binding: BindingsBuilder(() =>
-              Get.put<PageController>(new PageController(initialPage: Get.find<RouteController>().pageIndex.value))),
+          binding: BindingsBuilder(() => Get.put<PageController>(new PageController(initialPage: Get.find<RouteController>().pageIndex.value))),
         ),
         GetPage(
           name: "/product",
@@ -89,8 +88,7 @@ class MyApp extends StatelessWidget {
         GetPage(
           name: "/customer/signup",
           page: () => CustomerSignupPage(),
-          transition: Transition.cupertino,
-          binding: BindingsBuilder(() => Get.put(new CustomerSignupController())),
+          binding: BindingsBuilder(() => Get.put(new CustomerController())),
         ),
       ],
     );

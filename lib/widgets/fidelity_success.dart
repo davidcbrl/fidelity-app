@@ -6,12 +6,14 @@ class FidelitySuccess extends StatefulWidget {
   final String description;
   final String buttonText;
   final Function() onPressed;
+  final String? imagePath;
 
   FidelitySuccess({
     required this.title,
     required this.description,
     required this.buttonText,
     required this.onPressed,
+    this.imagePath,
   });
 
   @override
@@ -26,7 +28,7 @@ class _FidelitySuccessState extends State<FidelitySuccess> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
-          'assets/img/ok.png',
+          widget.imagePath ?? 'assets/img/ok.png',
         ),
         SizedBox(
           height: 25,

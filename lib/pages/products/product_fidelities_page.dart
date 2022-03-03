@@ -32,7 +32,7 @@ class ProductFidelitiesBody extends StatefulWidget {
 class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
   ProductController productController = Get.find();
   FidelityController fidelityController = Get.put(FidelityController());
-  List<int> selectedFidelities = [];
+  List<Fidelity> _selectedFidelities = [];
 
   @override
   void initState() {
@@ -114,13 +114,24 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
                       id: fidelity.id ?? 1,
                       label: fidelity.name ?? '',
                       description: fidelity.description ?? '',
-                      onPressed: () {},
+                      selected: _selectedFidelities.contains(fidelity),
+                      onPressed: () {
+                        if (_selectedFidelities.contains(fidelity)) {
+                          setState(() {
+                            _selectedFidelities.remove(fidelity);
+                          });
+                          return;
+                        }
+                        setState(() {
+                          _selectedFidelities.add(fidelity);
+                        });
+                      },
                     ),
                   ),
                 ],
-                if (fidelityController.status.isEmpty)... [
+                if (fidelityController.status.isEmpty || fidelityController.status.isError)... [
                   FidelityEmpty(
-                    text: 'Nenhum produto encontrado',
+                    text: 'Nenhuma fidelidade encontrada',
                   ),
                 ],
               ]
@@ -133,15 +144,16 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
   Future<void> listFidelities() async {
     fidelityController.loading.value = true;
     await fidelityController.getFidelities();
-    fidelityController.loading.value = false;
     if (fidelityController.status.isSuccess) {
+      fidelityController.loading.value = false;
       return;
     }
+    fidelityController.loading.value = false;
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: Text(
-          'Fidelidades',
+          'Produtos',
           style: Theme.of(context).textTheme.headline1,
         ),
         content: Text(
@@ -166,18 +178,19 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
 
   Future<void> saveProduct(BuildContext context) async {
     productController.loading.value = true;
-    productController.currentAddProduct.value.fidelities = selectedFidelities;
+    productController.product.value.fidelities = _selectedFidelities.map((e) => e.id).toList();
     await productController.saveProduct();
-    productController.loading.value = false;
     if (productController.status.isSuccess) {
-      Get.to(() => ProductSuccessPage(), transition: Transition.rightToLeft);
+      productController.loading.value = false;
+      Get.to(() => ProductSuccessPage(), transition: Transition.cupertino);
       return;
     }
+    productController.loading.value = false;
     showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: Text(
-          'Salvar produto',
+          'Produtos',
           style: Theme.of(context).textTheme.headline1,
         ),
         content: Text(

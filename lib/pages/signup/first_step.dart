@@ -1,12 +1,26 @@
 import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/pages/signup/second_step.dart';
+import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
+import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+class FirstStepPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FidelityPage(
+      appBar: FidelityAppbarWidget(
+        title: 'Cadastro',
+      ),
+      body: FirstStepBody(),
+    );
+  }
+}
 
 class FirstStepBody extends StatefulWidget {
   @override
@@ -23,45 +37,40 @@ class _FirstStepBodyState extends State<FirstStepBody> {
   Widget build(BuildContext context) {
     EnterpriseController controller = new EnterpriseController();
     Get.put(controller);
-    return Container(
-      child: SingleChildScrollView(
-        child: Container(
-          height: Get.height - 40,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                'Cadastro',
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              FidelityStepper(currentStep: 0),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Vamos começar com alguns dados essenciais sobre sua empresa, você poderá completar os dados posteriormente',
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Form(
-                key: _formKey,
-                child: _fields(),
-              ),
-              _navigationButtons(),
-            ],
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                FidelityStepper(currentStep: 0),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Vamos começar com alguns dados essenciais sobre sua empresa, você poderá completar os dados posteriormente',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Form(
+                  key: _formKey,
+                  child: _fields(),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
         ),
-      ),
+        _navigationButtons(),
+      ],
     );
   }
 
@@ -119,36 +128,28 @@ class _FirstStepBodyState extends State<FirstStepBody> {
   }
 
   Widget _navigationButtons() {
-    EnterpriseController controller = Get.find();
+    EnterpriseController enterpriseController = Get.find();
 
-    return Expanded(
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          height: 90,
-          child: Column(
-            children: [
-              FidelityButton(
-                label: 'Próximo',
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    controller.signupEnterprise.value.name = _companyController.text;
-                    controller.signupEnterprise.value.cnpj = _cpnjController.text;
-                    controller.signupEnterprise.value.tel = _contactController.text;
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => SecondStepBody()));
-                  }
-                },
-              ),
-              FidelityTextButton(
-                label: 'Voltar',
-                onPressed: () {
-                  Get.back();
-                },
-              ),
-            ],
-          ),
+    return Column(
+      children: [
+        FidelityButton(
+          label: 'Próximo',
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              enterpriseController.signupEnterprise.value.name = _companyController.text;
+              enterpriseController.signupEnterprise.value.cnpj = _cpnjController.text;
+              enterpriseController.signupEnterprise.value.tel = _contactController.text;
+              Get.to(() => SecondStepPage(), transition: Transition.cupertino);
+            }
+          },
         ),
-      ),
+        FidelityTextButton(
+          label: 'Voltar',
+          onPressed: () {
+            Get.back();
+          },
+        ),
+      ],
     );
   }
 }

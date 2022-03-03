@@ -1,5 +1,6 @@
 import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/pages/signup/third_step.dart';
+import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_stepper.dart';
@@ -8,6 +9,18 @@ import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+class SecondStepPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FidelityPage(
+      appBar: FidelityAppbarWidget(
+        title: 'Cadastro',
+      ),
+      body: SecondStepBody(),
+    );
+  }
+}
 
 class SecondStepBody extends StatefulWidget {
   @override
@@ -22,43 +35,37 @@ class _SecondStepBodyState extends State<SecondStepBody> {
 
   @override
   Widget build(BuildContext context) {
-    return FidelityPage(
-      body: SingleChildScrollView(
-        child: Container(
-          height: Get.height - 40,
-          child: Column(
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              Text(
-                'Cadastro',
-                style: Theme.of(context).textTheme.headline1,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              FidelityStepper(currentStep: 1),
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Agora, informe seu e-mail e uma senha, serão os dados utilizados para acessar o app',
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Form(
-                key: _formKey,
-                child: _fields(),
-              ),
-              _navigationButtons(),
-            ],
+    return Column(
+      children: [
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                FidelityStepper(currentStep: 1),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Agora, informe seu e-mail e uma senha, serão os dados utilizados para acessar o app',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Form(
+                  key: _formKey,
+                  child: _fields(),
+                ),
+              ],
+            ),
           ),
         ),
-      ),
+        _navigationButtons(),
+      ],
     );
   }
 
@@ -118,38 +125,25 @@ class _SecondStepBodyState extends State<SecondStepBody> {
   Widget _navigationButtons() {
     EnterpriseController controller = Get.find();
 
-    return Expanded(
-      child: Align(
-        alignment: Alignment.bottomCenter,
-        child: Container(
-          height: 90,
-          child: Column(
-            children: [
-              FidelityButton(
-                label: 'Próximo',
-                onPressed: () {
-                  if (_formKey.currentState!.validate()) {
-                    controller.userSignup.value.email = _emailController.text;
-                    controller.userSignup.value.password = _passwordController.text;
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => ThirdStepBody(),
-                      ),
-                    );
-                  }
-                },
-              ),
-              FidelityTextButton(
-                label: 'Voltar',
-                onPressed: () {
-                  Get.back();
-                },
-              ),
-            ],
-          ),
+    return Column(
+      children: [
+        FidelityButton(
+          label: 'Próximo',
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              controller.userSignup.value.email = _emailController.text;
+              controller.userSignup.value.password = _passwordController.text;
+              Get.to(() => ThirdStepPage(), transition: Transition.cupertino);
+            }
+          },
         ),
-      ),
+        FidelityTextButton(
+          label: 'Voltar',
+          onPressed: () {
+            Get.back();
+          },
+        ),
+      ],
     );
   }
 }

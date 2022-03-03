@@ -13,7 +13,7 @@ class ProductSuccessPage extends StatelessWidget {
         description: 'Este produto já está disponível para seus clientes com as fidelidades que você já vinculou.',
         buttonText: 'Voltar para a lista',
         onPressed: () {
-          Get.off(() => HomePage(pageIndex: 3), transition: Transition.leftToRight);
+          Get.off(() => HomePage(pageIndex: 3), transition: Transition.cupertino);
         }
       ),
     );

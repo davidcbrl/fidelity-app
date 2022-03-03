@@ -57,7 +57,7 @@ class _ProductListBodyState extends State<ProductListBody> {
         ),
         FidelityButton(
           onPressed: () {
-            Get.to(() => ProductAddPage(), transition: Transition.rightToLeft);
+            Get.to(() => ProductAddPage(), transition: Transition.cupertino);
           },
           label: 'Novo produto',
         ),
@@ -93,7 +93,7 @@ class _ProductListBodyState extends State<ProductListBody> {
                   ),
                 ),
               ],
-              if (productController.status.isEmpty)... [
+              if (productController.status.isEmpty || productController.status.isError)... [
                 FidelityEmpty(
                   text: 'Nenhum produto encontrado',
                 ),
@@ -108,10 +108,11 @@ class _ProductListBodyState extends State<ProductListBody> {
   Future<void> listProducts() async {
     productController.loading.value = true;
     await productController.getProducts();
-    productController.loading.value = false;
     if (productController.status.isSuccess) {
+      productController.loading.value = false;
       return;
     }
+    productController.loading.value = false;
     showDialog(
       context: context,
       builder: (_) => AlertDialog(

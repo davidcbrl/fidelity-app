@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FidelityLinkItem extends StatelessWidget {
   final int id;
@@ -53,7 +54,7 @@ class FidelityLinkItem extends StatelessWidget {
                           ),
                           if (description != null)
                             Container(
-                              width: 300,
+                              width: Get.width - 150,
                               child: Text(
                                 description ?? '',
                                 overflow: TextOverflow.ellipsis,

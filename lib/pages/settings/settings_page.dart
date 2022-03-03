@@ -31,6 +31,7 @@ class SettingsBody extends StatelessWidget {
             height: 20,
           ),
           FidelitySelectItem(
+            icon: Icons.list,
             label: 'Perfil',
             description: 'Edite os dados do seu cadastro',
             onPressed: () {},
@@ -39,6 +40,7 @@ class SettingsBody extends StatelessWidget {
             height: 10,
           ),
           FidelitySelectItem(
+            icon: Icons.supervised_user_circle_outlined,
             label: 'Funcionários',
             description: 'Gerencie perfis de funcionários',
             onPressed: () {},
@@ -47,6 +49,7 @@ class SettingsBody extends StatelessWidget {
             height: 10,
           ),
           FidelitySelectItem(
+            icon: Icons.color_lens_outlined,
             label: 'Tema',
             description: 'Customize a aparência do app',
             onPressed: () {},
@@ -55,6 +58,7 @@ class SettingsBody extends StatelessWidget {
             height: 10,
           ),
           FidelitySelectItem(
+            icon: Icons.info_outline,
             label: 'Sobre',
             description: 'Visualize informações sobre o app',
             onPressed: () {},
@@ -63,6 +67,7 @@ class SettingsBody extends StatelessWidget {
             height: 10,
           ),
           FidelitySelectItem(
+            icon: Icons.exit_to_app_outlined,
             label: 'Sair',
             description: 'Encerrar sua sessão',
             onPressed: () {
@@ -81,6 +86,6 @@ class SettingsBody extends StatelessWidget {
     if (box.hasData('companyId')) {
       box.remove('companyId');
     }
-    Get.offAll(() => LoginPage(), transition: Transition.rightToLeft);
+    Get.offAll(() => LoginPage(), transition: Transition.cupertino);
   }
 }
