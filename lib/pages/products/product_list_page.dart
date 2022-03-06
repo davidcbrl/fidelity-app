@@ -108,7 +108,7 @@ class _ProductListBodyState extends State<ProductListBody> {
   Future<void> listProducts() async {
     productController.loading.value = true;
     await productController.getProducts();
-    if (productController.status.isSuccess) {
+    if (productController.status.isSuccess || productController.status.isEmpty) {
       productController.loading.value = false;
       return;
     }

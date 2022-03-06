@@ -144,7 +144,7 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
   Future<void> listFidelities() async {
     fidelityController.loading.value = true;
     await fidelityController.getFidelities();
-    if (fidelityController.status.isSuccess) {
+    if (fidelityController.status.isSuccess || fidelityController.status.isEmpty) {
       fidelityController.loading.value = false;
       return;
     }

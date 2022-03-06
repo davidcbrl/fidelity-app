@@ -143,7 +143,8 @@ class LoginBody extends StatelessWidget {
       await authController.auth();
       if (authController.status.isSuccess) {
         authController.loading.value = false;
-        Get.to(() => _redirectPages[authController.user.type], transition: Transition.cupertino);
+        var page = _redirectPages[authController.user.type];
+        Get.to(() => page ?? HomePage(), transition: Transition.cupertino);
         return;
       }
       authController.loading.value = false;
