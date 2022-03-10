@@ -4,7 +4,7 @@ import 'package:get_storage/get_storage.dart';
 class DioProvider {
   Dio _dio = Dio();
   GetStorage box = GetStorage();
-  bool isDanilo = true;
+  bool isDanilo = false;
 
   DioProvider() {
     _dio.options = BaseOptions(

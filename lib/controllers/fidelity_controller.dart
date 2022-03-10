@@ -18,6 +18,7 @@ class FidelityController extends GetxController with StateMixin {
   }
 
   Future<void> getFidelities() async {
+    loading.value = true;
     change([], status: RxStatus.loading());
     try {
       Map<String, dynamic> json = await ApiProvider.get(
@@ -25,17 +26,21 @@ class FidelityController extends GetxController with StateMixin {
       );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
+        loading.value = false;
         throw RequestException(
           message: response.message,
         );
       }
       if (response.result.length == 0 || response.result == null) {
         change([], status: RxStatus.empty());
+        loading.value = false;
+
         return;
       }
       List<dynamic> list = response.result;
       fidelitiesList.value = list.map((e) => Fidelity.fromJson(e)).toList();
       change([], status: RxStatus.success());
+      loading.value = false;
     } on RequestException catch (error) {
       print(error);
       change([], status: RxStatus.error(error.message));

@@ -76,13 +76,10 @@ class FidelityListBody extends StatelessWidget {
                   children: [
                     if (fidelityController.status.isSuccess) ...[
                       ...fidelityController.fidelitiesList.map(
-                        (Fidelity product) => FidelitySelectItem(
-                          id: product.id,
-                          label: product.name ?? '',
-                          image: Image.asset(
-                            'assets/img/product.png',
-                            height: 50,
-                          ),
+                        (Fidelity fidelity) => FidelitySelectItem(
+                          id: fidelity.id,
+                          label: fidelity.name ?? '',
+                          description: fidelity.description ?? '',
                           onPressed: () {},
                         ),
                       ),
