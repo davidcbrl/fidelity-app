@@ -11,6 +11,12 @@ class FidelityController extends GetxController with StateMixin {
   var fidelities = Fidelity().obs;
   var fidelitiesList = <Fidelity>[].obs;
 
+  @override
+  void onInit() {
+    getFidelities();
+    super.onInit();
+  }
+
   Future<void> getFidelities() async {
     change([], status: RxStatus.loading());
     try {
