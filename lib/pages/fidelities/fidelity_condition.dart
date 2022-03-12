@@ -1,5 +1,4 @@
 import 'package:fidelity/widgets/fidelity_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,7 +16,6 @@ class FidelityConditionPage extends StatelessWidget {
     return FidelityPage(
       appBar: FidelityAppbarWidget(
         title: 'Qual será a condicão da fidelidade?',
-        hasBackButton: false,
       ),
       body: FidelityConditionBody(),
     );
@@ -46,7 +44,7 @@ class FidelityConditionBody extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
-                      'informe qual será a condicão para que o cliente complete a fidelidade e conquiste a promocão',
+                      'Informe qual será a condição para que o cliente complete a fidelidade e conquiste a promoção',
                       style: Theme.of(context).textTheme.bodyText1,
                       textAlign: TextAlign.center,
                     ),
@@ -98,7 +96,7 @@ class FidelityConditionBody extends StatelessWidget {
     final FormState? form = _formFidelityConditionKey.currentState;
     if (form!.validate()) {
       //fidelityController.fidelity.value.
-      //Get.toNamed("");
+      Get.toNamed('/fidelity/promotion_type');
     }
   }
 }

@@ -36,7 +36,7 @@ class FidelityAddBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => !fidelityController.loading.value
+      () => fidelityController.loading.value
           ? FidelityLoading(
               loading: fidelityController.loading.value,
               text: 'Salvando fidelidade...',
@@ -76,10 +76,15 @@ class FidelityAddBody extends StatelessWidget {
                             Row(
                               children: [
                                 Expanded(
-                                  child: Text("A fidelidade tera periodo de vigencia?",
-                                      style: Theme.of(context).textTheme.bodyText2),
+                                  child: Text(
+                                    'A fidelidade terá periodo de vigência?',
+                                    style: Theme.of(context).textTheme.bodyText1,
+                                  ),
                                 ),
-                                Icon(Icons.question_mark)
+                                Icon(
+                                  Icons.question_mark,
+                                  color: Theme.of(context).colorScheme.secondaryVariant,
+                                ),
                               ],
                             ),
                             SizedBox(

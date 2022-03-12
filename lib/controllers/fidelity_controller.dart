@@ -19,8 +19,8 @@ class FidelityController extends GetxController with StateMixin {
   }
 
   Future<void> getFidelities() async {
-    loading.value = true;
     change([], status: RxStatus.loading());
+    loading.value = true;
     try {
       Map<String, dynamic> json = await ApiProvider.get(
         path: 'loyalts',
@@ -35,7 +35,6 @@ class FidelityController extends GetxController with StateMixin {
       if (response.result.length == 0 || response.result == null) {
         change([], status: RxStatus.empty());
         loading.value = false;
-
         return;
       }
       List<dynamic> list = response.result;
@@ -45,9 +44,11 @@ class FidelityController extends GetxController with StateMixin {
     } on RequestException catch (error) {
       print(error);
       change([], status: RxStatus.error(error.message));
+      loading.value = false;
     } catch (error) {
       print(error);
       change([], status: RxStatus.error('Erro ao autenticar'));
+      loading.value = false;
     }
   }
 

@@ -51,7 +51,7 @@ class FidelityListBody extends StatelessWidget {
           onPressed: () {
             Get.toNamed("/fidelity/add");
           },
-          label: 'Nova Fidelidade',
+          label: 'Nova fidelidade',
         ),
         SizedBox(
           height: 20,
@@ -84,7 +84,7 @@ class FidelityListBody extends StatelessWidget {
                     ],
                     if (fidelityController.status.isEmpty || fidelityController.status.isError) ...[
                       FidelityEmpty(
-                        text: 'Nenhum produto encontrado',
+                        text: 'Nenhuma fidelidade encontrada',
                       ),
                     ],
                   ],

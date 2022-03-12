@@ -1,5 +1,4 @@
 import 'package:fidelity/controllers/product_controller.dart';
-import 'package:fidelity/pages/products/product_add_page.dart';
 import 'package:fidelity/widgets/fidelity_empty.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
@@ -25,19 +24,9 @@ class ProductListPage extends StatelessWidget {
   }
 }
 
-class ProductListBody extends StatefulWidget {
-  @override
-  _ProductListBodyState createState() => _ProductListBodyState();
-}
-
-class _ProductListBodyState extends State<ProductListBody> {
+class ProductListBody extends StatelessWidget {
   ProductController productController = Get.put(ProductController());
   TextEditingController _textEditingController = new TextEditingController();
-
-  void initState() {
-    listProducts();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +46,7 @@ class _ProductListBodyState extends State<ProductListBody> {
         ),
         FidelityButton(
           onPressed: () {
-            Get.to(() => ProductAddPage(), transition: Transition.cupertino);
+            Get.toNamed('/product');
           },
           label: 'Novo produto',
         ),
@@ -101,41 +90,6 @@ class _ProductListBodyState extends State<ProductListBody> {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Future<void> listProducts() async {
-    productController.loading.value = true;
-    await productController.getProducts();
-    if (productController.status.isSuccess || productController.status.isEmpty) {
-      productController.loading.value = false;
-      return;
-    }
-    productController.loading.value = false;
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(
-          'Produtos',
-          style: Theme.of(context).textTheme.headline1,
-        ),
-        content: Text(
-          productController.status.errorMessage ?? 'Erro ao listar produtos',
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FidelityButton(
-              label: 'OK',
-              width: double.maxFinite,
-              onPressed: () {
-                Get.back();
-              },
-            ),
-          ),
-        ],
       ),
     );
   }

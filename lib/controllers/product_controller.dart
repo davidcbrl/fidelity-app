@@ -11,6 +11,12 @@ class ProductController extends GetxController with StateMixin {
   var product = Product().obs;
   var productsList = <Product>[].obs;
 
+  @override
+  void onInit() {
+    getProducts();
+    super.onInit();
+  }
+
   //Add Product
   var currentAddProduct = Product().obs;
 
@@ -24,29 +30,35 @@ class ProductController extends GetxController with StateMixin {
 
   Future<void> getProducts() async {
     change([], status: RxStatus.loading());
+    loading.value = true;
     try {
       Map<String, dynamic> json = await ApiProvider.get(
         path: 'products',
       );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
+        loading.value = false;
         throw RequestException(
           message: response.message,
         );
       }
       if (response.result.length == 0 || response.result == null) {
         change([], status: RxStatus.empty());
+        loading.value = false;
         return;
       }
       List<dynamic> list = response.result;
       productsList.value = list.map((e) => Product.fromJson(e)).toList();
       change([], status: RxStatus.success());
+      loading.value = false;
     } on RequestException catch (error) {
       print(error);
       change([], status: RxStatus.error(error.message));
+      loading.value = false;
     } catch (error) {
       print(error);
       change([], status: RxStatus.error('Erro ao autenticar'));
+      loading.value = false;
     }
   }
 

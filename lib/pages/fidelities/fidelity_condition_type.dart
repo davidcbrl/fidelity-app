@@ -1,6 +1,5 @@
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_select_item.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -18,7 +17,6 @@ class FidelityConditionTypePage extends StatelessWidget {
     return FidelityPage(
       appBar: FidelityAppbarWidget(
         title: 'Selecione o tipo de fidelizacão',
-        hasBackButton: false,
       ),
       body: FidelityConditionTypeBody(),
     );
@@ -40,7 +38,7 @@ class FidelityConditionTypeBody extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
-              'É a forma como o progresso do cliente será contabilizado para alcancar a promocão',
+              'É a forma como o progresso do cliente será contabilizado para alcançar a promoção',
               style: Theme.of(context).textTheme.bodyText1,
               textAlign: TextAlign.center,
             ),
@@ -66,7 +64,7 @@ class FidelityConditionTypeBody extends StatelessWidget {
   Widget _fidelitiesList() {
     return Expanded(
       child: Obx(
-        () => !fidelityController.loading.value
+        () => fidelityController.loading.value
             ? FidelityLoading(
                 loading: fidelityController.loading.value,
                 text: 'Carregando fidelidades...',
