@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class FidelitySelectItem extends StatelessWidget {
   final String label;
@@ -72,9 +73,20 @@ class FidelitySelectItem extends StatelessWidget {
                             ],
                           ),
                           if (description != null) ...[
-                            Text(
-                              description ?? '',
-                              style: Theme.of(context).textTheme.bodyText2,
+                            Container(
+                              width: Get.width - Get.width * 0.30,
+                              child: Row(
+                                children: [
+                                  Expanded(
+                                    child: Text(
+                                      description ?? '',
+                                      maxLines: 5,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: Theme.of(context).textTheme.bodyText2,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                           ],
                         ],

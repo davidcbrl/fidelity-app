@@ -1,5 +1,6 @@
 import 'package:fidelity/models/api_response.dart';
 import 'package:fidelity/models/fidelity.dart';
+import 'package:fidelity/models/fidelity_type.dart';
 import 'package:fidelity/models/request_exception.dart';
 import 'package:fidelity/providers/api_provider.dart';
 import 'package:get/get.dart';
@@ -48,5 +49,15 @@ class FidelityController extends GetxController with StateMixin {
       print(error);
       change([], status: RxStatus.error('Erro ao autenticar'));
     }
+  }
+
+  fakeFidelityTypeList() {
+    return List.generate(3, (index) {
+      FidelityType type = new FidelityType();
+      type.name = "nome" + index.toString();
+      type.description = "descricao" + index.toString();
+      type.id = index;
+      return type;
+    });
   }
 }
