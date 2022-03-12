@@ -11,7 +11,6 @@ import '../../widgets/fidelity_empty.dart';
 import '../../widgets/fidelity_loading.dart';
 import '../../widgets/fidelity_select_item.dart';
 import '../../widgets/fidelity_text_field.dart';
-import '../products/product_add_page.dart';
 
 class FidelityListPage extends StatelessWidget {
   const FidelityListPage({Key? key}) : super(key: key);
@@ -51,7 +50,7 @@ class FidelityListBody extends StatelessWidget {
         ),
         FidelityButton(
           onPressed: () {
-            Get.to(() => ProductAddPage(), transition: Transition.cupertino);
+            Get.toNamed("/fidelity/add");
           },
           label: 'Nova Fidelidade',
         ),

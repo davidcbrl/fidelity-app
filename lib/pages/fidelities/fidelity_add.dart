@@ -10,7 +10,6 @@ import '../../widgets/fidelity_button.dart';
 import '../../widgets/fidelity_loading.dart';
 import '../../widgets/fidelity_text_button.dart';
 import '../../widgets/fidelity_text_field_masked.dart';
-import '../products/product_fidelities_page.dart';
 
 class FidelityAddPage extends StatelessWidget {
   const FidelityAddPage({Key? key}) : super(key: key);
@@ -38,7 +37,7 @@ class FidelityAddBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => fidelityController.loading.value
+      () => !fidelityController.loading.value
           ? FidelityLoading(
               loading: fidelityController.loading.value,
               text: 'Salvando fidelidade...',
@@ -61,7 +60,35 @@ class FidelityAddBody extends StatelessWidget {
                               controller: _nameController,
                               label: 'Nome',
                               placeholder: 'Nome da fidelidade',
-                              icon: Icon(Icons.label_important_outline),
+                              icon: Icon(Icons.person_outline),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) return 'Campo vazio';
+                              },
+                              onChanged: (value) {
+                                if (value.isNotEmpty) _formFidelityAddKey.currentState!.validate();
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Text("A fidelidade tera periodo de vigencia?",
+                                      style: Theme.of(context).textTheme.bodyText2),
+                                ),
+                                Icon(Icons.question_mark)
+                              ],
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            FidelityTextFieldMasked(
+                              controller: _initDateController,
+                              label: 'Data de inicio',
+                              placeholder: 'dd/mm/aaaa',
+                              icon: Icon(Icons.calendar_month),
+                              mask: '##/##/####',
                               validator: (value) {
                                 if (value == null || value.isEmpty) return 'Campo vazio';
                               },
@@ -73,22 +100,11 @@ class FidelityAddBody extends StatelessWidget {
                               height: 20,
                             ),
                             FidelityTextFieldMasked(
-                              controller: _initDateController,
-                              label: 'Data de inicio',
-                              placeholder: 'dd/mm/aaaa',
-                              icon: Icon(Icons.calendar_month),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) return 'Campo vazio';
-                              },
-                              onChanged: (value) {
-                                if (value.isNotEmpty) _formFidelityAddKey.currentState!.validate();
-                              },
-                            ),
-                            FidelityTextFieldMasked(
                               controller: _endDateController,
                               label: 'Data de vencimento',
                               placeholder: 'dd/mm/aaaa',
                               icon: Icon(Icons.calendar_month),
+                              mask: '##/##/####',
                               validator: (value) {
                                 if (value == null || value.isEmpty) return 'Campo vazio';
                               },
@@ -107,7 +123,7 @@ class FidelityAddBody extends StatelessWidget {
                   FidelityButton(
                     label: 'Próximo',
                     onPressed: () {
-                      _preSaveFidelity(context);
+                      _firstSaveFidelity(context);
                     },
                   ),
                   FidelityTextButton(
@@ -125,16 +141,16 @@ class FidelityAddBody extends StatelessWidget {
     );
   }
 
-  void _preSaveFidelity(BuildContext context) async {
+  void _firstSaveFidelity(BuildContext context) async {
     final FormState? form = _formFidelityAddKey.currentState;
     if (form!.validate()) {
       fidelityController.fidelity.value = new Fidelity(
         companyId: 2,
         name: _nameController.text,
-        initDate: DateTime.tryParse(_initDateController.text),
-        endDate: DateTime.tryParse(_endDateController.text),
+        initDate: _initDateController.text,
+        endDate: _endDateController.text,
       );
-      Get.to(() => ProductFidelitiesPage(), transition: Transition.cupertino);
+      Get.toNamed("/fidelity/condition");
     }
   }
 }

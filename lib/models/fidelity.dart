@@ -3,8 +3,8 @@ class Fidelity {
   int? companyId;
   String? name;
   String? description;
-  DateTime? initDate;
-  DateTime? endDate;
+  String? initDate;
+  String? endDate;
 
   Fidelity({
     this.id,
