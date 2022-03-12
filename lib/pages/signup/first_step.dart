@@ -1,5 +1,4 @@
 import 'package:fidelity/controllers/enterprise_controller.dart';
-import 'package:fidelity/pages/signup/second_step.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
@@ -147,7 +146,7 @@ class _FirstStepBodyState extends State<FirstStepBody> {
               enterpriseController.signupEnterprise.value.name = _companyController.text;
               enterpriseController.signupEnterprise.value.cnpj = _cpnjController.text;
               enterpriseController.signupEnterprise.value.tel = _contactController.text;
-              Get.to(() => SecondStepPage(), transition: Transition.cupertino);
+              Get.toNamed('/signup/company/second_step');
             }
           },
         ),

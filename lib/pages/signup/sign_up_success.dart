@@ -1,4 +1,3 @@
-import 'package:fidelity/pages/auth/login.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fidelity/widgets/fidelity_success.dart';
@@ -14,7 +13,7 @@ class SignUpSuccessPage extends StatelessWidget {
         description: 'Pronto para aumentar o engajamento de seus clientes e alavancar seu negócio? Então, vamos começar os trabalhos!',
         buttonText: 'Voltar para autenticação',
         onPressed: () {
-          Get.off(() => LoginPage(), transition: Transition.cupertino);
+          Get.offNamed('/auth');
         }
       ),
     );

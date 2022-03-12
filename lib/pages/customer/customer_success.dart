@@ -1,4 +1,3 @@
-import 'package:fidelity/pages/auth/login.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fidelity/widgets/fidelity_success.dart';
@@ -14,7 +13,7 @@ class CustomerSuccessPage extends StatelessWidget {
         description: 'O módulo de clientes está em construção, em breve você poderá controlar suas fidelidades na palma da mão!',
         buttonText: 'Voltar para autenticação',
         onPressed: () {
-          Get.off(() => LoginPage(), transition: Transition.cupertino);
+          Get.offNamed('/auth');
         }
       ),
     );

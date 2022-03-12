@@ -1,5 +1,4 @@
 import 'package:fidelity/controllers/enterprise_controller.dart';
-import 'package:fidelity/pages/signup/sign_up_success.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
@@ -148,7 +147,7 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
     await enterpriseController.signup();
     if (enterpriseController.status.isSuccess) {
       enterpriseController.loading.value = false;
-      Get.to(() => SignUpSuccessPage(), transition: Transition.cupertino);
+      Get.toNamed('/signup/company/success');
       return;
     }
     enterpriseController.loading.value = false;

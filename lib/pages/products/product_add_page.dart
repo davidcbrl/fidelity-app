@@ -1,7 +1,6 @@
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/models/product.dart';
 import 'package:fidelity/models/product_category.dart';
-import 'package:fidelity/pages/products/product_fidelities_page.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_image_picker.dart';
@@ -261,7 +260,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
         categoryId: 1,
         status: _activeController ? '1' : '0',
       );
-      Get.to(() => ProductFidelitiesPage(), transition: Transition.cupertino);
+      Get.toNamed('/product/fidelities');
     }
   }
 }

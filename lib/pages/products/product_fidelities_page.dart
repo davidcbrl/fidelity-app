@@ -1,7 +1,6 @@
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/models/fidelity.dart';
-import 'package:fidelity/pages/products/product_success.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_empty.dart';
@@ -182,7 +181,7 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
     await productController.saveProduct();
     if (productController.status.isSuccess) {
       productController.loading.value = false;
-      Get.to(() => ProductSuccessPage(), transition: Transition.cupertino);
+      Get.toNamed('/product/success');
       return;
     }
     productController.loading.value = false;

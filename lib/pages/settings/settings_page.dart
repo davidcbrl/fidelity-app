@@ -1,4 +1,3 @@
-import 'package:fidelity/pages/auth/login.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_select_item.dart';
@@ -86,6 +85,6 @@ class SettingsBody extends StatelessWidget {
     if (box.hasData('companyId')) {
       box.remove('companyId');
     }
-    Get.offAll(() => LoginPage(), transition: Transition.cupertino);
+    Get.offAllNamed('/auth');
   }
 }

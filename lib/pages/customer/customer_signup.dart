@@ -1,6 +1,5 @@
 import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/models/user.dart';
-import 'package:fidelity/pages/customer/customer_success.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
@@ -201,7 +200,7 @@ class CustomerSignupBody extends StatelessWidget {
       await customerController.signup(user);
       if (customerController.status.isSuccess) {
         customerController.loading.value = false;
-        Get.to(() => CustomerSuccessPage(), transition: Transition.cupertino);
+        Get.toNamed('/signup/customer/success');
         return;
       }
       customerController.loading.value = false;

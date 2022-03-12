@@ -1,5 +1,4 @@
 import 'package:fidelity/controllers/enterprise_controller.dart';
-import 'package:fidelity/pages/signup/third_step.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
@@ -141,7 +140,7 @@ class _SecondStepBodyState extends State<SecondStepBody> {
             if (_formKey.currentState!.validate()) {
               controller.userSignup.value.email = _emailController.text;
               controller.userSignup.value.password = _passwordController.text;
-              Get.to(() => ThirdStepPage(), transition: Transition.cupertino);
+              Get.toNamed('/signup/company/third_step');
             }
           },
         ),

@@ -1,8 +1,4 @@
 import 'package:fidelity/controllers/auth_controller.dart';
-import 'package:fidelity/pages/customer/customer_signup.dart';
-import 'package:fidelity/pages/customer/customer_success.dart';
-import 'package:fidelity/pages/home/home.dart';
-import 'package:fidelity/pages/signup/first_step.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
@@ -26,8 +22,8 @@ class LoginBody extends StatelessWidget {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   var _redirectPages = {
-    'E': HomePage(),
-    'C': CustomerSuccessPage(),
+    'E': '/home',
+    'C': '/signup/customer/success',
   };
 
   @override
@@ -122,13 +118,13 @@ class LoginBody extends StatelessWidget {
                       FidelityTextButton(
                         label: 'Cadastre-se como empresa',
                         onPressed: () {
-                          Get.to(() => FirstStepPage(), transition: Transition.cupertino);
+                          Get.toNamed('/signup/company/');
                         },
                       ),
                       FidelityTextButton(
                         label: 'Cadastre-se como cliente',
                         onPressed: () {
-                          Get.to(() => CustomerSignupPage(), transition: Transition.cupertino);
+                          Get.toNamed('/signup/customer');
                         },
                       ),
                     ],
@@ -150,7 +146,7 @@ class LoginBody extends StatelessWidget {
       if (authController.status.isSuccess) {
         authController.loading.value = false;
         var page = _redirectPages[authController.user.type];
-        Get.to(() => page ?? HomePage(), transition: Transition.cupertino);
+        Get.toNamed(page ?? '/home');
         return;
       }
       authController.loading.value = false;

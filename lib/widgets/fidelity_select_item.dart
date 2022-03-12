@@ -73,8 +73,11 @@ class FidelitySelectItem extends StatelessWidget {
                             ],
                           ),
                           if (description != null) ...[
+                            SizedBox(
+                              height: 5,
+                            ),
                             Container(
-                              width: Get.width - Get.width * 0.30,
+                              width: Get.width - Get.width * 0.4,
                               child: Row(
                                 children: [
                                   Expanded(
