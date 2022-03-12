@@ -8,7 +8,7 @@ import 'package:get_storage/get_storage.dart';
 class FidelityController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
   var loading = false.obs;
-  var fidelities = Fidelity().obs;
+  var fidelity = Fidelity().obs;
   var fidelitiesList = <Fidelity>[].obs;
 
   @override

@@ -1,13 +1,5 @@
-import 'package:fidelity/controllers/customer_controller.dart';
-import 'package:fidelity/controllers/fidelity_controller.dart';
-import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/controllers/route_controller.dart';
-import 'package:fidelity/pages/auth/login.dart';
-import 'package:fidelity/pages/customer/customer_signup.dart';
-import 'package:fidelity/pages/fidelities/fidelity_list_page.dart';
-import 'package:fidelity/pages/home/home.dart';
-import 'package:fidelity/pages/products/product_add_page.dart';
-import 'package:fidelity/pages/products/product_list_page.dart';
+import 'package:fidelity/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -69,39 +61,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: box.read('jwt') != null ? '/home' : '/auth',
       initialBinding: BindingsBuilder(() => Get.put<RouteController>(new RouteController())),
-      getPages: [
-        GetPage(
-          name: '/auth',
-          page: () => LoginPage(),
-        ),
-        GetPage(
-          name: '/home',
-          page: () => HomePage(),
-          binding: BindingsBuilder(() =>
-              Get.put<PageController>(new PageController(initialPage: Get.find<RouteController>().pageIndex.value))),
-        ),
-        GetPage(
-          name: "/product",
-          page: () => ProductListPage(),
-          binding: BindingsBuilder(() => Get.put<ProductController>(new ProductController())),
-          children: [
-            GetPage(name: "/add", page: () => ProductAddPage()),
-          ],
-        ),
-        GetPage(
-          name: "/fidelity",
-          page: () => FidelityListPage(),
-          binding: BindingsBuilder(() => Get.put<FidelityController>(new FidelityController())),
-          children: [
-            GetPage(name: "/add", page: () => ProductAddPage()),
-          ],
-        ),
-        GetPage(
-          name: "/customer/signup",
-          page: () => CustomerSignupPage(),
-          binding: BindingsBuilder(() => Get.put(new CustomerController())),
-        ),
-      ],
+      getPages: getRoutes(),
     );
   }
 }
