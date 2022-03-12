@@ -1,6 +1,5 @@
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -62,7 +61,10 @@ class FidelityAddBody extends StatelessWidget {
                               placeholder: 'Nome da fidelidade',
                               icon: Icon(Icons.person_outline),
                               validator: (value) {
-                                if (value == null || value.isEmpty) return 'Campo vazio';
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo vazio';
+                                }
+                                return null;
                               },
                               onChanged: (value) {
                                 if (value.isNotEmpty) _formFidelityAddKey.currentState!.validate();
@@ -90,7 +92,10 @@ class FidelityAddBody extends StatelessWidget {
                               icon: Icon(Icons.calendar_month),
                               mask: '##/##/####',
                               validator: (value) {
-                                if (value == null || value.isEmpty) return 'Campo vazio';
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo vazio';
+                                }
+                                return null;
                               },
                               onChanged: (value) {
                                 if (value.isNotEmpty) _formFidelityAddKey.currentState!.validate();
@@ -106,7 +111,10 @@ class FidelityAddBody extends StatelessWidget {
                               icon: Icon(Icons.calendar_month),
                               mask: '##/##/####',
                               validator: (value) {
-                                if (value == null || value.isEmpty) return 'Campo vazio';
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo vazio';
+                                }
+                                return null;
                               },
                               onChanged: (value) {
                                 if (value.isNotEmpty) _formFidelityAddKey.currentState!.validate();

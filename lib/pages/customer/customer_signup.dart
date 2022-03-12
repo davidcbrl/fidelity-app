@@ -4,7 +4,6 @@ import 'package:fidelity/pages/customer/customer_success.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -97,7 +96,10 @@ class CustomerSignupBody extends StatelessWidget {
           icon: Icon(Icons.tag),
           mask: '###.###.###-##',
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Campo vazio';
+            if (value == null || value.isEmpty) {
+              return 'Campo vazio';
+            }
+            return null;
           },
           onChanged: (value) {
             if (value.isNotEmpty) _formCustomerSignupKey.currentState!.validate();
@@ -112,7 +114,10 @@ class CustomerSignupBody extends StatelessWidget {
           placeholder: 'Chewie',
           icon: Icon(Icons.person_outline),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Campo vazio';
+            if (value == null || value.isEmpty) {
+              return 'Campo vazio';
+            }
+            return null;
           },
           onChanged: (value) {
             if (value.isNotEmpty) _formCustomerSignupKey.currentState!.validate();
@@ -127,7 +132,10 @@ class CustomerSignupBody extends StatelessWidget {
           placeholder: 'chewie@wookie.com',
           icon: Icon(Icons.email_outlined),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Campo vazio';
+            if (value == null || value.isEmpty) {
+              return 'Campo vazio';
+            }
+            return null;
           },
           onChanged: (value) {
             if (value.isNotEmpty) _formCustomerSignupKey.currentState!.validate();
@@ -143,7 +151,10 @@ class CustomerSignupBody extends StatelessWidget {
           hideText: true,
           icon: Icon(Icons.lock_outlined),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Campo vazio';
+            if (value == null || value.isEmpty) {
+              return 'Campo vazio';
+            }
+            return null;
           },
           onChanged: (value) {
             if (value.isNotEmpty) _formCustomerSignupKey.currentState!.validate();
@@ -159,7 +170,10 @@ class CustomerSignupBody extends StatelessWidget {
           hideText: true,
           icon: Icon(Icons.lock_outlined),
           validator: (value) {
-            if (value == null || value.isEmpty) return 'Campo vazio';
+            if (value == null || value.isEmpty) {
+              return 'Campo vazio';
+            }
+            return null;
           },
           onChanged: (value) {
             if (value.isNotEmpty) _formCustomerSignupKey.currentState!.validate();

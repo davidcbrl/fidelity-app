@@ -6,7 +6,6 @@ import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -79,7 +78,10 @@ class _SecondStepBodyState extends State<SecondStepBody> {
             placeholder: 'skywalker@jedi.com',
             icon: Icon(Icons.email_outlined),
             validator: (value) {
-              if (value == null || value.isEmpty) return 'Campo vazio';
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
             },
             onChanged: (value) {
               if (value.isNotEmpty) _formKey.currentState!.validate();
@@ -95,7 +97,10 @@ class _SecondStepBodyState extends State<SecondStepBody> {
             icon: Icon(Icons.lock_outline),
             hideText: true,
             validator: (value) {
-              if (value == null || value.isEmpty) return 'Campo vazio';
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
             },
             onChanged: (value) {
               if (value.isNotEmpty) _formKey.currentState!.validate();
@@ -111,7 +116,10 @@ class _SecondStepBodyState extends State<SecondStepBody> {
             icon: Icon(Icons.lock_outline),
             hideText: true,
             validator: (value) {
-              if (value == null || value.isEmpty) return 'Campo vazio';
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
             },
             onChanged: (value) {
               if (value.isNotEmpty) _formKey.currentState!.validate();

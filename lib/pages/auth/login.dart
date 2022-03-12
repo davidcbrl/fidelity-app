@@ -70,7 +70,10 @@ class LoginBody extends StatelessWidget {
                     placeholder: 'skywalker@jedi.com',
                     icon: Icon(Icons.email_outlined),
                     validator: (value) {
-                      if (value == null || value.isEmpty) return 'Campo vazio';
+                      if (value == null || value.isEmpty) {
+                        return 'Campo vazio';
+                      }
+                      return null;
                     },
                     onChanged: (value) {
                       if (value.isNotEmpty) _formKey.currentState!.validate();
@@ -86,7 +89,10 @@ class LoginBody extends StatelessWidget {
                     icon: Icon(Icons.lock_outline),
                     hideText: true,
                     validator: (value) {
-                      if (value == null || value.isEmpty) return 'Campo vazio';
+                      if (value == null || value.isEmpty) {
+                        return 'Campo vazio';
+                      }
+                      return null;
                     },
                     onChanged: (value) {
                       if (value.isNotEmpty) _formKey.currentState!.validate();

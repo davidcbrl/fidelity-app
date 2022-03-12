@@ -1,8 +1,6 @@
 import 'package:fidelity/pages/fidelities/fidelity_condition_type.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:get/get_instance/src/bindings_interface.dart';
-import 'package:get/get_navigation/src/routes/get_route.dart';
 
 import '../controllers/customer_controller.dart';
 import '../controllers/fidelity_controller.dart';

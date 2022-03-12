@@ -7,7 +7,6 @@ import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_plan_card.dart';
 import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
