@@ -9,6 +9,7 @@ import '../controllers/route_controller.dart';
 import '../pages/auth/login.dart';
 import '../pages/customer/customer_signup.dart';
 import '../pages/fidelities/fidelity_add.dart';
+import '../pages/fidelities/fidelity_condition.dart';
 import '../pages/fidelities/fidelity_list_page.dart';
 import '../pages/home/home.dart';
 import '../pages/products/product_add_page.dart';
@@ -39,7 +40,8 @@ final routes = [
     binding: BindingsBuilder(() => Get.put<FidelityController>(new FidelityController())),
     children: [
       GetPage(name: "/add", page: () => FidelityAddPage(), transition: Transition.cupertino),
-      GetPage(name: "/condition", page: () => FidelityConditionTypePage(), transition: Transition.cupertino),
+      GetPage(name: "/condition_type", page: () => FidelityConditionTypePage(), transition: Transition.cupertino),
+      GetPage(name: "/condition", page: () => FidelityConditionPage(), transition: Transition.cupertino),
     ],
   ),
   GetPage(

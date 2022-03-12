@@ -28,7 +28,6 @@ class FidelityConditionTypePage extends StatelessWidget {
 class FidelityConditionTypeBody extends StatelessWidget {
   FidelityConditionTypeBody({Key? key}) : super(key: key);
   FidelityController fidelityController = Get.find();
-  List<FidelityType> _selectedFidelities = [];
 
   @override
   Widget build(BuildContext context) {

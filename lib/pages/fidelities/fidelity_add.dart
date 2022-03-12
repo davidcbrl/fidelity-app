@@ -158,7 +158,7 @@ class FidelityAddBody extends StatelessWidget {
         initDate: _initDateController.text,
         endDate: _endDateController.text,
       );
-      Get.toNamed("/fidelity/condition");
+      Get.toNamed("/fidelity/condition_type");
     }
   }
 }
