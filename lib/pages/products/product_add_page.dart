@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:fidelity/controllers/product_category_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/models/product.dart';
@@ -126,12 +129,13 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                         Row(
                           children: [
                             Switch(
-                                value: _activeController,
-                                onChanged: (value) {
-                                  setState(() {
-                                    _activeController = value;
-                                  });
-                                }),
+                              value: _activeController,
+                              onChanged: (value) {
+                                setState(() {
+                                  _activeController = value;
+                                });
+                              },
+                            ),
                             Text(
                               "Produto ativo",
                               style: Theme.of(context).textTheme.bodyText1,
@@ -174,58 +178,67 @@ class _ProductAddBodyState extends State<ProductAddBody> {
       enableDrag: false,
       builder: (BuildContext context) {
         return Container(
-          height: 200,
+          height: 250,
           padding: EdgeInsets.symmetric(horizontal: 20),
           color: Theme.of(context).colorScheme.background,
-          child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Categorias',
-                  style: Theme.of(context).textTheme.headline2,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Obx(
-                  () => productCategoryController.loading.value
-                  ? FidelityLoading(
-                      loading: productCategoryController.loading.value,
-                      text: 'Carregando categorias...',
-                    )
-                  : Column(
-                      children: [
-                        if (productCategoryController.status.isSuccess)... [
-                          ...productCategoryController.categoriesList.map(
-                            (ProductCategory category) => FidelitySelectItem(
-                              id: category.id,
-                              label: category.name ?? '',
-                              onPressed: () {
-                                productController.product.value.categoryId = category.id;
-                                setState(() {
-                                  _categoryController = category;
-                                });
-                                Get.back();
-                              },
-                            ),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Categorias',
+                style: Theme.of(context).textTheme.headline2,
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Expanded(
+                child: SingleChildScrollView(
+                  physics: AlwaysScrollableScrollPhysics(),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Obx(
+                        () => productCategoryController.loading.value
+                        ? FidelityLoading(
+                            loading: productCategoryController.loading.value,
+                            text: 'Carregando categorias...',
+                          )
+                        : Column(
+                            children: [
+                              if (productCategoryController.status.isSuccess)... [
+                                ...productCategoryController.categoriesList.map(
+                                  (ProductCategory category) => FidelitySelectItem(
+                                    id: category.id,
+                                    label: category.name ?? '',
+                                    onPressed: () {
+                                      productController.product.value.categoryId = category.id;
+                                      setState(() {
+                                        _categoryController = category;
+                                      });
+                                      Get.back();
+                                    },
+                                  ),
+                                ),
+                              ],
+                              if (productCategoryController.status.isEmpty || productCategoryController.status.isError)... [
+                                FidelityEmpty(
+                                  text: 'Nenhuma categoria encontrada',
+                                ),
+                              ],
+                            ],
                           ),
-                        ],
-                        if (productCategoryController.status.isEmpty || productCategoryController.status.isError)... [
-                          FidelityEmpty(
-                            text: 'Nenhuma categoria encontrada',
-                          ),
-                        ],
-                      ],
-                    ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         );
       },
@@ -235,12 +248,19 @@ class _ProductAddBodyState extends State<ProductAddBody> {
   void _preSaveProduct(BuildContext context) async {
     final FormState? form = _formProductAddKey.currentState;
     if (form!.validate()) {
+      String _imageController = '';
+      if (_selectedImage != null) {
+        File image = File(_selectedImage!.path);
+        List<int> imageBytes = image.readAsBytesSync();
+        _imageController = base64Encode(imageBytes);
+      }
       productController.product.value = new Product(
         companyId: 2,
         name: _nameController.text,
         value: double.parse(_valueController.text),
         categoryId: _categoryController.id ?? 1,
         status: _activeController ? '1' : '0',
+        image: _imageController.isNotEmpty ? _imageController : null,
       );
       Get.toNamed('/product/fidelities');
     }

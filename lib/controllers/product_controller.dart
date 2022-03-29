@@ -66,7 +66,7 @@ class ProductController extends GetxController with StateMixin {
     change([], status: RxStatus.loading());
     try {
       Map<String, dynamic> json = await ApiProvider.post(
-        path: 'new/product',
+        path: 'products',
         data: product.toJson(),
       );
       ApiResponse response = ApiResponse.fromJson(json);

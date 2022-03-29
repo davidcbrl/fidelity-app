@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/widgets/fidelity_empty.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
@@ -74,10 +76,17 @@ class ProductListBody extends StatelessWidget {
                   (Product product) => FidelitySelectItem(
                     id: product.id,
                     label: product.name ?? '',
-                    image: Image.asset(
-                      'assets/img/product.png',
-                      height: 50,
-                    ),
+                    image: product.image != null
+                      ? Image.memory(
+                          base64Decode(product.image ?? ''),
+                          height: 50,
+                          width: 50,
+                        )
+                      : Image.asset(
+                          'assets/img/product.png',
+                          height: 50,
+                          width: 50,
+                        ),
                     onPressed: () {},
                   ),
                 ),
