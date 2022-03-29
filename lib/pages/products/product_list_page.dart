@@ -46,7 +46,7 @@ class ProductListBody extends StatelessWidget {
         ),
         FidelityButton(
           onPressed: () {
-            Get.toNamed('/product');
+            Get.toNamed('/product/add');
           },
           label: 'Novo produto',
         ),

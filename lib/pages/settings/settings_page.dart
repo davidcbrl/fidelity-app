@@ -1,6 +1,8 @@
 import 'package:fidelity/widgets/fidelity_appbar.dart';
+import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_select_item.dart';
+import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -70,8 +72,44 @@ class SettingsBody extends StatelessWidget {
             label: 'Sair',
             description: 'Encerrar sua sessão',
             onPressed: () {
-              logout();
+              logoutDialog(context);
             },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<dynamic> logoutDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(
+          'Sair',
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        content: Text(
+          'Tem certeza que deseja sair?',
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FidelityButton(
+              label: 'Sim',
+              onPressed: () {
+                Get.back();
+                logout();
+              },
+            ),
+          ),
+          Center(
+            child: FidelityTextButton(
+              label: 'Não',
+              onPressed: () {
+                Get.back();
+              },
+            ),
           ),
         ],
       ),
