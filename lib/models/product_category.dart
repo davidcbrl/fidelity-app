@@ -9,20 +9,24 @@ class ProductCategoryEntries {
 }
 
 class ProductCategory {
-  ProductCategory();
-
   int? id;
   String? name;
   String? description;
 
-  ProductCategory.fromJson(Map<String, dynamic> json)
-      : id = json['id'],
-        name = json['name'],
-        description = json['description'];
+  ProductCategory({
+    this.id,
+    this.name,
+    this.description
+  });
+
+  ProductCategory.fromJson(Map<String, dynamic> json):
+    id = json['Id'],
+    name = json['Name'],
+    description = json['Description'];
 
   Map<String, dynamic> toJson() => {
-        'id': id,
-        'name': name,
-        'description': description,
-      };
+    'Id': id,
+    'Name': name,
+    'Description': description,
+  };
 }

@@ -75,6 +75,7 @@ class ProductController extends GetxController with StateMixin {
           message: response.message,
         );
       }
+      getProducts();
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);

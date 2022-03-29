@@ -23,7 +23,7 @@ class DashboardBody extends StatefulWidget {
 }
 
 class _DashboardBodyState extends State<DashboardBody> {
-  AuthController authController = Get.find();
+  AuthController authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
