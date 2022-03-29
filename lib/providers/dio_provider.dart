@@ -8,7 +8,7 @@ class DioProvider {
 
   DioProvider() {
     _dio.options = BaseOptions(
-      baseUrl: isDanilo ? 'https://fidelity.conveyor.cloud/' : 'https://fidelity-kp0.conveyor.cloud/',
+      baseUrl: 'http://fidelityapp.azurewebsites.net/',
       connectTimeout: 10000,
       receiveTimeout: 10000,
     );
