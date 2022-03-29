@@ -29,11 +29,12 @@ class DioProvider {
 
   void _setupInterceptor() {
     _dio.interceptors.add(InterceptorsWrapper(onRequest: (options, handler) {
-      if (box.hasData('jwt')) {
-        options.headers['Authorization'] = 'Bearer ${box.read('jwt')}';
-      }
       print('REQUEST[${options.method}] => PATH: ${options.baseUrl}${options.path}');
       if (options.method == 'POST') print('REQUEST[${options.method}] => PAYLOAD: ${options.data}');
+      if (box.hasData('jwt')) {
+        options.headers['Authorization'] = 'Bearer ${box.read('jwt')}';
+        print('REQUEST[${options.method}] => TOKEN: ${box.read('jwt')}');
+      }
       return handler.next(options);
     }, onResponse: (response, handler) {
       print('RESPONSE[${response.statusCode}]');
