@@ -7,6 +7,7 @@ import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_select_item.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 import '../../models/product.dart';
 import '../../widgets/fidelity_appbar.dart';
@@ -26,9 +27,22 @@ class ProductListPage extends StatelessWidget {
   }
 }
 
-class ProductListBody extends StatelessWidget {
+class ProductListBody extends StatefulWidget {
+  @override
+  State<ProductListBody> createState() => _ProductListBodyState();
+}
+
+class _ProductListBodyState extends State<ProductListBody> {
   ProductController productController = Get.put(ProductController());
   TextEditingController _textEditingController = new TextEditingController();
+  late ScrollController scrollController;
+
+  @override
+  void initState() {
+    scrollController = new ScrollController();
+    scrollController.addListener(_scrollListener);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -61,45 +75,65 @@ class ProductListBody extends StatelessWidget {
   }
 
   Widget _productsList() {
-    return Obx(
-      () => productController.loading.value
-      ? FidelityLoading(
-          loading: productController.loading.value,
-          text: 'Carregando produtos...',
-        )
-      : Expanded(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              if (productController.status.isSuccess)... [
-                ...productController.productsList.map(
-                  (Product product) => FidelitySelectItem(
-                    id: product.id,
-                    label: product.name ?? '',
-                    image: product.image != null
-                      ? Image.memory(
-                          base64Decode(product.image ?? ''),
-                          height: 50,
-                          width: 50,
-                        )
-                      : Image.asset(
-                          'assets/img/product.png',
-                          height: 50,
-                          width: 50,
-                        ),
-                    onPressed: () {},
-                  ),
-                ),
-              ],
-              if (productController.status.isEmpty || productController.status.isError)... [
-                FidelityEmpty(
-                  text: 'Nenhum produto encontrado',
-                ),
-              ],
-            ],
+    return Expanded(
+      child: Obx(
+        () => LazyLoadScrollView(
+          isLoading: productController.loading.value,
+          scrollOffset: 10,
+          onEndOfPage: () => productController.getProductsNextPage(),
+          child: Obx(
+            () => RefreshIndicator(
+              onRefresh: () => _refresh(),
+              child: ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                controller: scrollController,
+                physics: AlwaysScrollableScrollPhysics(),
+                children: [
+                  if (!productController.status.isError && productController.productsList.length > 0)... [
+                    ...productController.productsList.map(
+                      (Product product) => FidelitySelectItem(
+                        id: product.id,
+                        label: product.name ?? '',
+                        image: product.image != null
+                          ? Image.memory(
+                              base64Decode(product.image ?? ''),
+                              height: 50,
+                              width: 50,
+                            )
+                          : Image.asset(
+                              'assets/img/product.png',
+                              height: 50,
+                              width: 50,
+                            ),
+                        onPressed: () {},
+                      ),
+                    ),
+                  ],
+                  if (productController.status.isLoading)
+                    FidelityLoading(
+                      loading: productController.loading.value,
+                      text: 'Carregando produtos...',
+                    ),
+                  if (productController.status.isEmpty || productController.status.isError)
+                    FidelityEmpty(
+                      text: 'Nenhum produto encontrado',
+                    ),
+                ],
+              ),
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _refresh() async {
+    productController.page.value = 1;
+    await productController.getProducts();
+  }
+
+  dynamic _scrollListener() {
+    FocusScope.of(context).requestFocus(new FocusNode());
   }
 }

@@ -36,6 +36,7 @@ class AuthController extends GetxController with StateMixin {
       }
       user = User.fromJson(response.result['Property']);
       user.type = response.result['Type'];
+      box.write('user', user.name);
       box.write('companyId', user.companyId);
       box.write('jwt', response.result['Token']['data']);
       change([], status: RxStatus.success());

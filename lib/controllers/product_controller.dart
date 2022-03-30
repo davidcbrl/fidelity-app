@@ -8,6 +8,9 @@ import 'package:get_storage/get_storage.dart';
 class ProductController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
   var loading = false.obs;
+  var filter = ''.obs;
+  var page = 1.obs;
+  var pageSize = 10.obs;
   var product = Product().obs;
   var productsList = <Product>[].obs;
 
@@ -17,23 +20,16 @@ class ProductController extends GetxController with StateMixin {
     super.onInit();
   }
 
-  //Add Product
-  var currentAddProduct = Product().obs;
-
-  setCurrentAddProduct({String? name, double? value, int? categoryId, String? image, bool? active}) {
-    currentAddProduct.value.name = name;
-    currentAddProduct.value.value = value;
-    currentAddProduct.value.categoryId = categoryId;
-    currentAddProduct.value.image = image;
-    currentAddProduct.value.active = currentAddProduct.value.active == null ? null : currentAddProduct.value.active = active;
-  }
-
   Future<void> getProducts() async {
     change([], status: RxStatus.loading());
     loading.value = true;
     try {
+      String path = 'products?page=${page.value}&pagesize=${pageSize.value}';
+      if (filter.value.length >= 3) {
+        path = '$path&name=${filter.value}';
+      }
       Map<String, dynamic> json = await ApiProvider.get(
-        path: 'products',
+        path: path,
       );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
@@ -42,13 +38,18 @@ class ProductController extends GetxController with StateMixin {
           message: response.message,
         );
       }
-      if (response.result.length == 0 || response.result == null) {
+      if ((response.result.length == 0 || response.result == null) && page.value == 1) {
         change([], status: RxStatus.empty());
         loading.value = false;
         return;
       }
       List<dynamic> list = response.result;
-      productsList.value = list.map((e) => Product.fromJson(e)).toList();
+      if (page.value == 1) {
+        productsList.value = list.map((e) => Product.fromJson(e)).toList();
+      }
+      if (page.value > 1 && list.length > 0) {
+        productsList.value.addAll(list.map((e) => Product.fromJson(e)).toList());
+      }
       change([], status: RxStatus.success());
       loading.value = false;
     } on RequestException catch (error) {
@@ -62,9 +63,15 @@ class ProductController extends GetxController with StateMixin {
     }
   }
 
+  void getProductsNextPage() {
+    page.value = page.value + 1;
+    getProducts();
+  }
+
   Future<void> saveProduct() async {
     change([], status: RxStatus.loading());
     try {
+      product.value.companyId = box.read('companyId');
       Map<String, dynamic> json = await ApiProvider.post(
         path: 'products',
         data: product.toJson(),

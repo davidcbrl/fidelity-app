@@ -255,7 +255,6 @@ class _ProductAddBodyState extends State<ProductAddBody> {
         _imageController = base64Encode(imageBytes);
       }
       productController.product.value = new Product(
-        companyId: 2,
         name: _nameController.text,
         value: double.parse(_valueController.text),
         categoryId: _categoryController.id ?? 1,

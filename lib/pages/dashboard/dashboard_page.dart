@@ -1,8 +1,7 @@
-import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 class DashboardPage extends StatelessWidget {
   @override
@@ -23,7 +22,7 @@ class DashboardBody extends StatefulWidget {
 }
 
 class _DashboardBodyState extends State<DashboardBody> {
-  AuthController authController = Get.find();
+  GetStorage box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
@@ -54,7 +53,7 @@ class _DashboardBodyState extends State<DashboardBody> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  authController.user.name ?? 'Luke Skywalker LTDA',
+                  box.hasData('user') ? box.read('user') : 'Luke Skywalker',
                   style: Theme.of(context).textTheme.bodyText1,
                 ),
                 Text(

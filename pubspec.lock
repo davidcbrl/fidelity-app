@@ -223,13 +223,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.0.5"
-  flutter_sizer:
-    dependency: "direct main"
-    description:
-      name: flutter_sizer
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "1.0.4"
   flutter_test:
     dependency: "direct dev"
     description: flutter
@@ -338,6 +331,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.0.1"
+  lazy_load_scrollview:
+    dependency: "direct main"
+    description:
+      name: lazy_load_scrollview
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.0"
   logging:
     dependency: transitive
     description:

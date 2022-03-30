@@ -16,7 +16,7 @@ dependencies:
   get_storage: any
   cupertino_icons: ^1.0.2
   mask_text_input_formatter: ^2.0.0
-  flutter_sizer: any
+  lazy_load_scrollview: any
   platform: ^3.1.0
   image_picker: any
   percent_indicator: ^3.4.0
