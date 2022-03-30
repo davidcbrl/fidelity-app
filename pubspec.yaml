@@ -13,7 +13,9 @@ dependencies:
     sdk: flutter
   get: 4.0.0
   dio: any
+  date_field: any
   get_storage: any
+  intl: any
   cupertino_icons: ^1.0.2
   mask_text_input_formatter: ^2.0.0
   flutter_sizer: any

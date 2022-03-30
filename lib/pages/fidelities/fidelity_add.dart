@@ -1,5 +1,6 @@
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,6 +36,7 @@ class FidelityAddBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var now = DateTime.now();
     return Obx(
       () => fidelityController.loading.value
           ? FidelityLoading(
@@ -66,9 +68,6 @@ class FidelityAddBody extends StatelessWidget {
                                 }
                                 return null;
                               },
-                              onChanged: (value) {
-                                if (value.isNotEmpty) _formFidelityAddKey.currentState!.validate();
-                              },
                             ),
                             SizedBox(
                               height: 20,
@@ -93,17 +92,16 @@ class FidelityAddBody extends StatelessWidget {
                             FidelityTextFieldMasked(
                               controller: _initDateController,
                               label: 'Data de inicio',
-                              placeholder: 'dd/mm/aaaa',
+                              placeholder: 'dd-mm-aaaa',
                               icon: Icon(Icons.calendar_month),
-                              mask: '##/##/####',
+                              mask: '##-##-####',
                               validator: (value) {
+                                if (_dateTransform(value) == null) return "Digite uma data valido";
+
                                 if (value == null || value.isEmpty) {
                                   return 'Campo vazio';
                                 }
                                 return null;
-                              },
-                              onChanged: (value) {
-                                if (value.isNotEmpty) _formFidelityAddKey.currentState!.validate();
                               },
                             ),
                             SizedBox(
@@ -114,20 +112,26 @@ class FidelityAddBody extends StatelessWidget {
                               label: 'Data de vencimento',
                               placeholder: 'dd/mm/aaaa',
                               icon: Icon(Icons.calendar_month),
-                              mask: '##/##/####',
+                              mask: '##-##-####',
                               validator: (value) {
+                                if (_dateTransform(value) == null) return "Digite uma data valido";
                                 if (value == null || value.isEmpty) {
                                   return 'Campo vazio';
                                 }
                                 return null;
                               },
-                              onChanged: (value) {
-                                if (value.isNotEmpty) _formFidelityAddKey.currentState!.validate();
-                              },
                             ),
                             SizedBox(
                               height: 40,
                             ),
+                            Obx(() => fidelityController.isInvalid.value
+                                ? Center(
+                                    child: Text(
+                                      "A data final deve ser maior que a inicial",
+                                      style: TextStyle(color: Theme.of(context).errorColor),
+                                    ),
+                                  )
+                                : Container())
                           ],
                         ),
                       ),
@@ -136,6 +140,14 @@ class FidelityAddBody extends StatelessWidget {
                   FidelityButton(
                     label: 'Próximo',
                     onPressed: () {
+                      _formFidelityAddKey.currentState!.validate();
+                      if (DateTime.parse(_dateTransform(_initDateController.text)!)
+                              .difference(DateTime.parse(_dateTransform(_endDateController.text)!)) >
+                          Duration.zero) {
+                        fidelityController.isInvalid.value = true;
+                        return;
+                      }
+                      fidelityController.isInvalid.value = false;
                       _firstSaveFidelity(context);
                     },
                   ),
@@ -152,6 +164,30 @@ class FidelityAddBody extends StatelessWidget {
               ),
             ),
     );
+  }
+
+  String? _dateTransform(String? date) {
+    if (date == null) return null;
+    var dates = date.split('-');
+    if (int.parse(dates[2]) > 3000) return null;
+    if (int.parse(dates[2]) < 2000) return null;
+    if (int.parse(dates[2]) == 0000) return null;
+    if (int.parse(dates[1]) > 12) return null;
+    if (int.parse(dates[1]) == 00) return null;
+    if (int.parse(dates[0]) > 31) return null;
+    if (int.parse(dates[0]) == 00) return null;
+    if (dates[1] == "02") {
+      if (int.parse(dates[0]) > 28) return null;
+    }
+    if (int.parse(dates[1]) != 2 && int.parse(dates[1]) < 8) {
+      if (int.parse(dates[1]) % 2 == 0) if (int.parse(dates[0]) > 30) return null;
+    }
+    if (int.parse(dates[1]) != 2 && int.parse(dates[1]) >= 8) {
+      if (int.parse(dates[1]) % 2 != 0) if (int.parse(dates[0]) > 30) return null;
+    }
+
+    var result = dates[2] + '-' + dates[1] + '-' + dates[0];
+    return result;
   }
 
   void _firstSaveFidelity(BuildContext context) async {
