@@ -11,6 +11,7 @@ class FidelityController extends GetxController with StateMixin {
   var loading = false.obs;
   var fidelity = Fidelity().obs;
   var fidelitiesList = <Fidelity>[].obs;
+  var isInvalid = false.obs;
 
   @override
   void onInit() {
