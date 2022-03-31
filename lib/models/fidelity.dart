@@ -7,7 +7,7 @@ class Fidelity {
   int? companyId;
   String? name;
   String? description;
-  String? initDate;
+  String? startDate;
   String? endDate;
   FidelityType? type;
   int? fidelityTypeId;
@@ -24,7 +24,7 @@ class Fidelity {
       this.companyId,
       this.name,
       this.description,
-      this.initDate,
+      this.startDate,
       this.endDate,
       this.type,
       this.promotion,
@@ -40,7 +40,7 @@ class Fidelity {
         companyId = json['EnterpriseId'],
         name = json['Name'],
         description = json['Description'],
-        initDate = json['InitDate'],
+        startDate = json['StartDate'],
         endDate = json['EndDate'],
         type = json['Type'],
         promotion = json['Promotion'],
@@ -56,7 +56,7 @@ class Fidelity {
         'EnterpriseId': companyId,
         'Name': name,
         'Description': description,
-        'InitDate': initDate,
+        'StartDate': startDate,
         'EndDate': endDate,
         'Type': type,
         'Promotion': promotion,

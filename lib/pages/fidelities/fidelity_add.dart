@@ -213,7 +213,7 @@ class FidelityAddBody extends StatelessWidget {
         companyId: 2,
         name: _nameController.text,
         description: _descriptionController.text,
-        initDate: _initDateController.text,
+        startDate: _initDateController.text,
         endDate: _endDateController.text,
       );
       Get.toNamed("/fidelity/condition_type");
