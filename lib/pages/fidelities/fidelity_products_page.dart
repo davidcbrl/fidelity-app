@@ -35,7 +35,9 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
   int _selectedItem = -99;
   @override
   void initState() {
-    listProducts();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      listProducts();
+    });
     super.initState();
   }
 
@@ -117,6 +119,10 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
                             setState(() {
                               _selectedItem = product.id!;
                             });
+                          else
+                            setState(() {
+                              _selectedItem = -99;
+                            });
                           return;
                         },
                       ),
@@ -170,8 +176,9 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
 
   Future<void> saveFidelity(BuildContext context) async {
     fidelityController.loading.value = true;
-    fidelityController.fidelity.value.productId =
-        productController.productsList.firstWhere((element) => element.id == _selectedItem).id;
+    if (_selectedItem != -99)
+      fidelityController.fidelity.value.productId =
+          productController.productsList.firstWhere((element) => element.id == _selectedItem).id;
     Get.toNamed('/fidelity/cashout');
   }
 }
