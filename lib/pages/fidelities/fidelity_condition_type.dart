@@ -73,11 +73,11 @@ class FidelityConditionTypeBody extends StatelessWidget {
                 child: Column(children: [
                   ...[
                     ...fidelityController.fakeFidelityTypeList().map(
-                          (FidelityType fidelity) => FidelitySelectItem(
-                            label: fidelity.name ?? '',
-                            description: fidelity.description ?? '',
+                          (FidelityType fidelityType) => FidelitySelectItem(
+                            label: fidelityType.name ?? '',
+                            description: fidelityType.description ?? '',
                             onPressed: () {
-                              fidelityController.fidelity.value.type = fidelity;
+                              fidelityController.fidelity.value.fidelityTypeId = fidelityType.id;
                               Get.toNamed("/fidelity/condition");
                             },
                           ),

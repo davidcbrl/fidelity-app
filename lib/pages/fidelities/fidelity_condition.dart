@@ -95,7 +95,7 @@ class FidelityConditionBody extends StatelessWidget {
   _preSaveFidelity() {
     final FormState? form = _formFidelityConditionKey.currentState;
     if (form!.validate()) {
-      //fidelityController.fidelity.value.
+      fidelityController.fidelity.value.quantity = double.parse(_quantityController.text);
       Get.toNamed('/fidelity/promotion_type');
     }
   }

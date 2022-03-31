@@ -31,6 +31,7 @@ class FidelityAddBody extends StatelessWidget {
   FidelityController fidelityController = Get.find<FidelityController>();
   GlobalKey<FormState> _formFidelityAddKey = new GlobalKey<FormState>();
   TextEditingController _nameController = new TextEditingController();
+  TextEditingController _descriptionController = new TextEditingController();
   TextEditingController _initDateController = new TextEditingController();
   TextEditingController _endDateController = new TextEditingController();
 
@@ -61,6 +62,21 @@ class FidelityAddBody extends StatelessWidget {
                               controller: _nameController,
                               label: 'Nome',
                               placeholder: 'Nome da fidelidade',
+                              icon: Icon(Icons.person_outline),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo vazio';
+                                }
+                                return null;
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            FidelityTextFieldMasked(
+                              controller: _descriptionController,
+                              label: 'Descricao',
+                              placeholder: 'Descricao da fidelidade',
                               icon: Icon(Icons.person_outline),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -196,6 +212,7 @@ class FidelityAddBody extends StatelessWidget {
       fidelityController.fidelity.value = new Fidelity(
         companyId: 2,
         name: _nameController.text,
+        description: _descriptionController.text,
         initDate: _initDateController.text,
         endDate: _endDateController.text,
       );

@@ -85,7 +85,7 @@ class FidelityPromotionBody extends StatelessWidget {
   void preSavePromotion() {
     final FormState? form = formKey.currentState;
     if (form!.validate()) {
-      // fidelityController.fidelity.value;
+      fidelityController.fidelity.value;
       Get.toNamed('/fidelity/products');
     }
   }

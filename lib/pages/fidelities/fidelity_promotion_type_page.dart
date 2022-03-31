@@ -26,12 +26,14 @@ class FidelityPromotionTypeBody extends StatelessWidget {
     FidelityPromotion(
       id: 1,
       name: 'Cupom de desconto',
-      description: 'Ao alcançar a promoção o cliente ganha um cupom de desconto para utilizar posteriormente.\nExemplo: "Cupom de R\$20 de desconto na próxima compra"',
+      description:
+          'Ao alcançar a promoção o cliente ganha um cupom de desconto para utilizar posteriormente.\nExemplo: "Cupom de R\$20 de desconto na próxima compra"',
     ),
     FidelityPromotion(
       id: 2,
       name: 'Vale produto',
-      description: 'Ao alcançar a promoção o cliente ganha um vale para utilizar um produto posteriormente.\nExemplo: "Ganhe um dia de SPA"',
+      description:
+          'Ao alcançar a promoção o cliente ganha um vale para utilizar um produto posteriormente.\nExemplo: "Ganhe um dia de SPA"',
     ),
   ];
 
@@ -78,7 +80,10 @@ class FidelityPromotionTypeBody extends StatelessWidget {
   }
 
   void selectPromotion(FidelityPromotion promotion) {
-    fidelityController.fidelity.value.promotion = promotion;
-    Get.toNamed('/fidelity/promotion');
+    fidelityController.fidelity.value.promotionTypeId = promotion.id;
+    if (promotion.id == 1)
+      Get.toNamed('/fidelity/promotion');
+    else
+      Get.toNamed('/fidelity/products');
   }
 }
