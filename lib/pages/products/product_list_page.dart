@@ -56,6 +56,9 @@ class _ProductListBodyState extends State<ProductListBody> {
           label: 'Filtrar',
           placeholder: 'Nome do produto',
           icon: Icon(Icons.search),
+          onChanged: (value) {
+            productController.filter.value = value;
+          },
         ),
         SizedBox(
           height: 20,

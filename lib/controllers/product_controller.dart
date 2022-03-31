@@ -9,6 +9,7 @@ class ProductController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
   var loading = false.obs;
   var filter = ''.obs;
+  var filterDelay = false.obs;
   var page = 1.obs;
   var pageSize = 10.obs;
   var product = Product().obs;
@@ -17,6 +18,23 @@ class ProductController extends GetxController with StateMixin {
   @override
   void onInit() {
     getProducts();
+
+    ever(filter, (_) async {
+      if (filter.value.length == 0) {
+        getProducts();
+        return;
+      }
+      if (filter.value.length < 3 || filterDelay.value) {
+        return;
+      }
+      filterDelay.value = true;
+      await Future.delayed(Duration(seconds: 1));
+      filterDelay.value = false;
+      page.value = 1;
+      productsList.clear();
+      getProducts();
+    });
+
     super.onInit();
   }
 
