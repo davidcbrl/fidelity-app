@@ -1,9 +1,11 @@
+import 'package:fidelity/controllers/code_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/pages/auth/login.dart';
 import 'package:fidelity/pages/code/code_page.dart';
+import 'package:fidelity/pages/code/customer_fidelities.dart';
 import 'package:fidelity/pages/customer/customer_signup.dart';
 import 'package:fidelity/pages/customer/customer_success.dart';
 import 'package:fidelity/pages/fidelities/fidelity_add.dart';
@@ -80,9 +82,12 @@ final routes = [
     ],
   ),
   GetPage(
-    name: '/code',
-    page: () => CodePage(),
-  ),
+      name: '/code',
+      page: () => CodePage(),
+      binding: BindingsBuilder(() => Get.put(() => CodeController())),
+      children: [
+        GetPage(name: '/customer_fidelities', page: () => CustomerFidelitiesPage(), transition: Transition.cupertino),
+      ]),
   GetPage(
     name: '/settings',
     page: () => SettingsPage(),
