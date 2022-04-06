@@ -94,6 +94,12 @@ class LoginBody extends StatelessWidget {
                       if (value.isNotEmpty) _formKey.currentState!.validate();
                     },
                   ),
+                  FidelityTextButton(
+                    label: 'Esqueci minha senha',
+                    onPressed: () {
+                      Get.toNamed('/auth/password_reset');
+                    },
+                  ),
                   SizedBox(
                     height: 30,
                   ),
@@ -118,7 +124,7 @@ class LoginBody extends StatelessWidget {
                       FidelityTextButton(
                         label: 'Cadastre-se como empresa',
                         onPressed: () {
-                          Get.toNamed('/signup/company/');
+                          Get.toNamed('/signup/company');
                         },
                       ),
                       FidelityTextButton(

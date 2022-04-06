@@ -3,7 +3,9 @@ import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/controllers/route_controller.dart';
-import 'package:fidelity/pages/auth/login.dart';
+import 'package:fidelity/pages/auth/login_page.dart';
+import 'package:fidelity/pages/auth/password_reset_page.dart';
+import 'package:fidelity/pages/auth/reset_success_page.dart';
 import 'package:fidelity/pages/code/code_page.dart';
 import 'package:fidelity/pages/code/customer_fidelities.dart';
 import 'package:fidelity/pages/customer/customer_signup.dart';
@@ -35,13 +37,21 @@ final routes = [
   GetPage(
     name: '/auth',
     page: () => LoginPage(),
+    children: [
+      GetPage(name: '/password_reset', page: () => PasswordResetPage()),
+      GetPage(name: '/reset_success', page: () => ResetSuccessPage()),
+    ],
   ),
-  GetPage(name: '/signup/company', page: () => FirstStepPage(), children: [
-    GetPage(name: '/first_step', page: () => FirstStepPage()),
-    GetPage(name: '/second_step', page: () => SecondStepPage()),
-    GetPage(name: '/third_step', page: () => ThirdStepPage()),
-    GetPage(name: '/success', page: () => SignUpSuccessPage()),
-  ]),
+  GetPage(
+    name: '/signup/company',
+    page: () => FirstStepPage(),
+    children: [
+      GetPage(name: '/first_step', page: () => FirstStepPage()),
+      GetPage(name: '/second_step', page: () => SecondStepPage()),
+      GetPage(name: '/third_step', page: () => ThirdStepPage()),
+      GetPage(name: '/success', page: () => SignUpSuccessPage()),
+    ],
+  ),
   GetPage(
     name: '/signup/customer',
     page: () => CustomerSignupPage(),
