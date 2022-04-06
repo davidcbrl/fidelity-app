@@ -34,6 +34,14 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
   List<Fidelity> _selectedFidelities = [];
 
   @override
+  void initState() {
+    if (productController.product.value.fidelities != null) {
+      _selectedFidelities = productController.product.value.fidelities!.map((e) => Fidelity.fromJson(e)).toList();
+    }
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(
       () => productController.loading.value
