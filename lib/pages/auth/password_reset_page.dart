@@ -85,7 +85,7 @@ class PasswordResetBody extends StatelessWidget {
     if (form!.validate()) {
       authController.loading.value = true;
       authController.email.value = _emailController.text;
-      // await authController.reset();
+      await authController.reset();
       if (authController.status.isSuccess) {
         authController.loading.value = false;
         Get.toNamed('/reset_success');

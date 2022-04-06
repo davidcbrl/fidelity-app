@@ -15,7 +15,7 @@ class EnterpriseController extends GetxController with StateMixin {
     User user = userSignup.value;
     try {
       Map<String, dynamic> json = await ApiProvider.post(
-        path: 'new/enterprise',
+        path: 'enterprises',
         data: user.toJson(),
       );
       ApiResponse response = ApiResponse.fromJson(json);

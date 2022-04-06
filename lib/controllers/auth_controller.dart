@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fidelity/models/api_response.dart';
 import 'package:fidelity/models/auth.dart';
 import 'package:fidelity/models/request_exception.dart';
@@ -46,6 +48,29 @@ class AuthController extends GetxController with StateMixin {
     } catch (error) {
       print(error);
       change([], status: RxStatus.error('Erro ao autenticar'));
+    }
+  }
+
+  Future<void> reset() async {
+    change([], status: RxStatus.loading());
+    try {
+      Map<String, dynamic> json = await ApiProvider.post(
+        path: 'reset/pass',
+        data: jsonEncode(email.value),
+      );
+      ApiResponse response = ApiResponse.fromJson(json);
+      if (!response.success) {
+        throw RequestException(
+          message: response.message,
+        );
+      }
+      change([], status: RxStatus.success());
+    } on RequestException catch (error) {
+      print(error);
+      change([], status: RxStatus.error(error.message));
+    } catch (error) {
+      print(error);
+      change([], status: RxStatus.error('Erro ao redefinir senha'));
     }
   }
 }
