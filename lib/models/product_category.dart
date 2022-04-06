@@ -11,22 +11,18 @@ class ProductCategoryEntries {
 class ProductCategory {
   int? id;
   String? name;
-  String? description;
 
   ProductCategory({
     this.id,
     this.name,
-    this.description
   });
 
   ProductCategory.fromJson(Map<String, dynamic> json):
     id = json['Id'],
-    name = json['Name'],
-    description = json['Description'];
+    name = json['Name'];
 
   Map<String, dynamic> toJson() => {
     'Id': id,
     'Name': name,
-    'Description': description,
   };
 }

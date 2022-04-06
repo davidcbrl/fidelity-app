@@ -76,7 +76,7 @@ class ProductController extends GetxController with StateMixin {
       loading.value = false;
     } catch (error) {
       print(error);
-      change([], status: RxStatus.error('Erro ao autenticar'));
+      change([], status: RxStatus.error('Erro ao buscar produtos'));
       loading.value = false;
     }
   }
@@ -90,10 +90,10 @@ class ProductController extends GetxController with StateMixin {
     change([], status: RxStatus.loading());
     try {
       product.value.companyId = box.read('companyId');
-      Map<String, dynamic> json = await ApiProvider.post(
-        path: 'products',
-        data: product.toJson(),
-      );
+      Map<String, dynamic> json;
+      json = product.value.id != null
+        ? await ApiProvider.put(path: 'products', data: product.toJson())
+        : await ApiProvider.post(path: 'products', data: product.toJson());
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
         throw RequestException(
@@ -107,7 +107,7 @@ class ProductController extends GetxController with StateMixin {
       change([], status: RxStatus.error(error.message));
     } catch (error) {
       print(error);
-      change([], status: RxStatus.error('Erro ao autenticar'));
+      change([], status: RxStatus.error('Erro ao salvar produto'));
     }
   }
 }

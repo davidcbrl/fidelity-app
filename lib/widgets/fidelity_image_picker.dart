@@ -1,16 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 
 class FidelityImagePicker extends StatelessWidget {
-  XFile? image;
+  var image;
   final String label;
   final String emptyImagePath;
   final Function() onSelect;
 
   FidelityImagePicker({
-    required this.image,
+    this.image,
     required this.label,
     required this.emptyImagePath,
     required this.onSelect,
@@ -39,13 +36,7 @@ class FidelityImagePicker extends StatelessWidget {
                   Container(
                     height: 50,
                     width: 50,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(5),
-                      image: new DecorationImage(
-                        fit: BoxFit.cover,
-                        image: FileImage(File(image!.path)),
-                      ),
-                    ),
+                    child: Image.memory(image),
                   ),
                 if (image == null)
                   Container(

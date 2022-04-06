@@ -34,12 +34,6 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
   List<Fidelity> _selectedFidelities = [];
 
   @override
-  void initState() {
-    listFidelities();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Obx(
       () => productController.loading.value
@@ -128,49 +122,19 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
                     ),
                   ),
                 ],
-                if (fidelityController.status.isEmpty || fidelityController.status.isError)... [
+                if (fidelityController.status.isEmpty)... [
                   FidelityEmpty(
                     text: 'Nenhuma fidelidade encontrada',
+                  ),
+                ],
+                if (fidelityController.status.isError)... [
+                  FidelityEmpty(
+                    text: fidelityController.status.errorMessage ?? '500',
                   ),
                 ],
               ]
             ),
           ),
-      ),
-    );
-  }
-
-  Future<void> listFidelities() async {
-    fidelityController.loading.value = true;
-    await fidelityController.getFidelities();
-    if (fidelityController.status.isSuccess || fidelityController.status.isEmpty) {
-      fidelityController.loading.value = false;
-      return;
-    }
-    fidelityController.loading.value = false;
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(
-          'Produtos',
-          style: Theme.of(context).textTheme.headline1,
-        ),
-        content: Text(
-          productController.status.errorMessage ?? 'Erro ao listar fidelidades',
-          style: Theme.of(context).textTheme.bodyText1,
-        ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: FidelityButton(
-              label: 'OK',
-              width: double.maxFinite,
-              onPressed: () {
-                Get.back();
-              },
-            ),
-          ),
-        ],
       ),
     );
   }

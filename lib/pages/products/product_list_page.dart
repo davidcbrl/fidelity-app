@@ -65,6 +65,7 @@ class _ProductListBodyState extends State<ProductListBody> {
         ),
         FidelityButton(
           onPressed: () {
+            productController.product.value = Product();
             Get.toNamed('/product/add');
           },
           label: 'Novo produto',
@@ -109,7 +110,10 @@ class _ProductListBodyState extends State<ProductListBody> {
                               height: 50,
                               width: 50,
                             ),
-                        onPressed: () {},
+                        onPressed: () {
+                          productController.product.value = product;
+                          Get.toNamed('/product/add');
+                        },
                       ),
                     ),
                   ],
@@ -118,9 +122,13 @@ class _ProductListBodyState extends State<ProductListBody> {
                       loading: productController.loading.value,
                       text: 'Carregando produtos...',
                     ),
-                  if (productController.status.isEmpty || productController.status.isError)
+                  if (productController.status.isEmpty)
                     FidelityEmpty(
                       text: 'Nenhum produto encontrado',
+                    ),
+                  if (productController.status.isError)
+                    FidelityEmpty(
+                      text: productController.status.errorMessage ?? '500',
                     ),
                 ],
               ),

@@ -23,6 +23,22 @@ class ApiProvider {
     }
   }
 
+  static Future put({required String path, dynamic data}) async {
+    try {
+      Response response = await DioProvider().put(path, data);
+      return response.data;
+    } on DioError catch (error) {
+      print(error.response);
+      return throw RequestException(
+        message: 'Request error',
+      );
+    } catch (error) {
+      return throw RequestException(
+        message: error.toString(),
+      );
+    }
+  }
+
   static Future post({required String path, dynamic data}) async {
     try {
       Response response = await DioProvider().post(path, data);

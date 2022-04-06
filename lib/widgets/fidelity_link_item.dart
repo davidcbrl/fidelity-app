@@ -54,7 +54,7 @@ class FidelityLinkItem extends StatelessWidget {
                           ),
                           if (description != null)
                             Container(
-                              width: Get.width - 150,
+                              width: Get.width - Get.width * 0.5,
                               child: Text(
                                 description ?? '',
                                 overflow: TextOverflow.ellipsis,

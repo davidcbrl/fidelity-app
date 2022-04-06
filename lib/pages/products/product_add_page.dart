@@ -1,9 +1,7 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:fidelity/controllers/product_category_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
-import 'package:fidelity/models/product.dart';
 import 'package:fidelity/models/product_category.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
@@ -45,7 +43,21 @@ class _ProductAddBodyState extends State<ProductAddBody> {
   ProductCategory _categoryController = new ProductCategory();
   bool _activeController = true;
   ImagePicker _picker = ImagePicker();
-  XFile? _selectedImage;
+  var _selectedImage;
+
+  @override
+  void initState() {
+    if (productController.product.value.id != null) {
+      _nameController.text = productController.product.value.name ?? '';
+      _valueController.text = productController.product.value.value.toString();
+      _categoryController = productController.product.value.category ?? new ProductCategory();
+      _activeController = productController.product.value.status == '1';
+      _selectedImage = productController.product.value.image != null
+        ? base64Decode(productController.product.value.image ?? '')
+        : null;
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +132,8 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                           label: 'Foto do produto',
                           emptyImagePath: 'assets/img/product.png',
                           onSelect: () async {
-                            _selectedImage = await _picker.pickImage(source: ImageSource.gallery);
+                            XFile? picked = await _picker.pickImage(source: ImageSource.gallery);
+                            _selectedImage = await picked!.readAsBytes();
                           },
                         ),
                         SizedBox(
@@ -250,17 +263,14 @@ class _ProductAddBodyState extends State<ProductAddBody> {
     if (form!.validate()) {
       String _imageController = '';
       if (_selectedImage != null) {
-        File image = File(_selectedImage!.path);
-        List<int> imageBytes = image.readAsBytesSync();
+        List<int> imageBytes = _selectedImage;
         _imageController = base64Encode(imageBytes);
       }
-      productController.product.value = new Product(
-        name: _nameController.text,
-        value: double.parse(_valueController.text),
-        categoryId: _categoryController.id ?? 1,
-        status: _activeController ? '1' : '0',
-        image: _imageController.isNotEmpty ? _imageController : null,
-      );
+      productController.product.value.name = _nameController.text;
+      productController.product.value.value = double.parse(_valueController.text);
+      productController.product.value.categoryId = _categoryController.id ?? 1;
+      productController.product.value.status = _activeController ? '1' : '0';
+      productController.product.value.image = _imageController.isNotEmpty ? _imageController : null;
       Get.toNamed('/product/fidelities');
     }
   }

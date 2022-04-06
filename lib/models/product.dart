@@ -1,16 +1,11 @@
-class ProductEntries {
-  List<Product>? products;
-
-  ProductEntries({
-    this.products,
-  });
-}
+import 'package:fidelity/models/product_category.dart';
 
 class Product {
   int? id;
   int? companyId;
   String? name;
   double? value;
+  ProductCategory? category;
   int? categoryId;
   String? image;
   bool? active;
@@ -22,6 +17,7 @@ class Product {
     this.companyId,
     this.name,
     this.value,
+    this.category,
     this.categoryId,
     this.image,
     this.active, 
@@ -34,6 +30,7 @@ class Product {
     name = json['Name'],
     value = json['Value'],
     image = json['Image'],
+    category = ProductCategory.fromJson(json['Category']),
     categoryId = json['CategoryId'],
     active = json['Active'],
     status = json['Status'],
@@ -44,6 +41,7 @@ class Product {
     'EnterpriseId': companyId,
     'Name': name,
     'Value': value,
+    'Category': category,
     'CategoryId': categoryId,
     'Image': image,
     'Active': active,

@@ -23,7 +23,6 @@ class FidelityController extends GetxController with StateMixin {
     change([], status: RxStatus.loading());
     try {
       fidelity.value.companyId = box.read('companyId');
-      var x = fidelity.toJson();
       Map<String, dynamic> json = await ApiProvider.post(
         path: 'loyalts',
         data: fidelity.toJson(),
@@ -41,7 +40,7 @@ class FidelityController extends GetxController with StateMixin {
       change([], status: RxStatus.error(error.message));
     } catch (error) {
       print(error);
-      change([], status: RxStatus.error('Erro ao autenticar'));
+      change([], status: RxStatus.error('Erro salvar fidelidade'));
     }
   }
 
@@ -74,7 +73,7 @@ class FidelityController extends GetxController with StateMixin {
       loading.value = false;
     } catch (error) {
       print(error);
-      change([], status: RxStatus.error('Erro ao autenticar'));
+      change([], status: RxStatus.error('Erro buscar fidelidades'));
       loading.value = false;
     }
   }
@@ -83,18 +82,18 @@ class FidelityController extends GetxController with StateMixin {
     FidelityType type1 = new FidelityType();
     type1.name = "Quantidade";
     type1.description =
-        "Na compra de um determinado número de produtos, o cliente alcança a promoção. Exemplo: “Na compra de 10 viagens, ganhe um dia de SPA”";
+        "Na compra de um determinado número de produtos, o cliente alcança a promoção. Exemplo:“Na compra de 10 viagens, ganhe um dia de SPA”";
     type1.id = 1;
     FidelityType type2 = new FidelityType();
     type2.name = "Pontuacao";
     type2.description =
-        'A cada compra o cliente adquire pontos, ao acumular um determinado número de pontos, o cliente alcança a promoção. Exemplo: “Acumule 200 pontos e ganhe um dia de SPA”';
+        'A cada compra o cliente adquire pontos, ao acumular um determinado número de pontos, o cliente alcança a promoção. Exemplo:“Acumule 200 pontos e ganhe um dia de SPA”';
     type2.id = 2;
 
     FidelityType type3 = new FidelityType();
     type3.name = "Valor";
     type3.description =
-        'Ao efetuar uma compra de um determinado valor, o cliente alcança a promoção. Exemplo: “Compras acima de R\$500, ganham um dia de SPA”';
+        'Ao efetuar uma compra de um determinado valor, o cliente alcança a promoção. Exemplo:“Compras acima de R\$500, ganham um dia de SPA”';
     type3.id = 3;
     return [type1, type2, type3];
   }

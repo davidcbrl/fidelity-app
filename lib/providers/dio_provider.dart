@@ -19,6 +19,10 @@ class DioProvider {
     return _dio.get(path);
   }
 
+  Future<dynamic> put(String path, dynamic data) async {
+    return _dio.put(path, data: data);
+  }
+
   Future<dynamic> post(String path, dynamic data) async {
     return _dio.post(path, data: data);
   }
