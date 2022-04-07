@@ -30,6 +30,8 @@ class FidelityConditionBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (fidelityController.fidelity.value.id != null)
+      _quantityController.text = fidelityController.fidelity.value.quantity!.round().toString();
     return Container(
       child: Form(
         key: _formFidelityConditionKey,
