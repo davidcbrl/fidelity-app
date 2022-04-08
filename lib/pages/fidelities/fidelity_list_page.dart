@@ -49,6 +49,7 @@ class FidelityListBody extends StatelessWidget {
         ),
         FidelityButton(
           onPressed: () {
+            fidelityController.fidelity.value = Fidelity();
             Get.toNamed("/fidelity/add");
           },
           label: 'Nova fidelidade',

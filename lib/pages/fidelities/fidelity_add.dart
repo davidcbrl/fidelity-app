@@ -1,5 +1,6 @@
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:fidelity/widgets/fidelity_select_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -49,28 +50,36 @@ class FidelityAddBody extends StatelessWidget {
       _nameController.text = fidelity!.name!;
       _descriptionController.text = fidelity!.description!;
       if (fidelity!.startDate != null) {
-        _initDateController.text = format.format(DateTime.parse(fidelity!.startDate!.split("T")[0]));
-        if (_initDateController.text.split("/")[0].length == 1)
-          _initDateController.text = "0" + _initDateController.text;
-        if (_initDateController.text.split("/")[1].length == 1) {
-          _initDateController.text = _initDateController.text.split("/")[0] +
-              "/" +
-              "0" +
-              _initDateController.text.split("/")[1] +
-              "/" +
-              _initDateController.text.split("/")[2];
-        }
+        if (fidelity!.startDate!.length >= 10) {
+          _initDateController.text = format.format(DateTime.parse(fidelity!.startDate!.split("T")[0]));
+          if (_initDateController.text.split("/")[0].length == 1)
+            _initDateController.text = "0" + _initDateController.text;
+          if (_initDateController.text.split("/")[1].length == 1) {
+            _initDateController.text = _initDateController.text.split("/")[0] +
+                "/" +
+                "0" +
+                _initDateController.text.split("/")[1] +
+                "/" +
+                _initDateController.text.split("/")[2];
+          }
+        } else
+          _initDateController.text = fidelity!.startDate!;
       }
-
-      _endDateController.text = format.format(DateTime.parse(fidelity!.endDate!.split("T")[0]));
-      if (_endDateController.text.split("/")[0].length == 1) _endDateController.text = "0" + _endDateController.text;
-      if (_endDateController.text.split("/")[1].length == 1) {
-        _endDateController.text = _endDateController.text.split("/")[0] +
-            "/" +
-            "0" +
-            _endDateController.text.split("/")[1] +
-            "/" +
-            _endDateController.text.split("/")[2];
+      if (fidelity!.endDate != null) {
+        if (fidelity!.endDate!.length >= 10) {
+          _endDateController.text = format.format(DateTime.parse(fidelity!.endDate!.split("T")[0]));
+          if (_endDateController.text.split("/")[0].length == 1)
+            _endDateController.text = "0" + _endDateController.text;
+          if (_endDateController.text.split("/")[1].length == 1) {
+            _endDateController.text = _endDateController.text.split("/")[0] +
+                "/" +
+                "0" +
+                _endDateController.text.split("/")[1] +
+                "/" +
+                _endDateController.text.split("/")[2];
+          }
+        } else
+          _endDateController.text = fidelity!.endDate!;
       }
     }
 
@@ -183,7 +192,72 @@ class FidelityAddBody extends StatelessWidget {
                                       style: TextStyle(color: Theme.of(context).errorColor),
                                     ),
                                   )
-                                : Container())
+                                : Container()),
+                            if (fidelity != null)
+                              Column(
+                                children: [
+                                  if (fidelity?.quantity != null)
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Fidelizacao",
+                                          style: Theme.of(context).textTheme.titleMedium,
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        FidelitySelectItem(
+                                            label: "Quantidade: ${fidelity?.quantity}",
+                                            description: "Clique aqui para editar a fidelizacao",
+                                            onPressed: () {
+                                              Get.toNamed("/fidelity/condition");
+                                            }),
+                                      ],
+                                    ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Promocao",
+                                        style: Theme.of(context).textTheme.titleMedium,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      FidelitySelectItem(
+                                          label:
+                                              "Cupom de desconto: R\$ ${fidelity?.couponValue == null ? 0 : fidelity?.couponValue}",
+                                          description: "Clique aqui para editar a promocao",
+                                          onPressed: () {
+                                            Get.toNamed("/fidelity/promotion");
+                                          }),
+                                    ],
+                                  ),
+                                  if (fidelity?.products != null)
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Produtos Vinculados",
+                                          style: Theme.of(context).textTheme.titleMedium,
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        FidelitySelectItem(
+                                            label: "${fidelity?.products?.length} Produtos",
+                                            description: "Clique aqui para editar os produtos vinculados",
+                                            onPressed: () {
+                                              Get.toNamed("/fidelity/condition");
+                                            }),
+                                      ],
+                                    ),
+                                ],
+                              )
                           ],
                         ),
                       ),

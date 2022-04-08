@@ -186,6 +186,9 @@ class _FidelityProductsCashoutBodyState extends State<FidelityProductsCashoutBod
     if (fidelityController.fidelity.value.id != null) fidelityController.fidelity.value.productList = _selectedProducts;
 
     fidelityController.loading.value = true;
+    fidelityController.fidelity.value.promotionTypeId == 1
+        ? fidelityController.fidelity.value.productId = null
+        : fidelityController.fidelity.value.couponValue = null;
     await fidelityController.saveFidelity();
     if (fidelityController.status.isSuccess) {
       fidelityController.loading.value = false;
