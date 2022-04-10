@@ -26,6 +26,8 @@ class FidelityPromotionBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    if (fidelityController.fidelity.value.id != null && fidelityController.fidelity.value.couponValue != null)
+      promotionController.text = fidelityController.fidelity.value.couponValue!.toString();
     return Column(
       children: [
         SizedBox(
@@ -85,8 +87,8 @@ class FidelityPromotionBody extends StatelessWidget {
   void preSavePromotion() {
     final FormState? form = formKey.currentState;
     if (form!.validate()) {
-      fidelityController.fidelity.value;
-      Get.toNamed('/fidelity/products');
+      fidelityController.fidelity.value.couponValue = double.parse(promotionController.text);
+      Get.toNamed('/fidelity/cashout');
     }
   }
 }

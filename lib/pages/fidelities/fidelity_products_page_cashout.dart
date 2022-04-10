@@ -36,8 +36,16 @@ class _FidelityProductsCashoutBodyState extends State<FidelityProductsCashoutBod
   @override
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-      listProducts().whenComplete(() => fidelityController.loading.value = false);
+      listProducts().whenComplete(() {
+        fidelityController.loading.value = false;
+        if (fidelityController.fidelity.value.id != null) if (fidelityController.fidelity.value.products!.length > 0) {
+          fidelityController.fidelity.value.products!.toList().forEach((element) {
+            _selectedProducts.add(element["Id"]);
+          });
+        }
+      });
     });
+
     super.initState();
   }
 
@@ -175,8 +183,12 @@ class _FidelityProductsCashoutBodyState extends State<FidelityProductsCashoutBod
   }
 
   Future<void> saveFidelity(BuildContext context) async {
-    fidelityController.fidelity.value.productList = _selectedProducts;
+    if (fidelityController.fidelity.value.id != null) fidelityController.fidelity.value.productList = _selectedProducts;
+
     fidelityController.loading.value = true;
+    fidelityController.fidelity.value.promotionTypeId == 1
+        ? fidelityController.fidelity.value.productId = null
+        : fidelityController.fidelity.value.couponValue = null;
     await fidelityController.saveFidelity();
     if (fidelityController.status.isSuccess) {
       fidelityController.loading.value = false;

@@ -1,8 +1,10 @@
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:fidelity/widgets/fidelity_select_item.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 import '../../models/fidelity.dart';
 import '../../widgets/fidelity_appbar.dart';
@@ -12,7 +14,8 @@ import '../../widgets/fidelity_text_button.dart';
 import '../../widgets/fidelity_text_field_masked.dart';
 
 class FidelityAddPage extends StatelessWidget {
-  const FidelityAddPage({Key? key}) : super(key: key);
+  FidelityAddPage(this.fidelity, {Key? key}) : super(key: key);
+  Fidelity? fidelity;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +23,18 @@ class FidelityAddPage extends StatelessWidget {
       appBar: FidelityAppbarWidget(
         title: 'Nova Fidelidade',
       ),
-      body: Container(height: Get.height, child: FidelityAddBody()),
+      body: Container(
+          height: Get.height,
+          child: FidelityAddBody(
+            fidelity: fidelity,
+          )),
     );
   }
 }
 
 class FidelityAddBody extends StatelessWidget {
-  FidelityAddBody({Key? key}) : super(key: key);
-
+  FidelityAddBody({this.fidelity, Key? key}) : super(key: key);
+  Fidelity? fidelity;
   FidelityController fidelityController = Get.find<FidelityController>();
   GlobalKey<FormState> _formFidelityAddKey = new GlobalKey<FormState>();
   TextEditingController _nameController = new TextEditingController();
@@ -37,7 +44,45 @@ class FidelityAddBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var now = DateTime.now();
+    fidelity != null ? fidelityController.fidelity.value = fidelity! : Fidelity();
+    if (fidelity != null) {
+      var format = DateFormat.yMd();
+      _nameController.text = fidelity!.name!;
+      _descriptionController.text = fidelity!.description!;
+      if (fidelity!.startDate != null) {
+        if (fidelity!.startDate!.length >= 10) {
+          _initDateController.text = format.format(DateTime.parse(fidelity!.startDate!.split("T")[0]));
+          if (_initDateController.text.split("/")[0].length == 1)
+            _initDateController.text = "0" + _initDateController.text;
+          if (_initDateController.text.split("/")[1].length == 1) {
+            _initDateController.text = _initDateController.text.split("/")[0] +
+                "/" +
+                "0" +
+                _initDateController.text.split("/")[1] +
+                "/" +
+                _initDateController.text.split("/")[2];
+          }
+        } else
+          _initDateController.text = fidelity!.startDate!;
+      }
+      if (fidelity!.endDate != null) {
+        if (fidelity!.endDate!.length >= 10) {
+          _endDateController.text = format.format(DateTime.parse(fidelity!.endDate!.split("T")[0]));
+          if (_endDateController.text.split("/")[0].length == 1)
+            _endDateController.text = "0" + _endDateController.text;
+          if (_endDateController.text.split("/")[1].length == 1) {
+            _endDateController.text = _endDateController.text.split("/")[0] +
+                "/" +
+                "0" +
+                _endDateController.text.split("/")[1] +
+                "/" +
+                _endDateController.text.split("/")[2];
+          }
+        } else
+          _endDateController.text = fidelity!.endDate!;
+      }
+    }
+
     return Obx(
       () => fidelityController.loading.value
           ? FidelityLoading(
@@ -108,9 +153,9 @@ class FidelityAddBody extends StatelessWidget {
                             FidelityTextFieldMasked(
                               controller: _initDateController,
                               label: 'Data de inicio',
-                              placeholder: 'dd-mm-aaaa',
+                              placeholder: 'dd/mm/aaaa',
                               icon: Icon(Icons.calendar_month),
-                              mask: '##-##-####',
+                              mask: '##/##/####',
                               validator: (value) {
                                 if (_dateTransform(value) == null) return "Digite uma data valido";
 
@@ -128,7 +173,7 @@ class FidelityAddBody extends StatelessWidget {
                               label: 'Data de vencimento',
                               placeholder: 'dd/mm/aaaa',
                               icon: Icon(Icons.calendar_month),
-                              mask: '##-##-####',
+                              mask: '##/##/####',
                               validator: (value) {
                                 if (_dateTransform(value) == null) return "Digite uma data valido";
                                 if (value == null || value.isEmpty) {
@@ -147,7 +192,72 @@ class FidelityAddBody extends StatelessWidget {
                                       style: TextStyle(color: Theme.of(context).errorColor),
                                     ),
                                   )
-                                : Container())
+                                : Container()),
+                            if (fidelity != null)
+                              Column(
+                                children: [
+                                  if (fidelity?.quantity != null)
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Fidelizacao",
+                                          style: Theme.of(context).textTheme.titleMedium,
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        FidelitySelectItem(
+                                            label: "Quantidade: ${fidelity?.quantity}",
+                                            description: "Clique aqui para editar a fidelizacao",
+                                            onPressed: () {
+                                              Get.toNamed("/fidelity/condition");
+                                            }),
+                                      ],
+                                    ),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Promocao",
+                                        style: Theme.of(context).textTheme.titleMedium,
+                                      ),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      FidelitySelectItem(
+                                          label:
+                                              "Cupom de desconto: R\$ ${fidelity?.couponValue == null ? 0 : fidelity?.couponValue}",
+                                          description: "Clique aqui para editar a promocao",
+                                          onPressed: () {
+                                            Get.toNamed("/fidelity/promotion");
+                                          }),
+                                    ],
+                                  ),
+                                  if (fidelity?.products != null)
+                                    Column(
+                                      mainAxisAlignment: MainAxisAlignment.start,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Produtos Vinculados",
+                                          style: Theme.of(context).textTheme.titleMedium,
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        FidelitySelectItem(
+                                            label: "${fidelity?.products?.length} Produtos",
+                                            description: "Clique aqui para editar os produtos vinculados",
+                                            onPressed: () {
+                                              Get.toNamed("/fidelity/condition");
+                                            }),
+                                      ],
+                                    ),
+                                ],
+                              )
                           ],
                         ),
                       ),
@@ -183,8 +293,8 @@ class FidelityAddBody extends StatelessWidget {
   }
 
   String? _dateTransform(String? date) {
-    if (date == null) return null;
-    var dates = date.split('-');
+    if (date == null || date == "") return null;
+    var dates = date.split('/');
     if (int.parse(dates[2]) > 3000) return null;
     if (int.parse(dates[2]) < 2000) return null;
     if (int.parse(dates[2]) == 0000) return null;
@@ -209,13 +319,11 @@ class FidelityAddBody extends StatelessWidget {
   void _firstSaveFidelity(BuildContext context) async {
     final FormState? form = _formFidelityAddKey.currentState;
     if (form!.validate()) {
-      fidelityController.fidelity.value = new Fidelity(
-        companyId: 2,
-        name: _nameController.text,
-        description: _descriptionController.text,
-        startDate: _initDateController.text,
-        endDate: _endDateController.text,
-      );
+      fidelityController.fidelity.value.name = _nameController.text;
+      fidelityController.fidelity.value.description = _descriptionController.text;
+      fidelityController.fidelity.value.startDate = _initDateController.text;
+      fidelityController.fidelity.value.endDate = _endDateController.text;
+
       Get.toNamed("/fidelity/condition_type");
     }
   }

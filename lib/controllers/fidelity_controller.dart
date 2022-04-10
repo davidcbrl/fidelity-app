@@ -12,6 +12,7 @@ class FidelityController extends GetxController with StateMixin {
   var fidelity = Fidelity().obs;
   var fidelitiesList = <Fidelity>[].obs;
   var isInvalid = false.obs;
+  var fidelitySelectedAdd = Fidelity().obs;
 
   @override
   void onInit() {
@@ -23,10 +24,16 @@ class FidelityController extends GetxController with StateMixin {
     change([], status: RxStatus.loading());
     try {
       fidelity.value.companyId = box.read('companyId');
-      Map<String, dynamic> json = await ApiProvider.post(
-        path: 'loyalts',
-        data: fidelity.toJson(),
-      );
+
+      Map<String, dynamic> json = fidelity.value.id == null
+          ? await ApiProvider.post(
+              path: 'loyalts',
+              data: fidelity.toJson(),
+            )
+          : await ApiProvider.put(
+              path: 'loyalts',
+              data: fidelity.toJson(),
+            );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
         throw RequestException(

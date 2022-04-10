@@ -81,7 +81,7 @@ final routes = [
     page: () => FidelityListPage(),
     binding: BindingsBuilder(() => Get.put<FidelityController>(new FidelityController())),
     children: [
-      GetPage(name: '/add', page: () => FidelityAddPage(), transition: Transition.cupertino),
+      GetPage(name: '/add', page: () => FidelityAddPage(Get.arguments), transition: Transition.cupertino),
       GetPage(name: '/condition_type', page: () => FidelityConditionTypePage(), transition: Transition.cupertino),
       GetPage(name: '/condition', page: () => FidelityConditionPage(), transition: Transition.cupertino),
       GetPage(name: '/promotion_type', page: () => FidelityPromotionTypePage(), transition: Transition.cupertino),
