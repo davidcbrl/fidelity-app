@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:typed_data';
 
 import 'package:fidelity/controllers/product_category_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
@@ -53,8 +54,8 @@ class _ProductAddBodyState extends State<ProductAddBody> {
       _categoryController = productController.product.value.category ?? new ProductCategory();
       _activeController = productController.product.value.status == '1';
       _selectedImage = productController.product.value.image != null
-        ? base64Decode(productController.product.value.image ?? '')
-        : null;
+          ? base64Decode(productController.product.value.image ?? '')
+          : null;
     }
     super.initState();
   }
@@ -63,124 +64,126 @@ class _ProductAddBodyState extends State<ProductAddBody> {
   Widget build(BuildContext context) {
     return Obx(
       () => productController.loading.value
-      ? FidelityLoading(
-          loading: productController.loading.value,
-          text: 'Salvando produto...',
-        )
-      : Container(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Expanded(
-                child: SingleChildScrollView(
-                  child: Form(
-                    key: _formProductAddKey,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        FidelityTextFieldMasked(
-                          controller: _nameController,
-                          label: 'Nome',
-                          placeholder: 'Nome do produto',
-                          icon: Icon(Icons.label_important_outline),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo vazio';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            if (value.isNotEmpty) _formProductAddKey.currentState!.validate();
-                          },
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        FidelityTextFieldMasked(
-                          controller: _valueController,
-                          label: 'Valor',
-                          placeholder: 'R\$',
-                          icon: Icon(Icons.attach_money_outlined),
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Campo vazio';
-                            }
-                            return null;
-                          },
-                          onChanged: (value) {
-                            if (value.isNotEmpty) _formProductAddKey.currentState!.validate();
-                          },
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        FidelityOptionItem(
-                          label: 'Categoria',
-                          selectedLabel: _categoryController.name,
-                          onPressed: () {
-                            categoriesBottomSheet(context);
-                          },
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        FidelityImagePicker(
-                          image: _selectedImage,
-                          label: 'Foto do produto',
-                          emptyImagePath: 'assets/img/product.png',
-                          onSelect: () async {
-                            XFile? picked = await _picker.pickImage(source: ImageSource.gallery);
-                            _selectedImage = await picked!.readAsBytes();
-                          },
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Row(
+          ? FidelityLoading(
+              loading: productController.loading.value,
+              text: 'Salvando produto...',
+            )
+          : Container(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: SingleChildScrollView(
+                      child: Form(
+                        key: _formProductAddKey,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Switch(
-                              value: _activeController,
+                            FidelityTextFieldMasked(
+                              controller: _nameController,
+                              label: 'Nome',
+                              placeholder: 'Nome do produto',
+                              icon: Icon(Icons.label_important_outline),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo vazio';
+                                }
+                                return null;
+                              },
                               onChanged: (value) {
-                                setState(() {
-                                  _activeController = value;
-                                });
+                                if (value.isNotEmpty) _formProductAddKey.currentState!.validate();
                               },
                             ),
-                            Text(
-                              "Produto ativo",
-                              style: Theme.of(context).textTheme.bodyText1,
+                            SizedBox(
+                              height: 20,
+                            ),
+                            FidelityTextFieldMasked(
+                              controller: _valueController,
+                              label: 'Valor',
+                              placeholder: 'R\$',
+                              icon: Icon(Icons.attach_money_outlined),
+                              validator: (value) {
+                                if (value == null || value.isEmpty) {
+                                  return 'Campo vazio';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                if (value.isNotEmpty) _formProductAddKey.currentState!.validate();
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            FidelityOptionItem(
+                              label: 'Categoria',
+                              selectedLabel: _categoryController.name,
+                              onPressed: () {
+                                categoriesBottomSheet(context);
+                              },
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            FidelityImagePicker(
+                              image: productController.selectedImage.length > 0
+                                  ? Uint8List.fromList(productController.selectedImage)
+                                  : null,
+                              label: 'Foto do produto',
+                              emptyImagePath: 'assets/img/product.png',
+                              onSelect: () async {
+                                XFile? picked = await _picker.pickImage(source: ImageSource.gallery);
+                                productController.selectedImage.value = await picked!.readAsBytes();
+                              },
+                            ),
+                            SizedBox(
+                              height: 10,
+                            ),
+                            Row(
+                              children: [
+                                Switch(
+                                  value: _activeController,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _activeController = value;
+                                    });
+                                  },
+                                ),
+                                Text(
+                                  "Produto ativo",
+                                  style: Theme.of(context).textTheme.bodyText1,
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              height: 40,
                             ),
                           ],
                         ),
-                        SizedBox(
-                          height: 40,
-                        ),
-                      ],
+                      ),
                     ),
                   ),
-                ),
+                  FidelityButton(
+                    label: 'Próximo',
+                    onPressed: () {
+                      _preSaveProduct(context);
+                    },
+                  ),
+                  FidelityTextButton(
+                    label: 'Voltar',
+                    onPressed: () {
+                      Get.back();
+                    },
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                ],
               ),
-              FidelityButton(
-                label: 'Próximo',
-                onPressed: () {
-                  _preSaveProduct(context);
-                },
-              ),
-              FidelityTextButton(
-                label: 'Voltar',
-                onPressed: () {
-                  Get.back();
-                },
-              ),
-              SizedBox(
-                height: 10,
-              ),
-            ],
-          ),
-        ),
+            ),
     );
   }
 
@@ -215,35 +218,36 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                     children: [
                       Obx(
                         () => productCategoryController.loading.value
-                        ? FidelityLoading(
-                            loading: productCategoryController.loading.value,
-                            text: 'Carregando categorias...',
-                          )
-                        : Column(
-                            children: [
-                              if (productCategoryController.status.isSuccess)... [
-                                ...productCategoryController.categoriesList.map(
-                                  (ProductCategory category) => FidelitySelectItem(
-                                    id: category.id,
-                                    label: category.name ?? '',
-                                    onPressed: () {
-                                      productController.product.value.categoryId = category.id;
-                                      setState(() {
-                                        _categoryController = category;
-                                      });
-                                      Get.back();
-                                    },
-                                  ),
-                                ),
-                              ],
-                              if (productCategoryController.status.isEmpty || productCategoryController.status.isError)... [
-                                FidelityEmpty(
-                                  text: 'Nenhuma categoria encontrada',
-                                  iconSize: 100,
-                                ),
-                              ],
-                            ],
-                          ),
+                            ? FidelityLoading(
+                                loading: productCategoryController.loading.value,
+                                text: 'Carregando categorias...',
+                              )
+                            : Column(
+                                children: [
+                                  if (productCategoryController.status.isSuccess) ...[
+                                    ...productCategoryController.categoriesList.map(
+                                      (ProductCategory category) => FidelitySelectItem(
+                                        id: category.id,
+                                        label: category.name ?? '',
+                                        onPressed: () {
+                                          productController.product.value.categoryId = category.id;
+                                          setState(() {
+                                            _categoryController = category;
+                                          });
+                                          Get.back();
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                  if (productCategoryController.status.isEmpty ||
+                                      productCategoryController.status.isError) ...[
+                                    FidelityEmpty(
+                                      text: 'Nenhuma categoria encontrada',
+                                      iconSize: 100,
+                                    ),
+                                  ],
+                                ],
+                              ),
                       ),
                       SizedBox(
                         height: 10,

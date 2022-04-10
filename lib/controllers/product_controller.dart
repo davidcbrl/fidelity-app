@@ -15,6 +15,7 @@ class ProductController extends GetxController with StateMixin {
   var pageSize = 10.obs;
   var product = Product().obs;
   var productsList = <Product>[].obs;
+  var selectedImage = <int>[].obs;
 
   @override
   void onInit() {
@@ -94,8 +95,8 @@ class ProductController extends GetxController with StateMixin {
       product.value.companyId = box.read('companyId');
       Map<String, dynamic> json;
       json = product.value.id != null
-        ? await ApiProvider.put(path: 'products?company=${companyId.value}', data: product.toJson())
-        : await ApiProvider.post(path: 'products?company=${companyId.value}', data: product.toJson());
+          ? await ApiProvider.put(path: 'products?company=${companyId.value}', data: product.toJson())
+          : await ApiProvider.post(path: 'products?company=${companyId.value}', data: product.toJson());
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
         throw RequestException(
