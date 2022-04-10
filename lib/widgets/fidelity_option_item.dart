@@ -20,7 +20,7 @@ class FidelityOptionItem extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         border: Border.all(
           width: selectedLabel == null ? 1 : 2,
-          color: selectedLabel == null ? Theme.of(context).colorScheme.secondaryVariant : Theme.of(context).colorScheme.primary,
+          color: selectedLabel == null ? Theme.of(context).colorScheme.secondaryContainer : Theme.of(context).colorScheme.primary,
         ),
       ),
       child: InkWell(
@@ -47,7 +47,7 @@ class FidelityOptionItem extends StatelessWidget {
             ),
             Icon(
               Icons.list_outlined,
-              color: selectedLabel == null ? Theme.of(context).colorScheme.secondaryVariant : Theme.of(context).colorScheme.primary,
+              color: selectedLabel == null ? Theme.of(context).colorScheme.secondaryContainer : Theme.of(context).colorScheme.primary,
             ),
           ],
         ),

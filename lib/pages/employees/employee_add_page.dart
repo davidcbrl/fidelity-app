@@ -202,7 +202,7 @@ class _EmployeePageBodyState extends State<EmployeePageBody> {
       employeeController.employee.value.name = _nameController.text;
       employeeController.employee.value.email = _emailController.text;
       employeeController.employee.value.password = _passwordController.text;
-      employeeController.employee.value.status = int.parse(_activeController ? '1' : '0');
+      employeeController.employee.value.status = _activeController ? '1' : '0';
       employeeController.employee.value.photo = _imageController.isNotEmpty ? _imageController : null;
       await employeeController.saveEmployee();
       if (employeeController.status.isSuccess) {

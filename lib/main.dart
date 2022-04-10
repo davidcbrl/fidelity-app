@@ -20,10 +20,9 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme(
           primary: Color(0xFF2167E8),
           onPrimary: Color(0xFF2167E8),
-          primaryVariant: Color(0xFF2167E8),
           secondary: Color(0xFF23D09A),
           onSecondary: Color(0xFF23D09A),
-          secondaryVariant: Color(0xFF828282),
+          secondaryContainer: Color(0xFF828282),
           error: Color(0xFFEB5757),
           onError: Color(0xFFEB5757),
           background: Color(0xFFF7F7F7),

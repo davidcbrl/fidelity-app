@@ -60,7 +60,7 @@ class FidelitySelectItem extends StatelessWidget {
                                 Icon(
                                   icon,
                                   size: 20,
-                                  color: Theme.of(context).colorScheme.secondaryVariant,
+                                  color: Theme.of(context).colorScheme.secondaryContainer,
                                 ),
                                 SizedBox(
                                   width: 5,
@@ -103,7 +103,7 @@ class FidelitySelectItem extends StatelessWidget {
                   ),
                   Icon(
                     Icons.chevron_right_outlined,
-                    color: Theme.of(context).colorScheme.secondaryVariant,
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                   ),
                 ],
               ),

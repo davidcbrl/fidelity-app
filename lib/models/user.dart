@@ -10,7 +10,8 @@ class User {
   String? email;
   String? password;
   String? photo;
-  int? status;
+  bool? active;
+  String? status;
   Customer? customer;
   Employee? employee;
   Enterprise? enterprise;

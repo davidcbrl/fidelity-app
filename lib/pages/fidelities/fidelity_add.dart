@@ -142,7 +142,7 @@ class FidelityAddBody extends StatelessWidget {
                                 ),
                                 Icon(
                                   Icons.question_mark,
-                                  color: Theme.of(context).colorScheme.secondaryVariant,
+                                  color: Theme.of(context).colorScheme.secondaryContainer,
                                 ),
                               ],
                             ),

@@ -68,7 +68,7 @@ class _HomePageState extends State<HomePage> {
           currentIndex: routeController.pageIndex.value,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Theme.of(context).colorScheme.primary,
-          unselectedItemColor: Theme.of(context).colorScheme.secondaryVariant,
+          unselectedItemColor: Theme.of(context).colorScheme.secondaryContainer,
           items: List.generate(menu.length, (index) {
             return BottomNavigationBarItem(
               icon: Icon(menuIcons[index]),

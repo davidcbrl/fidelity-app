@@ -38,7 +38,7 @@ class _DashboardBodyState extends State<DashboardBody> {
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(5),
                 border: Border.all(
-                  color: Theme.of(context).colorScheme.secondaryVariant,
+                  color: Theme.of(context).colorScheme.secondaryContainer,
                 ),
               ),
               child: Image.asset(
