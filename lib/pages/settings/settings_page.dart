@@ -44,7 +44,9 @@ class SettingsBody extends StatelessWidget {
             icon: Icons.supervised_user_circle_outlined,
             label: 'Funcionários',
             description: 'Gerencie perfis de funcionários',
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed('/employee');
+            },
           ),
           SizedBox(
             height: 10,

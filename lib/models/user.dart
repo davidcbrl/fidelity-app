@@ -1,4 +1,5 @@
 import 'package:fidelity/models/customer.dart';
+import 'package:fidelity/models/employee.dart';
 import 'package:fidelity/models/enterprise.dart';
 
 class User {
@@ -8,7 +9,10 @@ class User {
   String? name;
   String? email;
   String? password;
+  String? photo;
+  int? status;
   Customer? customer;
+  Employee? employee;
   Enterprise? enterprise;
 
   User({
@@ -18,7 +22,10 @@ class User {
     this.name,
     this.email,
     this.password,
+    this.photo,
+    this.status,
     this.customer,
+    this.employee,
     this.enterprise,
   });
 
@@ -29,8 +36,11 @@ class User {
     name = json['Name'],
     email = json['Email'],
     password = json['Password'],
-    enterprise = json['Enterprise'],
-    customer = json['Client'];
+    photo = json['Photo'],
+    status = json['Status'],
+    customer = json['Client'],
+    employee = json['Employee'],
+    enterprise = json['Enterprise'];
 
   Map<String, dynamic> toJson() => {
     'UserId': id,
@@ -39,7 +49,10 @@ class User {
     'Name': name,
     'Email': email,
     'Password': password,
+    'Photo': photo,
+    'Status': status,
     'Client': customer,
+    'Employee': employee,
     'Enterprise': enterprise,
   };
 }

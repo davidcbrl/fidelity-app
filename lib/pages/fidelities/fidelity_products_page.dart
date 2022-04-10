@@ -31,7 +31,6 @@ class FidelityProductsBody extends StatefulWidget {
 class _FidelityProductsBodyState extends State<FidelityProductsBody> {
   FidelityController fidelityController = Get.find();
   ProductController productController = Get.put(ProductController());
-  Product? _selectedProduct;
   int _selectedItem = -99;
   @override
   void initState() {

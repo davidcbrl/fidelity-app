@@ -1,5 +1,6 @@
 import 'package:fidelity/controllers/code_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
+import 'package:fidelity/controllers/employee_controller.dart';
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/controllers/route_controller.dart';
@@ -10,6 +11,9 @@ import 'package:fidelity/pages/code/code_page.dart';
 import 'package:fidelity/pages/code/customer_fidelities.dart';
 import 'package:fidelity/pages/customer/customer_signup.dart';
 import 'package:fidelity/pages/customer/customer_success.dart';
+import 'package:fidelity/pages/employees/employee_add_page.dart';
+import 'package:fidelity/pages/employees/employee_list_page.dart';
+import 'package:fidelity/pages/employees/employee_success_page.dart';
 import 'package:fidelity/pages/fidelities/fidelity_add.dart';
 import 'package:fidelity/pages/fidelities/fidelity_condition.dart';
 import 'package:fidelity/pages/fidelities/fidelity_condition_type.dart';
@@ -92,15 +96,25 @@ final routes = [
     ],
   ),
   GetPage(
-      name: '/code',
-      page: () => CodePage(),
-      binding: BindingsBuilder(() => Get.put(() => CodeController())),
-      children: [
-        GetPage(name: '/customer_fidelities', page: () => CustomerFidelitiesPage(), transition: Transition.cupertino),
-      ]),
+    name: '/code',
+    page: () => CodePage(),
+    binding: BindingsBuilder(() => Get.put(() => CodeController())),
+    children: [
+      GetPage(name: '/customer_fidelities', page: () => CustomerFidelitiesPage(), transition: Transition.cupertino),
+    ],
+  ),
   GetPage(
     name: '/settings',
     page: () => SettingsPage(),
+  ),
+  GetPage(
+    name: '/employee',
+    page: () => EmployeeListPage(),
+    binding: BindingsBuilder(() => Get.put<EmployeeController>(new EmployeeController())),
+    children: [
+      GetPage(name: '/add', page: () => EmployeeAddPage(), transition: Transition.cupertino),
+      GetPage(name: '/success', page: () => EmployeeSuccessPage(), transition: Transition.cupertino),
+    ],
   ),
 ];
 

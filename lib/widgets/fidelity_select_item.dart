@@ -67,7 +67,7 @@ class FidelitySelectItem extends StatelessWidget {
                                 ),
                               ],
                               Container(
-                                width: Get.width - Get.width * 0.5,
+                                width: Get.width - Get.width * 0.6,
                                 child: Text(
                                   label,
                                   style: Theme.of(context).textTheme.bodyText1,
