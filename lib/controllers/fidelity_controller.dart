@@ -8,6 +8,7 @@ import 'package:get_storage/get_storage.dart';
 
 class FidelityController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
+  var companyId = 0.obs;
   var loading = false.obs;
   var fidelity = Fidelity().obs;
   var fidelitiesList = <Fidelity>[].obs;
@@ -16,6 +17,7 @@ class FidelityController extends GetxController with StateMixin {
 
   @override
   void onInit() {
+    companyId.value = box.read('companyId');
     getFidelities();
     super.onInit();
   }
@@ -23,17 +25,16 @@ class FidelityController extends GetxController with StateMixin {
   Future<void> saveFidelity() async {
     change([], status: RxStatus.loading());
     try {
-      fidelity.value.companyId = box.read('companyId');
-
+      fidelity.value.companyId = companyId.value;
       Map<String, dynamic> json = fidelity.value.id == null
-          ? await ApiProvider.post(
-              path: 'loyalts',
-              data: fidelity.toJson(),
-            )
-          : await ApiProvider.put(
-              path: 'loyalts',
-              data: fidelity.toJson(),
-            );
+        ? await ApiProvider.post(
+            path: 'loyalts?company=${companyId.value}',
+            data: fidelity.toJson(),
+          )
+        : await ApiProvider.put(
+            path: 'loyalts?company=${companyId.value}',
+            data: fidelity.toJson(),
+          );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
         throw RequestException(
@@ -56,7 +57,7 @@ class FidelityController extends GetxController with StateMixin {
     loading.value = true;
     try {
       Map<String, dynamic> json = await ApiProvider.get(
-        path: 'loyalts',
+        path: 'loyalts?company=${companyId.value}',
       );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {

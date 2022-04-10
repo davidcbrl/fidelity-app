@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 class FidelityEmpty extends StatelessWidget {
   final String text;
+  final double? iconSize;
 
   const FidelityEmpty({
     required this.text,
+    this.iconSize,
   });
 
   @override
@@ -14,7 +16,7 @@ class FidelityEmpty extends StatelessWidget {
       children: [
         Image.asset(
           'assets/img/empty.png',
-          height: 200,
+          height: iconSize ?? 200,
         ),
         SizedBox(
           height: 10,

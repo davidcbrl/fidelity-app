@@ -7,6 +7,7 @@ import 'package:get_storage/get_storage.dart';
 
 class ProductController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
+  var companyId = 0.obs;
   var loading = false.obs;
   var filter = ''.obs;
   var filterDelay = false.obs;
@@ -17,6 +18,7 @@ class ProductController extends GetxController with StateMixin {
 
   @override
   void onInit() {
+    companyId.value = box.read('companyId');
     getProducts();
 
     ever(filter, (_) async {
@@ -42,7 +44,7 @@ class ProductController extends GetxController with StateMixin {
     change([], status: RxStatus.loading());
     loading.value = true;
     try {
-      String path = 'products?page=${page.value}&pagesize=${pageSize.value}';
+      String path = 'products?company=${companyId.value}&page=${page.value}&pagesize=${pageSize.value}';
       if (filter.value.length >= 3) {
         path = '$path&name=${filter.value}';
       }
@@ -92,8 +94,8 @@ class ProductController extends GetxController with StateMixin {
       product.value.companyId = box.read('companyId');
       Map<String, dynamic> json;
       json = product.value.id != null
-        ? await ApiProvider.put(path: 'products', data: product.toJson())
-        : await ApiProvider.post(path: 'products', data: product.toJson());
+        ? await ApiProvider.put(path: 'products?company=${companyId.value}', data: product.toJson())
+        : await ApiProvider.post(path: 'products?company=${companyId.value}', data: product.toJson());
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
         throw RequestException(

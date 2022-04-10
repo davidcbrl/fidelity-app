@@ -239,6 +239,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                               if (productCategoryController.status.isEmpty || productCategoryController.status.isError)... [
                                 FidelityEmpty(
                                   text: 'Nenhuma categoria encontrada',
+                                  iconSize: 100,
                                 ),
                               ],
                             ],

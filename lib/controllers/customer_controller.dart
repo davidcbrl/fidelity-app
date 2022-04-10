@@ -17,7 +17,7 @@ class CustomerController extends GetxController with StateMixin {
   Future<void> signup(User user) async {
     try {
       Map<String, dynamic> json = await ApiProvider.post(
-        path: 'new/client',
+        path: 'clients',
         data: user.toJson(),
       );
       ApiResponse response = ApiResponse.fromJson(json);

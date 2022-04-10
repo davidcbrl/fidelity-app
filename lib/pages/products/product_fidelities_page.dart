@@ -31,7 +31,7 @@ class ProductFidelitiesBody extends StatefulWidget {
 class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
   ProductController productController = Get.find();
   FidelityController fidelityController = Get.put(FidelityController());
-  List<Fidelity> _selectedFidelities = [];
+  List<Fidelity?> _selectedFidelities = [];
 
   @override
   void initState() {
@@ -111,23 +111,26 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
               children: [
                 if (fidelityController.status.isSuccess)... [
                   ...fidelityController.fidelitiesList.map(
-                    (Fidelity fidelity) => FidelityLinkItem(
-                      id: fidelity.id ?? 1,
-                      label: fidelity.name ?? '',
-                      description: fidelity.description ?? '',
-                      selected: _selectedFidelities.contains(fidelity),
-                      onPressed: () {
-                        if (_selectedFidelities.contains(fidelity)) {
+                    (Fidelity fidelity) {
+                      fidelity.products = null;
+                      return FidelityLinkItem(
+                        id: fidelity.id ?? 1,
+                        label: fidelity.name ?? '',
+                        description: fidelity.description ?? '',
+                        selected: containsFidelityId(fidelity.id),
+                        onPressed: () {
+                          if (containsFidelityId(fidelity.id)) {
+                            setState(() {
+                              _selectedFidelities.removeWhere((element) => element!.id == fidelity.id);
+                            });
+                            return;
+                          }
                           setState(() {
-                            _selectedFidelities.remove(fidelity);
+                            _selectedFidelities.add(fidelity);
                           });
-                          return;
-                        }
-                        setState(() {
-                          _selectedFidelities.add(fidelity);
-                        });
-                      },
-                    ),
+                        },
+                      );
+                    },
                   ),
                 ],
                 if (fidelityController.status.isEmpty)... [
@@ -147,9 +150,16 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
     );
   }
 
+  bool containsFidelityId(int? id) {
+    for (dynamic e in _selectedFidelities) {
+      if (e.id == id) return true;
+    }
+    return false;
+  }
+
   Future<void> saveProduct(BuildContext context) async {
     productController.loading.value = true;
-    productController.product.value.fidelities = _selectedFidelities.map((e) => e.id).toList();
+    productController.product.value.fidelitiesIds = _selectedFidelities.map((e) => e!.id).toList();
     await productController.saveProduct();
     if (productController.status.isSuccess) {
       productController.loading.value = false;

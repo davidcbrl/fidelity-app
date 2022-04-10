@@ -7,12 +7,14 @@ import 'package:get_storage/get_storage.dart';
 
 class ProductCategoryController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
+  var companyId = 0.obs;
   var loading = false.obs;
   var category = ProductCategory().obs;
   var categoriesList = <ProductCategory>[].obs;
 
   @override
   void onInit() {
+    companyId.value = box.read('companyId');
     getCategories();
     super.onInit();
   }
@@ -22,7 +24,7 @@ class ProductCategoryController extends GetxController with StateMixin {
     loading.value = true;
     try {
       Map<String, dynamic> json = await ApiProvider.get(
-        path: 'categories',
+        path: 'categories?company=${companyId.value}',
       );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {

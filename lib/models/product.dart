@@ -11,6 +11,7 @@ class Product {
   bool? active;
   String? status;
   List<dynamic>? fidelities;
+  List<dynamic>? fidelitiesIds;
 
   Product({
     this.id,
@@ -20,8 +21,10 @@ class Product {
     this.category,
     this.categoryId,
     this.image,
-    this.active, 
-    this.status, 
+    this.active,
+    this.status,
+    this.fidelities,
+    this.fidelitiesIds,
   });
 
   Product.fromJson(Map<String, dynamic> json):
@@ -30,11 +33,12 @@ class Product {
     name = json['Name'],
     value = json['Value'],
     image = json['Image'],
-    category = ProductCategory.fromJson(json['Category']),
+    category = json['Category'] != null ? ProductCategory.fromJson(json['Category']) : null,
     categoryId = json['CategoryId'],
     active = json['Active'],
     status = json['Status'],
-    fidelities = json['FidelityList'];
+    fidelities = json['Loyalts'],
+    fidelitiesIds = json['LoyaltList'];
 
   Map<String, dynamic> toJson() => {
     'Id': id,
@@ -46,6 +50,7 @@ class Product {
     'Image': image,
     'Active': active,
     'Status': status,
-    'FidelityList': fidelities,
+    'Loyalts': fidelities,
+    'LoyaltList': fidelitiesIds,
   };
 }
