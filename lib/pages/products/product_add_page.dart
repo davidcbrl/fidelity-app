@@ -267,8 +267,8 @@ class _ProductAddBodyState extends State<ProductAddBody> {
     final FormState? form = _formProductAddKey.currentState;
     if (form!.validate()) {
       String _imageController = '';
-      if (_selectedImage != null) {
-        List<int> imageBytes = _selectedImage;
+      if (productController.selectedImage.length > 0) {
+        List<int> imageBytes = productController.selectedImage;
         _imageController = base64Encode(imageBytes);
       }
       productController.product.value.name = _nameController.text;
