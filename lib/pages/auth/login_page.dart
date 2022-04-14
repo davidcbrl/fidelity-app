@@ -34,111 +34,114 @@ class LoginBody extends StatelessWidget {
             loading: authController.loading.value,
             text: 'Entrando...',
           )
-        : SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 80,
-                  ),
-                  Center(
-                    child: Image.asset(
-                      'assets/img/logo.png',
-                      width: 50,
+        : Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: SingleChildScrollView(
+              child: Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 80,
                     ),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Center(
-                    child: Image.asset(
-                      'assets/img/fidelity-text.png',
-                      width: 100,
+                    Center(
+                      child: Image.asset(
+                        'assets/img/logo.png',
+                        width: 50,
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 50,
-                  ),
-                  FidelityTextFieldMasked(
-                    controller: _emailController,
-                    label: 'E-mail',
-                    placeholder: 'skywalker@jedi.com',
-                    icon: Icon(Icons.email_outlined),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo vazio';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      if (value.isNotEmpty) _formKey.currentState!.validate();
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  FidelityTextFieldMasked(
-                    controller: _passwordController,
-                    label: 'Senha',
-                    placeholder: '*****',
-                    icon: Icon(Icons.lock_outline),
-                    hideText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo vazio';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      if (value.isNotEmpty) _formKey.currentState!.validate();
-                    },
-                  ),
-                  FidelityTextButton(
-                    label: 'Esqueci minha senha',
-                    onPressed: () {
-                      Get.toNamed('/auth/password_reset');
-                    },
-                  ),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  Column(
-                    children: [
-                      FidelityButton(
-                        label: 'Entrar',
-                        onPressed: () {
-                          _authenticate(context);
-                        },
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Center(
+                      child: Image.asset(
+                        'assets/img/fidelity-text.png',
+                        width: 100,
                       ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      Text(
-                        'Não possui conta?',
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      FidelityTextButton(
-                        label: 'Cadastre-se como empresa',
-                        onPressed: () {
-                          Get.toNamed('/signup/company');
-                        },
-                      ),
-                      FidelityTextButton(
-                        label: 'Cadastre-se como cliente',
-                        onPressed: () {
-                          Get.toNamed('/signup/customer');
-                        },
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                    SizedBox(
+                      height: 50,
+                    ),
+                    FidelityTextFieldMasked(
+                      controller: _emailController,
+                      label: 'E-mail',
+                      placeholder: 'skywalker@jedi.com',
+                      icon: Icon(Icons.email_outlined),
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo vazio';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                        if (value.isNotEmpty) _formKey.currentState!.validate();
+                      },
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    FidelityTextFieldMasked(
+                      controller: _passwordController,
+                      label: 'Senha',
+                      placeholder: '*****',
+                      icon: Icon(Icons.lock_outline),
+                      hideText: true,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Campo vazio';
+                        }
+                        return null;
+                      },
+                      onChanged: (value) {
+                        if (value.isNotEmpty) _formKey.currentState!.validate();
+                      },
+                    ),
+                    FidelityTextButton(
+                      label: 'Esqueci minha senha',
+                      onPressed: () {
+                        Get.toNamed('/auth/password_reset');
+                      },
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Column(
+                      children: [
+                        FidelityButton(
+                          label: 'Entrar',
+                          onPressed: () {
+                            _authenticate(context);
+                          },
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        Text(
+                          'Não possui conta?',
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        FidelityTextButton(
+                          label: 'Cadastre-se como empresa',
+                          onPressed: () {
+                            Get.toNamed('/signup/company');
+                          },
+                        ),
+                        FidelityTextButton(
+                          label: 'Cadastre-se como cliente',
+                          onPressed: () {
+                            Get.toNamed('/signup/customer');
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
-          ),
+        ),
     );
   }
 
