@@ -183,7 +183,7 @@ class _FidelityProductsCashoutBodyState extends State<FidelityProductsCashoutBod
   }
 
   Future<void> saveFidelity(BuildContext context) async {
-    if (fidelityController.fidelity.value.id != null) fidelityController.fidelity.value.productList = _selectedProducts;
+    fidelityController.fidelity.value.productList = _selectedProducts;
 
     fidelityController.loading.value = true;
     fidelityController.fidelity.value.promotionTypeId == 1

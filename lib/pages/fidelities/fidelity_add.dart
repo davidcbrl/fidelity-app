@@ -251,7 +251,7 @@ class FidelityAddBody extends StatelessWidget {
                                             label: "${fidelity?.products?.length} Produtos",
                                             description: "Clique aqui para editar os produtos vinculados",
                                             onPressed: () {
-                                              Get.toNamed("/fidelity/condition");
+                                              Get.toNamed("/fidelity/cashout", arguments: fidelity?.products);
                                             }),
                                       ],
                                     ),
