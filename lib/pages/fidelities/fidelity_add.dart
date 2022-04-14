@@ -132,22 +132,12 @@ class FidelityAddBody extends StatelessWidget {
                             SizedBox(
                               height: 20,
                             ),
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    'A fidelidade terá periodo de vigência?',
-                                    style: Theme.of(context).textTheme.bodyText1,
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.question_mark,
-                                  color: Theme.of(context).colorScheme.secondaryContainer,
-                                ),
-                              ],
+                            Text(
+                              'Periodo de vigência',
+                              style: Theme.of(context).textTheme.bodyText1,
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             FidelityTextFieldMasked(
                               controller: _initDateController,
@@ -165,7 +155,7 @@ class FidelityAddBody extends StatelessWidget {
                               },
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             FidelityTextFieldMasked(
                               controller: _endDateController,
@@ -182,7 +172,7 @@ class FidelityAddBody extends StatelessWidget {
                               },
                             ),
                             SizedBox(
-                              height: 40,
+                              height: 20,
                             ),
                             Obx(() => fidelityController.isInvalid.value
                                 ? Center(
@@ -202,17 +192,21 @@ class FidelityAddBody extends StatelessWidget {
                                       children: [
                                         Text(
                                           "Fidelizacao",
-                                          style: Theme.of(context).textTheme.titleMedium,
+                                          style: Theme.of(context).textTheme.bodyText1,
                                         ),
                                         SizedBox(
                                           height: 5,
                                         ),
                                         FidelitySelectItem(
-                                            label: "Quantidade: ${fidelity?.quantity}",
-                                            description: "Clique aqui para editar a fidelizacao",
-                                            onPressed: () {
-                                              Get.toNamed("/fidelity/condition");
-                                            }),
+                                          label: "Quantidade: ${fidelity?.quantity}",
+                                          description: "Clique aqui para editar a fidelizacao",
+                                          onPressed: () {
+                                            Get.toNamed("/fidelity/condition");
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
                                       ],
                                     ),
                                   Column(
@@ -221,18 +215,22 @@ class FidelityAddBody extends StatelessWidget {
                                     children: [
                                       Text(
                                         "Promocao",
-                                        style: Theme.of(context).textTheme.titleMedium,
+                                        style: Theme.of(context).textTheme.bodyText1,
                                       ),
                                       SizedBox(
                                         height: 5,
                                       ),
                                       FidelitySelectItem(
-                                          label:
-                                              "Cupom de desconto: R\$ ${fidelity?.couponValue == null ? 0 : fidelity?.couponValue}",
-                                          description: "Clique aqui para editar a promocao",
-                                          onPressed: () {
-                                            Get.toNamed("/fidelity/promotion");
-                                          }),
+                                        label:
+                                            "Cupom de desconto: R\$ ${fidelity?.couponValue == null ? 0 : fidelity?.couponValue}",
+                                        description: "Clique aqui para editar a promocao",
+                                        onPressed: () {
+                                          Get.toNamed("/fidelity/promotion");
+                                        },
+                                      ),
+                                      SizedBox(
+                                        height: 20,
+                                      ),
                                     ],
                                   ),
                                   if (fidelity?.products != null)
@@ -242,17 +240,21 @@ class FidelityAddBody extends StatelessWidget {
                                       children: [
                                         Text(
                                           "Produtos Vinculados",
-                                          style: Theme.of(context).textTheme.titleMedium,
+                                          style: Theme.of(context).textTheme.bodyText1,
                                         ),
                                         SizedBox(
                                           height: 5,
                                         ),
                                         FidelitySelectItem(
-                                            label: "${fidelity?.products?.length} Produtos",
-                                            description: "Clique aqui para editar os produtos vinculados",
-                                            onPressed: () {
-                                              Get.toNamed("/fidelity/condition");
-                                            }),
+                                          label: "${fidelity?.products?.length} Produtos",
+                                          description: "Clique aqui para editar os produtos vinculados",
+                                          onPressed: () {
+                                            Get.toNamed("/fidelity/condition");
+                                          },
+                                        ),
+                                        SizedBox(
+                                          height: 20,
+                                        ),
                                       ],
                                     ),
                                 ],

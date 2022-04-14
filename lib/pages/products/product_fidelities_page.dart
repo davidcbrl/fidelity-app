@@ -68,7 +68,8 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
             FidelityButton(
               label: 'Nova fidelidade',
               onPressed: () {
-                print('CLICOU');
+                fidelityController.fidelity.value = Fidelity();
+                Get.toNamed("/fidelity/add");
               },
             ),
             SizedBox(
