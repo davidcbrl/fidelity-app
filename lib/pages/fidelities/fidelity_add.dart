@@ -243,17 +243,14 @@ class FidelityAddBody extends StatelessWidget {
                                           style: Theme.of(context).textTheme.bodyText1,
                                         ),
                                         SizedBox(
-                                          height: 5,
+                                          height: 10,
                                         ),
                                         FidelitySelectItem(
                                           label: "${fidelity?.products?.length} Produtos",
                                           description: "Clique aqui para editar os produtos vinculados",
                                           onPressed: () {
-                                            Get.toNamed("/fidelity/condition");
+                                            Get.toNamed("/fidelity/cashout", arguments: fidelity?.products);
                                           },
-                                        ),
-                                        SizedBox(
-                                          height: 20,
                                         ),
                                       ],
                                     ),
