@@ -27,14 +27,14 @@ class FidelityController extends GetxController with StateMixin {
     try {
       fidelity.value.companyId = companyId.value;
       Map<String, dynamic> json = fidelity.value.id == null
-        ? await ApiProvider.post(
-            path: 'loyalts?company=${companyId.value}',
-            data: fidelity.toJson(),
-          )
-        : await ApiProvider.put(
-            path: 'loyalts?company=${companyId.value}',
-            data: fidelity.toJson(),
-          );
+          ? await ApiProvider.post(
+              path: 'loyalts?company=${companyId.value}',
+              data: fidelity.toJson(),
+            )
+          : await ApiProvider.put(
+              path: 'loyalts?company=${companyId.value}',
+              data: fidelity.toJson(),
+            );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
         throw RequestException(

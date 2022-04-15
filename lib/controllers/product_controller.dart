@@ -35,7 +35,7 @@ class ProductController extends GetxController with StateMixin {
       filterDelay.value = false;
       page.value = 1;
       productsList.clear();
-      getProducts();
+      await getProducts();
     });
 
     super.onInit();
@@ -103,7 +103,7 @@ class ProductController extends GetxController with StateMixin {
           message: response.message,
         );
       }
-      getProducts();
+      await getProducts();
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);
