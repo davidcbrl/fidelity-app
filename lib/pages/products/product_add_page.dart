@@ -158,6 +158,25 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                                 ),
                               ],
                             ),
+                            if (productController.product.value.fidelities!.length > 0) ...[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                "Fidelidades vinculadas",
+                                style: Theme.of(context).textTheme.bodyText1,
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              FidelitySelectItem(
+                                label: "${productController.product.value.fidelities!.length} Fidelidades",
+                                description: "Clique aqui para editar",
+                                onPressed: () {
+                                  Get.toNamed('/product/fidelities');
+                                },
+                              ),
+                            ],
                             SizedBox(
                               height: 40,
                             ),
