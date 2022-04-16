@@ -24,7 +24,7 @@ class ProductCategoryController extends GetxController with StateMixin {
     loading.value = true;
     try {
       Map<String, dynamic> json = await ApiProvider.get(
-        path: 'categories?company=${companyId.value}',
+        path: 'categories',
       );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {

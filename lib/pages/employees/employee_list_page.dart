@@ -19,7 +19,6 @@ class EmployeeListPage extends StatelessWidget {
     return FidelityPage(
       appBar: FidelityAppbarWidget(
         title: 'Funcionários',
-        hasBackButton: false,
       ),
       body: EmployeeListBody(),
     );
@@ -96,11 +95,11 @@ class _EmployeeListBodyState extends State<EmployeeListBody> {
                   if (!employeeController.status.isError && employeeController.employeesList.length > 0)... [
                     ...employeeController.employeesList.map(
                       (User employee) => FidelitySelectItem(
-                        id: employee.id,
-                        label: employee.name ?? '',
-                        image: employee.photo != null
+                        id: employee.employee!.id,
+                        label: employee.employee!.name ?? '',
+                        image: employee.image != null
                           ? Image.memory(
-                              base64Decode(employee.photo ?? ''),
+                              base64Decode(employee.image ?? ''),
                               height: 50,
                               width: 50,
                             )

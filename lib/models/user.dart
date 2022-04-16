@@ -9,6 +9,7 @@ class User {
   String? name;
   String? email;
   String? password;
+  String? image;
   String? photo;
   bool? active;
   String? status;
@@ -23,7 +24,9 @@ class User {
     this.name,
     this.email,
     this.password,
+    this.image,
     this.photo,
+    this.active,
     this.status,
     this.customer,
     this.employee,
@@ -37,11 +40,13 @@ class User {
     name = json['Name'],
     email = json['Email'],
     password = json['Password'],
+    image = json['Image'],
     photo = json['Photo'],
+    active = json['Active'] != null ? json['Active'] == '1' : null,
     status = json['Status'],
-    customer = json['Client'],
-    employee = json['Employee'],
-    enterprise = json['Enterprise'];
+    customer = json['Client'] != null ? Customer.fromJson(json['Client']) : null,
+    employee = json['Employee'] != null ? Employee.fromJson(json['Employee']) : null,
+    enterprise = json['Enterprise'] != null ? Enterprise.fromJson(json['Enterprise']) : null;
 
   Map<String, dynamic> toJson() => {
     'UserId': id,
@@ -50,6 +55,7 @@ class User {
     'Name': name,
     'Email': email,
     'Password': password,
+    'Image': image,
     'Photo': photo,
     'Status': status,
     'Client': customer,

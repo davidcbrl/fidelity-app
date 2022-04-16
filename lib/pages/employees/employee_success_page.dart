@@ -8,7 +8,7 @@ class EmployeeSuccessPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FidelityPage(
       body: FidelitySuccess(
-        title: 'Funcionário criado com sucesso!',
+        title: 'Funcionário salvo com sucesso!',
         description: 'Utilize o e-mail e senha que você definiu para acessar o app como este funcionário.',
         buttonText: 'Voltar para a lista',
         onPressed: () {

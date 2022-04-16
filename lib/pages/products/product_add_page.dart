@@ -158,7 +158,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                                 ),
                               ],
                             ),
-                            if (productController.product.value.fidelities!.length > 0) ...[
+                            if (productController.product.value.fidelities != null) ...[
                               SizedBox(
                                 height: 10,
                               ),

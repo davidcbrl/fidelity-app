@@ -45,7 +45,7 @@ class EmployeeController extends GetxController with StateMixin {
     change([], status: RxStatus.loading());
     loading.value = true;
     try {
-      String path = 'employees?company=${companyId.value}&page=${page.value}&pagesize=${pageSize.value}';
+      String path = 'employees?page=${page.value}&pagesize=${pageSize.value}';
       if (filter.value.length >= 3) {
         path = '$path&name=${filter.value}';
       }
@@ -92,11 +92,11 @@ class EmployeeController extends GetxController with StateMixin {
   Future<void> saveEmployee() async {
     change([], status: RxStatus.loading());
     try {
-      employee.value.companyId = box.read('companyId');
+      employee.value.employee!.companyId = box.read('companyId');
       Map<String, dynamic> json;
-      json = employee.value.id != null
-        ? await ApiProvider.put(path: 'employees?company=${companyId.value}', data: employee.toJson())
-        : await ApiProvider.post(path: 'employees?company=${companyId.value}', data: employee.toJson());
+      json = employee.value.employee!.id != null
+        ? await ApiProvider.put(path: 'employees', data: employee.toJson())
+        : await ApiProvider.post(path: 'employees', data: employee.toJson());
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
         throw RequestException(
