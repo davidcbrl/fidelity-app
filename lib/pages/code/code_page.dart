@@ -1,19 +1,20 @@
 import 'package:fidelity/controllers/code_controller.dart';
+import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
+import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
-import 'package:flutter/foundation.dart';
+import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-import '../../widgets/fidelity_text_field_masked.dart';
-
 class CodePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    CodeController controller = CodeController();
-    Get.put(controller);
+    CustomerController customerController = CustomerController();
+    Get.put(customerController);
+
     return FidelityPage(
       appBar: FidelityAppbarWidget(
         title: 'Escanear Código QR do cliente',
@@ -32,6 +33,7 @@ class CodeBody extends StatefulWidget {
 }
 
 class _CodeBodyState extends State<CodeBody> {
+  CustomerController customerController = Get.find();
   Barcode? result;
   QRViewController? qrController;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -40,72 +42,77 @@ class _CodeBodyState extends State<CodeBody> {
 
   @override
   Widget build(BuildContext context) {
-    CodeController controller = Get.find();
     return Obx(
-      () => controller.loading.value
-          ? FidelityLoading(
-              loading: controller.loading.value,
-              text: 'Carregando...',
-            )
-          : Container(
-              padding: EdgeInsets.only(top: 10),
-              child: Form(
-                key: _formCodeKey,
-                child: Column(
-                  children: [
-                    FidelityTextFieldMasked(
-                      controller: _cpfController,
-                      label: "Verificar por cpf",
-                      placeholder: "000.000.000-00",
-                      icon: Icon(Icons.person_outline),
-                      mask: '###.###.###-##',
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Campo vazio';
-                        }
-                        if (value.isNotEmpty && value.length < 11) {
-                          return 'Digite um cpf valido';
-                        }
-                        return null;
-                      },
-                      onChanged: (value) {
-                        Future.delayed(Duration(milliseconds: 1500), () {
-                          if (_formCodeKey.currentState!.validate()) {
-                            Get.toNamed("/code/customer_fidelities");
-                          }
-                        });
-                      },
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Container(
-                      height: 500,
-                      child: Column(
-                        children: <Widget>[
-                          Expanded(flex: 1, child: _buildQrView(context)),
-                          Expanded(
-                            flex: 1,
-                            child: FittedBox(
-                              fit: BoxFit.contain,
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                children: <Widget>[
-                                  if (result != null)
-                                    Text('Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                                  else
-                                    Text('Escaneie um QR Code', style: TextStyle(fontSize: 10)),
-                                ],
+      () => customerController.loading.value
+      ? FidelityLoading(
+          loading: customerController.loading.value,
+          text: 'Carregando...',
+        )
+      : Container(
+          padding: EdgeInsets.only(top: 10),
+          child: Form(
+            key: _formCodeKey,
+            child: Column(
+              children: [
+                FidelityTextFieldMasked(
+                  controller: _cpfController,
+                  label: "Verificar por CPF",
+                  placeholder: "000.000.000-00",
+                  icon: Icon(Icons.person_outline),
+                  mask: '###.###.###-##',
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Campo vazio';
+                    }
+                    if (value.isNotEmpty && value.length < 11) {
+                      return 'Digite um CPF valido';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    Future.delayed(Duration(milliseconds: 1500), () {
+                      if (_formCodeKey.currentState!.validate()) {
+                        getCustomerProgress(value);
+                      }
+                    });
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: _buildQrView(context),
+                      ),
+                      if (result != null) ...[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: FidelityButton(
+                                label: 'Checkpoint pelo CPF: ${result!.code}',
+                                onPressed: () {
+                                  getCustomerProgress(result!.code ?? '');
+                                },
                               ),
                             ),
-                          )
-                        ],
-                      ),
-                    )
-                  ],
+                          ],
+                        ),
+                      ],
+                    ],
+                  ),
                 ),
-              ),
+                SizedBox(
+                  height: 40,
+                ),
+              ],
             ),
+          ),
+        ),
     );
   }
 
@@ -115,9 +122,15 @@ class _CodeBodyState extends State<CodeBody> {
 
     return QRView(
       key: qrKey,
+      cameraFacing: CameraFacing.back,
       onQRViewCreated: _onQRViewCreated,
       overlay: QrScannerOverlayShape(
-          borderColor: Colors.red, borderRadius: 10, borderLength: 30, borderWidth: 10, cutOutSize: scanArea),
+        borderColor: Theme.of(context).colorScheme.error,
+        borderRadius: 10,
+        borderLength: 30,
+        borderWidth: 10,
+        cutOutSize: scanArea,
+      ),
       onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
   }
@@ -129,7 +142,6 @@ class _CodeBodyState extends State<CodeBody> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        print(result!.code);
       });
     });
   }
@@ -137,9 +149,53 @@ class _CodeBodyState extends State<CodeBody> {
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('no Permission')),
+        const SnackBar(
+          content: Text('Sem permissão'),
+        ),
       );
     }
+  }
+
+  Future<void> getCustomerProgress(String cpf) async {
+    if (cpf.isNotEmpty) {
+      customerController.customerCPF.value = cpf;
+      await customerController.getCustomerProgress();
+      if (customerController.status.isSuccess) {
+        customerController.loading.value = false;
+        Get.toNamed('/code/customer_fidelities');
+        return;
+      }
+      customerController.loading.value = false;
+      _showErrorDialog(context);
+    }
+  }
+
+  Future<dynamic> _showErrorDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(
+          'Funcionários',
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        content: Text(
+          customerController.status.errorMessage ?? 'Erro ao buscar progresso do cliente',
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FidelityButton(
+              label: 'OK',
+              width: double.maxFinite,
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 
   @override

@@ -8,7 +8,7 @@ import 'package:fidelity/pages/auth/login_page.dart';
 import 'package:fidelity/pages/auth/password_reset_page.dart';
 import 'package:fidelity/pages/auth/reset_success_page.dart';
 import 'package:fidelity/pages/code/code_page.dart';
-import 'package:fidelity/pages/code/customer_fidelities.dart';
+import 'package:fidelity/pages/customer/customer_fidelities.dart';
 import 'package:fidelity/pages/customer/customer_signup.dart';
 import 'package:fidelity/pages/customer/customer_success.dart';
 import 'package:fidelity/pages/employees/employee_add_page.dart';
