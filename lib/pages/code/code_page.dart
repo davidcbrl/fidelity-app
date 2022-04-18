@@ -1,4 +1,3 @@
-import 'package:fidelity/controllers/code_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';

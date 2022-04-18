@@ -9,6 +9,7 @@ import 'package:fidelity/widgets/fidelity_progress_item.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class CustomerFidelitiesPage extends StatelessWidget {
   const CustomerFidelitiesPage({Key? key}) : super(key: key);
@@ -29,6 +30,15 @@ class CustomerFidelitiesPage extends StatelessWidget {
 
 class CustomerFidelitiesBody extends StatelessWidget {
   CustomerController customerController = Get.find();
+  List<String> types = [
+    'Quantidade',
+    'Pontuação',
+    'Valor',
+  ];
+  List<String> promotions = [
+    'Cupom de desconto',
+    'Vale produto',
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -116,8 +126,10 @@ class CustomerFidelitiesBody extends StatelessWidget {
                     (CustomerProgress progress) {
                       return FidelityProgressItem(
                         id: progress.id ?? 1,
-                        label: 'Fidelidade: ' + progress.fidelityId.toString(),
-                        description: 'Cliente: ' + progress.customerId.toString(),
+                        label: progress.fidelity!.name ?? '',
+                        description: _buildProgressDescription(progress),
+                        progress: progress.score ?? 0.0,
+                        target: progress.fidelity!.quantity ?? 0.0,
                         selected: false,
                         onPressed: () {},
                       );
@@ -139,5 +151,15 @@ class CustomerFidelitiesBody extends StatelessWidget {
           ),
       ),
     );
+  }
+
+  String _buildProgressDescription(CustomerProgress progress) {
+    DateTime startDate = DateTime.parse(progress.fidelity!.startDate ?? '');
+    DateTime endDate = DateTime.parse(progress.fidelity!.endDate ?? '');
+    String validity = DateFormat('dd/MM/yyyy').format(startDate) + ' - ' + DateFormat('dd/MM/yyyy').format(endDate);
+    String desc = 'Fidelização: ' + types[progress.fidelity!.fidelityTypeId ?? 0] + '\n' +
+                  'Promoção: ' + promotions[progress.fidelity!.promotionTypeId ?? 0] + '\n' +
+                  'Vigência: ' + validity;
+    return desc;
   }
 }
