@@ -26,6 +26,7 @@ class FirstStepBody extends StatefulWidget {
 }
 
 class _FirstStepBodyState extends State<FirstStepBody> {
+  EnterpriseController enterpriseController = Get.put(EnterpriseController());
   TextEditingController _companyController = TextEditingController();
   TextEditingController _cpnjController = TextEditingController();
   TextEditingController _contactController = TextEditingController();
@@ -33,8 +34,6 @@ class _FirstStepBodyState extends State<FirstStepBody> {
 
   @override
   Widget build(BuildContext context) {
-    EnterpriseController controller = new EnterpriseController();
-    Get.put(controller);
     return Column(
       children: [
         Expanded(
@@ -135,19 +134,12 @@ class _FirstStepBodyState extends State<FirstStepBody> {
   }
 
   Widget _navigationButtons() {
-    EnterpriseController enterpriseController = Get.find();
-
     return Column(
       children: [
         FidelityButton(
           label: 'Próximo',
           onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              enterpriseController.signupEnterprise.value.name = _companyController.text;
-              enterpriseController.signupEnterprise.value.cnpj = _cpnjController.text;
-              enterpriseController.signupEnterprise.value.tel = _contactController.text;
-              Get.toNamed('/signup/company/second_step');
-            }
+            preSaveCompany();
           },
         ),
         FidelityTextButton(
@@ -158,5 +150,14 @@ class _FirstStepBodyState extends State<FirstStepBody> {
         ),
       ],
     );
+  }
+
+  void preSaveCompany() {
+    if (_formKey.currentState!.validate()) {
+      enterpriseController.signupEnterprise.value.name = _companyController.text;
+      enterpriseController.signupEnterprise.value.cnpj = _cpnjController.text;
+      enterpriseController.signupEnterprise.value.tel = _contactController.text;
+      Get.toNamed('/signup/company/second_step');
+    }
   }
 }

@@ -26,6 +26,7 @@ class SecondStepBody extends StatefulWidget {
 }
 
 class _SecondStepBodyState extends State<SecondStepBody> {
+  EnterpriseController enterpriseController = Get.find();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmController = TextEditingController();
@@ -130,18 +131,12 @@ class _SecondStepBodyState extends State<SecondStepBody> {
   }
 
   Widget _navigationButtons() {
-    EnterpriseController controller = Get.find();
-
     return Column(
       children: [
         FidelityButton(
           label: 'Próximo',
           onPressed: () {
-            if (_formKey.currentState!.validate()) {
-              controller.userSignup.value.email = _emailController.text;
-              controller.userSignup.value.password = _passwordController.text;
-              Get.toNamed('/signup/company/third_step');
-            }
+            preSaveCompany();
           },
         ),
         FidelityTextButton(
@@ -152,5 +147,13 @@ class _SecondStepBodyState extends State<SecondStepBody> {
         ),
       ],
     );
+  }
+
+  void preSaveCompany() {
+    if (_formKey.currentState!.validate()) {
+      enterpriseController.userSignup.value.email = _emailController.text;
+      enterpriseController.userSignup.value.password = _passwordController.text;
+      Get.toNamed('/signup/company/third_step');
+    }
   }
 }

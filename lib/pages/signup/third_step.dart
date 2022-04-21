@@ -1,13 +1,16 @@
 import 'package:fidelity/controllers/enterprise_controller.dart';
+import 'package:fidelity/models/plan.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
+import 'package:fidelity/widgets/fidelity_empty.dart';
+import 'package:fidelity/widgets/fidelity_link_item.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
-import 'package:fidelity/widgets/fidelity_plan_card.dart';
 import 'package:fidelity/widgets/fidelity_stepper.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class ThirdStepPage extends StatelessWidget {
   @override
@@ -28,8 +31,6 @@ class ThirdStepBody extends StatefulWidget {
 
 class _ThirdStepBodyState extends State<ThirdStepBody> {
   EnterpriseController enterpriseController = Get.find();
-  int _index = 0;
-  List<bool> _selected = [true, false];
 
   @override
   Widget build(BuildContext context) {
@@ -41,108 +42,92 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
         )
       : Column(
           children: [
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                    ),
-                    FidelityStepper(currentStep: 3),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Quase lá... Escolha um de nossos planos, cada plano possui recursos diferentes, portanto, escolha o plano que for a cara do seu negócio!',
-                      style: Theme.of(context).textTheme.bodyText1,
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    _plansCarousel(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ),
-              ),
+            SizedBox(
+              height: 20,
             ),
-            _navigationButtons(),
+            FidelityStepper(
+              currentStep: 3,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              'Quase lá... Escolha um de nossos planos, cada plano possui recursos diferentes, portanto, escolha o plano que for a cara do seu negócio!',
+              style: Theme.of(context).textTheme.bodyText1,
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            _plansCarousel(),
+            SizedBox(
+              height: 20,
+            ),
+            FidelityButton(
+              label: 'Concluir',
+              onPressed: () {
+                saveCompany(context);
+              },
+            ),
+            FidelityTextButton(
+              label: 'Voltar',
+              onPressed: () {
+                Get.back();
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
           ],
         ),
     );
   }
 
   Widget _plansCarousel() {
-    return SizedBox(
-      height: 200,
-      child: PageView.builder(
-        itemCount: 2,
-        controller: PageController(viewportFraction: 0.7),
-        onPageChanged: (int index) => setState(() => _index = index),
-        itemBuilder: (_, i) {
-          return Transform.scale(
-            scale: i == _index ? 1 : 0.8,
-            child: [
-              FidelityPlanCard(
-                title: 'Simples',
-                value: '100',
-                description:
-                    'Funcionalidades padrões de gestão de fidelidades, relatórios gerenciais e cadastros limitados.',
-                onPressed: () {
-                  setState(() {
-                    for (int i = 0; i < _selected.length; i++) {
-                      _selected[i] = i == _index;
-                    }
-                  });
-                },
-                selected: _selected[i],
-              ),
-              FidelityPlanCard(
-                title: 'Avançado',
-                value: '250',
-                description: 'Todas as vantagens do plano Simples + destaque para clientes e cadastros ilimitados.',
-                onPressed: () {
-                  setState(() {
-                    for (int i = 0; i < _selected.length; i++) {
-                      _selected[i] = i == _index;
-                    }
-                  });
-                },
-                selected: _selected[i],
-              ),
-            ][_index],
-          );
-        },
+    return Expanded(
+      child: Obx(
+        () => enterpriseController.plansLoading.value
+        ? FidelityLoading(
+            loading: enterpriseController.plansLoading.value,
+            text: 'Carregando planos...',
+          )
+        : SingleChildScrollView(
+            child: Column(
+              children: [
+                if (enterpriseController.status.isSuccess)... [
+                  ...enterpriseController.plansList.map(
+                    (Plan plan) {
+                      String currency = NumberFormat.currency(locale: 'pt-br', symbol: 'R\$').format(plan.value);
+                      return FidelityLinkItem(
+                        id: plan.id ?? 1,
+                        label: plan.name! + ' - ' + currency,
+                        description: plan.description ?? '',
+                        selected: enterpriseController.plan.value.id == plan.id,
+                        onPressed: () {
+                          enterpriseController.plan.value = plan;
+                        },
+                      );
+                    },
+                  ),
+                ],
+                if (enterpriseController.status.isEmpty)
+                  FidelityEmpty(
+                    text: 'Nenhum plano encontrado',
+                  ),
+                if (enterpriseController.status.isError)
+                  FidelityEmpty(
+                    text: enterpriseController.status.errorMessage ?? '500',
+                  ),
+              ],
+            ),
+          ),
       ),
     );
   }
 
-  Widget _navigationButtons() {
-    EnterpriseController controller = Get.find();
-
-    return Column(
-      children: [
-        FidelityButton(
-          label: 'Concluir',
-          onPressed: () {
-            controller.signupEnterprise.value.membershipId = _index + 2;
-            saveEnterprise(context);
-          },
-        ),
-        FidelityTextButton(
-          label: 'Voltar',
-          onPressed: () {
-            Get.back();
-          },
-        ),
-      ],
-    );
-  }
-
-  void saveEnterprise(BuildContext context) async {
+  Future<void> saveCompany(BuildContext context) async {
     enterpriseController.loading.value = true;
+    enterpriseController.signupEnterprise.value.membershipId = enterpriseController.plan.value.id;
     enterpriseController.userSignup.value.enterprise = enterpriseController.signupEnterprise.value;
     await enterpriseController.signup();
     if (enterpriseController.status.isSuccess) {
@@ -151,7 +136,11 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
       return;
     }
     enterpriseController.loading.value = false;
-    showDialog(
+    _showErrorDialog(context);
+  }
+
+  Future<dynamic> _showErrorDialog(BuildContext context) {
+    return showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: Text(
@@ -176,6 +165,5 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
         ],
       ),
     );
-    return;
   }
 }
