@@ -1,5 +1,6 @@
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:fidelity/widgets/fidelity_user_header.dart';
 import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 
@@ -31,38 +32,10 @@ class _DashboardBodyState extends State<DashboardBody> {
         SizedBox(
           height: 20,
         ),
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                border: Border.all(
-                  color: Theme.of(context).colorScheme.secondaryContainer,
-                ),
-              ),
-              child: Image.asset(
-                'assets/img/company.png',
-                width: 50,
-              ),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  box.hasData('user') ? box.read('user') : 'Luke Skywalker',
-                  style: Theme.of(context).textTheme.bodyText1,
-                ),
-                Text(
-                  'Bem vindo!',
-                  style: Theme.of(context).textTheme.bodyText2,
-                ),
-              ],
-            ),
-          ],
+        FidelityUserHeader(
+          imagePath: 'assets/img/company.png',
+          name: box.hasData('user') ? box.read('user') : 'Luke Skywalker',
+          description: 'Bem vindo!',
         ),
         SizedBox(
           height: 40,

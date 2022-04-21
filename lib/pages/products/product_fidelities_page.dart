@@ -168,7 +168,11 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
       return;
     }
     productController.loading.value = false;
-    showDialog(
+    _showErrorDialog(context);
+  }
+
+  Future<dynamic> _showErrorDialog(BuildContext context) {
+    return showDialog(
       context: context,
       builder: (_) => AlertDialog(
         title: Text(

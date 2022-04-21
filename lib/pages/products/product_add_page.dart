@@ -122,7 +122,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                               label: 'Categoria',
                               selectedLabel: _categoryController.name,
                               onPressed: () {
-                                categoriesBottomSheet(context);
+                                _categoriesBottomSheet(context);
                               },
                             ),
                             SizedBox(
@@ -206,14 +206,14 @@ class _ProductAddBodyState extends State<ProductAddBody> {
     );
   }
 
-  Future<void> categoriesBottomSheet(BuildContext context) {
+  Future<void> _categoriesBottomSheet(BuildContext context) {
     return showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       enableDrag: false,
       builder: (BuildContext context) {
         return Container(
-          height: 250,
+          height: Get.height - Get.height * 0.5,
           padding: EdgeInsets.symmetric(horizontal: 20),
           color: Theme.of(context).colorScheme.background,
           child: Column(
@@ -226,7 +226,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                 style: Theme.of(context).textTheme.headline2,
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
               Expanded(
                 child: SingleChildScrollView(

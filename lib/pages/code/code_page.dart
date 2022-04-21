@@ -16,7 +16,7 @@ class CodePage extends StatelessWidget {
 
     return FidelityPage(
       appBar: FidelityAppbarWidget(
-        title: 'Escanear Código QR do cliente',
+        title: 'Escanear Código QR',
         hasBackButton: false,
       ),
       body: CodeBody(),
@@ -63,17 +63,16 @@ class _CodeBodyState extends State<CodeBody> {
                     if (value == null || value.isEmpty) {
                       return 'Campo vazio';
                     }
-                    if (value.isNotEmpty && value.length < 11) {
+                    if (value.isNotEmpty && value.length < 14) {
                       return 'Digite um CPF valido';
                     }
                     return null;
                   },
                   onChanged: (value) {
-                    Future.delayed(Duration(milliseconds: 1500), () {
-                      if (_formCodeKey.currentState!.validate()) {
-                        getCustomerProgress(value);
-                      }
-                    });
+                    value = value.length > 0 ? value.replaceAll(new RegExp(r'[^0-9]'), '') : value;
+                    if (_formCodeKey.currentState!.validate()) {
+                      getCustomerProgress(value);
+                    }
                   },
                 ),
                 SizedBox(
@@ -149,7 +148,7 @@ class _CodeBodyState extends State<CodeBody> {
     if (!p) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(
-          content: Text('Sem permissão'),
+          content: Text('Por favor, autorize uso de câmera no seu dispositivo'),
         ),
       );
     }
@@ -174,7 +173,7 @@ class _CodeBodyState extends State<CodeBody> {
       context: context,
       builder: (_) => AlertDialog(
         title: Text(
-          'Funcionários',
+          'Checkpoint',
           style: Theme.of(context).textTheme.headline1,
         ),
         content: Text(

@@ -2,22 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FidelityProgressItem extends StatelessWidget {
-  final int id;
   final String label;
   final String description;
   final double progress;
   final double target;
   final Function() onPressed;
-  final bool selected;
 
   FidelityProgressItem({
-    required this.id,
     required this.label,
     required this.description,
     required this.progress,
     required this.target,
     required this.onPressed,
-    this.selected = false,
   });
 
   @override
@@ -30,7 +26,7 @@ class FidelityProgressItem extends StatelessWidget {
             color: Colors.white,
             border: Border.all(
               width: 2,
-              color: selected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,
+              color: Theme.of(context).colorScheme.surface,
             ),
           ),
           child: InkWell(
@@ -42,13 +38,6 @@ class FidelityProgressItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        id.toString(),
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -108,11 +97,9 @@ class FidelityProgressItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Checkbox(
-                    value: selected,
-                    onChanged: (value) {
-                      onPressed();
-                    }
+                  Icon(
+                    Icons.chevron_right_outlined,
+                    color: Theme.of(context).colorScheme.secondaryContainer,
                   ),
                 ],
               ),
