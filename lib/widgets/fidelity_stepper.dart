@@ -38,14 +38,14 @@ class _CustomStepperState extends State<FidelityStepper> with TickerProviderStat
               Text(
                 "Acesso",
                 style: TextStyle(
-                  color: widget.currentStep >= 1 ? Theme.of(context).colorScheme.primary : Color(0xFFBDBDBD),
+                  color: widget.currentStep >= 1 ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.tertiaryContainer,
                 ),
               ),
               Spacer(),
               Text(
                 "Plano",
                 style: TextStyle(
-                  color: widget.currentStep == 2 ? Theme.of(context).colorScheme.primary : Color(0xFFBDBDBD),
+                  color: widget.currentStep == 2 ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.tertiaryContainer,
                 ),
               ),
             ],

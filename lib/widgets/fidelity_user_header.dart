@@ -22,7 +22,7 @@ class FidelityUserHeader extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(imageBorderRadius ?? 5),
             border: Border.all(
-              color: Theme.of(context).colorScheme.secondaryContainer,
+              color: Theme.of(context).colorScheme.tertiary,
             ),
           ),
           child: Image.asset(

@@ -3,6 +3,8 @@ import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/models/checkpoint.dart';
 import 'package:fidelity/models/customer_progress.dart';
 import 'package:fidelity/models/fidelity.dart';
+import 'package:fidelity/pages/customer/customer_progress_page.dart';
+import 'package:fidelity/util/fidelity_utils.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_empty.dart';
@@ -13,7 +15,6 @@ import 'package:fidelity/widgets/fidelity_progress_item.dart';
 import 'package:fidelity/widgets/fidelity_user_header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
 
 class CustomerFidelitiesPage extends StatelessWidget {
   @override
@@ -40,15 +41,6 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   CustomerController customerController = Get.find();
   FidelityController fidelityController = Get.put(FidelityController());
   List<Fidelity> _selectedFidelities = [];
-  List<String> types = [
-    'Quantidade',
-    'Pontuação',
-    'Valor',
-  ];
-  List<String> promotions = [
-    'Cupom de desconto',
-    'Vale produto',
-  ];
 
   @override
   void initState() {
@@ -178,7 +170,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
           ),
           boxShadow: [
             BoxShadow(
-              color: Theme.of(context).colorScheme.secondaryContainer.withOpacity(0.5),
+              color: Theme.of(context).colorScheme.tertiary.withOpacity(0.5),
               spreadRadius: 5,
               blurRadius: 7,
               offset: Offset(0, 3),
@@ -229,6 +221,20 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                 ),
               ],
               _progressList(),
+              if (_selectedFidelities.length > 0)... [
+                SizedBox(
+                  height: 20,
+                ),
+                FidelityButton(
+                  label: 'Checkpoint',
+                  onPressed: () {
+                    checkpoint(context);
+                  },
+                ),
+              ],
+              SizedBox(
+                height: 20,
+              ),
             ],
           ),
         );
@@ -253,13 +259,15 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                         fidelity: fidelity,
                         score: 0,
                       );
+                      String type = FidelityUtils.types[progress.fidelity!.fidelityTypeId ?? 0];
+                      String promotion = FidelityUtils.promotions[progress.fidelity!.promotionTypeId ?? 0];
                       return FidelityProgressItem(
                         label: progress.fidelity!.name ?? '',
-                        description: _buildProgressDescription(progress),
+                        description: '$type - $promotion',
                         progress: progress.score ?? 0.0,
                         target: progress.fidelity!.quantity ?? 0.0,
                         onPressed: () {
-                          
+                          Get.to(CustomerProgressPage(progress: progress));
                         },
                       );
                     },
@@ -272,37 +280,10 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                 ],
               ],
             ),
-            if (_selectedFidelities.length > 0)... [
-              SizedBox(
-                height: 20,
-              ),
-              FidelityButton(
-                label: 'Checkpoint',
-                onPressed: () {
-                  checkpoint(context);
-                },
-              ),
-            ],
-            SizedBox(
-              height: 10,
-            ),
           ],
         ),
       ),
     );
-  }
-
-  String _buildProgressDescription(CustomerProgress progress) {
-    String validity = 'N/A';
-    if (progress.fidelity!.startDate != null || progress.fidelity!.endDate != null) {
-      DateTime startDate = DateTime.parse(progress.fidelity!.startDate ?? '');
-      DateTime endDate = DateTime.parse(progress.fidelity!.endDate ?? '');
-      validity = DateFormat('dd/MM/yyyy').format(startDate) + ' - ' + DateFormat('dd/MM/yyyy').format(endDate);
-    }
-    String desc = 'Fidelização: ' + types[progress.fidelity!.fidelityTypeId ?? 0] + '\n' +
-                  'Promoção: ' + promotions[progress.fidelity!.promotionTypeId ?? 0] + '\n' +
-                  'Vigência: ' + validity;
-    return desc;
   }
 
   Future<void> checkpoint(BuildContext context) async {

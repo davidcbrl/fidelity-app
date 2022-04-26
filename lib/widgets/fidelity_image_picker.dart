@@ -22,7 +22,7 @@ class FidelityImagePicker extends StatelessWidget {
         borderRadius: BorderRadius.circular(5),
         border: Border.all(
           width: image == null ? 1 : 2,
-          color: image == null ? Theme.of(context).colorScheme.secondaryContainer : Theme.of(context).colorScheme.primary,
+          color: image == null ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.primary,
         ),
       ),
       child: InkWell(
@@ -61,7 +61,7 @@ class FidelityImagePicker extends StatelessWidget {
             ),
             Icon(
               Icons.image_outlined,
-              color: image == null ? Theme.of(context).colorScheme.secondaryContainer : Theme.of(context).colorScheme.primary,
+              color: image == null ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.primary,
             ),
           ],
         ),

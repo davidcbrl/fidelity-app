@@ -8,9 +8,10 @@ import 'package:fidelity/pages/auth/login_page.dart';
 import 'package:fidelity/pages/auth/password_reset_page.dart';
 import 'package:fidelity/pages/auth/reset_success_page.dart';
 import 'package:fidelity/pages/code/code_page.dart';
-import 'package:fidelity/pages/customer/customer_fidelities.dart';
-import 'package:fidelity/pages/customer/customer_signup.dart';
-import 'package:fidelity/pages/customer/customer_success.dart';
+import 'package:fidelity/pages/customer/customer_fidelities_page.dart';
+import 'package:fidelity/pages/customer/customer_progress_page.dart';
+import 'package:fidelity/pages/customer/customer_signup_page.dart';
+import 'package:fidelity/pages/customer/customer_success_page.dart';
 import 'package:fidelity/pages/employees/employee_add_page.dart';
 import 'package:fidelity/pages/employees/employee_list_page.dart';
 import 'package:fidelity/pages/employees/employee_success_page.dart';
@@ -101,6 +102,7 @@ final routes = [
     binding: BindingsBuilder(() => Get.put(() => CodeController())),
     children: [
       GetPage(name: '/customer_fidelities', page: () => CustomerFidelitiesPage(), transition: Transition.cupertino),
+      GetPage(name: '/customer_progress', page: () => CustomerProgressPage(), transition: Transition.cupertino),
     ],
   ),
   GetPage(

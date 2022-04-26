@@ -49,7 +49,7 @@ class FidelityProgressItem extends StatelessWidget {
                             height: 5,
                           ),
                           Container(
-                            width: Get.width - Get.width * 0.5,
+                            width: Get.width - Get.width * 0.4,
                             child: Row(
                               children: [
                                 Expanded(
@@ -88,7 +88,7 @@ class FidelityProgressItem extends StatelessWidget {
                                 (index) => Icon(
                                   Icons.circle,
                                   size: 15,
-                                  color: Color(0xFFBDBDBD),
+                                  color: Theme.of(context).colorScheme.tertiaryContainer,
                                 ),
                               ),
                             ],
@@ -99,7 +99,7 @@ class FidelityProgressItem extends StatelessWidget {
                   ),
                   Icon(
                     Icons.chevron_right_outlined,
-                    color: Theme.of(context).colorScheme.secondaryContainer,
+                    color: Theme.of(context).colorScheme.tertiary,
                   ),
                 ],
               ),
