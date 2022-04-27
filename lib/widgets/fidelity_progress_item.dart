@@ -76,19 +76,11 @@ class FidelityProgressItem extends StatelessWidget {
                                 width: 5,
                               ),
                               ...List.generate(
-                                progress.toInt(),
-                                (index) => Icon(
-                                  Icons.circle,
-                                  size: 15,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                              ),
-                              ...List.generate(
                                 target.toInt(),
                                 (index) => Icon(
                                   Icons.circle,
+                                  color: progress.toInt() > index ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.tertiaryContainer,
                                   size: 15,
-                                  color: Theme.of(context).colorScheme.tertiaryContainer,
                                 ),
                               ),
                             ],

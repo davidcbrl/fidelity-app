@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 
-class CodePage extends StatelessWidget {
+class CheckpointPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     CustomerController customerController = CustomerController();
@@ -16,22 +16,22 @@ class CodePage extends StatelessWidget {
 
     return FidelityPage(
       appBar: FidelityAppbarWidget(
-        title: 'Escanear Código QR',
+        title: 'Checkpoint',
         hasBackButton: false,
       ),
-      body: CodeBody(),
+      body: CheckpointBody(),
     );
   }
 }
 
-class CodeBody extends StatefulWidget {
-  const CodeBody({Key? key}) : super(key: key);
+class CheckpointBody extends StatefulWidget {
+  const CheckpointBody({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _CodeBodyState();
+  State<StatefulWidget> createState() => _CheckpointBodyState();
 }
 
-class _CodeBodyState extends State<CodeBody> {
+class _CheckpointBodyState extends State<CheckpointBody> {
   CustomerController customerController = Get.find();
   Barcode? result;
   QRViewController? qrController;
@@ -160,7 +160,7 @@ class _CodeBodyState extends State<CodeBody> {
       await customerController.getCustomerProgress();
       if (customerController.status.isSuccess) {
         customerController.loading.value = false;
-        Get.toNamed('/code/customer_fidelities');
+        Get.toNamed('/checkpoint/customer_fidelities');
         return;
       }
       customerController.loading.value = false;

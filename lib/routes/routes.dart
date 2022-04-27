@@ -1,4 +1,4 @@
-import 'package:fidelity/controllers/code_controller.dart';
+import 'package:fidelity/controllers/checkpoint_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/controllers/employee_controller.dart';
 import 'package:fidelity/controllers/fidelity_controller.dart';
@@ -7,9 +7,10 @@ import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/pages/auth/login_page.dart';
 import 'package:fidelity/pages/auth/password_reset_page.dart';
 import 'package:fidelity/pages/auth/reset_success_page.dart';
-import 'package:fidelity/pages/code/code_page.dart';
+import 'package:fidelity/pages/checkpoint/checkpoint_page.dart';
+import 'package:fidelity/pages/checkpoint/checkpoint_progress_page.dart';
+import 'package:fidelity/pages/checkpoint/checkpoint_success_page.dart';
 import 'package:fidelity/pages/customer/customer_fidelities_page.dart';
-import 'package:fidelity/pages/customer/customer_progress_page.dart';
 import 'package:fidelity/pages/customer/customer_signup_page.dart';
 import 'package:fidelity/pages/customer/customer_success_page.dart';
 import 'package:fidelity/pages/employees/employee_add_page.dart';
@@ -97,12 +98,13 @@ final routes = [
     ],
   ),
   GetPage(
-    name: '/code',
-    page: () => CodePage(),
-    binding: BindingsBuilder(() => Get.put(() => CodeController())),
+    name: '/checkpoint',
+    page: () => CheckpointPage(),
+    binding: BindingsBuilder(() => Get.put(() => CheckpointController())),
     children: [
       GetPage(name: '/customer_fidelities', page: () => CustomerFidelitiesPage(), transition: Transition.cupertino),
-      GetPage(name: '/customer_progress', page: () => CustomerProgressPage(), transition: Transition.cupertino),
+      GetPage(name: '/progress', page: () => CheckpointProgressPage(), transition: Transition.cupertino),
+      GetPage(name: '/success', page: () => CheckpointSuccessPage(), transition: Transition.cupertino),
     ],
   ),
   GetPage(

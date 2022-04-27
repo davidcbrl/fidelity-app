@@ -1,5 +1,4 @@
 import 'package:fidelity/models/api_response.dart';
-import 'package:fidelity/models/checkpoint.dart';
 import 'package:fidelity/models/customer_progress.dart';
 import 'package:fidelity/models/request_exception.dart';
 import 'package:fidelity/models/user.dart';
@@ -12,7 +11,6 @@ class CustomerController extends GetxController with StateMixin {
   var loading = false.obs;
   var customerCPF = ''.obs;
   var customerProgress = <CustomerProgress>[].obs;
-  var checkpoint = <Checkpoint>[].obs;
 
   Future<void> signup(User user) async {
     try {

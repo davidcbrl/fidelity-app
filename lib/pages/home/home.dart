@@ -1,5 +1,5 @@
 import 'package:fidelity/controllers/route_controller.dart';
-import 'package:fidelity/pages/code/code_page.dart';
+import 'package:fidelity/pages/checkpoint/checkpoint_page.dart';
 import 'package:fidelity/pages/dashboard/dashboard_page.dart';
 import 'package:fidelity/pages/fidelities/fidelity_list_page.dart';
 import 'package:fidelity/pages/settings/settings_page.dart';
@@ -25,7 +25,7 @@ class _HomePageState extends State<HomePage> {
   final menu = <String>[
     'Início',
     'Fidelidades',
-    'Código',
+    'Checkpoint',
     'Produtos',
     'Ajustes',
   ];
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
         children: <Widget>[
           DashboardPage(),
           FidelityListPage(),
-          CodePage(),
+          CheckpointPage(),
           ProductListPage(),
           SettingsPage(),
         ],

@@ -1,9 +1,10 @@
+import 'package:fidelity/controllers/checkpoint_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/models/checkpoint.dart';
 import 'package:fidelity/models/customer_progress.dart';
 import 'package:fidelity/models/fidelity.dart';
-import 'package:fidelity/pages/customer/customer_progress_page.dart';
+import 'package:fidelity/pages/checkpoint/checkpoint_progress_page.dart';
 import 'package:fidelity/util/fidelity_utils.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
@@ -12,6 +13,7 @@ import 'package:fidelity/widgets/fidelity_link_item.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_progress_item.dart';
+import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_user_header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -38,16 +40,17 @@ class CustomerFidelitiesBody extends StatefulWidget {
 }
 
 class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
-  CustomerController customerController = Get.find();
+  CheckpointController checkpointController = Get.put(CheckpointController());
   FidelityController fidelityController = Get.put(FidelityController());
-  List<Fidelity> _selectedFidelities = [];
+  CustomerController customerController = Get.find();
+  List<CustomerProgress> _selectedForCheckpoint = [];
 
   @override
   void initState() {
     if (customerController.customerProgress.value.length > 0) {
       customerController.customerProgress.value.forEach((CustomerProgress progress) {
         if (progress.fidelity != null) {
-          _selectedFidelities.add(progress.fidelity!);
+          _selectedForCheckpoint.add(progress);
         }
       });
     }
@@ -56,43 +59,49 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 15),
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
+    return Obx(
+      () => customerController.loading.value
+      ? FidelityLoading(
+          loading: customerController.loading.value,
+        )
+      : Column(
+          children: [
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 20,
+                    ),
+                    FidelityUserHeader(
+                      imagePath: 'assets/img/user.jpg',
+                      name: 'Chewie',
+                      description: 'Prospect',
+                      imageBorderRadius: 50,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      'Fidelidades disponíveis',
+                      style: Theme.of(context).textTheme.bodyText1,
+                      textAlign: TextAlign.center,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    _fidelitiesList(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                  ],
                 ),
-                FidelityUserHeader(
-                  imagePath: 'assets/img/user.jpg',
-                  name: 'Chewie',
-                  description: 'Prospect',
-                  imageBorderRadius: 50,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Text(
-                  'Fidelidades disponíveis',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                _fidelitiesList(),
-                SizedBox(
-                  height: 20,
-                ),
-              ],
+              ),
             ),
-          ),
-        ),
-        _progressCart(context),
-      ],
+            _progressCart(context),
+          ],
+      ),
     );
   }
 
@@ -119,12 +128,15 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                         onPressed: () {
                           if (containsFidelityId(fidelity.id)) {
                             setState(() {
-                              _selectedFidelities.removeWhere((element) => element.id == fidelity.id);
+                              _selectedForCheckpoint.removeWhere((CustomerProgress progress) => progress.fidelity!.id == fidelity.id);
                             });
                             return;
                           }
                           setState(() {
-                            _selectedFidelities.add(fidelity);
+                            _selectedForCheckpoint.add(new CustomerProgress(
+                              fidelity: fidelity,
+                              score: 0,
+                            ));
                           });
                         },
                       );
@@ -149,8 +161,8 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   }
 
   bool containsFidelityId(int? id) {
-    for (dynamic e in _selectedFidelities) {
-      if (e.id == id) return true;
+    for (CustomerProgress progress in _selectedForCheckpoint) {
+      if (progress.fidelity!.id == id) return true;
     }
     return false;
   }
@@ -163,7 +175,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
       child: Container(
         width: Get.width,
         decoration: BoxDecoration(
-          color: _selectedFidelities.length > 0 ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,
+          color: _selectedForCheckpoint.length > 0 ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(20.0),
             topRight: Radius.circular(20.0),
@@ -179,9 +191,9 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
-          child: _selectedFidelities.length > 0
+          child: _selectedForCheckpoint.length > 0
           ? Text(
-              'Fidelidades selecionadas para checkpoint: ${_selectedFidelities.length}',
+              'Fidelidades selecionadas para checkpoint: ${_selectedForCheckpoint.length}',
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.button,
             )
@@ -201,6 +213,11 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
       isScrollControlled: true,
       enableDrag: false,
       builder: (BuildContext context) {
+        if (checkpointController.loading.value) {
+          return FidelityLoading(
+            loading: checkpointController.loading.value,
+          );
+        }
         return Container(
           height: Get.height - Get.height * 0.5,
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -210,10 +227,18 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
               SizedBox(
                 height: 20,
               ),
-              if (_selectedFidelities.length > 0) ...[
+              if (_selectedForCheckpoint.length > 0) ...[
                 Text(
-                  'Fidelidades selecionadas para checkpoint: ${_selectedFidelities.length}',
-                  style: Theme.of(context).textTheme.headline2,
+                  'Fidelidades selecionadas para checkpoint: ${_selectedForCheckpoint.length}',
+                  style: Theme.of(context).textTheme.headline1,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Clique sobre cada fidelidade para editar o progresso individualmente',
+                  style: Theme.of(context).textTheme.bodyText1,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
@@ -221,14 +246,20 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                 ),
               ],
               _progressList(),
-              if (_selectedFidelities.length > 0)... [
+              if (_selectedForCheckpoint.length > 0)... [
                 SizedBox(
                   height: 20,
                 ),
                 FidelityButton(
-                  label: 'Checkpoint',
+                  label: 'Finalizar checkpoint',
                   onPressed: () {
                     checkpoint(context);
+                  },
+                ),
+                FidelityTextButton(
+                  label: 'Voltar',
+                  onPressed: () {
+                    Get.back();
                   },
                 ),
               ],
@@ -252,13 +283,9 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
           children: [
             Column(
               children: [
-                if (_selectedFidelities.length > 0)... [
-                  ..._selectedFidelities.map(
-                    (Fidelity fidelity) {
-                      CustomerProgress progress = CustomerProgress(
-                        fidelity: fidelity,
-                        score: 0,
-                      );
+                if (_selectedForCheckpoint.length > 0)... [
+                  ..._selectedForCheckpoint.map(
+                    (CustomerProgress progress) {
                       String type = FidelityUtils.types[progress.fidelity!.fidelityTypeId ?? 0];
                       String promotion = FidelityUtils.promotions[progress.fidelity!.promotionTypeId ?? 0];
                       return FidelityProgressItem(
@@ -267,13 +294,14 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                         progress: progress.score ?? 0.0,
                         target: progress.fidelity!.quantity ?? 0.0,
                         onPressed: () {
-                          Get.to(CustomerProgressPage(progress: progress));
+                          Get.back();
+                          Get.to(() => CheckpointProgressPage(progress: progress));
                         },
                       );
                     },
                   ),
                 ],
-                if (_selectedFidelities.length == 0)... [
+                if (_selectedForCheckpoint.length == 0)... [
                   FidelityEmpty(
                     text: 'Selecione as fidelidades que deseja atualizar o progresso do cliente',
                   ),
@@ -287,21 +315,21 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   }
 
   Future<void> checkpoint(BuildContext context) async {
-    customerController.loading.value = true;
-    customerController.checkpoint.value = _selectedFidelities.map(
-      (Fidelity fidelity) => new Checkpoint(
-        customerId: 99,
-        fidelityId: fidelity.id,
-        value: 99,
+    checkpointController.loading.value = true;
+    checkpointController.checkpoint.value = _selectedForCheckpoint.map(
+      (CustomerProgress progress) => new Checkpoint(
+        customerId: 1,
+        fidelityId: progress.fidelity!.id,
+        value: progress.score,
       )
     ).toList();
-    // await customerController.checkpoint();
-    if (customerController.status.isSuccess) {
-      customerController.loading.value = false;
-      // Get.toNamed('/code/success');
+    await checkpointController.saveCheckpoint();
+    // if (checkpointController.status.isSuccess) {
+      checkpointController.loading.value = false;
+      Get.toNamed('/checkpoint/success');
       return;
-    }
-    customerController.loading.value = false;
+    // }
+    checkpointController.loading.value = false;
     _showErrorDialog(context);
   }
 
@@ -314,7 +342,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
           style: Theme.of(context).textTheme.headline1,
         ),
         content: Text(
-          customerController.status.errorMessage ?? 'Erro ao salvar produto',
+          checkpointController.status.errorMessage ?? 'Erro ao realizar checkpoint',
           style: Theme.of(context).textTheme.bodyText1,
         ),
         actions: [
