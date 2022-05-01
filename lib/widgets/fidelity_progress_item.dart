@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 class FidelityProgressItem extends StatelessWidget {
   final String label;
   final String description;
+  final int typeId;
   final double progress;
   final double target;
   final Function() onPressed;
@@ -11,6 +12,7 @@ class FidelityProgressItem extends StatelessWidget {
   FidelityProgressItem({
     required this.label,
     required this.description,
+    required this.typeId,
     required this.progress,
     required this.target,
     required this.onPressed,
@@ -66,24 +68,36 @@ class FidelityProgressItem extends StatelessWidget {
                           SizedBox(
                             height: 5,
                           ),
-                          Row(
-                            children: [
-                              Text(
-                                '${progress.toInt()}/${target.toInt()}',
-                                style: Theme.of(context).textTheme.bodyText1,
-                              ),
-                              SizedBox(
-                                width: 5,
-                              ),
-                              ...List.generate(
-                                target.toInt(),
-                                (index) => Icon(
-                                  Icons.circle,
-                                  color: progress.toInt() > index ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.tertiaryContainer,
-                                  size: 15,
+                          Container(
+                            width: Get.width - Get.width * 0.4,
+                            child: Row(
+                              children: [
+                                Text(
+                                  '${progress.toInt()}/${target.toInt()}',
+                                  style: Theme.of(context).textTheme.bodyText1,
                                 ),
-                              ),
-                            ],
+                                SizedBox(
+                                  width: 5,
+                                ),
+                                if (typeId == 1)
+                                  ...List.generate(
+                                    target.toInt(),
+                                    (index) => Icon(
+                                      Icons.circle,
+                                      color: progress.toInt() > index ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.tertiaryContainer,
+                                      size: 15,
+                                    ),
+                                  ),
+                                if (typeId != 1)
+                                  Expanded(
+                                    child: LinearProgressIndicator(
+                                      value: progress/target,
+                                      valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.primary),
+                                      backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+                                    ),
+                                  ),
+                              ],
+                            ),
                           ),
                         ],
                       ),

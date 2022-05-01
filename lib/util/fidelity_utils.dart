@@ -7,5 +7,6 @@ abstract class FidelityUtils {
   static List<String> promotions = [
     'Cupom de desconto',
     'Vale produto',
+    'Sei lá',
   ];
 }

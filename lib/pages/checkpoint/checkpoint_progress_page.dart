@@ -4,6 +4,7 @@ import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
+import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -34,11 +35,16 @@ class CheckpointProgressBody extends StatefulWidget {
 }
 
 class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
+  TextEditingController linearController = TextEditingController(text: '');
   double originalScore = 0;
 
   @override
   void initState() {
     originalScore = widget.progress.score ?? 0;
+    if (widget.progress.fidelity!.fidelityTypeId != 1) {
+      widget.progress.score = widget.progress.score! / widget.progress.fidelity!.quantity!.toInt();
+      linearController.text = widget.progress.score.toString();
+    }
     super.initState();
   }
 
@@ -47,24 +53,50 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
     return Column(
       children: [
         Expanded(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20,
-              ),
-              Text(
-                'Selecione o progresso que o cliente está alcançando com essa fidelidade',
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              _progressCard(context),
-              SizedBox(
-                height: 20,
-              ),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Defina o progresso que o cliente está alcançando com essa fidelidade',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                if (widget.progress.fidelity!.fidelityTypeId != 1) ...[
+                  FidelityTextFieldMasked(
+                    controller: linearController,
+                    label: "Progresso",
+                    placeholder: "0.0",
+                    icon: Icon(Icons.person_outline),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo vazio';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      if (double.parse(value) > 0) {
+                        setState(() {
+                          widget.progress.score = double.parse(value);
+                        });
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                ],
+                _progressCard(context),
+                SizedBox(
+                  height: 20,
+                ),
+              ],
+            ),
           ),
         ),
         FidelityButton(
@@ -122,37 +154,56 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
           SizedBox(
             height: 20,
           ),
-          Text(
-            widget.progress.score!.toInt().toString() + '/' + widget.progress.fidelity!.quantity!.toInt().toString(),
-            style: Theme.of(context).textTheme.headline1,
-          ),
+          if (widget.progress.fidelity!.fidelityTypeId == 1)
+            Text(
+              widget.progress.score!.toInt().toString() + '/' + widget.progress.fidelity!.quantity!.toInt().toString(),
+              style: Theme.of(context).textTheme.headline1,
+            ),
+          if (widget.progress.fidelity!.fidelityTypeId != 1)
+            Text(
+              widget.progress.score!.toInt().toString() + '/' + widget.progress.fidelity!.quantity!.toInt().toString(),
+              style: Theme.of(context).textTheme.headline1,
+            ),
           SizedBox(
             height: 20,
           ),
-          Wrap(
-            alignment: WrapAlignment.center,
-            children: [
-              ...List.generate(widget.progress.fidelity!.quantity!.toInt(), (index) {
-                index = index + 1;
-                return InkWell(
-                  onTap: () {
-                    setState(() {
-                      if (widget.progress.score == index.toDouble()) {
-                        widget.progress.score = 0;
-                        return;
-                      }
-                      widget.progress.score = index.toDouble();
-                    });
-                  },
-                  child: Icon(
-                    widget.progress.score! < index ? Icons.circle : Icons.check_circle_rounded,
-                    color: widget.progress.score! < index ? Theme.of(context).colorScheme.tertiaryContainer : Theme.of(context).colorScheme.secondary,
-                    size: 50,
-                  ),
-                );
-              }).toList(),
-            ],
-          ),
+          if (widget.progress.fidelity!.fidelityTypeId == 1)
+            Wrap(
+              alignment: WrapAlignment.center,
+              children: [
+                ...List.generate(widget.progress.fidelity!.quantity!.toInt(), (index) {
+                  index = index + 1;
+                  return InkWell(
+                    onTap: () {
+                      setState(() {
+                        if (widget.progress.score == index.toDouble()) {
+                          widget.progress.score = 0;
+                          return;
+                        }
+                        widget.progress.score = index.toDouble();
+                      });
+                    },
+                    child: Icon(
+                      widget.progress.score! < index ? Icons.circle : Icons.check_circle_rounded,
+                      color: widget.progress.score! < index ? Theme.of(context).colorScheme.tertiaryContainer : Theme.of(context).colorScheme.secondary,
+                      size: 50,
+                    ),
+                  );
+                }).toList(),
+              ],
+            ),
+          if (widget.progress.fidelity!.fidelityTypeId != 1)
+            Container(
+              width: Get.width,
+              child: Expanded(
+                child: LinearProgressIndicator(
+                  value: widget.progress.score! / widget.progress.fidelity!.quantity!.toDouble(),
+                  valueColor: AlwaysStoppedAnimation<Color>(Theme.of(context).colorScheme.primary),
+                  backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
+                  minHeight: 10,
+                ),
+              ),
+            ),
         ],
       ),
     );

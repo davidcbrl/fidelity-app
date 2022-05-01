@@ -230,7 +230,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
               if (_selectedForCheckpoint.length > 0) ...[
                 Text(
                   'Fidelidades selecionadas para checkpoint: ${_selectedForCheckpoint.length}',
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.headline2,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
@@ -291,6 +291,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                       return FidelityProgressItem(
                         label: progress.fidelity!.name ?? '',
                         description: '$type - $promotion',
+                        typeId: progress.fidelity!.fidelityTypeId ?? 1,
                         progress: progress.score ?? 0.0,
                         target: progress.fidelity!.quantity ?? 0.0,
                         onPressed: () {
