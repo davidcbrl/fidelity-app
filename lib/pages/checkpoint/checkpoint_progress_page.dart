@@ -53,50 +53,56 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
     return Column(
       children: [
         Expanded(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: 20,
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                'Defina o progresso que o cliente está alcançando com essa fidelidade',
+                style: Theme.of(context).textTheme.bodyText1,
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              if (widget.progress.fidelity!.fidelityTypeId != 1) ...[
+                FidelityTextFieldMasked(
+                  controller: linearController,
+                  label: "Progresso",
+                  placeholder: "0.0",
+                  icon: Icon(Icons.person_outline),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return 'Campo vazio';
+                    }
+                    return null;
+                  },
+                  onChanged: (value) {
+                    if (double.tryParse(value) == null) {
+                      setState(() {
+                        widget.progress.score = 0.0;
+                      });
+                    }
+                    if (double.parse(value) > 0) {
+                      setState(() {
+                        widget.progress.score = double.parse(value);
+                      });
+                    }
+                    setState(() {
+                      widget.progress.score = 0.0;
+                    });
+                  },
                 ),
-                Text(
-                  'Defina o progresso que o cliente está alcançando com essa fidelidade',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  textAlign: TextAlign.center,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                if (widget.progress.fidelity!.fidelityTypeId != 1) ...[
-                  FidelityTextFieldMasked(
-                    controller: linearController,
-                    label: "Progresso",
-                    placeholder: "0.0",
-                    icon: Icon(Icons.person_outline),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo vazio';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      if (double.parse(value) > 0) {
-                        setState(() {
-                          widget.progress.score = double.parse(value);
-                        });
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                ],
-                _progressCard(context),
                 SizedBox(
                   height: 20,
                 ),
               ],
-            ),
+              _progressCard(context),
+              SizedBox(
+                height: 20,
+              ),
+            ],
           ),
         ),
         FidelityButton(

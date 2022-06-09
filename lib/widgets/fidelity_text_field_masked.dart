@@ -28,33 +28,36 @@ class FidelityTextFieldMasked extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      onChanged: onChanged,
-      readOnly: readOnly ?? false,
-      onTap: onTap,
-      controller: controller,
-      style: Theme.of(context).textTheme.bodyText1,
-      obscureText: hideText,
-      inputFormatters: [MaskTextInputFormatter(mask: mask ?? '')],
-      validator: validator,
-      decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(left: 10),
-        labelText: label,
-        hintText: placeholder,
-        hintStyle: Theme.of(context).textTheme.bodyText2,
-        filled: true,
-        fillColor: Theme.of(context).colorScheme.surface,
-        suffixIcon: icon,
-        border: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
-            width: 2,
+    return Padding(
+      padding: const EdgeInsets.only(top: 5),
+      child: TextFormField(
+        onChanged: onChanged,
+        readOnly: readOnly ?? false,
+        onTap: onTap,
+        controller: controller,
+        style: Theme.of(context).textTheme.bodyText1,
+        obscureText: hideText,
+        inputFormatters: [MaskTextInputFormatter(mask: mask ?? '')],
+        validator: validator,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(left: 10),
+          labelText: label,
+          hintText: placeholder,
+          hintStyle: Theme.of(context).textTheme.bodyText2,
+          filled: true,
+          fillColor: Theme.of(context).colorScheme.surface,
+          suffixIcon: icon,
+          border: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 2,
+            ),
           ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(
-            color: Theme.of(context).colorScheme.primary,
-            width: 2,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.primary,
+              width: 2,
+            ),
           ),
         ),
       ),

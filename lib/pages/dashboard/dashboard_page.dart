@@ -40,38 +40,40 @@ class _DashboardBodyState extends State<DashboardBody> {
         SizedBox(
           height: 40,
         ),
-        Stack(
-          children: [
-            Image.asset(
-              'assets/img/dashboard.gif',
-            ),
-            Positioned(
-              right: 0,
-              child: Container(
-                width: 125,
-                child: Column(
-                  children: [
-                    SizedBox(
-                      height: 30,
-                    ),
-                    Text(
-                      'Esta é sua dashboard',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.headline1,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Aqui serão exibidos dados estatísticos de produtos e fidelidades ativas para auxiliar o seu negócio',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.bodyText1,
-                    ),
-                  ],
+        Expanded(
+          child: Stack(
+            children: [
+              Image.asset(
+                'assets/img/dashboard.gif',
+              ),
+              Positioned(
+                right: 0,
+                child: Container(
+                  width: 125,
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: 30,
+                      ),
+                      Text(
+                        'Esta é sua dashboard',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.headline1,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        'Aqui serão exibidos dados estatísticos de produtos e fidelidades ativas para auxiliar o seu negócio',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
