@@ -2,12 +2,12 @@ import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 import '../../models/fidelity.dart';
 import '../../widgets/fidelity_appbar.dart';
 import '../../widgets/fidelity_button.dart';
 import '../../widgets/fidelity_empty.dart';
-import '../../widgets/fidelity_loading.dart';
 import '../../widgets/fidelity_select_item.dart';
 import '../../widgets/fidelity_text_field.dart';
 
@@ -30,6 +30,7 @@ class FidelityListBody extends StatelessWidget {
   FidelityController fidelityController = Get.put(FidelityController());
   TextEditingController _textEditingController = new TextEditingController();
   FidelityListBody({Key? key}) : super(key: key);
+  ScrollController scrollController = new ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -64,36 +65,38 @@ class FidelityListBody extends StatelessWidget {
 
   Widget _fidelityList() {
     return Obx(
-      () => fidelityController.loading.value
-          ? FidelityLoading(
-              loading: fidelityController.loading.value,
-              text: 'Carregando fidelidades...',
-            )
-          : Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    if (fidelityController.status.isSuccess) ...[
-                      ...fidelityController.fidelitiesList.map(
-                        (Fidelity fidelity) => FidelitySelectItem(
-                          id: fidelity.id,
-                          label: fidelity.name ?? '',
-                          description: fidelity.description ?? '',
-                          onPressed: () {
-                            Get.toNamed("/fidelity/add", arguments: fidelity);
-                          },
-                        ),
-                      ),
-                    ],
-                    if (fidelityController.status.isEmpty || fidelityController.status.isError) ...[
-                      FidelityEmpty(
-                        text: 'Nenhuma fidelidade encontrada',
-                      ),
-                    ],
-                  ],
+      () => Expanded(
+        child: LazyLoadScrollView(
+          isLoading: fidelityController.loading.value,
+          scrollOffset: 10,
+          onEndOfPage: () => fidelityController.getFidelitiesNextPage(),
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            controller: scrollController,
+            physics: AlwaysScrollableScrollPhysics(),
+            children: [
+              if (fidelityController.status.isSuccess) ...[
+                ...fidelityController.fidelitiesList.map(
+                  (Fidelity fidelity) => FidelitySelectItem(
+                    id: fidelity.id,
+                    label: fidelity.name ?? '',
+                    description: fidelity.description ?? '',
+                    onPressed: () {
+                      Get.toNamed("/fidelity/add", arguments: fidelity);
+                    },
+                  ),
                 ),
-              ),
-            ),
+              ],
+              if (fidelityController.status.isEmpty || fidelityController.status.isError) ...[
+                FidelityEmpty(
+                  text: 'Nenhuma fidelidade encontrada',
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

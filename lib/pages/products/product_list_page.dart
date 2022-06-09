@@ -84,8 +84,8 @@ class _ProductListBodyState extends State<ProductListBody> {
           isLoading: productController.loading.value,
           scrollOffset: 10,
           onEndOfPage: () => productController.getProductsNextPage(),
-          child: Obx(
-            () => RefreshIndicator(
+          child: Container(
+            child: RefreshIndicator(
               onRefresh: () => _refresh(),
               child: ListView(
                 shrinkWrap: true,
@@ -93,22 +93,22 @@ class _ProductListBodyState extends State<ProductListBody> {
                 controller: scrollController,
                 physics: AlwaysScrollableScrollPhysics(),
                 children: [
-                  if (!productController.status.isError && productController.productsList.length > 0)... [
+                  if (!productController.status.isError && productController.productsList.length > 0) ...[
                     ...productController.productsList.map(
                       (Product product) => FidelitySelectItem(
                         id: product.id,
                         label: product.name ?? '',
                         image: product.image != null
-                          ? Image.memory(
-                              base64Decode(product.image ?? ''),
-                              height: 50,
-                              width: 50,
-                            )
-                          : Image.asset(
-                              'assets/img/product.png',
-                              height: 50,
-                              width: 50,
-                            ),
+                            ? Image.memory(
+                                base64Decode(product.image ?? ''),
+                                height: 50,
+                                width: 50,
+                              )
+                            : Image.asset(
+                                'assets/img/product.png',
+                                height: 50,
+                                width: 50,
+                              ),
                         onPressed: () {
                           productController.product.value = product;
                           Get.toNamed('/product/add');

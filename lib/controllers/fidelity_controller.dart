@@ -11,8 +11,11 @@ class FidelityController extends GetxController with StateMixin {
   var companyId = 0.obs;
   var loading = false.obs;
   var fidelity = Fidelity().obs;
+  var filter = ''.obs;
+  var pageSize = 5.obs;
   var fidelitiesList = <Fidelity>[].obs;
   var isInvalid = false.obs;
+  var page = 1.obs;
   var fidelitySelectedAdd = Fidelity().obs;
 
   @override
@@ -56,8 +59,12 @@ class FidelityController extends GetxController with StateMixin {
     change([], status: RxStatus.loading());
     loading.value = true;
     try {
+      String path = 'loyalts?page=${page.value}&pagesize=${pageSize.value}';
+      if (filter.value.length >= 3) {
+        path = '$path&name=${filter.value}';
+      }
       Map<String, dynamic> json = await ApiProvider.get(
-        path: 'loyalts',
+        path: path,
       );
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
@@ -84,6 +91,11 @@ class FidelityController extends GetxController with StateMixin {
       change([], status: RxStatus.error('Erro buscar fidelidades'));
       loading.value = false;
     }
+  }
+
+  void getFidelitiesNextPage() {
+    page.value = page.value + 1;
+    getFidelities();
   }
 
   fakeFidelityTypeList() {
