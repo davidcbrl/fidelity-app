@@ -1,4 +1,5 @@
 import 'package:fidelity/controllers/fidelity_controller.dart';
+import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,6 +45,7 @@ class FidelityListBody extends StatelessWidget {
           label: 'Filtrar',
           placeholder: 'Nome da fidelidade',
           icon: Icon(Icons.search),
+          onChanged: (value) => fidelityController.filter.value = value,
         ),
         SizedBox(
           height: 20,
@@ -76,23 +78,22 @@ class FidelityListBody extends StatelessWidget {
             controller: scrollController,
             physics: AlwaysScrollableScrollPhysics(),
             children: [
-              if (fidelityController.status.isSuccess) ...[
-                ...fidelityController.fidelitiesList.map(
-                  (Fidelity fidelity) => FidelitySelectItem(
-                    id: fidelity.id,
-                    label: fidelity.name ?? '',
-                    description: fidelity.description ?? '',
-                    onPressed: () {
-                      Get.toNamed("/fidelity/add", arguments: fidelity);
-                    },
-                  ),
-                ),
-              ],
-              if (fidelityController.status.isEmpty || fidelityController.status.isError) ...[
+              if (fidelityController.fidelitiesList.isEmpty && fidelityController.status.isError) ...[
                 FidelityEmpty(
                   text: 'Nenhuma fidelidade encontrada',
                 ),
               ],
+              ...fidelityController.fidelitiesList.map(
+                (Fidelity fidelity) => FidelitySelectItem(
+                  id: fidelity.id,
+                  label: fidelity.name ?? '',
+                  description: fidelity.description ?? '',
+                  onPressed: () {
+                    Get.toNamed("/fidelity/add", arguments: fidelity);
+                  },
+                ),
+              ),
+              ...[FidelityLoading(loading: fidelityController.loading.value)]
             ],
           ),
         ),

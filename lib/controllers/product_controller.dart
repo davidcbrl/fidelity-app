@@ -85,8 +85,10 @@ class ProductController extends GetxController with StateMixin {
   }
 
   void getProductsNextPage() {
-    page.value = page.value + 1;
-    getProducts();
+    if (filter.isEmpty) {
+      page.value = page.value + 1;
+      getProducts();
+    }
   }
 
   Future<void> saveProduct() async {

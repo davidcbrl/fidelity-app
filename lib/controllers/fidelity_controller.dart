@@ -12,6 +12,7 @@ class FidelityController extends GetxController with StateMixin {
   var loading = false.obs;
   var fidelity = Fidelity().obs;
   var filter = ''.obs;
+  var filterDelay = false.obs;
   var pageSize = 5.obs;
   var fidelitiesList = <Fidelity>[].obs;
   var isInvalid = false.obs;
@@ -22,6 +23,21 @@ class FidelityController extends GetxController with StateMixin {
   void onInit() {
     companyId.value = box.read('companyId');
     getFidelities();
+    ever(filter, (_) async {
+      if (filter.value.length == 0) {
+        getFidelities();
+        return;
+      }
+      if (filter.value.length < 3 || filterDelay.value) {
+        return;
+      }
+      filterDelay.value = true;
+      await Future.delayed(Duration(seconds: 1));
+      filterDelay.value = false;
+      page.value = 1;
+      fidelitiesList.clear();
+      await getFidelities();
+    });
     super.onInit();
   }
 
@@ -79,7 +95,7 @@ class FidelityController extends GetxController with StateMixin {
         return;
       }
       List<dynamic> list = response.result;
-      fidelitiesList.value = list.map((e) => Fidelity.fromJson(e)).toList();
+      fidelitiesList.value += list.map((e) => Fidelity.fromJson(e)).toList();
       change([], status: RxStatus.success());
       loading.value = false;
     } on RequestException catch (error) {
@@ -94,8 +110,10 @@ class FidelityController extends GetxController with StateMixin {
   }
 
   void getFidelitiesNextPage() {
-    page.value = page.value + 1;
-    getFidelities();
+    if (filter.isEmpty) {
+      page.value = page.value + 1;
+      getFidelities();
+    }
   }
 
   fakeFidelityTypeList() {
