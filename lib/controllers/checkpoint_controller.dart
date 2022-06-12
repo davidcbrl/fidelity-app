@@ -8,19 +8,24 @@ import 'package:get_storage/get_storage.dart';
 class CheckpointController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
   var loading = false.obs;
-  var checkpoint = <Checkpoint>[].obs;
+  var checkpoints = <Checkpoint>[].obs;
 
   Future<void> saveCheckpoint() async {
     change([], status: RxStatus.loading());
     try {
       Map<String, dynamic> json;
-      json = await ApiProvider.post(path: 'checkpoints', data: checkpoint.toJson());
-      ApiResponse response = ApiResponse.fromJson(json);
-      if (!response.success) {
-        throw RequestException(
-          message: response.message,
+      await Future.forEach(this.checkpoints, (Checkpoint check) async {
+        json = await ApiProvider.post(
+          path: 'checkpoints',
+          data: check.toJson(),
         );
-      }
+        ApiResponse response = ApiResponse.fromJson(json);
+        if (!response.success) {
+          throw RequestException(
+            message: response.message,
+          );
+        }
+      });
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);

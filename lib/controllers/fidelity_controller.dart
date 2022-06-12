@@ -13,7 +13,7 @@ class FidelityController extends GetxController with StateMixin {
   var fidelity = Fidelity().obs;
   var filter = ''.obs;
   var filterDelay = false.obs;
-  var pageSize = 5.obs;
+  var pageSize = 10.obs;
   var fidelitiesList = <Fidelity>[].obs;
   var isInvalid = false.obs;
   var page = 1.obs;

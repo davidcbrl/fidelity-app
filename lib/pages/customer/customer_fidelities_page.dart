@@ -17,6 +17,7 @@ import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_user_header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 class CustomerFidelitiesPage extends StatelessWidget {
   @override
@@ -43,6 +44,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   CheckpointController checkpointController = Get.put(CheckpointController());
   FidelityController fidelityController = Get.put(FidelityController());
   CustomerController customerController = Get.find();
+  ScrollController scrollController = new ScrollController();
   List<CustomerProgress> _selectedForCheckpoint = [];
 
   @override
@@ -108,15 +110,17 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   Widget _fidelitiesList() {
     return Expanded(
       child: Obx(
-        () => fidelityController.loading.value
-        ? FidelityLoading(
-            loading: fidelityController.loading.value,
-            text: 'Carregando fidelidades...',
-          )
-        : SingleChildScrollView(
-            child: Column(
-              children: [
-                if (fidelityController.status.isSuccess)... [
+        () => LazyLoadScrollView(
+          isLoading: fidelityController.loading.value,
+          scrollOffset: 10,
+          onEndOfPage: () => fidelityController.getFidelitiesNextPage(),
+          child: ListView(
+            shrinkWrap: true,
+            padding: EdgeInsets.zero,
+            controller: scrollController,
+            physics: AlwaysScrollableScrollPhysics(),
+            children: [
+              if (!fidelityController.status.isError && fidelityController.fidelitiesList.length > 0)... [
                   ...fidelityController.fidelitiesList.map(
                     (Fidelity fidelity) {
                       fidelity.products = null;
@@ -143,6 +147,12 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                     },
                   ),
                 ],
+                if (fidelityController.status.isLoading)... [
+                  FidelityLoading(
+                    loading: fidelityController.loading.value,
+                    text: 'Carregando fidelidades...',
+                  ),
+                ],
                 if (fidelityController.status.isEmpty)... [
                   FidelityEmpty(
                     text: 'Nenhuma fidelidade encontrada',
@@ -153,9 +163,9 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                     text: fidelityController.status.errorMessage ?? '500',
                   ),
                 ],
-              ]
-            ),
+            ],
           ),
+        ),
       ),
     );
   }
@@ -317,7 +327,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
 
   Future<void> checkpoint(BuildContext context) async {
     checkpointController.loading.value = true;
-    checkpointController.checkpoint.value = _selectedForCheckpoint.map(
+    checkpointController.checkpoints.value = _selectedForCheckpoint.map(
       (CustomerProgress progress) => new Checkpoint(
         customerId: 1,
         fidelityId: progress.fidelity!.id,
@@ -325,11 +335,11 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
       )
     ).toList();
     await checkpointController.saveCheckpoint();
-    // if (checkpointController.status.isSuccess) {
+    if (checkpointController.status.isSuccess) {
       checkpointController.loading.value = false;
       Get.toNamed('/checkpoint/success');
       return;
-    // }
+    }
     checkpointController.loading.value = false;
     _showErrorDialog(context);
   }

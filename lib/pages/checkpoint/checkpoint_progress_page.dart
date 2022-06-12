@@ -83,11 +83,13 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
                       setState(() {
                         widget.progress.score = 0.0;
                       });
+                      return;
                     }
                     if (double.parse(value) > 0) {
                       setState(() {
                         widget.progress.score = double.parse(value);
                       });
+                      return;
                     }
                     setState(() {
                       widget.progress.score = 0.0;
@@ -217,7 +219,7 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
 
   String _buildValidityDescription(CustomerProgress progress) {
     String validity = 'N/A';
-    if (progress.fidelity!.startDate != null || progress.fidelity!.endDate != null) {
+    if (progress.fidelity!.startDate != null && progress.fidelity!.endDate != null) {
       DateTime startDate = DateTime.parse(progress.fidelity!.startDate ?? '');
       DateTime endDate = DateTime.parse(progress.fidelity!.endDate ?? '');
       validity = DateFormat('dd/MM/yyyy').format(startDate) + ' - ' + DateFormat('dd/MM/yyyy').format(endDate);

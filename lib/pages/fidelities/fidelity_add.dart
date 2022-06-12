@@ -106,7 +106,7 @@ class FidelityAddBody extends StatelessWidget {
                               controller: _nameController,
                               label: 'Nome',
                               placeholder: 'Nome da fidelidade',
-                              icon: Icon(Icons.person_outline),
+                              icon: Icon(Icons.label_important_outline),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
                                   return 'Campo vazio';
@@ -119,15 +119,9 @@ class FidelityAddBody extends StatelessWidget {
                             ),
                             FidelityTextFieldMasked(
                               controller: _descriptionController,
-                              label: 'Descricao',
-                              placeholder: 'Descricao da fidelidade',
-                              icon: Icon(Icons.person_outline),
-                              validator: (value) {
-                                if (value == null || value.isEmpty) {
-                                  return 'Campo vazio';
-                                }
-                                return null;
-                              },
+                              label: 'Descrição',
+                              placeholder: 'Detalhes da fidelidade',
+                              icon: Icon(Icons.list_alt_outlined),
                             ),
                             SizedBox(
                               height: 20,
