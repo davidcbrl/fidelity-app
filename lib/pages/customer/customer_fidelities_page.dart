@@ -337,6 +337,11 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
     await checkpointController.saveCheckpoint();
     if (checkpointController.status.isSuccess) {
       checkpointController.loading.value = false;
+      dynamic isCompleted = checkpointController.checkpoints.firstWhere((check) => check.completed ?? false, orElse: null);
+      if (isCompleted != null) {
+        Get.toNamed('/checkpoint/completed');
+        return;
+      }
       Get.toNamed('/checkpoint/success');
       return;
     }

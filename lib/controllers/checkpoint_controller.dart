@@ -25,6 +25,9 @@ class CheckpointController extends GetxController with StateMixin {
             message: response.message,
           );
         }
+        if (response.result['Status']) {
+          check.completed = true;
+        }
       });
       change([], status: RxStatus.success());
     } on RequestException catch (error) {

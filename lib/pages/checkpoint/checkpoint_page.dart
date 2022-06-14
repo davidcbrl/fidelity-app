@@ -78,32 +78,32 @@ class _CheckpointBodyState extends State<CheckpointBody> {
                 SizedBox(
                   height: 20,
                 ),
-                // Expanded(
-                //   child: Stack(
-                //     children: [
-                //       Expanded(
-                //         flex: 5,
-                //         child: _buildQrView(context),
-                //       ),
-                //       if (result != null) ...[
-                //         Column(
-                //           mainAxisAlignment: MainAxisAlignment.end,
-                //           children: [
-                //             Padding(
-                //               padding: const EdgeInsets.all(10),
-                //               child: FidelityButton(
-                //                 label: 'Checkpoint pelo CPF: ${result!.code}',
-                //                 onPressed: () {
-                //                   getCustomerProgress(result!.code ?? '');
-                //                 },
-                //               ),
-                //             ),
-                //           ],
-                //         ),
-                //       ],
-                //     ],
-                //   ),
-                // ),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      Expanded(
+                        flex: 5,
+                        child: _buildQrView(context),
+                      ),
+                      if (result != null) ...[
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: FidelityButton(
+                                label: 'Checkpoint pelo CPF: ${result!.code}',
+                                onPressed: () {
+                                  getCustomerProgress(result!.code ?? '');
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
                 SizedBox(
                   height: 40,
                 ),
