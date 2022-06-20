@@ -21,10 +21,6 @@ class LoginBody extends StatelessWidget {
   GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  var _redirectPages = {
-    'E': '/home',
-    'C': '/signup/customer/success',
-  };
 
   @override
   Widget build(BuildContext context) {
@@ -154,8 +150,7 @@ class LoginBody extends StatelessWidget {
       await authController.auth();
       if (authController.status.isSuccess) {
         authController.loading.value = false;
-        var page = _redirectPages[authController.user.type];
-        Get.toNamed(page ?? '/home');
+        Get.toNamed('/home');
         return;
       }
       authController.loading.value = false;

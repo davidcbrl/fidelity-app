@@ -80,7 +80,6 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                       imagePath: 'assets/img/user.jpg',
                       name: 'Chewie',
                       description: 'Prospect',
-                      imageBorderRadius: 50,
                     ),
                     SizedBox(
                       height: 20,

@@ -1,6 +1,7 @@
 import 'package:fidelity/controllers/checkpoint_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/controllers/employee_controller.dart';
+import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
 import 'package:fidelity/controllers/route_controller.dart';
@@ -11,6 +12,8 @@ import 'package:fidelity/pages/checkpoint/checkpoint_completed_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_progress_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_success_page.dart';
+import 'package:fidelity/pages/companies/company_list_page.dart';
+import 'package:fidelity/pages/companies/company_promotions_page.dart';
 import 'package:fidelity/pages/customer/customer_fidelities_page.dart';
 import 'package:fidelity/pages/customer/customer_signup_page.dart';
 import 'package:fidelity/pages/customer/customer_success_page.dart';
@@ -107,6 +110,14 @@ final routes = [
       GetPage(name: '/progress', page: () => CheckpointProgressPage(), transition: Transition.cupertino),
       GetPage(name: '/success', page: () => CheckpointSuccessPage(), transition: Transition.cupertino),
       GetPage(name: '/completed', page: () => CheckpointCompletedPage(), transition: Transition.cupertino),
+    ],
+  ),
+  GetPage(
+    name: '/companies',
+    page: () => CompanyListPage(),
+    binding: BindingsBuilder(() => Get.put(() => EnterpriseController())),
+    children: [
+      GetPage(name: '/company_promotions', page: () => CompanyPromotionsPage(), transition: Transition.cupertino),
     ],
   ),
   GetPage(

@@ -4,13 +4,11 @@ class FidelityUserHeader extends StatelessWidget {
   String imagePath;
   String name;
   String description;
-  double? imageBorderRadius;
 
   FidelityUserHeader({
     required this.imagePath,
     required this.name,
     required this.description,
-    this.imageBorderRadius,
   });
 
   @override
@@ -20,10 +18,7 @@ class FidelityUserHeader extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(imageBorderRadius ?? 5),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.tertiary,
-            ),
+            borderRadius: BorderRadius.circular(5),
           ),
           child: Image.asset(
             imagePath,

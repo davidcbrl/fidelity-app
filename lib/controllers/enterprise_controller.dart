@@ -10,6 +10,11 @@ import 'package:get_storage/get_storage.dart';
 class EnterpriseController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
   var loading = false.obs;
+  var filter = ''.obs;
+  var filterDelay = false.obs;
+  var page = 1.obs;
+  var pageSize = 10.obs;
+  var enterprisesList = <Enterprise>[].obs;
   var userSignup = User().obs;
   var signupEnterprise = Enterprise().obs;
   var plan = Plan().obs;
@@ -18,6 +23,24 @@ class EnterpriseController extends GetxController with StateMixin {
 
   @override
   void onInit() {
+    getEnterprises();
+
+    ever(filter, (_) async {
+      if (filter.value.length == 0) {
+        getEnterprises();
+        return;
+      }
+      if (filter.value.length < 3 || filterDelay.value) {
+        return;
+      }
+      filterDelay.value = true;
+      await Future.delayed(Duration(seconds: 1));
+      filterDelay.value = false;
+      page.value = 1;
+      enterprisesList.clear();
+      await getEnterprises();
+    });
+
     getPlans();
     super.onInit();
   }
@@ -76,6 +99,56 @@ class EnterpriseController extends GetxController with StateMixin {
       print(error);
       change([], status: RxStatus.error('Erro ao buscar planos'));
       plansLoading.value = false;
+    }
+  }
+
+  Future<void> getEnterprises() async {
+    change([], status: RxStatus.loading());
+    loading.value = true;
+    try {
+      String path = 'enterprises?page=${page.value}&pagesize=${pageSize.value}';
+      if (filter.value.length >= 3) {
+        path = '$path&name=${filter.value}';
+      }
+      Map<String, dynamic> json = await ApiProvider.get(
+        path: path,
+      );
+      ApiResponse response = ApiResponse.fromJson(json);
+      if (!response.success) {
+        loading.value = false;
+        throw RequestException(
+          message: response.message,
+        );
+      }
+      if ((response.result.length == 0 || response.result == null) && page.value == 1) {
+        change([], status: RxStatus.empty());
+        loading.value = false;
+        return;
+      }
+      List<dynamic> list = response.result;
+      if (page.value == 1) {
+        enterprisesList.value = list.map((e) => Enterprise.fromJson(e)).toList();
+      }
+      if (page.value > 1 && list.length > 0) {
+        enterprisesList.value.addAll(list.map((e) => Enterprise.fromJson(e)).toList());
+      }
+      change([], status: RxStatus.success());
+      loading.value = false;
+    } on RequestException catch (error) {
+      print(error);
+      change([], status: RxStatus.error(error.message));
+      loading.value = false;
+    } catch (error) {
+      print(error);
+      change([], status: RxStatus.error('Erro ao buscar empresas'));
+      loading.value = false;
+    }
+  }
+
+  void getEnterprisesNextPage() {
+    if (filter.isEmpty) {
+      page.value = page.value + 1;
+      getEnterprises();
     }
   }
 }
