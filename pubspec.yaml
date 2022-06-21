@@ -25,6 +25,7 @@ dependencies:
   qr_code_scanner: ^0.7.0
   flutter_native_splash: any
   flutter_launcher_icons: any
+  qr_flutter: ^4.0.0
 
 dev_dependencies:
   flutter_test:

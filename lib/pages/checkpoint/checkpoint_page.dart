@@ -1,3 +1,4 @@
+import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
@@ -7,6 +8,7 @@ import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 class CheckpointPage extends StatelessWidget {
   @override
@@ -33,6 +35,7 @@ class CheckpointBody extends StatefulWidget {
 
 class _CheckpointBodyState extends State<CheckpointBody> {
   CustomerController customerController = Get.find();
+  AuthController authController = Get.find();
   Barcode? result;
   QRViewController? qrController;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -53,57 +56,83 @@ class _CheckpointBodyState extends State<CheckpointBody> {
             key: _formCodeKey,
             child: Column(
               children: [
-                FidelityTextFieldMasked(
-                  controller: _cpfController,
-                  label: "Verificar por CPF",
-                  placeholder: "000.000.000-00",
-                  icon: Icon(Icons.person_outline),
-                  mask: '###.###.###-##',
-                  validator: (value) {
-                    if (value == null || value.isEmpty) {
-                      return 'Campo vazio';
-                    }
-                    if (value.isNotEmpty && value.length < 14) {
-                      return 'Digite um CPF valido';
-                    }
-                    return null;
-                  },
-                  onChanged: (value) {
-                    value = value.length > 0 ? value.replaceAll(new RegExp(r'[^0-9]'), '') : value;
-                    if (_formCodeKey.currentState!.validate()) {
-                      getCustomerProgress('111111111122');
-                    }
-                  },
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: Stack(
-                    children: [
-                      Expanded(
-                        flex: 5,
-                        child: _buildQrView(context),
-                      ),
-                      if (result != null) ...[
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child: FidelityButton(
-                                label: 'Checkpoint pelo CPF: ${result!.code}',
-                                onPressed: () {
-                                  getCustomerProgress(result!.code ?? '');
-                                },
+                if (authController.user.value.type == 'E') ...[
+                  FidelityTextFieldMasked(
+                    controller: _cpfController,
+                    label: "Verificar por CPF",
+                    placeholder: "000.000.000-00",
+                    icon: Icon(Icons.person_outline),
+                    mask: '###.###.###-##',
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Campo vazio';
+                      }
+                      if (value.isNotEmpty && value.length < 14) {
+                        return 'Digite um CPF valido';
+                      }
+                      return null;
+                    },
+                    onChanged: (value) {
+                      value = value.length > 0 ? value.replaceAll(new RegExp(r'[^0-9]'), '') : value;
+                      if (_formCodeKey.currentState!.validate()) {
+                        getCustomerProgress('111111111122');
+                      }
+                    },
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Expanded(
+                    child: Stack(
+                      children: [
+                        Expanded(
+                          flex: 5,
+                          child: _buildQrView(context),
+                        ),
+                        if (result != null) ...[
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(10),
+                                child: FidelityButton(
+                                  label: 'Checkpoint pelo CPF: ${result!.code}',
+                                  onPressed: () {
+                                    getCustomerProgress(result!.code ?? '');
+                                  },
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
+                if (authController.user.value.type == 'C') ...[
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          authController.user.value.customer?.cpf ?? '',
+                          style: Theme.of(context).textTheme.headline1,
+                        ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        Center(
+                          child: QrImage(
+                            data: authController.user.value.customer?.cpf ?? '',
+                            version: QrVersions.isSupportedVersion(3) ? 3 : QrVersions.auto,
+                            size: 250.0,
+                            embeddedImage: AssetImage('assets/img/logo.png'),
+                          ),
                         ),
                       ],
-                    ],
+                    ),
                   ),
-                ),
+                ],
                 SizedBox(
                   height: 40,
                 ),

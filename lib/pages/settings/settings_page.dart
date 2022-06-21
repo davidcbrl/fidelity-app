@@ -1,3 +1,4 @@
+import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
@@ -22,6 +23,7 @@ class SettingsPage extends StatelessWidget {
 
 class SettingsBody extends StatelessWidget {
   GetStorage box = GetStorage();
+  AuthController authController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -40,26 +42,28 @@ class SettingsBody extends StatelessWidget {
           SizedBox(
             height: 10,
           ),
-          FidelitySelectItem(
-            icon: Icons.supervised_user_circle_outlined,
-            label: 'Funcionários',
-            description: 'Gerencie perfis de funcionários',
-            onPressed: () {
-              Get.toNamed('/employee');
-            },
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          FidelitySelectItem(
-            icon: Icons.color_lens_outlined,
-            label: 'Tema',
-            description: 'Customize a aparência do app',
-            onPressed: () {},
-          ),
-          SizedBox(
-            height: 10,
-          ),
+          if (authController.user.value.type == 'E') ...[
+            FidelitySelectItem(
+              icon: Icons.supervised_user_circle_outlined,
+              label: 'Funcionários',
+              description: 'Gerencie perfis de funcionários',
+              onPressed: () {
+                Get.toNamed('/employee');
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            FidelitySelectItem(
+              icon: Icons.color_lens_outlined,
+              label: 'Tema',
+              description: 'Customize a aparência do app',
+              onPressed: () {},
+            ),
+            SizedBox(
+              height: 10,
+            ),
+          ],
           FidelitySelectItem(
             icon: Icons.info_outline,
             label: 'Sobre',

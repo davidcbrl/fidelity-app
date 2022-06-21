@@ -49,6 +49,12 @@ class _HomePageState extends State<HomePage> {
       access: 'E',
     ),
     NavigationItem(
+      label: 'Código',
+      icon: Icons.qr_code_outlined,
+      page: CheckpointPage(),
+      access: 'C',
+    ),
+    NavigationItem(
       label: 'Produtos',
       icon: Icons.shopping_cart_outlined,
       page: ProductListPage(),
@@ -69,11 +75,12 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    authController.user = box.hasData('user') ? User.fromJson(box.read('user')) : User();
+    var user = box.hasData('user') ? box.read('user') : User();
+    authController.user.value = user is User ? user : User.fromJson(user);
     pageController = new PageController(initialPage: widget.pageIndex ?? 0);
     routeController.pageIndex.value = widget.pageIndex ?? 0;
     userMenu = navigationMenu.where(
-      (NavigationItem item) => (item.access == null) || (item.access == authController.user.type)
+      (NavigationItem item) => (item.access == null) || (item.access == authController.user.value.type)
     ).toList();
     super.initState();
   }

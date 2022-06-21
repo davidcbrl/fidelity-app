@@ -41,14 +41,14 @@ class _DashboardBodyState extends State<DashboardBody> {
           height: 20,
         ),
         FidelityUserHeader(
-          imagePath: userImages[authController.user.type] ?? 'assets/img/company.png',
-          name: authController.user.name ?? 'Luke Skywalker',
+          imagePath: userImages[authController.user.value.type] ?? 'assets/img/company.png',
+          name: authController.user.value.name ?? 'Luke Skywalker',
           description: 'Bem vindo!',
         ),
         SizedBox(
           height: 40,
         ),
-        if (authController.user.type == 'E') ...[
+        if (authController.user.value.type == 'E') ...[
           Expanded(
             child: Stack(
               children: [
@@ -85,7 +85,7 @@ class _DashboardBodyState extends State<DashboardBody> {
             ),
           ),
         ],
-        if (authController.user.type == 'C') ...[
+        if (authController.user.value.type == 'C') ...[
           Expanded(
             child: Container(),
           ),

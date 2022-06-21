@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:fidelity/models/api_response.dart';
 import 'package:fidelity/models/auth.dart';
+import 'package:fidelity/models/customer.dart';
 import 'package:fidelity/models/request_exception.dart';
 import 'package:fidelity/models/user.dart';
 import 'package:fidelity/providers/api_provider.dart';
@@ -10,7 +11,7 @@ import 'package:get_storage/get_storage.dart';
 
 class AuthController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
-  User user = User();
+  var user = User().obs;
   var email = "".obs;
   var password = "".obs;
   var loading = false.obs;
@@ -36,10 +37,11 @@ class AuthController extends GetxController with StateMixin {
           message: response.message,
         );
       }
-      user = User.fromJson(response.result['Property']);
-      user.type = response.result['Type'];
-      box.write('user', user);
-      box.write('companyId', user.companyId);
+      user.value = User.fromJson(response.result['Property']);
+      user.value.type = response.result['Type'];
+      if (user.value.type == 'C') user.value.customer = Customer.fromJson(response.result['Property']);
+      box.write('user', user.value);
+      box.write('companyId', user.value.companyId);
       box.write('jwt', response.result['Token']['data']);
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
