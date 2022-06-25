@@ -13,6 +13,7 @@ class Enterprise {
   String? adressNum;
   String? state;
   String? city;
+  String? image;
   String? branch;
   int? membershipId;
   int? active;
@@ -26,6 +27,7 @@ class Enterprise {
     this.state,
     this.city,
     this.branch,
+    this.image,
     this.membershipId,
     this.active,
     this.alterDate,
@@ -43,6 +45,7 @@ class Enterprise {
         state = json['State'],
         city = json['City'],
         branch = json['Branch'],
+        image = json['Image'],
         membershipId = json['MembershipId'],
         //active = json['Active'],
         alterDate = json['AlterDate'];
@@ -57,6 +60,7 @@ class Enterprise {
         'State': state,
         'City': city,
         'Branch': branch,
+        'Image': image,
         'MembershipId': membershipId,
         'Active': active,
         'AlterDate': alterDate

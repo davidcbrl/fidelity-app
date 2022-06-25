@@ -17,6 +17,10 @@ class EnterpriseController extends GetxController with StateMixin {
   var enterprisesList = <Enterprise>[].obs;
   var userSignup = User().obs;
   var signupEnterprise = Enterprise().obs;
+
+  var profileEnterprise = Enterprise().obs;
+  var selectedImage = <int>[].obs;
+
   var plan = Plan().obs;
   var plansList = <Plan>[].obs;
   var plansLoading = false.obs;
@@ -43,6 +47,28 @@ class EnterpriseController extends GetxController with StateMixin {
 
     getPlans();
     super.onInit();
+  }
+
+  Future<void> changeProfile() async {
+    try {
+      Map<String, dynamic> json = await ApiProvider.post(
+        path: 'enterprises',
+        data: profileEnterprise.toJson(),
+      );
+      ApiResponse response = ApiResponse.fromJson(json);
+      if (!response.success) {
+        throw RequestException(
+          message: response.message,
+        );
+      }
+      change([], status: RxStatus.success());
+    } on RequestException catch (error) {
+      print(error);
+      change([], status: RxStatus.error(error.message));
+    } catch (error) {
+      print(error);
+      change([], status: RxStatus.error('Erro ao alterar dados de perfil'));
+    }
   }
 
   Future<void> signup() async {

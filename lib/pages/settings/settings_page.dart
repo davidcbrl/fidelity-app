@@ -37,7 +37,9 @@ class SettingsBody extends StatelessWidget {
             icon: Icons.list,
             label: 'Perfil',
             description: 'Edite os dados do seu cadastro',
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed('/settings/enterprise_profile');
+            },
           ),
           SizedBox(
             height: 10,

@@ -33,6 +33,8 @@ import 'package:fidelity/pages/products/product_add_page.dart';
 import 'package:fidelity/pages/products/product_fidelities_page.dart';
 import 'package:fidelity/pages/products/product_list_page.dart';
 import 'package:fidelity/pages/products/product_success_page.dart';
+import 'package:fidelity/pages/settings/enterprise_profile_page.dart';
+import 'package:fidelity/pages/settings/enterprise_success_page.dart';
 import 'package:fidelity/pages/settings/settings_page.dart';
 import 'package:fidelity/pages/signup/first_step.dart';
 import 'package:fidelity/pages/signup/second_step.dart';
@@ -120,10 +122,18 @@ final routes = [
       GetPage(name: '/company_promotions', page: () => CompanyPromotionsPage(), transition: Transition.cupertino),
     ],
   ),
-  GetPage(
-    name: '/settings',
-    page: () => SettingsPage(),
-  ),
+  GetPage(name: '/settings', page: () => SettingsPage(), children: [
+    GetPage(
+        name: '/enterprise_profile',
+        page: () => EnterpriseProfilePage(),
+        transition: Transition.cupertino,
+        children: [
+          GetPage(
+            name: '/success',
+            page: () => EnterpriseSuccessPage(),
+          ),
+        ]),
+  ]),
   GetPage(
     name: '/employee',
     page: () => EmployeeListPage(),
