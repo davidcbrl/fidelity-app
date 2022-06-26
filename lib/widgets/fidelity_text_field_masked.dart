@@ -10,7 +10,7 @@ class FidelityTextFieldMasked extends StatelessWidget {
   final String? mask;
   final FormFieldValidator<String>? validator;
   final Function(String)? onChanged;
-  final bool? readOnly;
+  final bool readOnly;
   final dynamic onTap;
 
   FidelityTextFieldMasked({
@@ -23,7 +23,7 @@ class FidelityTextFieldMasked extends StatelessWidget {
     this.validator,
     this.mask,
     this.onTap,
-    this.readOnly
+    this.readOnly = false
   });
 
   @override
@@ -32,7 +32,8 @@ class FidelityTextFieldMasked extends StatelessWidget {
       padding: const EdgeInsets.only(top: 5),
       child: TextFormField(
         onChanged: onChanged,
-        readOnly: readOnly ?? false,
+        readOnly: readOnly,
+        enabled: !readOnly,
         onTap: onTap,
         controller: controller,
         style: Theme.of(context).textTheme.bodyText1,
@@ -45,8 +46,14 @@ class FidelityTextFieldMasked extends StatelessWidget {
           hintText: placeholder,
           hintStyle: Theme.of(context).textTheme.bodyText2,
           filled: true,
-          fillColor: Theme.of(context).colorScheme.surface,
+          fillColor: readOnly ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.surface,
           suffixIcon: icon,
+          disabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.tertiaryContainer,
+              width: 2,
+            ),
+          ),
           border: OutlineInputBorder(
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.primary,

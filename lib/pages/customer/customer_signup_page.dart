@@ -193,14 +193,14 @@ class CustomerSignupBody extends StatelessWidget {
         email: _emailController.text,
         password: _passwordController.text,
         customer: new Customer(
-          name: _nameController.text,
+        name: _nameController.text,
           cpf: _cpfController.text,
         ),
       );
       await customerController.signup(user);
       if (customerController.status.isSuccess) {
         customerController.loading.value = false;
-        Get.toNamed('/signup/customer/success');
+        Get.toNamed('/auth');
         return;
       }
       customerController.loading.value = false;

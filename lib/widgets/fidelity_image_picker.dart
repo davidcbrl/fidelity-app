@@ -7,8 +7,13 @@ class FidelityImagePicker extends StatelessWidget {
   final Function() onSelect;
   final double? size;
 
-  FidelityImagePicker(
-      {this.image, required this.label, required this.emptyImagePath, required this.onSelect, this.size});
+  FidelityImagePicker({
+    this.image,
+    required this.label,
+    required this.emptyImagePath,
+    required this.onSelect,
+    this.size,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,20 +37,20 @@ class FidelityImagePicker extends StatelessWidget {
               children: [
                 if (image != null)
                   Container(
-                    height: size,
-                    width: size,
+                    height: size ?? 50,
+                    width: size ?? 50,
                     child: Image.memory(image),
                   ),
                 if (image == null)
                   Container(
-                    height: size,
-                    width: size,
+                    height: size ?? 50,
+                    width: size ?? 50,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(5),
                     ),
                     child: Image.asset(
                       emptyImagePath,
-                      height: size,
+                      height: size ?? 50,
                     ),
                   ),
                 SizedBox(

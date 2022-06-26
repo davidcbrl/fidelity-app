@@ -15,6 +15,7 @@ class AuthController extends GetxController with StateMixin {
   var email = "".obs;
   var password = "".obs;
   var loading = false.obs;
+  var selectedImage = <int>[].obs;
 
   Future<void> auth() async {
     change([], status: RxStatus.loading());
@@ -39,6 +40,7 @@ class AuthController extends GetxController with StateMixin {
       }
       user.value = User.fromJson(response.result['Property']);
       user.value.type = response.result['Type'];
+      user.value.email = email.value;
       if (user.value.type == 'C') user.value.customer = Customer.fromJson(response.result['Property']);
       box.write('user', user.value);
       box.write('companyId', user.value.companyId);

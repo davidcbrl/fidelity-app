@@ -15,6 +15,7 @@ import 'package:fidelity/pages/checkpoint/checkpoint_success_page.dart';
 import 'package:fidelity/pages/companies/company_list_page.dart';
 import 'package:fidelity/pages/companies/company_promotions_page.dart';
 import 'package:fidelity/pages/customer/customer_fidelities_page.dart';
+import 'package:fidelity/pages/customer/customer_profile_page.dart';
 import 'package:fidelity/pages/customer/customer_signup_page.dart';
 import 'package:fidelity/pages/customer/customer_success_page.dart';
 import 'package:fidelity/pages/employees/employee_add_page.dart';
@@ -134,6 +135,11 @@ final routes = [
           ),
         ]),
   ]),
+  GetPage(
+    name: '/customer/profile',
+    page: () => CustomerProfilePage(),
+    binding: BindingsBuilder(() => Get.put<CustomerController>(new CustomerController())),
+  ),
   GetPage(
     name: '/employee',
     page: () => EmployeeListPage(),

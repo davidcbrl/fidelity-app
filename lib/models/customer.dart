@@ -5,10 +5,10 @@ class CustomerEntries {
 }
 
 class Customer {
-  final int? id;
-  final String? cpf;
-  final String? name;
-  final String? photo;
+  int? id;
+  String? cpf;
+  String? name;
+  String? photo;
 
   Customer({
     this.id,

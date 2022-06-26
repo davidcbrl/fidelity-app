@@ -1,3 +1,4 @@
+import 'package:fidelity/pages/home/home.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fidelity/widgets/fidelity_success.dart';
@@ -8,12 +9,11 @@ class CustomerSuccessPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FidelityPage(
       body: FidelitySuccess(
-        imagePath: 'assets/img/customer.gif',
-        title: 'Em breve!',
-        description: 'O módulo de clientes está em construção, em breve você poderá controlar suas fidelidades na palma da mão!',
-        buttonText: 'Voltar para autenticação',
+        title: 'Perfil salvo com sucesso!',
+        description: 'As informações foram atualizadas e estão disponíveis para os estabelecimentos',
+        buttonText: 'Voltar para ajustes',
         onPressed: () {
-          Get.offNamed('/auth');
+          Get.off(() => HomePage(pageIndex: 3), transition: Transition.cupertino);
         }
       ),
     );
