@@ -12,17 +12,20 @@ class CustomerController extends GetxController with StateMixin {
   var customerCPF = ''.obs;
   var customerProgress = <CustomerProgress>[].obs;
 
-  Future<void> signup(User user) async {
+  Future<void> saveCustomer(User user) async {
+    change([], status: RxStatus.loading());
     try {
-      Map<String, dynamic> json = await ApiProvider.post(
-        path: 'clients',
-        data: user.toJson(),
-      );
+      Map<String, dynamic> json = user.id != null
+          ? await ApiProvider.put(path: 'clients', data: user.toJson())
+          : await ApiProvider.post(path: 'clients', data: user.toJson());
       ApiResponse response = ApiResponse.fromJson(json);
       if (!response.success) {
         throw RequestException(
           message: response.message,
         );
+      }
+      if (user.id != null) {
+        box.write('user', user);
       }
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
@@ -30,7 +33,7 @@ class CustomerController extends GetxController with StateMixin {
       change([], status: RxStatus.error(error.message));
     } catch (error) {
       print(error);
-      change([], status: RxStatus.error('Erro ao autenticar'));
+      change([], status: RxStatus.error('Erro ao salvar cliente'));
     }
   }
 

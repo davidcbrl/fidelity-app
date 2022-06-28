@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:fidelity/controllers/auth_controller.dart';
+import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_image_picker.dart';
@@ -34,6 +35,7 @@ class CustomerProfileBody extends StatefulWidget {
 
 class _CustomerProfileBodyState extends State<CustomerProfileBody> {
   AuthController authController = Get.find();
+  CustomerController customerController = Get.find();
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   TextEditingController _emailController = TextEditingController(text: '');
   TextEditingController _nameController = TextEditingController(text: '');
@@ -59,9 +61,9 @@ class _CustomerProfileBodyState extends State<CustomerProfileBody> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => authController.loading.value
+      () => customerController.loading.value
       ? FidelityLoading(
-          loading: authController.loading.value,
+          loading: customerController.loading.value,
           text: 'Salvando perfil...',
         )
       : Column(
@@ -216,6 +218,7 @@ class _CustomerProfileBodyState extends State<CustomerProfileBody> {
   Future<void> saveCustomer(BuildContext context) async {
     final FormState? form = _formKey.currentState;
     if (form!.validate()) {
+      customerController.loading.value = true;
       String _imageController = '';
       if (authController.selectedImage.length > 0) {
         List<int> imageBytes = authController.selectedImage;
@@ -228,13 +231,13 @@ class _CustomerProfileBodyState extends State<CustomerProfileBody> {
       authController.user.value.name = _nameController.text;
       authController.user.value.customer!.cpf = _cpfController.text;
       authController.user.value.image = _imageController.isNotEmpty ? _imageController : null;
-      // await authController.saveCustomer();
-      if (authController.status.isSuccess) {
-        authController.loading.value = false;
-        Get.toNamed('/customer/success');
+      await customerController.saveCustomer(authController.user.value);
+      if (customerController.status.isSuccess) {
+        customerController.loading.value = false;
+        Get.toNamed('/customer/profile/success');
         return;
       }
-      authController.loading.value = false;
+      customerController.loading.value = false;
       _showErrorDialog(context);
     }
   }

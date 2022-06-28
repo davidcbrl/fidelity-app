@@ -69,9 +69,6 @@ final routes = [
     name: '/signup/customer',
     page: () => CustomerSignupPage(),
     binding: BindingsBuilder(() => Get.put(new CustomerController())),
-    children: [
-      GetPage(name: '/success', page: () => CustomerSuccessPage()),
-    ],
   ),
   GetPage(
     name: '/home',
@@ -139,6 +136,9 @@ final routes = [
     name: '/customer/profile',
     page: () => CustomerProfilePage(),
     binding: BindingsBuilder(() => Get.put<CustomerController>(new CustomerController())),
+    children: [
+      GetPage(name: '/success', page: () => CustomerSuccessPage()),
+    ],
   ),
   GetPage(
     name: '/employee',
