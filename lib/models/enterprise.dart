@@ -9,8 +9,8 @@ class Enterprise {
   String? cnpj;
   String? name;
   String? tel;
-  String? adress;
-  String? adressNum;
+  String? address;
+  String? addressNum;
   String? state;
   String? city;
   String? image;
@@ -22,8 +22,8 @@ class Enterprise {
   Enterprise({
     this.cnpj,
     this.tel,
-    this.adress,
-    this.adressNum,
+    this.address,
+    this.addressNum,
     this.state,
     this.city,
     this.branch,
@@ -40,8 +40,8 @@ class Enterprise {
         name = json['Name'],
         cnpj = json['Cnpj'],
         tel = json['Tel'],
-        adress = json['Adress'],
-        adressNum = json['AdressNum'],
+        address = json['Address'],
+        addressNum = json['AddressNum'],
         state = json['State'],
         city = json['City'],
         branch = json['Branch'],
@@ -55,8 +55,8 @@ class Enterprise {
         'Name': name,
         'Cnpj': cnpj,
         'Tel': tel,
-        'Address': adress,
-        'AddressNum': adressNum,
+        'Address': address,
+        'AddressNum': addressNum,
         'State': state,
         'City': city,
         'Branch': branch,

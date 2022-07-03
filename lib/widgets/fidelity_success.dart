@@ -1,7 +1,7 @@
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:flutter/material.dart';
 
-class FidelitySuccess extends StatefulWidget {
+class FidelitySuccess extends StatelessWidget {
   final String title;
   final String description;
   final String buttonText;
@@ -17,24 +17,19 @@ class FidelitySuccess extends StatefulWidget {
   });
 
   @override
-  _FidelitySuccessState createState() => _FidelitySuccessState();
-}
-
-class _FidelitySuccessState extends State<FidelitySuccess> {
-  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Image.asset(
-          widget.imagePath ?? 'assets/img/ok.png',
+          imagePath ?? 'assets/img/ok.png',
         ),
         SizedBox(
           height: 25,
         ),
         Text(
-          widget.title,
+          title,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.headline1,
         ),
@@ -42,7 +37,7 @@ class _FidelitySuccessState extends State<FidelitySuccess> {
           height: 20,
         ),
         Text(
-          widget.description,
+          description,
           textAlign: TextAlign.center,
           style: Theme.of(context).textTheme.bodyText1,
         ),
@@ -50,8 +45,8 @@ class _FidelitySuccessState extends State<FidelitySuccess> {
           height: 20,
         ),
         FidelityButton(
-          label: widget.buttonText,
-          onPressed: widget.onPressed,
+          label: buttonText,
+          onPressed: onPressed,
         ),
       ],
     );

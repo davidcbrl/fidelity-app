@@ -72,44 +72,49 @@ class _CompanyPromotionsBodyState extends State<CompanyPromotionsBody> {
           isLoading: fidelityController.loading.value,
           scrollOffset: 10,
           onEndOfPage: () => fidelityController.getFidelitiesNextPage(),
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            controller: scrollController,
-            physics: AlwaysScrollableScrollPhysics(),
-            children: [
-              if (!fidelityController.status.isError && fidelityController.fidelitiesList.length > 0)... [
-                  ...fidelityController.fidelitiesList.map(
-                    (Fidelity fidelity) {
-                      fidelity.products = null;
-                      return FidelitySelectItem(
-                        id: fidelity.id,
-                        label: fidelity.name ?? '',
-                        description: fidelity.description ?? '',
-                        onPressed: () {
-                          print('CLICOU');
+          child: Container(
+            child: RefreshIndicator(
+              onRefresh: () => _refresh(),
+              child: ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                controller: scrollController,
+                physics: AlwaysScrollableScrollPhysics(),
+                children: [
+                  if (!fidelityController.status.isError && fidelityController.fidelitiesList.length > 0)... [
+                      ...fidelityController.fidelitiesList.map(
+                        (Fidelity fidelity) {
+                          fidelity.products = null;
+                          return FidelitySelectItem(
+                            id: fidelity.id,
+                            label: fidelity.name ?? '',
+                            description: fidelity.description ?? '',
+                            onPressed: () {
+                              print('CLICOU');
+                            },
+                          );
                         },
-                      );
-                    },
-                  ),
+                      ),
+                    ],
+                    if (fidelityController.status.isLoading)... [
+                      FidelityLoading(
+                        loading: fidelityController.loading.value,
+                        text: 'Carregando promoções...',
+                      ),
+                    ],
+                    if (fidelityController.status.isEmpty)... [
+                      FidelityEmpty(
+                        text: 'Nenhuma promoção encontrada',
+                      ),
+                    ],
+                    if (fidelityController.status.isError)... [
+                      FidelityEmpty(
+                        text: fidelityController.status.errorMessage ?? '500',
+                      ),
+                    ],
                 ],
-                if (fidelityController.status.isLoading)... [
-                  FidelityLoading(
-                    loading: fidelityController.loading.value,
-                    text: 'Carregando promoções...',
-                  ),
-                ],
-                if (fidelityController.status.isEmpty)... [
-                  FidelityEmpty(
-                    text: 'Nenhuma promoção encontrada',
-                  ),
-                ],
-                if (fidelityController.status.isError)... [
-                  FidelityEmpty(
-                    text: fidelityController.status.errorMessage ?? '500',
-                  ),
-                ],
-            ],
+              ),
+            ),
           ),
         ),
       ),

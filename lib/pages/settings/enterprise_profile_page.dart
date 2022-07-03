@@ -10,7 +10,6 @@ import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_select_item.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
@@ -287,8 +286,8 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
       enterpriseController.profileEnterprise.value.name = _nameController.text;
       enterpriseController.profileEnterprise.value.cnpj = _nameController.text;
       enterpriseController.profileEnterprise.value.tel = _nameController.text;
-      enterpriseController.profileEnterprise.value.adress = _nameController.text;
-      enterpriseController.profileEnterprise.value.adressNum = _nameController.text;
+      enterpriseController.profileEnterprise.value.address = _nameController.text;
+      enterpriseController.profileEnterprise.value.addressNum = _nameController.text;
       enterpriseController.profileEnterprise.value.city = _nameController.text;
       enterpriseController.profileEnterprise.value.state = _nameController.text;
       enterpriseController.profileEnterprise.value.branch = _nameController.text;

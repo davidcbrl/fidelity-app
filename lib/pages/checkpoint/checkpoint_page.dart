@@ -85,10 +85,10 @@ class _CheckpointBodyState extends State<CheckpointBody> {
                   Expanded(
                     child: Stack(
                       children: [
-                        Expanded(
-                          flex: 5,
-                          child: _buildQrView(context),
-                        ),
+                        // Expanded(
+                        //   flex: 5,
+                        //   child: _buildQrView(context),
+                        // ),
                         if (result != null) ...[
                           Column(
                             mainAxisAlignment: MainAxisAlignment.end,

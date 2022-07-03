@@ -13,22 +13,19 @@ class CheckpointController extends GetxController with StateMixin {
   Future<void> saveCheckpoint() async {
     change([], status: RxStatus.loading());
     try {
-      Map<String, dynamic> json;
-      await Future.forEach(this.checkpoints, (Checkpoint check) async {
-        json = await ApiProvider.post(
-          path: 'checkpoints',
-          data: check.toJson(),
+      Checkpoints checks = Checkpoints(checkpoints: checkpoints);
+      Map<String, dynamic> json = await ApiProvider.post(
+        path: 'checkpoints',
+        data: checks.toJson(),
+      );
+      ApiResponse response = ApiResponse.fromJson(json);
+      if (!response.success) {
+        throw RequestException(
+          message: response.message,
         );
-        ApiResponse response = ApiResponse.fromJson(json);
-        if (!response.success) {
-          throw RequestException(
-            message: response.message,
-          );
-        }
-        if (response.result['Status']) {
-          check.completed = true;
-        }
-      });
+      }
+      List<dynamic> list = response.result;
+      checkpoints.value = list.map((e) => Checkpoint.fromJson(e)).toList();
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);

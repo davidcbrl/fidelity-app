@@ -4,6 +4,7 @@ import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/models/checkpoint.dart';
 import 'package:fidelity/models/customer_progress.dart';
 import 'package:fidelity/models/fidelity.dart';
+import 'package:fidelity/pages/checkpoint/checkpoint_completed_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_progress_page.dart';
 import 'package:fidelity/util/fidelity_utils.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
@@ -17,6 +18,7 @@ import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_user_header.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 class CustomerFidelitiesPage extends StatelessWidget {
@@ -41,6 +43,7 @@ class CustomerFidelitiesBody extends StatefulWidget {
 }
 
 class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
+  GetStorage box = GetStorage();
   CheckpointController checkpointController = Get.put(CheckpointController());
   FidelityController fidelityController = Get.put(FidelityController());
   CustomerController customerController = Get.find();
@@ -62,9 +65,9 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => customerController.loading.value
+      () => customerController.loading.value || checkpointController.loading.value
       ? FidelityLoading(
-          loading: customerController.loading.value,
+          loading: customerController.loading.value || checkpointController.loading.value,
         )
       : Column(
           children: [
@@ -222,11 +225,6 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
       isScrollControlled: true,
       enableDrag: false,
       builder: (BuildContext context) {
-        if (checkpointController.loading.value) {
-          return FidelityLoading(
-            loading: checkpointController.loading.value,
-          );
-        }
         return Container(
           height: Get.height - Get.height * 0.5,
           padding: EdgeInsets.symmetric(horizontal: 20),
@@ -262,6 +260,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                 FidelityButton(
                   label: 'Finalizar checkpoint',
                   onPressed: () {
+                    Get.back();
                     checkpoint(context);
                   },
                 ),
@@ -328,7 +327,8 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
     checkpointController.loading.value = true;
     checkpointController.checkpoints.value = _selectedForCheckpoint.map(
       (CustomerProgress progress) => new Checkpoint(
-        customerId: 1,
+        companyId: box.read('companyId'),
+        customerId: progress.customerId,
         fidelityId: progress.fidelity!.id,
         value: progress.score,
       )
@@ -336,12 +336,11 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
     await checkpointController.saveCheckpoint();
     if (checkpointController.status.isSuccess) {
       checkpointController.loading.value = false;
-      Checkpoint completed = checkpointController.checkpoints.value.firstWhere(
+      List<Checkpoint> completed = checkpointController.checkpoints.value.where(
         (check) => check.completed ?? false,
-        orElse: () => new Checkpoint(),
-      );
-      if (completed.completed ?? false) {
-        Get.toNamed('/checkpoint/completed');
+      ).toList();
+      if (completed.length > 0) {
+        Get.to(() => CheckpointCompletedPage(completedCheckpoints: completed));
         return;
       }
       Get.toNamed('/checkpoint/success');

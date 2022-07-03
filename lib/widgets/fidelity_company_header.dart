@@ -45,7 +45,7 @@ class FidelityCompanyHeader extends StatelessWidget {
               height: 5,
             ),
             Text(
-              '${company.adress}, ${company.adressNum} - ${company.city}, ${company.state}',
+              '${company.address}, ${company.addressNum} - ${company.city}, ${company.state}',
               style: Theme.of(context).textTheme.bodyText2,
             ),
             SizedBox(
