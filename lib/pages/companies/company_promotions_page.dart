@@ -22,7 +22,10 @@ class CompanyPromotionsPage extends StatelessWidget {
       appBar: FidelityAppbarWidget(
         title: 'Promoções da empresa',
       ),
-      body: CompanyPromotionsBody(company: company ?? Enterprise()),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: CompanyPromotionsBody(company: company ?? Enterprise()),
+      ),
     );
   }
 }

@@ -9,6 +9,7 @@ import 'package:fidelity/widgets/fidelity_select_item.dart';
 import 'package:fidelity/widgets/fidelity_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 class CompanyListPage extends StatelessWidget {
@@ -30,6 +31,7 @@ class CompanyListBody extends StatefulWidget {
 }
 
 class _CompanyListBodyState extends State<CompanyListBody> {
+  GetStorage box = GetStorage();
   EnterpriseController enterpriseController = Get.put(EnterpriseController());
   TextEditingController _textEditingController = new TextEditingController();
   late ScrollController scrollController;
@@ -92,6 +94,7 @@ class _CompanyListBodyState extends State<CompanyListBody> {
                         id: enterprise.id,
                         label: enterprise.name ?? '',
                         onPressed: () {
+                          box.write('companyId', enterprise.id);
                           Get.to(() => CompanyPromotionsPage(company: enterprise));
                         },
                       ),

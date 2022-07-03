@@ -1,3 +1,4 @@
+import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/models/api_response.dart';
 import 'package:fidelity/models/fidelity.dart';
 import 'package:fidelity/models/fidelity_type.dart';
@@ -8,6 +9,7 @@ import 'package:get_storage/get_storage.dart';
 
 class FidelityController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
+  AuthController authController = Get.find();
   var companyId = 0.obs;
   var loading = false.obs;
   var fidelity = Fidelity().obs;
@@ -79,6 +81,9 @@ class FidelityController extends GetxController with StateMixin {
       if (filter.value.length >= 3) {
         path = '$path&name=${filter.value}';
       }
+      if (authController.user.value.type == 'C') {
+        path = '$path&company=${companyId.value}';
+      }
       Map<String, dynamic> json = await ApiProvider.get(
         path: path,
       );
@@ -89,7 +94,7 @@ class FidelityController extends GetxController with StateMixin {
           message: response.message,
         );
       }
-      if (response.result.length == 0 || response.result == null) {
+      if ((response.result.length == 0 || response.result == null) && page.value == 1) {
         change([], status: RxStatus.empty());
         loading.value = false;
         return;
