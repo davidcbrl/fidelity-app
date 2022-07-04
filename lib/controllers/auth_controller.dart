@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fidelity/models/api_response.dart';
 import 'package:fidelity/models/auth.dart';
 import 'package:fidelity/models/customer.dart';
+import 'package:fidelity/models/enterprise.dart';
 import 'package:fidelity/models/request_exception.dart';
 import 'package:fidelity/models/user.dart';
 import 'package:fidelity/providers/api_provider.dart';
@@ -42,6 +43,7 @@ class AuthController extends GetxController with StateMixin {
       user.value.type = response.result['Type'];
       user.value.email = email.value;
       if (user.value.type == 'C') user.value.customer = Customer.fromJson(response.result['Property']);
+      if (user.value.type == 'E') user.value.enterprise = Enterprise.fromJson(response.result['Property']);
       box.write('user', user.value);
       box.write('companyId', user.value.companyId);
       box.write('jwt', response.result['Token']['data']);

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
@@ -56,7 +57,27 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
     _selectedImage = enterpriseController.profileEnterprise.value.image != null
         ? base64Decode(enterpriseController.profileEnterprise.value.image ?? '')
         : null;
+    Get.find<AuthController>().user.value.type == "E" ? startEnterprise() : startCustomer();
+
     super.initState();
+  }
+
+  startCustomer() {
+    _emailController.text = Get.find<AuthController>().user.value.email ?? "";
+    _nameController.text = Get.find<AuthController>().user.value.customer?.name ?? "";
+    _cnpjController.text = Get.find<AuthController>().user.value.customer?.cpf ?? "";
+  }
+
+  startEnterprise() {
+    _emailController.text = Get.find<AuthController>().user.value.email ?? "";
+    _nameController.text = Get.find<AuthController>().user.value.enterprise?.name ?? "";
+    _cnpjController.text = Get.find<AuthController>().user.value.enterprise?.cnpj ?? "";
+    _contactController.text = Get.find<AuthController>().user.value.enterprise?.tel ?? "";
+    _addressController.text = Get.find<AuthController>().user.value.enterprise?.address ?? "";
+    _addressNumberController.text = Get.find<AuthController>().user.value.enterprise?.addressNum ?? "";
+    _cityController.text = Get.find<AuthController>().user.value.enterprise?.city ?? "";
+    _ufController.text = Get.find<AuthController>().user.value.enterprise?.state ?? "";
+    _ramoController.text = Get.find<AuthController>().user.value.enterprise?.branch ?? "";
   }
 
   @override
@@ -105,6 +126,7 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
         FidelityTextFieldMasked(
           controller: _emailController,
           label: 'Email',
+          readOnly: true,
           placeholder: 'chewie@wookie.com',
           icon: Icon(Icons.email_outlined),
           validator: (value) {
