@@ -6,6 +6,7 @@ class EnterpriseEntries {
 
 class Enterprise {
   int? id;
+  int? userId;
   String? cnpj;
   String? name;
   String? tel;
@@ -32,11 +33,13 @@ class Enterprise {
     this.active,
     this.alterDate,
     this.id,
+    this.userId,
     this.name,
   });
 
   Enterprise.fromJson(Map<String, dynamic> json)
       : id = json['Id'],
+        userId = json['UserId'],
         name = json['Name'],
         cnpj = json['Cnpj'],
         tel = json['Tel'],
@@ -52,6 +55,7 @@ class Enterprise {
 
   Map<String, dynamic> toJson() => {
         'Id': id,
+        'UserId': userId,
         'Name': name,
         'Cnpj': cnpj,
         'Tel': tel,

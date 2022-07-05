@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/controllers/enterprise_controller.dart';
+import 'package:fidelity/models/enterprise.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_image_picker.dart';
@@ -46,7 +47,7 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
   TextEditingController _addressNumberController = new TextEditingController();
   TextEditingController _cityController = new TextEditingController();
   TextEditingController _ufController = new TextEditingController();
-  TextEditingController _ramoController = new TextEditingController();
+  TextEditingController _branchController = new TextEditingController();
   ImagePicker _picker = ImagePicker();
   var _selectedImage;
 
@@ -69,6 +70,7 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
   }
 
   startEnterprise() {
+    enterpriseController.profileEnterprise.value.enterprise = Enterprise();
     _emailController.text = Get.find<AuthController>().user.value.email ?? "";
     _nameController.text = Get.find<AuthController>().user.value.enterprise?.name ?? "";
     _cnpjController.text = Get.find<AuthController>().user.value.enterprise?.cnpj ?? "";
@@ -77,7 +79,7 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
     _addressNumberController.text = Get.find<AuthController>().user.value.enterprise?.addressNum ?? "";
     _cityController.text = Get.find<AuthController>().user.value.enterprise?.city ?? "";
     _ufController.text = Get.find<AuthController>().user.value.enterprise?.state ?? "";
-    _ramoController.text = Get.find<AuthController>().user.value.enterprise?.branch ?? "";
+    _branchController.text = Get.find<AuthController>().user.value.enterprise?.branch ?? "";
   }
 
   @override
@@ -88,7 +90,7 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
           : Container(
               child: Expanded(
                 child: SingleChildScrollView(
-                  child: Form(child: _formFields()),
+                  child: Form(child: _formFields(), key: _formEnterpriseSignupKey),
                 ),
               ),
             ),
@@ -271,7 +273,7 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
           height: 20,
         ),
         FidelityTextFieldMasked(
-          controller: _ramoController,
+          controller: _branchController,
           label: 'Ramo',
           placeholder: 'Jedi',
           icon: Icon(Icons.edit_road),
@@ -305,19 +307,31 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
         List<int> imageBytes = enterpriseController.selectedImage;
         _imageController = base64Encode(imageBytes);
       }
-      enterpriseController.profileEnterprise.value.name = _nameController.text;
-      enterpriseController.profileEnterprise.value.cnpj = _nameController.text;
-      enterpriseController.profileEnterprise.value.tel = _nameController.text;
-      enterpriseController.profileEnterprise.value.address = _nameController.text;
-      enterpriseController.profileEnterprise.value.addressNum = _nameController.text;
-      enterpriseController.profileEnterprise.value.city = _nameController.text;
-      enterpriseController.profileEnterprise.value.state = _nameController.text;
-      enterpriseController.profileEnterprise.value.branch = _nameController.text;
+      enterpriseController.profileEnterprise.value.enterprise?.name = _nameController.text;
+      enterpriseController.profileEnterprise.value.enterprise?.cnpj = _cnpjController.text;
+      enterpriseController.profileEnterprise.value.enterprise?.tel = _contactController.text;
+      enterpriseController.profileEnterprise.value.enterprise?.address = _addressController.text;
+      enterpriseController.profileEnterprise.value.enterprise?.addressNum = _addressNumberController.text;
+      enterpriseController.profileEnterprise.value.enterprise?.city = _cityController.text;
+      enterpriseController.profileEnterprise.value.enterprise?.state = _ufController.text;
+      enterpriseController.profileEnterprise.value.enterprise?.branch = _branchController.text;
+      enterpriseController.profileEnterprise.value.enterprise?.userId =
+          Get.find<AuthController>().user.value.enterprise?.userId;
+      enterpriseController.profileEnterprise.value.enterprise?.id =
+          Get.find<AuthController>().user.value.enterprise?.id;
 
-      enterpriseController.profileEnterprise.value.image = _imageController.isNotEmpty ? _imageController : null;
-      await enterpriseController
-          .changeProfile()
-          .whenComplete(() => Get.toNamed('/settings/enterprise_profile/success'));
+      enterpriseController.profileEnterprise.value.id = Get.find<AuthController>().user.value.id;
+      enterpriseController.profileEnterprise.value.email = Get.find<AuthController>().user.value.email;
+
+      enterpriseController.profileEnterprise.value.enterprise?.image =
+          _imageController.isNotEmpty ? _imageController : null;
+      await enterpriseController.changeProfile().whenComplete(() {
+        if (enterpriseController.status.isSuccess) {
+          Get.find<AuthController>().user.value = enterpriseController.profileEnterprise.value;
+          Get.find<AuthController>().user.value.enterprise = enterpriseController.profileEnterprise.value.enterprise;
+          Get.toNamed('/settings/enterprise_profile/success');
+        }
+      });
     }
   }
 }
