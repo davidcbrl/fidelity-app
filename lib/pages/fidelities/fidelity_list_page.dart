@@ -1,16 +1,15 @@
 import 'package:fidelity/controllers/fidelity_controller.dart';
+import 'package:fidelity/models/fidelity.dart';
+import 'package:fidelity/widgets/fidelity_appbar.dart';
+import 'package:fidelity/widgets/fidelity_button.dart';
+import 'package:fidelity/widgets/fidelity_empty.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:fidelity/widgets/fidelity_select_item.dart';
+import 'package:fidelity/widgets/fidelity_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
-
-import '../../models/fidelity.dart';
-import '../../widgets/fidelity_appbar.dart';
-import '../../widgets/fidelity_button.dart';
-import '../../widgets/fidelity_empty.dart';
-import '../../widgets/fidelity_select_item.dart';
-import '../../widgets/fidelity_text_field.dart';
 
 class FidelityListPage extends StatelessWidget {
   const FidelityListPage({Key? key}) : super(key: key);

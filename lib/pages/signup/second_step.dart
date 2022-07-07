@@ -136,7 +136,7 @@ class _SecondStepBodyState extends State<SecondStepBody> {
         FidelityButton(
           label: 'Próximo',
           onPressed: () {
-            preSaveCompany();
+            preSaveEnterprise();
           },
         ),
         FidelityTextButton(
@@ -149,11 +149,11 @@ class _SecondStepBodyState extends State<SecondStepBody> {
     );
   }
 
-  void preSaveCompany() {
+  void preSaveEnterprise() {
     if (_formKey.currentState!.validate()) {
       enterpriseController.userSignup.value.email = _emailController.text;
       enterpriseController.userSignup.value.password = _passwordController.text;
-      Get.toNamed('/signup/company/third_step');
+      Get.toNamed('/signup/enterprise/third_step');
     }
   }
 }

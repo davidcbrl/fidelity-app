@@ -2,7 +2,7 @@ import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/models/enterprise.dart';
 import 'package:fidelity/models/fidelity.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
-import 'package:fidelity/widgets/fidelity_company_header.dart';
+import 'package:fidelity/widgets/fidelity_enterprise_header.dart';
 import 'package:fidelity/widgets/fidelity_empty.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
@@ -11,10 +11,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
-class CompanyPromotionsPage extends StatelessWidget {
-  Enterprise? company;
+class EnterprisePromotionsPage extends StatelessWidget {
+  Enterprise? enterprise;
 
-  CompanyPromotionsPage({this.company});
+  EnterprisePromotionsPage({this.enterprise});
 
   @override
   Widget build(BuildContext context) {
@@ -24,22 +24,22 @@ class CompanyPromotionsPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: CompanyPromotionsBody(company: company ?? Enterprise()),
+        child: EnterprisePromotionsBody(enterprise: enterprise ?? Enterprise()),
       ),
     );
   }
 }
 
-class CompanyPromotionsBody extends StatefulWidget {
-  Enterprise company;
+class EnterprisePromotionsBody extends StatefulWidget {
+  Enterprise enterprise;
 
-  CompanyPromotionsBody({required this.company});
+  EnterprisePromotionsBody({required this.enterprise});
 
   @override
-  State<CompanyPromotionsBody> createState() => _CompanyPromotionsBodyState();
+  State<EnterprisePromotionsBody> createState() => _EnterprisePromotionsBodyState();
 }
 
-class _CompanyPromotionsBodyState extends State<CompanyPromotionsBody> {
+class _EnterprisePromotionsBodyState extends State<EnterprisePromotionsBody> {
   FidelityController fidelityController = Get.put(FidelityController());
   ScrollController scrollController = new ScrollController();
 
@@ -57,8 +57,8 @@ class _CompanyPromotionsBodyState extends State<CompanyPromotionsBody> {
         SizedBox(
           height: 20,
         ),
-        FidelityCompanyHeader(
-          company: widget.company,
+        FidelityEnterpriseHeader(
+          enterprise: widget.enterprise,
         ),
         SizedBox(
           height: 20,

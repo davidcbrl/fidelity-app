@@ -66,7 +66,7 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
             FidelityButton(
               label: 'Concluir',
               onPressed: () {
-                saveCompany(context);
+                saveEnterprise(context);
               },
             ),
             FidelityTextButton(
@@ -125,14 +125,14 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
     );
   }
 
-  Future<void> saveCompany(BuildContext context) async {
+  Future<void> saveEnterprise(BuildContext context) async {
     enterpriseController.loading.value = true;
     enterpriseController.signupEnterprise.value.membershipId = enterpriseController.plan.value.id;
     enterpriseController.userSignup.value.enterprise = enterpriseController.signupEnterprise.value;
     await enterpriseController.signup();
     if (enterpriseController.status.isSuccess) {
       enterpriseController.loading.value = false;
-      Get.toNamed('/signup/company/success');
+      Get.toNamed('/signup/enterprise/success');
       return;
     }
     enterpriseController.loading.value = false;

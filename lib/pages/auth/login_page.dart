@@ -122,7 +122,7 @@ class LoginBody extends StatelessWidget {
                         FidelityTextButton(
                           label: 'Cadastre-se como empresa',
                           onPressed: () {
-                            Get.toNamed('/signup/company');
+                            Get.toNamed('/signup/enterprise');
                           },
                         ),
                         FidelityTextButton(

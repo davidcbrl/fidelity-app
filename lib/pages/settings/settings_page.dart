@@ -132,8 +132,8 @@ class SettingsBody extends StatelessWidget {
     if (box.hasData('jwt')) {
       box.remove('jwt');
     }
-    if (box.hasData('companyId')) {
-      box.remove('companyId');
+    if (box.hasData('enterpriseId')) {
+      box.remove('enterpriseId');
     }
     Get.offAllNamed('/auth');
   }

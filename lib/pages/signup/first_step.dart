@@ -27,7 +27,7 @@ class FirstStepBody extends StatefulWidget {
 
 class _FirstStepBodyState extends State<FirstStepBody> {
   EnterpriseController enterpriseController = Get.put(EnterpriseController());
-  TextEditingController _companyController = TextEditingController();
+  TextEditingController _enterpriseController = TextEditingController();
   TextEditingController _cpnjController = TextEditingController();
   TextEditingController _contactController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -76,7 +76,7 @@ class _FirstStepBodyState extends State<FirstStepBody> {
       child: Column(
         children: [
           FidelityTextFieldMasked(
-            controller: _companyController,
+            controller: _enterpriseController,
             label: 'Empresa',
             placeholder: 'Luke Skywalker LTDA',
             icon: Icon(Icons.apartment),
@@ -139,7 +139,7 @@ class _FirstStepBodyState extends State<FirstStepBody> {
         FidelityButton(
           label: 'Próximo',
           onPressed: () {
-            preSaveCompany();
+            preSaveEnterprise();
           },
         ),
         FidelityTextButton(
@@ -152,12 +152,12 @@ class _FirstStepBodyState extends State<FirstStepBody> {
     );
   }
 
-  void preSaveCompany() {
+  void preSaveEnterprise() {
     if (_formKey.currentState!.validate()) {
-      enterpriseController.signupEnterprise.value.name = _companyController.text;
+      enterpriseController.signupEnterprise.value.name = _enterpriseController.text;
       enterpriseController.signupEnterprise.value.cnpj = _cpnjController.text;
       enterpriseController.signupEnterprise.value.tel = _contactController.text;
-      Get.toNamed('/signup/company/second_step');
+      Get.toNamed('/signup/enterprise/second_step');
     }
   }
 }

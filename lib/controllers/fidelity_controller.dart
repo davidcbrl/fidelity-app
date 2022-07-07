@@ -10,7 +10,7 @@ import 'package:get_storage/get_storage.dart';
 class FidelityController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
   AuthController authController = Get.find();
-  var companyId = 0.obs;
+  var enterpriseId = 0.obs;
   var loading = false.obs;
   var fidelity = Fidelity().obs;
   var filter = ''.obs;
@@ -23,7 +23,7 @@ class FidelityController extends GetxController with StateMixin {
 
   @override
   void onInit() {
-    companyId.value = box.read('companyId');
+    enterpriseId.value = box.read('enterpriseId');
     getFidelities();
     ever(filter, (_) async {
       if (filter.value.length == 0) {
@@ -46,7 +46,7 @@ class FidelityController extends GetxController with StateMixin {
   Future<void> saveFidelity() async {
     change([], status: RxStatus.loading());
     try {
-      fidelity.value.companyId = companyId.value;
+      fidelity.value.enterpriseId = enterpriseId.value;
       Map<String, dynamic> json = fidelity.value.id == null
           ? await ApiProvider.post(
               path: 'loyalts',
@@ -82,7 +82,7 @@ class FidelityController extends GetxController with StateMixin {
         path = '$path&name=${filter.value}';
       }
       if (authController.user.value.type == 'C') {
-        path = '$path&company=${companyId.value}';
+        path = '$path&company=${enterpriseId.value}';
       }
       Map<String, dynamic> json = await ApiProvider.get(
         path: path,

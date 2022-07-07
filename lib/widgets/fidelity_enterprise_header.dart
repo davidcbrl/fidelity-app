@@ -1,11 +1,11 @@
 import 'package:fidelity/models/enterprise.dart';
 import 'package:flutter/material.dart';
 
-class FidelityCompanyHeader extends StatelessWidget {
-  Enterprise company;
+class FidelityEnterpriseHeader extends StatelessWidget {
+  Enterprise enterprise;
 
-  FidelityCompanyHeader({
-    required this.company,
+  FidelityEnterpriseHeader({
+    required this.enterprise,
   });
 
   @override
@@ -20,7 +20,7 @@ class FidelityCompanyHeader extends StatelessWidget {
             ),
           ),
           child: Image.asset(
-            'assets/img/company.png',
+            'assets/img/enterprise.png',
             width: 100,
           ),
         ),
@@ -31,28 +31,28 @@ class FidelityCompanyHeader extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              company.name ?? '',
+              enterprise.name ?? '',
               style: Theme.of(context).textTheme.bodyText1,
             ),
             SizedBox(
               height: 5,
             ),
             Text(
-              company.branch ?? '',
+              enterprise.branch ?? '',
               style: Theme.of(context).textTheme.bodyText2,
             ),
             SizedBox(
               height: 5,
             ),
             Text(
-              '${company.address}, ${company.addressNum} - ${company.city}, ${company.state}',
+              '${enterprise.address}, ${enterprise.addressNum} - ${enterprise.city}, ${enterprise.state}',
               style: Theme.of(context).textTheme.bodyText2,
             ),
             SizedBox(
               height: 5,
             ),
             Text(
-              company.tel ?? '',
+              enterprise.tel ?? '',
               style: Theme.of(context).textTheme.bodyText2,
             ),
           ],

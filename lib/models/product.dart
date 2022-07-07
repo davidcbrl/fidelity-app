@@ -2,7 +2,7 @@ import 'package:fidelity/models/product_category.dart';
 
 class Product {
   int? id;
-  int? companyId;
+  int? enterpriseId;
   String? name;
   double? value;
   ProductCategory? category;
@@ -15,7 +15,7 @@ class Product {
 
   Product({
     this.id,
-    this.companyId,
+    this.enterpriseId,
     this.name,
     this.value,
     this.category,
@@ -29,7 +29,7 @@ class Product {
 
   Product.fromJson(Map<String, dynamic> json):
     id = json['Id'],
-    companyId = json['EnterpriseId'],
+    enterpriseId = json['EnterpriseId'],
     name = json['Name'],
     value = json['Value'],
     image = json['Image'],
@@ -42,7 +42,7 @@ class Product {
 
   Map<String, dynamic> toJson() => {
     'Id': id,
-    'EnterpriseId': companyId,
+    'EnterpriseId': enterpriseId,
     'Name': name,
     'Value': value,
     'Category': category,

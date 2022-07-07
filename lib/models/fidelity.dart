@@ -3,7 +3,7 @@ import 'package:fidelity/models/fidelity_type.dart';
 
 class Fidelity {
   int? id;
-  int? companyId;
+  int? enterpriseId;
   String? name;
   String? description;
   String? startDate;
@@ -21,7 +21,7 @@ class Fidelity {
 
   Fidelity(
       {this.id,
-      this.companyId,
+      this.enterpriseId,
       this.name,
       this.description,
       this.startDate,
@@ -39,7 +39,7 @@ class Fidelity {
 
   Fidelity.fromJson(Map<String, dynamic> json)
       : id = json['Id'],
-        companyId = json['EnterpriseId'],
+        enterpriseId = json['EnterpriseId'],
         name = json['Name'],
         description = json['Description'],
         startDate = json['StartDate'],
@@ -56,7 +56,7 @@ class Fidelity {
 
   Map<String, dynamic> toJson() => {
         'Id': id,
-        'EnterpriseId': companyId,
+        'EnterpriseId': enterpriseId,
         'Name': name,
         'Description': description,
         'StartDate': startDate,

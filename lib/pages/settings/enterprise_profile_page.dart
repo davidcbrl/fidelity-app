@@ -116,7 +116,7 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
               ? Uint8List.fromList(enterpriseController.selectedImage)
               : _selectedImage,
           label: 'Toque para trocar a foto',
-          emptyImagePath: 'assets/img/company.png',
+          emptyImagePath: 'assets/img/enterprise.png',
           onSelect: () async {
             XFile? picked = await _picker.pickImage(source: ImageSource.gallery);
             enterpriseController.selectedImage.value = await picked!.readAsBytes();

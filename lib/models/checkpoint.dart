@@ -15,7 +15,7 @@ class Checkpoints {
 
 class Checkpoint {
   int? id;
-  int? companyId;
+  int? enterpriseId;
   int? customerId;
   int? fidelityId;
   double? value;
@@ -23,7 +23,7 @@ class Checkpoint {
 
   Checkpoint({
     this.id,
-    this.companyId,
+    this.enterpriseId,
     this.customerId,
     this.fidelityId,
     this.value,
@@ -32,7 +32,7 @@ class Checkpoint {
 
   Checkpoint.fromJson(Map<String, dynamic> json):
     id = json['Id'],
-    companyId = json['EnterpriseId'],
+    enterpriseId = json['EnterpriseId'],
     customerId = json['ClientId'],
     fidelityId = json['LoyaltId'],
     value = json['Value'],
@@ -40,7 +40,7 @@ class Checkpoint {
 
   Map<String, dynamic> toJson() => {
     'Id': id,
-    'EnterpriseId': companyId,
+    'EnterpriseId': enterpriseId,
     'ClientId': customerId,
     'LoyaltId': fidelityId,
     'Value': value,

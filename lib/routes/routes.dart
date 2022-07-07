@@ -12,8 +12,8 @@ import 'package:fidelity/pages/checkpoint/checkpoint_completed_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_progress_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_success_page.dart';
-import 'package:fidelity/pages/companies/company_list_page.dart';
-import 'package:fidelity/pages/companies/company_promotions_page.dart';
+import 'package:fidelity/pages/enterprises/enterprise_list_page.dart';
+import 'package:fidelity/pages/enterprises/enterprise_promotions_page.dart';
 import 'package:fidelity/pages/customer/customer_fidelities_page.dart';
 import 'package:fidelity/pages/customer/customer_profile_page.dart';
 import 'package:fidelity/pages/customer/customer_signup_page.dart';
@@ -56,7 +56,7 @@ final routes = [
     ],
   ),
   GetPage(
-    name: '/signup/company',
+    name: '/signup/enterprise',
     page: () => FirstStepPage(),
     children: [
       GetPage(name: '/first_step', page: () => FirstStepPage()),
@@ -113,11 +113,11 @@ final routes = [
     ],
   ),
   GetPage(
-    name: '/companies',
-    page: () => CompanyListPage(),
+    name: '/enterprises',
+    page: () => EnterpriseListPage(),
     binding: BindingsBuilder(() => Get.put(() => EnterpriseController())),
     children: [
-      GetPage(name: '/company_promotions', page: () => CompanyPromotionsPage(), transition: Transition.cupertino),
+      GetPage(name: '/enterprise_promotions', page: () => EnterprisePromotionsPage(), transition: Transition.cupertino),
     ],
   ),
   GetPage(name: '/settings', page: () => SettingsPage(), children: [

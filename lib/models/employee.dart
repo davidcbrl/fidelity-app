@@ -2,14 +2,14 @@ class Employee {
   int? id;
   int? userId;
   String? name;
-  int? companyId;
+  int? enterpriseId;
   int? accessType;
 
   Employee({
     this.id,
     this.userId,
     this.name,
-    this.companyId,
+    this.enterpriseId,
     this.accessType,
   });
 
@@ -17,14 +17,14 @@ class Employee {
     id = json['Id'],
     userId = json['UserId'],
     name = json['Name'],
-    companyId = json['EnterpriseId'],
+    enterpriseId = json['EnterpriseId'],
     accessType = json['AccessType'];
 
   Map<String, dynamic> toJson() => {
     'Id': id,
     'UserId': userId,
     'Name': name,
-    'EnterpriseId': companyId,
+    'EnterpriseId': enterpriseId,
     'AccessType': accessType,
   };
 }

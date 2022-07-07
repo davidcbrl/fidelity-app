@@ -7,7 +7,7 @@ import 'package:get_storage/get_storage.dart';
 
 class EmployeeController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
-  var companyId = 0.obs;
+  var enterpriseId = 0.obs;
   var loading = false.obs;
   var filter = ''.obs;
   var filterDelay = false.obs;
@@ -19,7 +19,7 @@ class EmployeeController extends GetxController with StateMixin {
 
   @override
   void onInit() {
-    companyId.value = box.read('companyId');
+    enterpriseId.value = box.read('enterpriseId');
     getEmployees();
 
     ever(filter, (_) async {
@@ -92,7 +92,7 @@ class EmployeeController extends GetxController with StateMixin {
   Future<void> saveEmployee() async {
     change([], status: RxStatus.loading());
     try {
-      employee.value.employee!.companyId = box.read('companyId');
+      employee.value.employee!.enterpriseId = box.read('enterpriseId');
       Map<String, dynamic> json;
       json = employee.value.employee!.id != null
         ? await ApiProvider.put(path: 'employees', data: employee.toJson())

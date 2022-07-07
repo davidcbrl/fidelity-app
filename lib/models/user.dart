@@ -4,7 +4,7 @@ import 'package:fidelity/models/enterprise.dart';
 
 class User {
   int? id;
-  int? companyId;
+  int? enterpriseId;
   String? type;
   String? name;
   String? email;
@@ -19,7 +19,7 @@ class User {
 
   User({
     this.id,
-    this.companyId,
+    this.enterpriseId,
     this.type,
     this.name,
     this.email,
@@ -35,7 +35,7 @@ class User {
 
   User.fromJson(Map<String, dynamic> json):
     id = json['UserId'],
-    companyId = json['Id'],
+    enterpriseId = json['Id'],
     type = json['Type'],
     name = json['Name'],
     email = json['Email'],
@@ -50,7 +50,7 @@ class User {
 
   Map<String, dynamic> toJson() => {
     'UserId': id,
-    'Id': companyId,
+    'Id': enterpriseId,
     'Type': type,
     'Name': name,
     'Email': email,

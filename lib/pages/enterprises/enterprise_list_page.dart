@@ -1,6 +1,6 @@
 import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/models/enterprise.dart';
-import 'package:fidelity/pages/companies/company_promotions_page.dart';
+import 'package:fidelity/pages/enterprises/enterprise_promotions_page.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_empty.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
-class CompanyListPage extends StatelessWidget {
+class EnterpriseListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FidelityPage(
@@ -20,17 +20,17 @@ class CompanyListPage extends StatelessWidget {
         title: 'Promoções',
         hasBackButton: false,
       ),
-      body: CompanyListBody(),
+      body: EnterpriseListBody(),
     );
   }
 }
 
-class CompanyListBody extends StatefulWidget {
+class EnterpriseListBody extends StatefulWidget {
   @override
-  State<CompanyListBody> createState() => _CompanyListBodyState();
+  State<EnterpriseListBody> createState() => _EnterpriseListBodyState();
 }
 
-class _CompanyListBodyState extends State<CompanyListBody> {
+class _EnterpriseListBodyState extends State<EnterpriseListBody> {
   GetStorage box = GetStorage();
   EnterpriseController enterpriseController = Get.put(EnterpriseController());
   TextEditingController _textEditingController = new TextEditingController();
@@ -87,15 +87,15 @@ class _CompanyListBodyState extends State<CompanyListBody> {
                     ...enterpriseController.enterprisesList.map(
                       (Enterprise enterprise) => FidelitySelectItem(
                         image: Image.asset(
-                          'assets/img/company.png',
+                          'assets/img/enterprise.png',
                           height: 40,
                           width: 40,
                         ),
                         id: enterprise.id,
                         label: enterprise.name ?? '',
                         onPressed: () {
-                          box.write('companyId', enterprise.id);
-                          Get.to(() => CompanyPromotionsPage(company: enterprise));
+                          box.write('enterpriseId', enterprise.id);
+                          Get.to(() => EnterprisePromotionsPage(enterprise: enterprise));
                         },
                       ),
                     ),

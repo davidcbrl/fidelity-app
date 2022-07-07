@@ -3,7 +3,7 @@ import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/models/navigation_item.dart';
 import 'package:fidelity/models/user.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_page.dart';
-import 'package:fidelity/pages/companies/company_list_page.dart';
+import 'package:fidelity/pages/enterprises/enterprise_list_page.dart';
 import 'package:fidelity/pages/dashboard/dashboard_page.dart';
 import 'package:fidelity/pages/fidelities/fidelity_list_page.dart';
 import 'package:fidelity/pages/settings/settings_page.dart';
@@ -63,7 +63,7 @@ class _HomePageState extends State<HomePage> {
     NavigationItem(
       label: 'Promoções',
       icon: Icons.percent_outlined,
-      page: CompanyListPage(),
+      page: EnterpriseListPage(),
       access: 'C',
     ),
     NavigationItem(

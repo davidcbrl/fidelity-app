@@ -3,7 +3,7 @@ import 'package:fidelity/models/fidelity.dart';
 
 class CustomerProgress {
   int? id;
-  int? companyId;
+  int? enterpriseId;
   int? customerId;
   Customer? customer;
   int? fidelityId;
@@ -13,7 +13,7 @@ class CustomerProgress {
 
   CustomerProgress({
     this.id,
-    this.companyId,
+    this.enterpriseId,
     this.customerId,
     this.customer,
     this.fidelityId,
@@ -24,7 +24,7 @@ class CustomerProgress {
 
   CustomerProgress.fromJson(Map<String, dynamic> json):
     id = json['Id'],
-    companyId = json['EnterpriseId'],
+    enterpriseId = json['EnterpriseId'],
     customerId = json['ClientId'],
     customer = json['Client'] != null ? Customer.fromJson(json['Client']) : null,
     fidelityId = json['LoyaltId'],
@@ -34,7 +34,7 @@ class CustomerProgress {
 
   Map<String, dynamic> toJson() => {
     'Id': id,
-    'EnterpriseId': companyId,
+    'EnterpriseId': enterpriseId,
     'ClientId': customerId,
     'Client': customer,
     'LoyaltId': fidelityId,

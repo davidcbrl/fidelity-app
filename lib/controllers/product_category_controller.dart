@@ -7,14 +7,14 @@ import 'package:get_storage/get_storage.dart';
 
 class ProductCategoryController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
-  var companyId = 0.obs;
+  var enterpriseId = 0.obs;
   var loading = false.obs;
   var category = ProductCategory().obs;
   var categoriesList = <ProductCategory>[].obs;
 
   @override
   void onInit() {
-    companyId.value = box.read('companyId');
+    enterpriseId.value = box.read('enterpriseId');
     getCategories();
     super.onInit();
   }

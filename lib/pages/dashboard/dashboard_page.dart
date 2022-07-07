@@ -29,7 +29,7 @@ class _DashboardBodyState extends State<DashboardBody> {
   AuthController authController = Get.find();
 
   Map<String, String> userImages = {
-    'E': 'assets/img/company.png',
+    'E': 'assets/img/enterprise.png',
     'C': 'assets/img/user.jpg',
   };
 
@@ -41,7 +41,7 @@ class _DashboardBodyState extends State<DashboardBody> {
           height: 20,
         ),
         FidelityUserHeader(
-          imagePath: userImages[authController.user.value.type] ?? 'assets/img/company.png',
+          imagePath: userImages[authController.user.value.type] ?? 'assets/img/enterprise.png',
           name: authController.user.value.name ?? 'Luke Skywalker',
           description: 'Bem vindo!',
         ),

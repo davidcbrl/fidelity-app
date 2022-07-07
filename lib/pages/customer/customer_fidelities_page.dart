@@ -327,7 +327,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
     checkpointController.loading.value = true;
     checkpointController.checkpoints.value = _selectedForCheckpoint.map(
       (CustomerProgress progress) => new Checkpoint(
-        companyId: box.read('companyId'),
+        enterpriseId: box.read('enterpriseId'),
         customerId: progress.customerId,
         fidelityId: progress.fidelity!.id,
         value: progress.score,

@@ -1,13 +1,12 @@
+import 'package:fidelity/controllers/fidelity_controller.dart';
+import 'package:fidelity/models/fidelity_type.dart';
+import 'package:fidelity/widgets/fidelity_appbar.dart';
+import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_select_item.dart';
+import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../controllers/fidelity_controller.dart';
-import '../../models/fidelity_type.dart';
-import '../../widgets/fidelity_appbar.dart';
-import '../../widgets/fidelity_loading.dart';
-import '../../widgets/fidelity_text_button.dart';
 
 class FidelityConditionTypePage extends StatelessWidget {
   const FidelityConditionTypePage({Key? key}) : super(key: key);
