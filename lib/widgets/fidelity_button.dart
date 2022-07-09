@@ -21,6 +21,11 @@ class FidelityButton extends StatelessWidget {
           backgroundColor: MaterialStateProperty.all<Color>(
             Theme.of(context).colorScheme.primary,
           ),
+          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
         ),
         onPressed: onPressed,
         child: Text(

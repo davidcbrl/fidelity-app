@@ -51,7 +51,7 @@ class _CheckpointBodyState extends State<CheckpointBody> {
           text: 'Carregando...',
         )
       : Container(
-          padding: EdgeInsets.only(top: 10),
+          padding: EdgeInsets.only(top: 15),
           child: Form(
             key: _formCodeKey,
             child: Column(

@@ -14,13 +14,13 @@ class FidelityOptionItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(5),
+        color: Theme.of(context).colorScheme.background,
+        borderRadius: BorderRadius.circular(30),
         border: Border.all(
-          width: selectedLabel == null ? 1 : 2,
-          color: selectedLabel == null ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.primary,
+          width: 2,
+          color: selectedLabel == null ? Theme.of(context).colorScheme.tertiaryContainer : Theme.of(context).colorScheme.primary,
         ),
       ),
       child: InkWell(

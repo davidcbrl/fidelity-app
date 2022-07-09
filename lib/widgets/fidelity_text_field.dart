@@ -25,20 +25,32 @@ class FidelityTextField extends StatelessWidget {
       obscureText: hideText,
       onChanged: onChanged,
       decoration: InputDecoration(
-        contentPadding: EdgeInsets.only(left: 10),
+        contentPadding: EdgeInsets.only(left: 20),
         labelText: label,
         hintText: placeholder,
         hintStyle: Theme.of(context).textTheme.bodyText2,
         filled: true,
-        fillColor: Theme.of(context).colorScheme.surface,
-        suffixIcon: icon,
+        fillColor: Theme.of(context).colorScheme.background,
+        suffixIcon: Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: icon,
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
+          borderSide: BorderSide(
+            color: Theme.of(context).colorScheme.tertiaryContainer,
+            width: 2,
+          ),
+        ),
         border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.primary,
             width: 2,
           ),
         ),
         focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30),
           borderSide: BorderSide(
             color: Theme.of(context).colorScheme.primary,
             width: 2,

@@ -19,13 +19,13 @@ class FidelityImagePicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: size != null ? size! + (size! * 0.25) : null,
-      padding: EdgeInsets.all(10),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.surface,
-        borderRadius: BorderRadius.circular(5),
+        color: Theme.of(context).colorScheme.background,
+        borderRadius: BorderRadius.circular(30),
         border: Border.all(
-          width: image == null ? 1 : 2,
-          color: image == null ? Theme.of(context).colorScheme.tertiary : Theme.of(context).colorScheme.primary,
+          width: 2,
+          color: image == null ? Theme.of(context).colorScheme.tertiaryContainer : Theme.of(context).colorScheme.primary,
         ),
       ),
       child: InkWell(

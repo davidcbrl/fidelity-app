@@ -64,27 +64,27 @@ class FidelityConditionTypeBody extends StatelessWidget {
     return Expanded(
       child: Obx(
         () => fidelityController.loading.value
-            ? FidelityLoading(
-                loading: fidelityController.loading.value,
-                text: 'Carregando fidelidades...',
-              )
-            : SingleChildScrollView(
-                child: Column(children: [
-                  ...[
-                    ...fidelityController.fakeFidelityTypeList().map(
-                          (FidelityType fidelityType) => FidelitySelectItem(
-                            label: fidelityType.name ?? '',
-                            description: fidelityType.description ?? '',
-                            onPressed: () {
-                              fidelityController.fidelity.value.fidelityTypeId = fidelityType.id;
-                              Get.toNamed("/fidelity/condition");
-                            },
-                          ),
-                        ),
-                  ],
-                ]),
-              ),
-      ),
+        ? FidelityLoading(
+            loading: fidelityController.loading.value,
+            text: 'Carregando fidelidades...',
+          )
+        : SingleChildScrollView(
+            child: Column(
+              children: [
+                ...fidelityController.fakeFidelityTypeList().map(
+                  (FidelityType fidelityType) => FidelitySelectItem(
+                    label: fidelityType.name ?? '',
+                    description: fidelityType.description ?? '',
+                    onPressed: () {
+                      fidelityController.fidelity.value.fidelityTypeId = fidelityType.id;
+                      Get.toNamed("/fidelity/condition");
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
     );
   }
 }

@@ -22,8 +22,8 @@ class FidelityLinkItem extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
+            borderRadius: BorderRadius.circular(30),
+            color: Theme.of(context).colorScheme.surface,
             border: Border.all(
               width: 2,
               color: selected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,

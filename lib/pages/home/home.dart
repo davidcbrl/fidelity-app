@@ -101,6 +101,8 @@ class _HomePageState extends State<HomePage> {
       ),
       bottomBar: Obx(
         () => BottomNavigationBar(
+          backgroundColor: Theme.of(context).colorScheme.background,
+          elevation: 10,
           currentIndex: routeController.pageIndex.value,
           type: BottomNavigationBarType.fixed,
           selectedItemColor: Theme.of(context).colorScheme.primary,

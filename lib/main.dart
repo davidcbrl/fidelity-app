@@ -17,6 +17,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       title: 'Fidelity',
       theme: ThemeData(
+        fontFamily: 'Manrope',
         colorScheme: ColorScheme(
           primary: Color(0xFF2167E8),
           onPrimary: Color(0xFF2167E8),
@@ -27,10 +28,10 @@ class MyApp extends StatelessWidget {
           tertiaryContainer: Color(0xFFBDBDBD),
           error: Color(0xFFEB5757),
           onError: Color(0xFFEB5757),
-          background: Color(0xFFF7F7F7),
-          onBackground: Color(0xFFF7F7F7),
-          surface: Color(0xFFFFFFFF),
-          onSurface: Color(0xFFFFFFFF),
+          background: Color(0xFFFFFFFF),
+          onBackground: Color(0xFFFFFFFF),
+          surface: Color(0xFFF5F5F5),
+          onSurface: Color(0xFFF5F5F5),
           brightness: Brightness.light,
         ),
         textTheme: TextTheme(
@@ -47,10 +48,10 @@ class MyApp extends StatelessWidget {
           bodyText1: TextStyle(
             color: Color(0xFF828282),
             fontSize: 14,
-            fontWeight: FontWeight.normal,
+            fontWeight: FontWeight.bold,
           ),
           bodyText2: TextStyle(
-            color: Color(0xFFBDBDBD),
+            color: Color(0xFF828282),
             fontSize: 14,
             fontWeight: FontWeight.normal,
           ),

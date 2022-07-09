@@ -41,26 +41,39 @@ class FidelityTextFieldMasked extends StatelessWidget {
         inputFormatters: [MaskTextInputFormatter(mask: mask ?? '')],
         validator: validator,
         decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(left: 10),
+          contentPadding: EdgeInsets.only(left: 20),
           labelText: label,
           hintText: placeholder,
           hintStyle: Theme.of(context).textTheme.bodyText2,
           filled: true,
-          fillColor: readOnly ? Theme.of(context).colorScheme.background : Theme.of(context).colorScheme.surface,
-          suffixIcon: icon,
+          fillColor: readOnly ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.background,
+          suffixIcon: Padding(
+            padding: const EdgeInsets.only(right: 10),
+            child: icon,
+          ),
           disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
+            borderSide: BorderSide(
+              color: Theme.of(context).colorScheme.tertiaryContainer,
+              width: 2,
+            ),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.tertiaryContainer,
               width: 2,
             ),
           ),
           border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.primary,
               width: 2,
             ),
           ),
           focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(30),
             borderSide: BorderSide(
               color: Theme.of(context).colorScheme.primary,
               width: 2,
