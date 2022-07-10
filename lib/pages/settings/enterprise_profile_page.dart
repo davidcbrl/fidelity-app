@@ -49,6 +49,7 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
   TextEditingController _ufController = new TextEditingController();
   TextEditingController _branchController = new TextEditingController();
   ImagePicker _picker = ImagePicker();
+  AuthController authController = Get.find<AuthController>();
   var _selectedImage;
 
   final _formEnterpriseSignupKey = GlobalKey<FormState>();
@@ -64,22 +65,22 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
   }
 
   startCustomer() {
-    _emailController.text = Get.find<AuthController>().user.value.email ?? "";
-    _nameController.text = Get.find<AuthController>().user.value.customer?.name ?? "";
-    _cnpjController.text = Get.find<AuthController>().user.value.customer?.cpf ?? "";
+    _emailController.text = authController.user.value.email ?? "";
+    _nameController.text = authController.user.value.customer?.name ?? "";
+    _cnpjController.text = authController.user.value.customer?.cpf ?? "";
   }
 
   startEnterprise() {
     enterpriseController.profileEnterprise.value.enterprise = Enterprise();
-    _emailController.text = Get.find<AuthController>().user.value.email ?? "";
-    _nameController.text = Get.find<AuthController>().user.value.enterprise?.name ?? "";
-    _cnpjController.text = Get.find<AuthController>().user.value.enterprise?.cnpj ?? "";
-    _contactController.text = Get.find<AuthController>().user.value.enterprise?.tel ?? "";
-    _addressController.text = Get.find<AuthController>().user.value.enterprise?.address ?? "";
-    _addressNumberController.text = Get.find<AuthController>().user.value.enterprise?.addressNum ?? "";
-    _cityController.text = Get.find<AuthController>().user.value.enterprise?.city ?? "";
-    _ufController.text = Get.find<AuthController>().user.value.enterprise?.state ?? "";
-    _branchController.text = Get.find<AuthController>().user.value.enterprise?.branch ?? "";
+    _emailController.text = authController.user.value.email ?? "";
+    _nameController.text = authController.user.value.enterprise?.name ?? "";
+    _cnpjController.text = authController.user.value.enterprise?.cnpj ?? "";
+    _contactController.text = authController.user.value.enterprise?.tel ?? "";
+    _addressController.text = authController.user.value.enterprise?.address ?? "";
+    _addressNumberController.text = authController.user.value.enterprise?.addressNum ?? "";
+    _cityController.text = authController.user.value.enterprise?.city ?? "";
+    _ufController.text = authController.user.value.enterprise?.state ?? "";
+    _branchController.text = authController.user.value.enterprise?.branch ?? "";
   }
 
   @override
@@ -315,20 +316,18 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
       enterpriseController.profileEnterprise.value.enterprise?.city = _cityController.text;
       enterpriseController.profileEnterprise.value.enterprise?.state = _ufController.text;
       enterpriseController.profileEnterprise.value.enterprise?.branch = _branchController.text;
-      enterpriseController.profileEnterprise.value.enterprise?.userId =
-          Get.find<AuthController>().user.value.enterprise?.userId;
-      enterpriseController.profileEnterprise.value.enterprise?.id =
-          Get.find<AuthController>().user.value.enterprise?.id;
+      enterpriseController.profileEnterprise.value.enterprise?.userId = authController.user.value.enterprise?.userId;
+      enterpriseController.profileEnterprise.value.enterprise?.id = authController.user.value.enterprise?.id;
 
-      enterpriseController.profileEnterprise.value.id = Get.find<AuthController>().user.value.id;
-      enterpriseController.profileEnterprise.value.email = Get.find<AuthController>().user.value.email;
+      enterpriseController.profileEnterprise.value.id = authController.user.value.id;
+      enterpriseController.profileEnterprise.value.email = authController.user.value.email;
 
       enterpriseController.profileEnterprise.value.enterprise?.image =
           _imageController.isNotEmpty ? _imageController : null;
       await enterpriseController.changeProfile().whenComplete(() {
         if (enterpriseController.status.isSuccess) {
-          Get.find<AuthController>().user.value = enterpriseController.profileEnterprise.value;
-          Get.find<AuthController>().user.value.enterprise = enterpriseController.profileEnterprise.value.enterprise;
+          authController.user.value = enterpriseController.profileEnterprise.value;
+          authController.user.value.enterprise = enterpriseController.profileEnterprise.value.enterprise;
           Get.toNamed('/settings/enterprise_profile/success');
         }
       });
