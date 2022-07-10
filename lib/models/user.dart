@@ -11,8 +11,7 @@ class User {
   String? password;
   String? image;
   String? photo;
-  bool? active;
-  String? status;
+  bool? status;
   Customer? customer;
   Employee? employee;
   Enterprise? enterprise;
@@ -26,7 +25,6 @@ class User {
     this.password,
     this.image,
     this.photo,
-    this.active,
     this.status,
     this.customer,
     this.employee,
@@ -42,7 +40,6 @@ class User {
     password = json['Password'],
     image = json['Image'],
     photo = json['Photo'],
-    active = json['Active'] != null ? json['Active'] == '1' : null,
     status = json['Status'],
     customer = json['Client'] != null ? Customer.fromJson(json['Client']) : null,
     employee = json['Employee'] != null ? Employee.fromJson(json['Employee']) : null,

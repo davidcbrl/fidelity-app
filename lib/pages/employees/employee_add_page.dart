@@ -47,7 +47,7 @@ class _EmployeePageBodyState extends State<EmployeePageBody> {
       _nameController.text = employeeController.employee.value.employee!.name ?? '';
       _emailController.text = employeeController.employee.value.email ?? '';
       _passwordController.text = employeeController.employee.value.password ?? '';
-      _activeController = employeeController.employee.value.active!;
+      _activeController = employeeController.employee.value.status ?? false;
       _selectedImage = employeeController.employee.value.image != null
         ? base64Decode(employeeController.employee.value.image ?? '')
         : null;
@@ -208,7 +208,7 @@ class _EmployeePageBodyState extends State<EmployeePageBody> {
       employeeController.employee.value.employee!.name = _nameController.text;
       employeeController.employee.value.email = _emailController.text;
       employeeController.employee.value.password = _passwordController.text;
-      employeeController.employee.value.active = _activeController;
+      employeeController.employee.value.status = _activeController;
       employeeController.employee.value.image = _imageController.isNotEmpty ? _imageController : null;
       await employeeController.saveEmployee();
       if (employeeController.status.isSuccess) {

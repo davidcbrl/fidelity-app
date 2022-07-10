@@ -8,8 +8,7 @@ class Product {
   ProductCategory? category;
   int? categoryId;
   String? image;
-  bool? active;
-  String? status;
+  bool? status;
   List<dynamic>? fidelities;
   List<dynamic>? fidelitiesIds;
 
@@ -21,7 +20,6 @@ class Product {
     this.category,
     this.categoryId,
     this.image,
-    this.active,
     this.status,
     this.fidelities,
     this.fidelitiesIds,
@@ -35,7 +33,6 @@ class Product {
     image = json['Image'],
     category = json['Category'] != null ? ProductCategory.fromJson(json['Category']) : null,
     categoryId = json['CategoryId'],
-    active = json['Active'],
     status = json['Status'],
     fidelities = json['Loyalts'],
     fidelitiesIds = json['LoyaltList'];
@@ -48,7 +45,6 @@ class Product {
     'Category': category,
     'CategoryId': categoryId,
     'Image': image,
-    'Active': active,
     'Status': status,
     'Loyalts': fidelities,
     'LoyaltList': fidelitiesIds,

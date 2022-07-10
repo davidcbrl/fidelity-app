@@ -1,5 +1,6 @@
 import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
+import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
@@ -35,6 +36,7 @@ class CheckpointBody extends StatefulWidget {
 
 class _CheckpointBodyState extends State<CheckpointBody> {
   CustomerController customerController = Get.find();
+  FidelityController fidelityController = Get.put(FidelityController());
   AuthController authController = Get.find();
   Barcode? result;
   QRViewController? qrController;
@@ -185,6 +187,7 @@ class _CheckpointBodyState extends State<CheckpointBody> {
 
   Future<void> getCustomerProgress(String cpf) async {
     if (cpf.isNotEmpty) {
+      fidelityController.filter.value = '';
       customerController.customerCPF.value = cpf;
       await customerController.getCustomerProgress();
       if (customerController.status.isSuccess) {

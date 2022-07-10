@@ -17,8 +17,8 @@ class Enterprise {
   String? image;
   String? branch;
   int? membershipId;
-  int? active;
   DateTime? alterDate;
+  String? employeeName;
 
   Enterprise({
     this.cnpj,
@@ -30,11 +30,11 @@ class Enterprise {
     this.branch,
     this.image,
     this.membershipId,
-    this.active,
     this.alterDate,
     this.id,
     this.userId,
     this.name,
+    this.employeeName,
   });
 
   Enterprise.fromJson(Map<String, dynamic> json)
@@ -50,7 +50,7 @@ class Enterprise {
         branch = json['Branch'],
         image = json['Image'],
         membershipId = json['MembershipId'],
-        //active = json['Active'],
+        employeeName = json['EmployeeName'],
         alterDate = json['AlterDate'];
 
   Map<String, dynamic> toJson() => {
@@ -66,7 +66,7 @@ class Enterprise {
         'Branch': branch,
         'Image': image,
         'MembershipId': membershipId,
-        'Active': active,
+        'EmployeeName': employeeName,
         'AlterDate': alterDate
       };
 }

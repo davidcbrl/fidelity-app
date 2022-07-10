@@ -24,6 +24,7 @@ class FidelityController extends GetxController with StateMixin {
   @override
   void onInit() {
     enterpriseId.value = box.read('enterpriseId');
+    filter.value = '';
     getFidelities();
     ever(filter, (_) async {
       if (filter.value.length == 0) {

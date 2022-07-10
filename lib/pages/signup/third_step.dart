@@ -128,6 +128,7 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
   Future<void> saveEnterprise(BuildContext context) async {
     enterpriseController.loading.value = true;
     enterpriseController.signupEnterprise.value.membershipId = enterpriseController.plan.value.id;
+    enterpriseController.signupEnterprise.value.employeeName = enterpriseController.signupEnterprise.value.name;
     enterpriseController.userSignup.value.enterprise = enterpriseController.signupEnterprise.value;
     await enterpriseController.signup();
     if (enterpriseController.status.isSuccess) {

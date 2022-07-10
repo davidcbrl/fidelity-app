@@ -9,7 +9,7 @@ class ProductSuccessPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FidelityPage(
       body: FidelitySuccess(
-        title: 'Produto criado com sucesso!',
+        title: 'Produto salvo com sucesso!',
         description: 'Este produto já está disponível para seus clientes com as fidelidades que você já vinculou.',
         buttonText: 'Voltar para a lista',
         onPressed: () {

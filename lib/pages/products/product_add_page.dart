@@ -52,7 +52,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
       _nameController.text = productController.product.value.name ?? '';
       _valueController.text = productController.product.value.value.toString();
       _categoryController = productController.product.value.category ?? new ProductCategory();
-      _activeController = productController.product.value.status == '1';
+      _activeController = productController.product.value.status ?? false;
       _selectedImage = productController.product.value.image != null
           ? base64Decode(productController.product.value.image ?? '')
           : null;
@@ -293,7 +293,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
       productController.product.value.name = _nameController.text;
       productController.product.value.value = double.parse(_valueController.text);
       productController.product.value.categoryId = _categoryController.id ?? 1;
-      productController.product.value.status = _activeController ? '1' : '0';
+      productController.product.value.status = _activeController;
       productController.product.value.image = _imageController.isNotEmpty ? _imageController : null;
       Get.toNamed('/product/fidelities');
     }

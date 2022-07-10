@@ -45,7 +45,7 @@ class CustomerFidelitiesBody extends StatefulWidget {
 class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   GetStorage box = GetStorage();
   CheckpointController checkpointController = Get.put(CheckpointController());
-  FidelityController fidelityController = Get.put(FidelityController());
+  FidelityController fidelityController = Get.find();
   CustomerController customerController = Get.find();
   ScrollController scrollController = new ScrollController();
   List<CustomerProgress> _selectedForCheckpoint = [];
