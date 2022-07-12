@@ -135,6 +135,9 @@ class SettingsBody extends StatelessWidget {
     if (box.hasData('enterpriseId')) {
       box.remove('enterpriseId');
     }
+    if (box.hasData('user')) {
+      box.remove('user');
+    }
     Get.offAllNamed('/auth');
   }
 }

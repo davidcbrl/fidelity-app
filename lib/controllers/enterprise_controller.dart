@@ -27,8 +27,6 @@ class EnterpriseController extends GetxController with StateMixin {
 
   @override
   void onInit() {
-    getEnterprises();
-
     ever(filter, (_) async {
       if (filter.value.length == 0) {
         getEnterprises();

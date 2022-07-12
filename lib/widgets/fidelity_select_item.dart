@@ -48,7 +48,7 @@ class FidelitySelectItem extends StatelessWidget {
                           style: Theme.of(context).textTheme.bodyText1,
                         ),
                         SizedBox(
-                          width: 10,
+                          width: 20,
                         ),
                       ],
                       Column(

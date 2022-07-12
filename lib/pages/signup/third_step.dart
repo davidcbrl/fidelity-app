@@ -33,6 +33,12 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
   EnterpriseController enterpriseController = Get.find();
 
   @override
+  void didChangeDependencies() {
+    enterpriseController.getPlans();
+    super.didChangeDependencies();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Obx(
       () => enterpriseController.loading.value
@@ -99,7 +105,6 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
                     (Plan plan) {
                       String currency = NumberFormat.currency(locale: 'pt-br', symbol: 'R\$').format(plan.value);
                       return FidelityLinkItem(
-                        id: plan.id ?? 1,
                         label: plan.name! + ' - ' + currency,
                         description: plan.description ?? '',
                         selected: enterpriseController.plan.value.id == plan.id,

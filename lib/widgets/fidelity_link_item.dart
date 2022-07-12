@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class FidelityLinkItem extends StatelessWidget {
-  final int id;
+  final int? id;
   final String label;
   final Function() onPressed;
   final String? description;
   final bool selected;
 
   FidelityLinkItem({
-    required this.id,
+    this.id,
     required this.label,
     required this.onPressed,
     this.description,
@@ -38,10 +38,12 @@ class FidelityLinkItem extends StatelessWidget {
                 children: [
                   Row(
                     children: [
-                      Text(
-                        id.toString(),
-                        style: Theme.of(context).textTheme.bodyText1,
-                      ),
+                      if (id != null) ...[
+                        Text(
+                          id.toString(),
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      ],
                       SizedBox(
                         width: 20,
                       ),

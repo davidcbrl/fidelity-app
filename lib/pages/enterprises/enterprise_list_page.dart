@@ -38,6 +38,7 @@ class _EnterpriseListBodyState extends State<EnterpriseListBody> {
 
   @override
   void initState() {
+    enterpriseController.getEnterprises();
     scrollController = new ScrollController();
     scrollController.addListener(_scrollListener);
     super.initState();
