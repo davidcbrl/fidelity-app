@@ -3,16 +3,16 @@ import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/models/navigation_item.dart';
 import 'package:fidelity/models/user.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_page.dart';
+import 'package:fidelity/pages/dashboard/customer_dashboard_page.dart';
 import 'package:fidelity/pages/enterprises/enterprise_list_page.dart';
-import 'package:fidelity/pages/dashboard/dashboard_page.dart';
+import 'package:fidelity/pages/dashboard/enterprise_dashboard_page.dart';
 import 'package:fidelity/pages/fidelities/fidelity_list_page.dart';
+import 'package:fidelity/pages/products/product_list_page.dart';
 import 'package:fidelity/pages/settings/settings_page.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-
-import '../products/product_list_page.dart';
 
 class HomePage extends StatefulWidget {
   final pageIndex;
@@ -34,7 +34,14 @@ class _HomePageState extends State<HomePage> {
     NavigationItem(
       label: 'Início',
       icon: Icons.home_outlined,
-      page: DashboardPage(),
+      page: EnterpriseDashboardPage(),
+      access: 'E',
+    ),
+    NavigationItem(
+      label: 'Início',
+      icon: Icons.home_outlined,
+      page: CustomerDashboardPage(),
+      access: 'C',
     ),
     NavigationItem(
       label: 'Fidelidades',

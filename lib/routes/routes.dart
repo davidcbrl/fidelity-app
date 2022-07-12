@@ -26,6 +26,7 @@ import 'package:fidelity/pages/fidelities/fidelity_condition.dart';
 import 'package:fidelity/pages/fidelities/fidelity_condition_type.dart';
 import 'package:fidelity/pages/fidelities/fidelity_list_page.dart';
 import 'package:fidelity/pages/fidelities/fidelity_products_page.dart';
+import 'package:fidelity/pages/fidelities/fidelity_products_page_cashout.dart';
 import 'package:fidelity/pages/fidelities/fidelity_promotion_page.dart';
 import 'package:fidelity/pages/fidelities/fidelity_promotion_type_page.dart';
 import 'package:fidelity/pages/fidelities/fidelity_success_page.dart';
@@ -43,8 +44,6 @@ import 'package:fidelity/pages/signup/sign_up_success.dart';
 import 'package:fidelity/pages/signup/third_step.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import '../pages/fidelities/fidelity_products_page_cashout.dart';
 
 final routes = [
   GetPage(
