@@ -24,17 +24,13 @@ class FidelityProgressItem extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.white,
-            border: Border.all(
-              width: 2,
-              color: Theme.of(context).colorScheme.surface,
-            ),
+            borderRadius: BorderRadius.circular(20),
+            color: Theme.of(context).colorScheme.surface,
           ),
           child: InkWell(
             onTap: onPressed,
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+              padding: const EdgeInsets.only(left: 30, top: 15, bottom: 15, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

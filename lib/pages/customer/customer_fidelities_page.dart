@@ -68,6 +68,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
       () => customerController.loading.value || checkpointController.loading.value
       ? FidelityLoading(
           loading: customerController.loading.value || checkpointController.loading.value,
+          text: 'Carregando...',
         )
       : Column(
           children: [
