@@ -199,7 +199,7 @@ class CustomerSignupBody extends StatelessWidget {
       await customerController.saveCustomer(user);
       if (customerController.status.isSuccess) {
         customerController.loading.value = false;
-        Get.toNamed('/auth');
+        Get.toNamed('/signup/customer/success');
         return;
       }
       customerController.loading.value = false;

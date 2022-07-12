@@ -12,6 +12,7 @@ import 'package:fidelity/pages/checkpoint/checkpoint_completed_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_progress_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_success_page.dart';
+import 'package:fidelity/pages/customer/customer_sign_up_success.dart';
 import 'package:fidelity/pages/enterprises/enterprise_list_page.dart';
 import 'package:fidelity/pages/enterprises/enterprise_promotions_page.dart';
 import 'package:fidelity/pages/customer/customer_fidelities_page.dart';
@@ -50,24 +51,27 @@ final routes = [
     name: '/auth',
     page: () => LoginPage(),
     children: [
-      GetPage(name: '/password_reset', page: () => PasswordResetPage()),
-      GetPage(name: '/reset_success', page: () => ResetSuccessPage()),
+      GetPage(name: '/password_reset', page: () => PasswordResetPage(), transition: Transition.cupertino),
+      GetPage(name: '/reset_success', page: () => ResetSuccessPage(), transition: Transition.cupertino),
     ],
   ),
   GetPage(
     name: '/signup/enterprise',
     page: () => FirstStepPage(),
     children: [
-      GetPage(name: '/first_step', page: () => FirstStepPage()),
-      GetPage(name: '/second_step', page: () => SecondStepPage()),
-      GetPage(name: '/third_step', page: () => ThirdStepPage()),
-      GetPage(name: '/success', page: () => SignUpSuccessPage()),
+      GetPage(name: '/first_step', page: () => FirstStepPage(), transition: Transition.cupertino),
+      GetPage(name: '/second_step', page: () => SecondStepPage(), transition: Transition.cupertino),
+      GetPage(name: '/third_step', page: () => ThirdStepPage(), transition: Transition.cupertino),
+      GetPage(name: '/success', page: () => SignUpSuccessPage(), transition: Transition.cupertino),
     ],
   ),
   GetPage(
     name: '/signup/customer',
     page: () => CustomerSignupPage(),
     binding: BindingsBuilder(() => Get.put(new CustomerController())),
+    children: [
+      GetPage(name: '/success', page: () => CustomerSignUpSuccessPage(), transition: Transition.cupertino),
+    ],
   ),
   GetPage(
     name: '/home',
@@ -80,9 +84,9 @@ final routes = [
     page: () => ProductListPage(),
     binding: BindingsBuilder(() => Get.put<ProductController>(new ProductController())),
     children: [
-      GetPage(name: '/add', page: () => ProductAddPage()),
-      GetPage(name: '/fidelities', page: () => ProductFidelitiesPage()),
-      GetPage(name: '/success', page: () => ProductSuccessPage()),
+      GetPage(name: '/add', page: () => ProductAddPage(), transition: Transition.cupertino),
+      GetPage(name: '/fidelities', page: () => ProductFidelitiesPage(), transition: Transition.cupertino),
+      GetPage(name: '/success', page: () => ProductSuccessPage(), transition: Transition.cupertino),
     ],
   ),
   GetPage(
@@ -125,10 +129,7 @@ final routes = [
         page: () => EnterpriseProfilePage(),
         transition: Transition.cupertino,
         children: [
-          GetPage(
-            name: '/success',
-            page: () => EnterpriseSuccessPage(),
-          ),
+          GetPage(name: '/success', page: () => EnterpriseSuccessPage(), transition: Transition.cupertino),
         ]),
   ]),
   GetPage(
@@ -136,7 +137,7 @@ final routes = [
     page: () => CustomerProfilePage(),
     binding: BindingsBuilder(() => Get.put<CustomerController>(new CustomerController())),
     children: [
-      GetPage(name: '/success', page: () => CustomerSuccessPage()),
+      GetPage(name: '/success', page: () => CustomerSuccessPage(), transition: Transition.cupertino),
     ],
   ),
   GetPage(
