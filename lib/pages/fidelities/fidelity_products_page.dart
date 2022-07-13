@@ -115,6 +115,7 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
                         id: product.id ?? 1,
                         label: product.name ?? '',
                         selected: product.id == _selectedItem,
+                        active: product.status ?? true,
                         onPressed: () {
                           if (_selectedItem != product.id)
                             setState(() {

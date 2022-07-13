@@ -8,6 +8,7 @@ class FidelitySelectItem extends StatelessWidget {
   final int? id;
   final Widget? image;
   final IconData? icon;
+  final bool active;
 
   FidelitySelectItem({
     required this.label,
@@ -16,6 +17,7 @@ class FidelitySelectItem extends StatelessWidget {
     this.id,
     this.image,
     this.icon,
+    this.active = true,
   });
 
   @override
@@ -25,12 +27,16 @@ class FidelitySelectItem extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Theme.of(context).colorScheme.surface,
+            color: active ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.background,
+            border: Border.all(
+              width: active ? 2 : 4,
+              color: Theme.of(context).colorScheme.surface,
+            ),
           ),
           child: InkWell(
             onTap: onPressed,
             child: Padding(
-              padding: const EdgeInsets.only(left: 30, top: 15, bottom: 15, right: 10),
+              padding: const EdgeInsets.only(left: 20, top: 15, bottom: 15, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -69,7 +75,7 @@ class FidelitySelectItem extends StatelessWidget {
                               Container(
                                 width: Get.width - Get.width * 0.6,
                                 child: Text(
-                                  label,
+                                  '${active ? "" : "(inativo) "}' + label,
                                   style: Theme.of(context).textTheme.bodyText1,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,

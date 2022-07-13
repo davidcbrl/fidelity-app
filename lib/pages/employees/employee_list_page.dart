@@ -108,6 +108,7 @@ class _EmployeeListBodyState extends State<EmployeeListBody> {
                               height: 50,
                               width: 50,
                             ),
+                        active: employee.status ?? true,
                         onPressed: () {
                           employeeController.employee.value = employee;
                           Get.toNamed('/employee/add');

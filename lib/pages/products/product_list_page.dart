@@ -99,16 +99,17 @@ class _ProductListBodyState extends State<ProductListBody> {
                         id: product.id,
                         label: product.name ?? '',
                         image: product.image != null
-                            ? Image.memory(
-                                base64Decode(product.image ?? ''),
-                                height: 50,
-                                width: 50,
-                              )
-                            : Image.asset(
-                                'assets/img/product.png',
-                                height: 50,
-                                width: 50,
-                              ),
+                          ? Image.memory(
+                              base64Decode(product.image ?? ''),
+                              height: 50,
+                              width: 50,
+                            )
+                          : Image.asset(
+                              'assets/img/product.png',
+                              height: 50,
+                              width: 50,
+                            ),
+                        active: product.status ?? true,
                         onPressed: () {
                           productController.product.value = product;
                           Get.toNamed('/product/add');

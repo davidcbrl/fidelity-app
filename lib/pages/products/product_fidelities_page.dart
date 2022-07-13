@@ -119,6 +119,7 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
                         label: fidelity.name ?? '',
                         description: fidelity.description ?? '',
                         selected: containsFidelityId(fidelity.id),
+                        active: fidelity.status ?? true,
                         onPressed: () {
                           if (containsFidelityId(fidelity.id)) {
                             setState(() {

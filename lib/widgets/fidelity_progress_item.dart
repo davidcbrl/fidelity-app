@@ -30,7 +30,7 @@ class FidelityProgressItem extends StatelessWidget {
           child: InkWell(
             onTap: onPressed,
             child: Padding(
-              padding: const EdgeInsets.only(left: 30, top: 15, bottom: 15, right: 10),
+              padding: const EdgeInsets.only(left: 20, top: 15, bottom: 15, right: 10),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

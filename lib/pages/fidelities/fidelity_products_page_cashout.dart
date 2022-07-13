@@ -122,6 +122,7 @@ class _FidelityProductsCashoutBodyState extends State<FidelityProductsCashoutBod
                         id: product.id ?? 1,
                         label: product.name ?? '',
                         selected: _selectedProducts.contains(product.id),
+                        active: product.status ?? true,
                         onPressed: () {
                           if (_selectedProducts.contains(product.id)) {
                             setState(() {

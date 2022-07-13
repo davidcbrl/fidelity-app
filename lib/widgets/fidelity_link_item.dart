@@ -7,6 +7,7 @@ class FidelityLinkItem extends StatelessWidget {
   final Function() onPressed;
   final String? description;
   final bool selected;
+  final bool active;
 
   FidelityLinkItem({
     this.id,
@@ -14,6 +15,7 @@ class FidelityLinkItem extends StatelessWidget {
     required this.onPressed,
     this.description,
     this.selected = false,
+    this.active = true,
   });
 
   @override
@@ -22,10 +24,10 @@ class FidelityLinkItem extends StatelessWidget {
       children: [
         Container(
           decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(30),
-            color: Theme.of(context).colorScheme.surface,
+            borderRadius: BorderRadius.circular(20),
+            color: active ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.background,
             border: Border.all(
-              width: 2,
+              width: active ? 2 : 4,
               color: selected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,
             ),
           ),
@@ -51,7 +53,7 @@ class FidelityLinkItem extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            label,
+                            '${active ? "" : "(inativo) "}' + label,
                             style: Theme.of(context).textTheme.bodyText1,
                           ),
                           if (description != null) ...[

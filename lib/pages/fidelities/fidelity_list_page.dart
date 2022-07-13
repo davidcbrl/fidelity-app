@@ -87,6 +87,7 @@ class FidelityListBody extends StatelessWidget {
                   id: fidelity.id,
                   label: fidelity.name ?? '',
                   description: fidelity.description ?? '',
+                  active: fidelity.status ?? true,
                   onPressed: () {
                     Get.toNamed("/fidelity/add", arguments: fidelity);
                   },
