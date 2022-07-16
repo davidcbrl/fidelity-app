@@ -74,7 +74,9 @@ class SettingsBody extends StatelessWidget {
             icon: Icons.info_outline,
             label: 'Sobre',
             description: 'Visualize informações sobre o app',
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed('/settings/about');
+            },
           ),
           SizedBox(
             height: 10,

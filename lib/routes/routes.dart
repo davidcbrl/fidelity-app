@@ -12,16 +12,16 @@ import 'package:fidelity/pages/checkpoint/checkpoint_completed_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_progress_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_success_page.dart';
-import 'package:fidelity/pages/customer/customer_sign_up_success.dart';
-import 'package:fidelity/pages/enterprises/enterprise_list_page.dart';
-import 'package:fidelity/pages/enterprises/enterprise_promotions_page.dart';
 import 'package:fidelity/pages/customer/customer_fidelities_page.dart';
 import 'package:fidelity/pages/customer/customer_profile_page.dart';
+import 'package:fidelity/pages/customer/customer_sign_up_success.dart';
 import 'package:fidelity/pages/customer/customer_signup_page.dart';
 import 'package:fidelity/pages/customer/customer_success_page.dart';
 import 'package:fidelity/pages/employees/employee_add_page.dart';
 import 'package:fidelity/pages/employees/employee_list_page.dart';
 import 'package:fidelity/pages/employees/employee_success_page.dart';
+import 'package:fidelity/pages/enterprises/enterprise_list_page.dart';
+import 'package:fidelity/pages/enterprises/enterprise_promotions_page.dart';
 import 'package:fidelity/pages/fidelities/fidelity_add.dart';
 import 'package:fidelity/pages/fidelities/fidelity_condition.dart';
 import 'package:fidelity/pages/fidelities/fidelity_condition_type.dart';
@@ -36,6 +36,7 @@ import 'package:fidelity/pages/products/product_add_page.dart';
 import 'package:fidelity/pages/products/product_fidelities_page.dart';
 import 'package:fidelity/pages/products/product_list_page.dart';
 import 'package:fidelity/pages/products/product_success_page.dart';
+import 'package:fidelity/pages/settings/about_page.dart';
 import 'package:fidelity/pages/settings/enterprise_profile_page.dart';
 import 'package:fidelity/pages/settings/enterprise_success_page.dart';
 import 'package:fidelity/pages/settings/settings_page.dart';
@@ -131,6 +132,7 @@ final routes = [
         children: [
           GetPage(name: '/success', page: () => EnterpriseSuccessPage(), transition: Transition.cupertino),
         ]),
+    GetPage(name: '/about', page: () => AboutPage(), transition: Transition.cupertino)
   ]),
   GetPage(
     name: '/customer/profile',
