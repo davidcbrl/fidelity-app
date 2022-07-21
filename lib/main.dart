@@ -3,9 +3,11 @@ import 'package:fidelity/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async {
   await GetStorage.init();
+  await oneSignalSetup();
   runApp(MyApp());
 }
 
@@ -67,4 +69,9 @@ class MyApp extends StatelessWidget {
       getPages: getRoutes(),
     );
   }
+}
+
+Future<void> oneSignalSetup() async {
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+  OneSignal.shared.setAppId('f5fb5ded-0185-4984-8024-53f233218894');
 }

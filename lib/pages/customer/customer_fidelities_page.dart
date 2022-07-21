@@ -1,9 +1,11 @@
 import 'package:fidelity/controllers/checkpoint_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/controllers/fidelity_controller.dart';
+import 'package:fidelity/controllers/notification_controller.dart';
 import 'package:fidelity/models/checkpoint.dart';
 import 'package:fidelity/models/customer_progress.dart';
 import 'package:fidelity/models/fidelity.dart';
+import 'package:fidelity/models/one_signal_push.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_completed_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_progress_page.dart';
 import 'package:fidelity/util/fidelity_utils.dart';
@@ -45,6 +47,7 @@ class CustomerFidelitiesBody extends StatefulWidget {
 class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   GetStorage box = GetStorage();
   CheckpointController checkpointController = Get.put(CheckpointController());
+  NotificationController notificationController = Get.put(NotificationController());
   FidelityController fidelityController = Get.find();
   CustomerController customerController = Get.find();
   ScrollController scrollController = new ScrollController();
@@ -342,9 +345,23 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
         (check) => check.completed ?? false,
       ).toList();
       if (completed.length > 0) {
+        notificationController.push.value = OneSignalPush(
+          includeExternalUserId: [customerController.customerCPF.value],
+          name: 'Checkpoint',
+          headings: 'Fidelidade completa!',
+          contents: 'Você já pode receber a promoção, solicite ao estabelecimento',
+        );
+        await notificationController.sendPush();
         Get.to(() => CheckpointCompletedPage(completedCheckpoints: completed));
         return;
       }
+      notificationController.push.value = OneSignalPush(
+        includeExternalUserId: [customerController.customerCPF.value],
+        name: 'Checkpoint',
+        headings: 'Progresso atualizado',
+        contents: 'Continue participando de fidelidades para receber promoções',
+      );
+      await notificationController.sendPush();
       Get.toNamed('/checkpoint/success');
       return;
     }

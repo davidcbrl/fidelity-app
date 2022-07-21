@@ -26,6 +26,7 @@ dependencies:
   flutter_native_splash: any
   flutter_launcher_icons: any
   qr_flutter: ^4.0.0
+  onesignal_flutter: ^3.0.0
 
 dev_dependencies:
   flutter_test:

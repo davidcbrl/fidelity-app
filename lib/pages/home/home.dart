@@ -13,6 +13,7 @@ import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 class HomePage extends StatefulWidget {
   final pageIndex;
@@ -89,6 +90,9 @@ class _HomePageState extends State<HomePage> {
     userMenu = navigationMenu.where(
       (NavigationItem item) => (item.access == null) || (item.access == authController.user.value.type)
     ).toList();
+    if (authController.user.value.type == 'C') {
+      _oneSignalSubscription();
+    }
     super.initState();
   }
 
@@ -127,5 +131,15 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
     );
+  }
+
+  void _oneSignalSubscription() {
+    OneSignal.shared.setExternalUserId(
+      authController.user.value.customer!.cpf.toString(),
+    ).then((results) {
+      print('External id result: ${results.toString()}');
+    }).catchError((error) {
+      print('External id error: ${error.toString()}');
+    });
   }
 }
