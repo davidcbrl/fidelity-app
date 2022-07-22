@@ -77,7 +77,7 @@ class _CheckpointBodyState extends State<CheckpointBody> {
                     onChanged: (value) {
                       value = value.length > 0 ? value.replaceAll(new RegExp(r'[^0-9]'), '') : value;
                       if (_formCodeKey.currentState!.validate()) {
-                        getCustomerProgress('111111111122');
+                        getCustomerProgress(value);
                       }
                     },
                   ),
@@ -87,10 +87,10 @@ class _CheckpointBodyState extends State<CheckpointBody> {
                   Expanded(
                     child: Stack(
                       children: [
-                        // Expanded(
-                        //   flex: 5,
-                        //   child: _buildQrView(context),
-                        // ),
+                        Expanded(
+                          flex: 5,
+                          child: _buildQrView(context),
+                        ),
                         if (result != null) ...[
                           Column(
                             mainAxisAlignment: MainAxisAlignment.end,
