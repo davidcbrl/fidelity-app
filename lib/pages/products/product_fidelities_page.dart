@@ -45,57 +45,57 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
   Widget build(BuildContext context) {
     return Obx(
       () => productController.loading.value
-      ? FidelityLoading(
-          loading: productController.loading.value,
-          text: 'Salvando produto...',
-        )
-      : Column(
-          children: [
-            SizedBox(
-              height: 20,
+          ? FidelityLoading(
+              loading: productController.loading.value,
+              text: 'Salvando produto...',
+            )
+          : Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: Text(
+                    'Selecione as fidelidades que desejar vincular à este produto ou crie uma nova fidelidade',
+                    style: Theme.of(context).textTheme.bodyText1,
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                FidelityButton(
+                  label: 'Nova fidelidade',
+                  onPressed: () {
+                    fidelityController.fidelity.value = Fidelity();
+                    Get.toNamed("/fidelity/add");
+                  },
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                _fidelitiesList(),
+                SizedBox(
+                  height: 20,
+                ),
+                FidelityButton(
+                  label: 'Concluir',
+                  onPressed: () {
+                    saveProduct(context);
+                  },
+                ),
+                FidelityTextButton(
+                  label: 'Voltar',
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Text(
-                'Selecione as fidelidades que desejar vincular à este produto ou crie uma nova fidelidade',
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            FidelityButton(
-              label: 'Nova fidelidade',
-              onPressed: () {
-                fidelityController.fidelity.value = Fidelity();
-                Get.toNamed("/fidelity/add");
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            _fidelitiesList(),
-            SizedBox(
-              height: 20,
-            ),
-            FidelityButton(
-              label: 'Concluir',
-              onPressed: () {
-                saveProduct(context);
-              },
-            ),
-            FidelityTextButton(
-              label: 'Voltar',
-              onPressed: () {
-                Get.back();
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-          ],
-        ),
     );
   }
 
@@ -103,58 +103,56 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
     return Expanded(
       child: Obx(
         () => fidelityController.loading.value
-        ? FidelityLoading(
-            loading: fidelityController.loading.value,
-            text: 'Carregando fidelidades...',
-          )
-        : SingleChildScrollView(
-            child: Column(
-              children: [
-                if (fidelityController.status.isSuccess)... [
-                  ...fidelityController.fidelitiesList.map(
-                    (Fidelity fidelity) {
-                      fidelity.products = null;
-                      return FidelityLinkItem(
-                        id: fidelity.id ?? 1,
-                        label: fidelity.name ?? '',
-                        description: fidelity.description ?? '',
-                        selected: containsFidelityId(fidelity.id),
-                        active: fidelity.status ?? true,
-                        onPressed: () {
-                          if (containsFidelityId(fidelity.id)) {
+            ? FidelityLoading(
+                loading: fidelityController.loading.value,
+                text: 'Carregando fidelidades...',
+              )
+            : SingleChildScrollView(
+                child: Column(children: [
+                  if (fidelityController.status.isSuccess) ...[
+                    ...fidelityController.fidelitiesList.map(
+                      (Fidelity fidelity) {
+                        fidelity.products = null;
+                        return FidelityLinkItem(
+                          id: fidelity.id ?? 1,
+                          label: fidelity.name ?? '',
+                          description: fidelity.description ?? '',
+                          selected: containsFidelityId(fidelity.id),
+                          active: fidelity.status ?? true,
+                          onPressed: () {
+                            if (containsFidelityId(fidelity.id)) {
+                              setState(() {
+                                _selectedFidelities.removeWhere((element) => element!.id == fidelity.id);
+                              });
+                              return;
+                            }
                             setState(() {
-                              _selectedFidelities.removeWhere((element) => element!.id == fidelity.id);
+                              _selectedFidelities.add(fidelity);
                             });
-                            return;
-                          }
-                          setState(() {
-                            _selectedFidelities.add(fidelity);
-                          });
-                        },
-                      );
-                    },
-                  ),
-                ],
-                if (fidelityController.status.isEmpty)... [
-                  FidelityEmpty(
-                    text: 'Nenhuma fidelidade encontrada',
-                  ),
-                ],
-                if (fidelityController.status.isError)... [
-                  FidelityEmpty(
-                    text: fidelityController.status.errorMessage ?? '500',
-                  ),
-                ],
-              ]
-            ),
-          ),
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                  if (fidelityController.status.isEmpty) ...[
+                    FidelityEmpty(
+                      text: 'Nenhuma fidelidade encontrada',
+                    ),
+                  ],
+                  if (fidelityController.status.isError) ...[
+                    FidelityEmpty(
+                      text: fidelityController.status.errorMessage ?? '500',
+                    ),
+                  ],
+                ]),
+              ),
       ),
     );
   }
 
   bool containsFidelityId(int? id) {
-    for (dynamic e in _selectedFidelities) {
-      if (e.id == id) return true;
+    for (Fidelity? e in _selectedFidelities) {
+      if (e?.id == id) return true;
     }
     return false;
   }

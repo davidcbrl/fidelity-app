@@ -1,5 +1,6 @@
 import 'package:fidelity/models/api_response.dart';
 import 'package:fidelity/models/enterprise.dart';
+import 'package:fidelity/models/enterprise_dashboard.dart';
 import 'package:fidelity/models/plan.dart';
 import 'package:fidelity/models/request_exception.dart';
 import 'package:fidelity/models/user.dart';
@@ -17,7 +18,7 @@ class EnterpriseController extends GetxController with StateMixin {
   var enterprisesList = <Enterprise>[].obs;
   var userSignup = User().obs;
   var signupEnterprise = Enterprise().obs;
-
+  var dashboard = EnterpriseDashboard().obs;
   var profileEnterprise = User().obs;
   var selectedImage = <int>[].obs;
 
@@ -42,7 +43,7 @@ class EnterpriseController extends GetxController with StateMixin {
       enterprisesList.clear();
       await getEnterprises();
     });
-
+    getMostUsedLoyalts();
     getPlans();
     super.onInit();
   }
@@ -119,6 +120,43 @@ class EnterpriseController extends GetxController with StateMixin {
       plansList.value = list.map((e) => Plan.fromJson(e)).toList();
       change([], status: RxStatus.success());
       plansLoading.value = false;
+    } on RequestException catch (error) {
+      print(error);
+      change([], status: RxStatus.error(error.message));
+      plansLoading.value = false;
+    } catch (error) {
+      print(error);
+      change([], status: RxStatus.error('Erro ao buscar planos'));
+      plansLoading.value = false;
+    }
+  }
+
+  Future<void> getMostUsedLoyalts() async {
+    change([], status: RxStatus.loading());
+    try {
+      loading.value = true;
+      Map<String, dynamic> json = await ApiProvider.get(
+        path: 'dashboard',
+      );
+      ApiResponse response = ApiResponse.fromJson(json);
+      if (!response.success) {
+        loading.value = false;
+        throw RequestException(
+          message: response.message,
+        );
+      }
+      if (response.result.length == 0 || response.result == null) {
+        change([], status: RxStatus.empty());
+        loading.value = false;
+        return;
+      }
+      var x = response.result;
+      dashboard.value = EnterpriseDashboard.fromJson(x);
+      dashboard.value.mostUsedLoyalts?.forEach((e) {
+        dashboard.value.convertedList?.addAll({e['Name']: double.parse(e['Number'].toString())});
+      });
+      loading.value = false;
+      change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);
       change([], status: RxStatus.error(error.message));
