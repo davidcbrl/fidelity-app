@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class CheckpointCompletedPage extends StatelessWidget {
-  List<Checkpoint>? completedCheckpoints;
+  final List<Checkpoint>? completedCheckpoints;
 
   CheckpointCompletedPage({
     this.completedCheckpoints,
@@ -20,7 +20,7 @@ class CheckpointCompletedPage extends StatelessWidget {
 }
 
 class CheckpointCompletedBody extends StatelessWidget {
-  List<Checkpoint>? completedCheckpoints;
+  final List<Checkpoint>? completedCheckpoints;
 
   CheckpointCompletedBody({
     this.completedCheckpoints,

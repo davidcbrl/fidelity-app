@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class FidelityUserHeader extends StatelessWidget {
-  String imagePath;
-  String name;
-  String description;
+  final String imagePath;
+  final String name;
+  final String description;
 
   FidelityUserHeader({
     required this.imagePath,

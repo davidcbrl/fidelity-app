@@ -2,7 +2,7 @@ import 'package:fidelity/models/enterprise.dart';
 import 'package:flutter/material.dart';
 
 class FidelityEnterpriseHeader extends StatelessWidget {
-  Enterprise enterprise;
+  final Enterprise enterprise;
 
   FidelityEnterpriseHeader({
     required this.enterprise,

@@ -22,8 +22,8 @@ class SettingsPage extends StatelessWidget {
 }
 
 class SettingsBody extends StatelessWidget {
-  GetStorage box = GetStorage();
-  AuthController authController = Get.find();
+  final GetStorage box = GetStorage();
+  final AuthController authController = Get.find();
 
   @override
   Widget build(BuildContext context) {

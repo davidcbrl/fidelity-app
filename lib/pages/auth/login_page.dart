@@ -42,21 +42,12 @@ class LoginBody extends StatelessWidget {
                     ),
                     Center(
                       child: Image.asset(
-                        'assets/img/logo.png',
-                        width: 50,
+                        'assets/img/logo-text.png',
+                        width: 125,
                       ),
                     ),
                     SizedBox(
-                      height: 10,
-                    ),
-                    Center(
-                      child: Image.asset(
-                        'assets/img/fidelity-text.png',
-                        width: 100,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 50,
+                      height: 40,
                     ),
                     FidelityTextFieldMasked(
                       controller: _emailController,

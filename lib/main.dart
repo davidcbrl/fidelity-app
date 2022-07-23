@@ -12,12 +12,12 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-  GetStorage box = GetStorage();
+  final GetStorage box = GetStorage();
 
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      title: 'Fidelity',
+      title: 'Fidelify',
       theme: ThemeData(
         fontFamily: 'Manrope',
         colorScheme: ColorScheme(

@@ -12,7 +12,7 @@ import 'package:get/get.dart';
 import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 class EnterprisePromotionsPage extends StatelessWidget {
-  Enterprise? enterprise;
+  final Enterprise? enterprise;
 
   EnterprisePromotionsPage({this.enterprise});
 
@@ -31,7 +31,7 @@ class EnterprisePromotionsPage extends StatelessWidget {
 }
 
 class EnterprisePromotionsBody extends StatefulWidget {
-  Enterprise enterprise;
+  final Enterprise enterprise;
 
   EnterprisePromotionsBody({required this.enterprise});
 

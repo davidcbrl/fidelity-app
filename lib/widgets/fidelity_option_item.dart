@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class FidelityOptionItem extends StatelessWidget {
   final String label;
   final Function() onPressed;
-  String? selectedLabel;
+  final String? selectedLabel;
 
   FidelityOptionItem({
     required this.label,
