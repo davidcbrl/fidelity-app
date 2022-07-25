@@ -115,7 +115,7 @@ class _CustomerProfileBodyState extends State<CustomerProfileBody> {
                 image: authController.selectedImage.length > 0
                   ? Uint8List.fromList(authController.selectedImage)
                   : _selectedImage,
-                label: 'Foto do produto',
+                label: 'Toque para trocar a foto',
                 emptyImagePath: 'assets/img/user.jpg',
                 onSelect: () async {
                   XFile? picked = await _picker.pickImage(source: ImageSource.gallery);
