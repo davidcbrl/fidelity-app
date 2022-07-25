@@ -87,26 +87,23 @@ class _CheckpointBodyState extends State<CheckpointBody> {
                   Expanded(
                     child: Stack(
                       children: [
-                        Expanded(
-                          flex: 5,
-                          child: _buildQrView(context),
+                        Image.asset(
+                          'assets/img/qr-code.gif',
                         ),
-                        if (result != null) ...[
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              Padding(
-                                padding: const EdgeInsets.all(10),
-                                child: FidelityButton(
-                                  label: 'Checkpoint pelo CPF: ${result!.code}',
-                                  onPressed: () {
-                                    getCustomerProgress(result!.code ?? '');
-                                  },
-                                ),
-                              ),
-                            ],
+                        Positioned(
+                          right: 0,
+                          top: 150,
+                          child: Container(
+                            width: 175,
+                            child: FidelityButton(
+                              label: 'Escanear QR Code do cliente',
+                              labelAlignment: TextAlign.center,
+                              onPressed: () {
+                                Get.toNamed('/checkpoint/scan');
+                              },
+                            ),
                           ),
-                        ],
+                        ),
                       ],
                     ),
                   ),
@@ -143,46 +140,6 @@ class _CheckpointBodyState extends State<CheckpointBody> {
           ),
         ),
     );
-  }
-
-  Widget _buildQrView(BuildContext context) {
-    var scanArea =
-        (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400) ? 150.0 : 200.0;
-
-    return QRView(
-      key: qrKey,
-      cameraFacing: CameraFacing.back,
-      onQRViewCreated: _onQRViewCreated,
-      overlay: QrScannerOverlayShape(
-        borderColor: Theme.of(context).colorScheme.error,
-        borderRadius: 10,
-        borderLength: 30,
-        borderWidth: 10,
-        cutOutSize: scanArea,
-      ),
-      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
-    );
-  }
-
-  void _onQRViewCreated(QRViewController controller) {
-    setState(() {
-      this.qrController = controller;
-    });
-    controller.scannedDataStream.listen((scanData) {
-      setState(() {
-        result = scanData;
-      });
-    });
-  }
-
-  void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
-    if (!p) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text('Por favor, autorize uso de câmera no seu dispositivo'),
-        ),
-      );
-    }
   }
 
   Future<void> getCustomerProgress(String cpf) async {

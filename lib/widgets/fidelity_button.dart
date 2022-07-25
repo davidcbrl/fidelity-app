@@ -4,11 +4,13 @@ class FidelityButton extends StatelessWidget {
   final String label;
   final Function() onPressed;
   final double width;
+  final TextAlign? labelAlignment;
 
   FidelityButton({
     required this.label,
     required this.onPressed,
-    this.width = double.infinity
+    this.width = double.infinity,
+    this.labelAlignment = TextAlign.start,
   });
 
   @override
@@ -31,6 +33,7 @@ class FidelityButton extends StatelessWidget {
         child: Text(
           label,
           style: Theme.of(context).textTheme.button,
+          textAlign: labelAlignment ?? TextAlign.start,
         ),
       ),
     );

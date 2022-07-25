@@ -11,6 +11,7 @@ import 'package:fidelity/pages/auth/reset_success_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_completed_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_progress_page.dart';
+import 'package:fidelity/pages/checkpoint/checkpoint_scanner_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_success_page.dart';
 import 'package:fidelity/pages/customer/customer_fidelities_page.dart';
 import 'package:fidelity/pages/customer/customer_profile_page.dart';
@@ -110,6 +111,7 @@ final routes = [
     page: () => CheckpointPage(),
     binding: BindingsBuilder(() => Get.put(() => CheckpointController())),
     children: [
+      GetPage(name: '/scan', page: () => CheckpointScannerPage(), transition: Transition.cupertino),
       GetPage(name: '/customer_fidelities', page: () => CustomerFidelitiesPage(), transition: Transition.cupertino),
       GetPage(name: '/progress', page: () => CheckpointProgressPage(), transition: Transition.cupertino),
       GetPage(name: '/success', page: () => CheckpointSuccessPage(), transition: Transition.cupertino),
