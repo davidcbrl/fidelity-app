@@ -113,7 +113,7 @@ class SettingsBody extends StatelessWidget {
               label: 'Sim',
               onPressed: () {
                 Get.back();
-                logout();
+                authController.logout();
               },
             ),
           ),
@@ -128,18 +128,5 @@ class SettingsBody extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  void logout() {
-    if (box.hasData('jwt')) {
-      box.remove('jwt');
-    }
-    if (box.hasData('enterpriseId')) {
-      box.remove('enterpriseId');
-    }
-    if (box.hasData('user')) {
-      box.remove('user');
-    }
-    Get.offAllNamed('/auth');
   }
 }

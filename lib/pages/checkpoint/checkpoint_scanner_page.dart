@@ -17,7 +17,6 @@ class CheckpointScannerPage extends StatelessWidget {
     return FidelityPage(
       appBar: FidelityAppbarWidget(
         title: 'Escanear QR Code',
-        hasBackButton: true,
       ),
       body: CheckpointScannerBody(),
     );

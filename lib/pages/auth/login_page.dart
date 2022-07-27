@@ -2,6 +2,7 @@ import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:fidelity/widgets/fidelity_responsive_layout.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/material.dart';
@@ -11,7 +12,15 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FidelityPage(
-      body: LoginBody(),
+      body: FidelityResponsiveLayout(
+        mobile: LoginBody(),
+        desktop: Center(
+          child: Container(
+            width: 400,
+            child: LoginBody(),
+          ),
+        ),
+      ),
     );
   }
 }

@@ -79,4 +79,17 @@ class AuthController extends GetxController with StateMixin {
       change([], status: RxStatus.error('Erro ao redefinir senha'));
     }
   }
+
+  void logout() {
+    if (box.hasData('jwt')) {
+      box.remove('jwt');
+    }
+    if (box.hasData('enterpriseId')) {
+      box.remove('enterpriseId');
+    }
+    if (box.hasData('user')) {
+      box.remove('user');
+    }
+    Get.offAllNamed('/auth');
+  }
 }

@@ -9,7 +9,11 @@ import 'package:fidelity/pages/dashboard/enterprise_dashboard_page.dart';
 import 'package:fidelity/pages/fidelities/fidelity_list_page.dart';
 import 'package:fidelity/pages/products/product_list_page.dart';
 import 'package:fidelity/pages/settings/settings_page.dart';
+import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
+import 'package:fidelity/widgets/fidelity_responsive_layout.dart';
+import 'package:fidelity/widgets/fidelity_select_item.dart';
+import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -98,36 +102,114 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return FidelityPage(
-      body: PageView(
-        controller: pageController,
-        physics: NeverScrollableScrollPhysics(),
-        pageSnapping: false,
-        onPageChanged: (index) {
-          routeController.pageIndex.value = index;
-        },
-        children: userMenu.map(
-          (NavigationItem item) => item.page ?? Container(),
-        ).toList(),
-      ),
-      bottomBar: Obx(
-        () => BottomNavigationBar(
-          backgroundColor: Theme.of(context).colorScheme.background,
-          elevation: 10,
-          currentIndex: routeController.pageIndex.value,
-          type: BottomNavigationBarType.fixed,
-          selectedItemColor: Theme.of(context).colorScheme.primary,
-          unselectedItemColor: Theme.of(context).colorScheme.tertiary,
-          items: userMenu.map(
-            (NavigationItem item) => BottomNavigationBarItem(
-              icon: Icon(item.icon),
-              label: item.label,
-            ),
-          ).toList(),
-          onTap: (index) {
+    return FidelityResponsiveLayout(
+      mobile: FidelityPage(
+        body: PageView(
+          controller: pageController,
+          physics: NeverScrollableScrollPhysics(),
+          pageSnapping: false,
+          onPageChanged: (index) {
             routeController.pageIndex.value = index;
-            pageController.jumpToPage(index);
           },
+          children: userMenu.map(
+            (NavigationItem item) => item.page ?? Container(),
+          ).toList(),
+        ),
+        bottomBar: Obx(
+          () => BottomNavigationBar(
+            backgroundColor: Theme.of(context).colorScheme.background,
+            elevation: 10,
+            currentIndex: routeController.pageIndex.value,
+            type: BottomNavigationBarType.fixed,
+            selectedItemColor: Theme.of(context).colorScheme.primary,
+            unselectedItemColor: Theme.of(context).colorScheme.tertiary,
+            items: userMenu.map(
+              (NavigationItem item) => BottomNavigationBarItem(
+                icon: Icon(item.icon),
+                label: item.label,
+              ),
+            ).toList(),
+            onTap: (index) {
+              routeController.pageIndex.value = index;
+              pageController.jumpToPage(index);
+            },
+          ),
+        ),
+      ),
+      desktop: FidelityPage(
+        hasPadding: false,
+        body: Row(
+          children: [
+            Expanded(
+              flex: MediaQuery.of(context).size.width < 1000 ? 3 : 2,
+              child: Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: Drawer(
+                  backgroundColor: Theme.of(context).colorScheme.background,
+                  elevation: 10,
+                  child: Column(
+                    children: [
+                      DrawerHeader(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          child: Image.asset(
+                            'assets/img/logo-text.png',
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Obx(
+                        () => ListView.builder(
+                          physics: NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: userMenu.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            NavigationItem item = userMenu[index];
+                            return ListTile(
+                              contentPadding: const EdgeInsets.only(left: 30, right: 10),
+                              selected: routeController.pageIndex.value == index,
+                              selectedTileColor: Theme.of(context).colorScheme.surface,
+                              leading: Icon(
+                                item.icon,
+                                color: routeController.pageIndex.value == index ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.tertiary,
+                              ),
+                              title: Text(
+                                item.label ?? '',
+                                style: routeController.pageIndex.value == index ? Theme.of(context).textTheme.headline2 : Theme.of(context).textTheme.bodyText1,
+                              ),
+                              onTap: () {
+                                routeController.pageIndex.value = index;
+                                pageController.jumpToPage(index);
+                              },
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+            Expanded(
+              flex: MediaQuery.of(context).size.width < 1000 ? 7 : 8,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 10, right: 20, top: 10),
+                child: PageView(
+                  controller: pageController,
+                  physics: NeverScrollableScrollPhysics(),
+                  pageSnapping: false,
+                  onPageChanged: (index) {
+                    routeController.pageIndex.value = index;
+                  },
+                  children: userMenu.map(
+                    (NavigationItem item) => item.page ?? Container(),
+                  ).toList(),
+                ),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -141,5 +223,41 @@ class _HomePageState extends State<HomePage> {
     }).catchError((error) {
       print('External id error: ${error.toString()}');
     });
+  }
+
+  Future<dynamic> logoutDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(
+          'Sair',
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        content: Text(
+          'Tem certeza que deseja sair?',
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FidelityButton(
+              label: 'Sim',
+              onPressed: () {
+                Get.back();
+                authController.logout();
+              },
+            ),
+          ),
+          Center(
+            child: FidelityTextButton(
+              label: 'Não',
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

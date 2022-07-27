@@ -10,7 +10,6 @@ class AboutPage extends StatelessWidget {
     return FidelityPage(
         appBar: FidelityAppbarWidget(
           title: 'Sobre',
-          hasBackButton: true,
         ),
         body: AboutBody());
   }
