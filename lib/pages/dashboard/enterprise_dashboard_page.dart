@@ -42,7 +42,6 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
   Widget build(BuildContext context) {
     Get.put(enterpriseController);
     List<Color> colorList = [Colors.orangeAccent, Colors.greenAccent, Colors.redAccent];
-    List<Color> colorListTwo = [Colors.blueAccent, Colors.yellowAccent];
     return Obx(
       () => enterpriseController.loading.value
           ? FidelityLoading(loading: enterpriseController.loading.value)

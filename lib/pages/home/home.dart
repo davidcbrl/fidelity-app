@@ -12,7 +12,6 @@ import 'package:fidelity/pages/settings/settings_page.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_responsive_layout.dart';
-import 'package:fidelity/widgets/fidelity_select_item.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
