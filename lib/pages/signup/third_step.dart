@@ -33,59 +33,55 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
   EnterpriseController enterpriseController = Get.find();
 
   @override
-  void didChangeDependencies() {
-    enterpriseController.getPlans();
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    enterpriseController.getPlans();
+
     return Obx(
-      () => enterpriseController.loading.value
-      ? FidelityLoading(
-          loading: enterpriseController.loading.value,
-          text: 'Cadastrando-se...',
-        )
-      : Column(
-          children: [
-            SizedBox(
-              height: 20,
+      () => enterpriseController.plansLoading.value
+          ? FidelityLoading(
+              loading: enterpriseController.plansLoading.value,
+              text: 'Cadastrando-se...',
+            )
+          : Column(
+              children: [
+                SizedBox(
+                  height: 20,
+                ),
+                FidelityStepper(
+                  currentStep: 3,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                Text(
+                  'Quase lá... Escolha um de nossos planos, cada plano possui recursos diferentes, portanto, escolha o plano que for a cara do seu negócio!',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  textAlign: TextAlign.center,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                _plansCarousel(),
+                SizedBox(
+                  height: 20,
+                ),
+                FidelityButton(
+                  label: 'Concluir',
+                  onPressed: () {
+                    saveEnterprise(context);
+                  },
+                ),
+                FidelityTextButton(
+                  label: 'Voltar',
+                  onPressed: () {
+                    Get.back();
+                  },
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
             ),
-            FidelityStepper(
-              currentStep: 3,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Quase lá... Escolha um de nossos planos, cada plano possui recursos diferentes, portanto, escolha o plano que for a cara do seu negócio!',
-              style: Theme.of(context).textTheme.bodyText1,
-              textAlign: TextAlign.center,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            _plansCarousel(),
-            SizedBox(
-              height: 20,
-            ),
-            FidelityButton(
-              label: 'Concluir',
-              onPressed: () {
-                saveEnterprise(context);
-              },
-            ),
-            FidelityTextButton(
-              label: 'Voltar',
-              onPressed: () {
-                Get.back();
-              },
-            ),
-            SizedBox(
-              height: 10,
-            ),
-          ],
-        ),
     );
   }
 
@@ -93,39 +89,39 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
     return Expanded(
       child: Obx(
         () => enterpriseController.plansLoading.value
-        ? FidelityLoading(
-            loading: enterpriseController.plansLoading.value,
-            text: 'Carregando planos...',
-          )
-        : SingleChildScrollView(
-            child: Column(
-              children: [
-                if (enterpriseController.status.isSuccess)... [
-                  ...enterpriseController.plansList.map(
-                    (Plan plan) {
-                      String currency = NumberFormat.currency(locale: 'pt-br', symbol: 'R\$').format(plan.value);
-                      return FidelityLinkItem(
-                        label: plan.name! + ' - ' + currency,
-                        description: plan.description ?? '',
-                        selected: enterpriseController.plan.value.id == plan.id,
-                        onPressed: () {
-                          enterpriseController.plan.value = plan;
+            ? FidelityLoading(
+                loading: enterpriseController.plansLoading.value,
+                text: 'Carregando planos...',
+              )
+            : SingleChildScrollView(
+                child: Column(
+                  children: [
+                    if (enterpriseController.status.isSuccess) ...[
+                      ...enterpriseController.plansList.map(
+                        (Plan plan) {
+                          String currency = NumberFormat.currency(locale: 'pt-br', symbol: 'R\$').format(plan.value);
+                          return FidelityLinkItem(
+                            label: plan.name! + ' - ' + currency,
+                            description: plan.description ?? '',
+                            selected: enterpriseController.plan.value.id == plan.id,
+                            onPressed: () {
+                              enterpriseController.plan.value = plan;
+                            },
+                          );
                         },
-                      );
-                    },
-                  ),
-                ],
-                if (enterpriseController.status.isEmpty)
-                  FidelityEmpty(
-                    text: 'Nenhum plano encontrado',
-                  ),
-                if (enterpriseController.status.isError)
-                  FidelityEmpty(
-                    text: enterpriseController.status.errorMessage ?? '500',
-                  ),
-              ],
-            ),
-          ),
+                      ),
+                    ],
+                    if (enterpriseController.status.isEmpty)
+                      FidelityEmpty(
+                        text: 'Nenhum plano encontrado',
+                      ),
+                    if (enterpriseController.status.isError)
+                      FidelityEmpty(
+                        text: enterpriseController.status.errorMessage ?? '500',
+                      ),
+                  ],
+                ),
+              ),
       ),
     );
   }
