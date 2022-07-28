@@ -87,14 +87,14 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
   Widget build(BuildContext context) {
     return Obx(
       () => enterpriseController.loading.value
-      ? FidelityLoading(loading: enterpriseController.loading.value)
-      : Container(
-          child: Expanded(
-            child: SingleChildScrollView(
-              child: Form(child: _formFields(), key: _formEnterpriseSignupKey),
+          ? FidelityLoading(loading: enterpriseController.loading.value)
+          : Container(
+              child: Expanded(
+                child: SingleChildScrollView(
+                  child: Form(child: _formFields(), key: _formEnterpriseSignupKey),
+                ),
+              ),
             ),
-          ),
-        ),
     );
   }
 
@@ -105,17 +105,17 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
           height: 25,
         ),
         FidelitySelectItem(
-          label: 'Plano Avancado',
-          description: 'Todas as vantagens do plano Simples + destaque para clientes e cadastros ilimitados',
-          onPressed: () {}),
+            label: 'Plano Avancado',
+            description: 'Todas as vantagens do plano Simples + destaque para clientes e cadastros ilimitados',
+            onPressed: () {}),
         SizedBox(
           height: 10,
         ),
         FidelityImagePicker(
           size: 100,
           image: enterpriseController.selectedImage.length > 0
-            ? Uint8List.fromList(enterpriseController.selectedImage)
-            : _selectedImage,
+              ? Uint8List.fromList(enterpriseController.selectedImage)
+              : _selectedImage,
           label: 'Toque para trocar a foto',
           emptyImagePath: 'assets/img/enterprise.png',
           onSelect: () async {
@@ -257,7 +257,7 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
         ),
         FidelityTextFieldMasked(
           controller: _ufController,
-          label: 'Paraná',
+          label: 'Estado',
           placeholder: 'Tatooine',
           icon: Icon(Icons.house),
           validator: (value) {
