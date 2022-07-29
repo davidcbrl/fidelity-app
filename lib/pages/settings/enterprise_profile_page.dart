@@ -326,7 +326,7 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
           _imageController.isNotEmpty ? _imageController : null;
       await enterpriseController.changeProfile().whenComplete(() {
         if (enterpriseController.status.isSuccess) {
-          authController.user.value = enterpriseController.profileEnterprise.value;
+          authController.user.value.name = enterpriseController.profileEnterprise.value.enterprise!.name;
           authController.user.value.enterprise = enterpriseController.profileEnterprise.value.enterprise;
           Get.toNamed('/settings/enterprise_profile/success');
         }
