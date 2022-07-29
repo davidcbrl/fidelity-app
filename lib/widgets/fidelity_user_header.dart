@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
 class FidelityUserHeader extends StatelessWidget {
-  final String imagePath;
+  final Image image;
   final String name;
   final String description;
 
   FidelityUserHeader({
-    required this.imagePath,
+    required this.image,
     required this.name,
     required this.description,
   });
@@ -20,10 +20,7 @@ class FidelityUserHeader extends StatelessWidget {
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
           ),
-          child: Image.asset(
-            imagePath,
-            width: 50,
-          ),
+          child: image,
         ),
         SizedBox(
           width: 10,

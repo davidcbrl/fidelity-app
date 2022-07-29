@@ -52,7 +52,7 @@ class CustomerController extends GetxController with StateMixin {
           message: response.message,
         );
       }
-      if (response.result.length == 0 || response.result == null) {
+      if (response.count == 0) {
         change([], status: RxStatus.empty());
         loading.value = false;
         return;

@@ -77,7 +77,7 @@ class _CheckpointBodyState extends State<CheckpointBody> {
                     onChanged: (value) {
                       value = value.length > 0 ? value.replaceAll(new RegExp(r'[^0-9]'), '') : value;
                       if (_formCodeKey.currentState!.validate()) {
-                        getCustomerProgress(value);
+                        getCustomerProgress('111111111122');
                       }
                     },
                   ),

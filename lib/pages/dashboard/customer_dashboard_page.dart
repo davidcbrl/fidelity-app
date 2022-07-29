@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/models/customer_progress.dart';
@@ -49,7 +51,15 @@ class _CustomerDashboardBodyState extends State<CustomerDashboardBody> {
           height: 20,
         ),
         FidelityUserHeader(
-          imagePath: 'assets/img/user.jpg',
+          image: authController.user.value.image != null
+            ? Image.memory(
+                base64Decode(authController.user.value.image ?? ''),
+                width: 50,
+              )
+            : Image.asset(
+                'assets/img/user.jpg',
+                width: 50,
+              ),
           name: authController.user.value.name ?? 'Chewie',
           description: 'Bem vindo!',
         ),

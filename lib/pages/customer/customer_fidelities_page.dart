@@ -84,7 +84,10 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                       height: 20,
                     ),
                     FidelityUserHeader(
-                      imagePath: 'assets/img/user.jpg',
+                      image: Image.asset(
+                        'assets/img/user.jpg',
+                        width: 50,
+                      ),
                       name: 'Chewie',
                       description: 'Prospect',
                     ),

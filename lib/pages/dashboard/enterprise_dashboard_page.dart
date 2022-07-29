@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
@@ -52,7 +54,15 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                     height: 20,
                   ),
                   FidelityUserHeader(
-                    imagePath: 'assets/img/enterprise.png',
+                    image: Get.find<AuthController>().user.value.image != null
+                      ? Image.memory(
+                          base64Decode(Get.find<AuthController>().user.value.image ?? ''),
+                          width: 50,
+                        )
+                      : Image.asset(
+                          'assets/img/enterprise.png',
+                          width: 50,
+                        ),
                     name: authController.user.value.name ?? 'Luke Skywalker',
                     description: 'Bem vindo!',
                   ),

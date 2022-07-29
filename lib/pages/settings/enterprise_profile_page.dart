@@ -56,9 +56,9 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
 
   @override
   void initState() {
-    _selectedImage = enterpriseController.profileEnterprise.value.image != null
-        ? base64Decode(enterpriseController.profileEnterprise.value.image ?? '')
-        : null;
+    _selectedImage = authController.user.value.image != null
+      ? base64Decode(authController.user.value.image ?? '')
+      : null;
     Get.find<AuthController>().user.value.type == "E" ? startEnterprise() : startCustomer();
 
     super.initState();
@@ -87,14 +87,21 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
   Widget build(BuildContext context) {
     return Obx(
       () => enterpriseController.loading.value
-          ? FidelityLoading(loading: enterpriseController.loading.value)
-          : Container(
-              child: Expanded(
-                child: SingleChildScrollView(
-                  child: Form(child: _formFields(), key: _formEnterpriseSignupKey),
-                ),
+      ? FidelityLoading(
+          loading: enterpriseController.loading.value,
+        )
+      : Column(
+        children: [
+          Expanded(
+            child: SingleChildScrollView(
+              child: Form(
+                child: _formFields(),
+                key: _formEnterpriseSignupKey,
               ),
             ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -318,16 +325,14 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
       enterpriseController.profileEnterprise.value.enterprise?.branch = _branchController.text;
       enterpriseController.profileEnterprise.value.enterprise?.userId = authController.user.value.enterprise?.userId;
       enterpriseController.profileEnterprise.value.enterprise?.id = authController.user.value.enterprise?.id;
-
       enterpriseController.profileEnterprise.value.id = authController.user.value.id;
       enterpriseController.profileEnterprise.value.email = authController.user.value.email;
-
-      enterpriseController.profileEnterprise.value.enterprise?.image =
-          _imageController.isNotEmpty ? _imageController : null;
+      enterpriseController.profileEnterprise.value.image = _imageController.isNotEmpty ? _imageController : null;
       await enterpriseController.changeProfile().whenComplete(() {
         if (enterpriseController.status.isSuccess) {
           authController.user.value.name = enterpriseController.profileEnterprise.value.enterprise!.name;
           authController.user.value.enterprise = enterpriseController.profileEnterprise.value.enterprise;
+          Get.find<AuthController>().user.value.image = enterpriseController.profileEnterprise.value.image;
           Get.toNamed('/settings/enterprise_profile/success');
         }
       });

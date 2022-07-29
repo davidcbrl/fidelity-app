@@ -41,6 +41,7 @@ class AuthController extends GetxController with StateMixin {
       }
       user.value = User.fromJson(response.result['Property']);
       user.value.type = response.result['Type'];
+      user.value.image = response.result['Image'];
       user.value.email = email.value;
       if (user.value.type == 'C') user.value.customer = Customer.fromJson(response.result['Property']);
       if (user.value.type == 'E') user.value.enterprise = Enterprise.fromJson(response.result['Property']);
