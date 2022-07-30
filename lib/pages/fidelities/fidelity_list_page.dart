@@ -71,33 +71,41 @@ class FidelityListBody extends StatelessWidget {
           isLoading: fidelityController.loading.value,
           scrollOffset: 10,
           onEndOfPage: () => fidelityController.getFidelitiesNextPage(),
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            controller: scrollController,
-            physics: AlwaysScrollableScrollPhysics(),
-            children: [
-              if (fidelityController.fidelitiesList.isEmpty && fidelityController.status.isError) ...[
-                FidelityEmpty(
-                  text: 'Nenhuma fidelidade encontrada',
+          child: RefreshIndicator(
+            onRefresh: () => _refresh(),
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              controller: scrollController,
+              physics: AlwaysScrollableScrollPhysics(),
+              children: [
+                if (fidelityController.fidelitiesList.isEmpty && fidelityController.status.isError) ...[
+                  FidelityEmpty(
+                    text: 'Nenhuma fidelidade encontrada',
+                  ),
+                ],
+                ...fidelityController.fidelitiesList.map(
+                  (Fidelity fidelity) => FidelitySelectItem(
+                    id: fidelity.id,
+                    label: fidelity.name ?? '',
+                    description: fidelity.description ?? '',
+                    active: fidelity.status ?? true,
+                    onPressed: () {
+                      Get.toNamed("/fidelity/add", arguments: fidelity);
+                    },
+                  ),
                 ),
+                ...[FidelityLoading(loading: fidelityController.loading.value)]
               ],
-              ...fidelityController.fidelitiesList.map(
-                (Fidelity fidelity) => FidelitySelectItem(
-                  id: fidelity.id,
-                  label: fidelity.name ?? '',
-                  description: fidelity.description ?? '',
-                  active: fidelity.status ?? true,
-                  onPressed: () {
-                    Get.toNamed("/fidelity/add", arguments: fidelity);
-                  },
-                ),
-              ),
-              ...[FidelityLoading(loading: fidelityController.loading.value)]
-            ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _refresh() async {
+    fidelityController.page.value = 1;
+    await fidelityController.getFidelities();
   }
 }
