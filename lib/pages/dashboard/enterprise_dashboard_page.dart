@@ -43,7 +43,7 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
   @override
   Widget build(BuildContext context) {
     Get.put(enterpriseController);
-    List<Color> colorList = [Colors.orangeAccent, Colors.greenAccent, Colors.redAccent];
+    List<Color> colorList = [Colors.blueAccent, Colors.blue.shade100, Colors.lightBlueAccent];
     return Obx(
       () => enterpriseController.loading.value
           ? FidelityLoading(loading: enterpriseController.loading.value)
@@ -55,14 +55,14 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                   ),
                   FidelityUserHeader(
                     image: Get.find<AuthController>().user.value.image != null
-                      ? Image.memory(
-                          base64Decode(Get.find<AuthController>().user.value.image ?? ''),
-                          width: 50,
-                        )
-                      : Image.asset(
-                          'assets/img/enterprise.png',
-                          width: 50,
-                        ),
+                        ? Image.memory(
+                            base64Decode(Get.find<AuthController>().user.value.image ?? ''),
+                            width: 50,
+                          )
+                        : Image.asset(
+                            'assets/img/enterprise.png',
+                            width: 50,
+                          ),
                     name: authController.user.value.name ?? 'Luke Skywalker',
                     description: 'Bem vindo!',
                   ),
@@ -73,6 +73,40 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                       ? emptyState(context)
                       : Column(
                           children: [
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Row(
+                              children: [
+                                Container(
+                                  width: 160,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20), color: Colors.lightBlueAccent),
+                                  child: Column(
+                                    children: [
+                                      Text("Qtd de clientes",
+                                          textScaleFactor: 2, style: TextStyle(fontSize: 9, color: Colors.white)),
+                                      Text(enterpriseController.dashboard.value.totalClients.toString(),
+                                          textScaleFactor: 2, style: TextStyle(color: Colors.white)),
+                                    ],
+                                  ),
+                                ),
+                                Spacer(),
+                                Container(
+                                  width: 160,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20), color: Colors.lightBlueAccent),
+                                  child: Column(
+                                    children: [
+                                      Text("Qtd de Fidelidades",
+                                          textScaleFactor: 2, style: TextStyle(fontSize: 9, color: Colors.white)),
+                                      Text(enterpriseController.dashboard.value.totalLoyaltAchieved.toString(),
+                                          textScaleFactor: 2, style: TextStyle(color: Colors.white)),
+                                    ],
+                                  ),
+                                )
+                              ],
+                            ),
                             Container(
                               padding: EdgeInsets.only(top: 80),
                               child: PieChart(
@@ -100,35 +134,10 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                                   showChartValuesOutside: true,
                                   decimalPlaces: 2,
                                 ),
-                                // gradientList: ---To add gradient colors---
-                                // emptyColorGradient: ---Empty Color gradient---
                               ),
                             ),
                             SizedBox(
                               height: 30,
-                            ),
-                            Column(
-                              children: [
-                                Column(
-                                  children: [
-                                    Text("Quantidade de clientes", textScaleFactor: 2),
-                                    Text(
-                                      enterpriseController.dashboard.value.totalClients.toString(),
-                                      textScaleFactor: 2,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(
-                                  width: 20,
-                                ),
-                                Column(
-                                  children: [
-                                    Text("Quantidade de Fidelidades", textScaleFactor: 2),
-                                    Text(enterpriseController.dashboard.value.totalLoyaltAchieved.toString(),
-                                        textScaleFactor: 2),
-                                  ],
-                                )
-                              ],
                             ),
                           ],
                         ),
