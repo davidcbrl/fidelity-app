@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
-import 'package:fidelity/models/customer_progress.dart';
+import 'package:fidelity/models/checkpoint.dart';
 import 'package:fidelity/util/fidelity_utils.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
@@ -79,7 +79,7 @@ class _CustomerDashboardBodyState extends State<CustomerDashboardBody> {
                   children: [
                     if (customerController.customerProgress.length > 0) ...[
                       ...customerController.customerProgress.map(
-                        (CustomerProgress progress) {
+                        (Checkpoint progress) {
                           String type = FidelityUtils.types[progress.fidelity!.fidelityTypeId ?? 0];
                           String promotion = FidelityUtils.promotions[progress.fidelity!.promotionTypeId ?? 0];
                           return FidelityProgressItem(

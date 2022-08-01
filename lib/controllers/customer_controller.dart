@@ -1,5 +1,6 @@
 import 'package:fidelity/models/api_response.dart';
-import 'package:fidelity/models/customer_progress.dart';
+import 'package:fidelity/models/checkpoint.dart';
+import 'package:fidelity/models/customer.dart';
 import 'package:fidelity/models/request_exception.dart';
 import 'package:fidelity/models/user.dart';
 import 'package:fidelity/providers/api_provider.dart';
@@ -9,8 +10,9 @@ import 'package:get_storage/get_storage.dart';
 class CustomerController extends GetxController with StateMixin {
   GetStorage box = GetStorage();
   var loading = false.obs;
+  var customer = Customer().obs;
   var customerCPF = ''.obs;
-  var customerProgress = <CustomerProgress>[].obs;
+  var customerProgress = <Checkpoint>[].obs;
 
   Future<void> saveCustomer(User user) async {
     change([], status: RxStatus.loading());
@@ -52,13 +54,11 @@ class CustomerController extends GetxController with StateMixin {
           message: response.message,
         );
       }
-      if (response.count == 0) {
-        change([], status: RxStatus.empty());
-        loading.value = false;
-        return;
+      if (response.count > 0) {
+        List<dynamic> list = response.result['LoyaltProgress'];
+        customerProgress.value = list.map((e) => Checkpoint.fromJson(e)).toList();
       }
-      List<dynamic> list = response.result;
-      customerProgress.value = list.map((e) => CustomerProgress.fromJson(e)).toList();
+      customer.value = Customer.fromJson(response.result['Client']);
       change([], status: RxStatus.success());
       loading.value = false;
     } on RequestException catch (error) {

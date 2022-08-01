@@ -1,4 +1,4 @@
-import 'package:fidelity/models/customer_progress.dart';
+import 'package:fidelity/models/checkpoint.dart';
 import 'package:fidelity/util/fidelity_utils.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class CheckpointProgressPage extends StatelessWidget {
-  CustomerProgress? progress;
+  Checkpoint? progress;
 
   CheckpointProgressPage({this.progress});
 
@@ -20,13 +20,13 @@ class CheckpointProgressPage extends StatelessWidget {
       appBar: FidelityAppbarWidget(
         title: 'Atualizar progresso',
       ),
-      body: CheckpointProgressBody(progress: progress ?? CustomerProgress()),
+      body: CheckpointProgressBody(progress: progress ?? Checkpoint()),
     );
   }
 }
 
 class CheckpointProgressBody extends StatefulWidget {
-  CustomerProgress progress;
+  Checkpoint progress;
 
   CheckpointProgressBody({required this.progress});
 
@@ -217,7 +217,7 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
     );
   }
 
-  String _buildValidityDescription(CustomerProgress progress) {
+  String _buildValidityDescription(Checkpoint progress) {
     String validity = 'N/A';
     if (progress.fidelity!.startDate != null && progress.fidelity!.endDate != null) {
       DateTime startDate = DateTime.parse(progress.fidelity!.startDate ?? '');

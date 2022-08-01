@@ -52,9 +52,14 @@ class FidelityLinkItem extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            '${active ? "" : "(inativo) "}' + label,
-                            style: Theme.of(context).textTheme.bodyText1,
+                          Container(
+                            width: Get.width - Get.width * 0.5,
+                            child: Text(
+                              '${active ? "" : "(inativo) "}' + label,
+                              style: Theme.of(context).textTheme.bodyText1,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                           if (description != null) ...[
                             SizedBox(

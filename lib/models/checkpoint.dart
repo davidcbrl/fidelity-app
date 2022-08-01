@@ -1,3 +1,5 @@
+import 'package:fidelity/models/fidelity.dart';
+
 class Checkpoints {
   List<Checkpoint>? checkpoints;
 
@@ -18,7 +20,9 @@ class Checkpoint {
   int? enterpriseId;
   int? customerId;
   int? fidelityId;
+  Fidelity? fidelity;
   double? value;
+  double? score;
   bool? completed;
 
   Checkpoint({
@@ -26,7 +30,9 @@ class Checkpoint {
     this.enterpriseId,
     this.customerId,
     this.fidelityId,
+    this.fidelity,
     this.value,
+    this.score,
     this.completed,
   });
 
@@ -35,7 +41,9 @@ class Checkpoint {
     enterpriseId = json['EnterpriseId'],
     customerId = json['ClientId'],
     fidelityId = json['LoyaltId'],
+    fidelity = json['Loyalt'] != null ? Fidelity.fromJson(json['Loyalt']) : null,
     value = json['Value'],
+    score = json['Points'],
     completed = json['Status'];
 
   Map<String, dynamic> toJson() => {
@@ -43,7 +51,9 @@ class Checkpoint {
     'EnterpriseId': enterpriseId,
     'ClientId': customerId,
     'LoyaltId': fidelityId,
+    'Loyalt': fidelity,
     'Value': value,
+    'Points': score,
     'Status': completed,
   };
 }

@@ -39,9 +39,14 @@ class FidelityProgressItem extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            label,
-                            style: Theme.of(context).textTheme.bodyText1,
+                          Container(
+                            width: Get.width - Get.width * 0.4,
+                            child: Text(
+                              label,
+                              style: Theme.of(context).textTheme.bodyText1,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
                           ),
                           SizedBox(
                             height: 5,
@@ -75,16 +80,26 @@ class FidelityProgressItem extends StatelessWidget {
                                 SizedBox(
                                   width: 5,
                                 ),
-                                if (typeId == 1)
-                                  ...List.generate(
-                                    target.toInt(),
-                                    (index) => Icon(
-                                      Icons.circle,
-                                      color: progress.toInt() > index ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.tertiaryContainer,
-                                      size: 15,
+                                if (typeId == 1) ...[
+                                  Container(
+                                    width: Get.width - Get.width * 0.5,
+                                    child: SingleChildScrollView(
+                                      physics: AlwaysScrollableScrollPhysics(),
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children: List.generate(
+                                          target.toInt(),
+                                          (index) => Icon(
+                                            Icons.circle,
+                                            color: progress.toInt() > index ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.tertiaryContainer,
+                                            size: 15,
+                                          ),
+                                        ),
+                                      ),
                                     ),
                                   ),
-                                if (typeId != 1)
+                                ],
+                                if (typeId != 1) ...[
                                   Expanded(
                                     child: LinearProgressIndicator(
                                       value: progress/target,
@@ -92,6 +107,7 @@ class FidelityProgressItem extends StatelessWidget {
                                       backgroundColor: Theme.of(context).colorScheme.tertiaryContainer,
                                     ),
                                   ),
+                                ],
                               ],
                             ),
                           ),

@@ -3,7 +3,6 @@ import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/controllers/fidelity_controller.dart';
 import 'package:fidelity/controllers/notification_controller.dart';
 import 'package:fidelity/models/checkpoint.dart';
-import 'package:fidelity/models/customer_progress.dart';
 import 'package:fidelity/models/fidelity.dart';
 import 'package:fidelity/models/one_signal_push.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_completed_page.dart';
@@ -51,12 +50,12 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   FidelityController fidelityController = Get.find();
   CustomerController customerController = Get.find();
   ScrollController scrollController = new ScrollController();
-  List<CustomerProgress> _selectedForCheckpoint = [];
+  List<Checkpoint> _selectedForCheckpoint = [];
 
   @override
   void initState() {
     if (customerController.customerProgress.value.length > 0) {
-      customerController.customerProgress.value.forEach((CustomerProgress progress) {
+      customerController.customerProgress.value.forEach((Checkpoint progress) {
         if (progress.fidelity != null) {
           _selectedForCheckpoint.add(progress);
         }
@@ -88,8 +87,8 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                         'assets/img/user.jpg',
                         width: 50,
                       ),
-                      name: 'Chewie',
-                      description: 'Prospect',
+                      name: customerController.customer.value.name ?? 'Chewie',
+                      description: customerController.customer.value.cpf ?? 'CPF',
                     ),
                     SizedBox(
                       height: 20,
@@ -142,12 +141,12 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                         onPressed: () {
                           if (containsFidelityId(fidelity.id)) {
                             setState(() {
-                              _selectedForCheckpoint.removeWhere((CustomerProgress progress) => progress.fidelity!.id == fidelity.id);
+                              _selectedForCheckpoint.removeWhere((Checkpoint progress) => progress.fidelity!.id == fidelity.id);
                             });
                             return;
                           }
                           setState(() {
-                            _selectedForCheckpoint.add(new CustomerProgress(
+                            _selectedForCheckpoint.add(new Checkpoint(
                               fidelity: fidelity,
                               score: 0,
                             ));
@@ -181,7 +180,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   }
 
   bool containsFidelityId(int? id) {
-    for (CustomerProgress progress in _selectedForCheckpoint) {
+    for (Checkpoint progress in _selectedForCheckpoint) {
       if (progress.fidelity!.id == id) return true;
     }
     return false;
@@ -301,7 +300,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
               children: [
                 if (_selectedForCheckpoint.length > 0)... [
                   ..._selectedForCheckpoint.map(
-                    (CustomerProgress progress) {
+                    (Checkpoint progress) {
                       String type = FidelityUtils.types[progress.fidelity!.fidelityTypeId ?? 0];
                       String promotion = FidelityUtils.promotions[progress.fidelity!.promotionTypeId ?? 0];
                       return FidelityProgressItem(
@@ -334,7 +333,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
   Future<void> checkpoint(BuildContext context) async {
     checkpointController.loading.value = true;
     checkpointController.checkpoints.value = _selectedForCheckpoint.map(
-      (CustomerProgress progress) => new Checkpoint(
+      (Checkpoint progress) => new Checkpoint(
         enterpriseId: box.read('enterpriseId'),
         customerId: progress.customerId,
         fidelityId: progress.fidelity!.id,
