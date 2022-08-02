@@ -314,8 +314,9 @@ class FidelityAddBody extends StatelessWidget {
       fidelityController.fidelity.value.description = _descriptionController.text;
       fidelityController.fidelity.value.startDate = _initDateController.text;
       fidelityController.fidelity.value.endDate = _endDateController.text;
-
-      Get.toNamed("/fidelity/condition_type");
+      fidelityController.fidelity.value.fidelityTypeId != null
+          ? Get.toNamed("/fidelity/condition")
+          : Get.toNamed("/fidelity/condition_type");
     }
   }
 }
