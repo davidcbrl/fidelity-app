@@ -1,4 +1,5 @@
 import 'package:fidelity/models/checkpoint.dart';
+import 'package:fidelity/pages/home/home.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:flutter/material.dart';
@@ -63,8 +64,7 @@ class CheckpointCompletedBody extends StatelessWidget {
         FidelityButton(
           label: 'Voltar para checkpoint',
           onPressed: () {
-            Get.back();
-            Get.back();
+            Get.off(() => HomePage(pageIndex: 2), transition: Transition.cupertino);
           },
         ),
       ],

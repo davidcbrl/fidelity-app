@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
 class NavigationItem {
-  String? label;
-  IconData? icon;
-  Widget? page;
-  String? access;
+  final String label;
+  final IconData icon;
+  final Widget page;
+  final String? access;
 
   NavigationItem({
-    this.label,
-    this.icon,
-    this.page,
+    required this.label,
+    required this.icon,
+    required this.page,
     this.access,
   });
 

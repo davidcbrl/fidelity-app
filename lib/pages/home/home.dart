@@ -111,7 +111,7 @@ class _HomePageState extends State<HomePage> {
             routeController.pageIndex.value = index;
           },
           children: userMenu.map(
-            (NavigationItem item) => item.page ?? Container(),
+            (NavigationItem item) => item.page,
           ).toList(),
         ),
         bottomBar: Obx(
@@ -175,7 +175,7 @@ class _HomePageState extends State<HomePage> {
                                 color: routeController.pageIndex.value == index ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.tertiary,
                               ),
                               title: Text(
-                                item.label ?? '',
+                                item.label,
                                 style: routeController.pageIndex.value == index ? Theme.of(context).textTheme.headline2 : Theme.of(context).textTheme.bodyText1,
                               ),
                               onTap: () {
@@ -203,7 +203,7 @@ class _HomePageState extends State<HomePage> {
                     routeController.pageIndex.value = index;
                   },
                   children: userMenu.map(
-                    (NavigationItem item) => item.page ?? Container(),
+                    (NavigationItem item) => item.page,
                   ).toList(),
                 ),
               ),
