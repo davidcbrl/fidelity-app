@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fidelity/models/enterprise.dart';
 import 'package:flutter/material.dart';
 
@@ -15,14 +17,18 @@ class FidelityEnterpriseHeader extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(5),
-            border: Border.all(
-              color: Theme.of(context).colorScheme.tertiary,
-            ),
           ),
-          child: Image.asset(
-            'assets/img/enterprise.png',
-            width: 100,
-          ),
+          child: enterprise.image != null
+            ? Image.memory(
+                base64Decode(enterprise.image ?? ''),
+                width: 100,
+                height: 100,
+              )
+            : Image.asset(
+                'assets/img/enterprise.png',
+                width: 100,
+                height: 100,
+              ),
         ),
         SizedBox(
           width: 10,

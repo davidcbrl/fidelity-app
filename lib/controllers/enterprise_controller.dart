@@ -193,7 +193,11 @@ class EnterpriseController extends GetxController with StateMixin {
       }
       List<dynamic> list = response.result;
       if (page.value == 1) {
-        enterprisesList.value = list.map((e) => Enterprise.fromJson(e)).toList();
+        enterprisesList.value = list.map((e) {
+          Enterprise enterprise = Enterprise.fromJson(e['Enterprise']);
+          enterprise.image = e['Image'];
+          return enterprise;
+        }).toList();
       }
       if (page.value > 1 && list.length > 0) {
         enterprisesList.value.addAll(list.map((e) => Enterprise.fromJson(e)).toList());

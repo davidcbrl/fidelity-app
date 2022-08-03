@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/models/enterprise.dart';
 import 'package:fidelity/pages/enterprises/enterprise_promotions_page.dart';
@@ -87,11 +89,17 @@ class _EnterpriseListBodyState extends State<EnterpriseListBody> {
                   if (!enterpriseController.status.isError && enterpriseController.enterprisesList.length > 0) ...[
                     ...enterpriseController.enterprisesList.map(
                       (Enterprise enterprise) => FidelitySelectItem(
-                        image: Image.asset(
-                          'assets/img/enterprise.png',
-                          height: 40,
-                          width: 40,
-                        ),
+                        image: enterprise.image != null
+                          ? Image.memory(
+                              base64Decode(enterprise.image ?? ''),
+                              height: 40,
+                              width: 40,
+                            )
+                          : Image.asset(
+                              'assets/img/enterprise.png',
+                              height: 40,
+                              width: 40,
+                            ),
                         id: enterprise.id,
                         label: enterprise.name ?? '',
                         onPressed: () {

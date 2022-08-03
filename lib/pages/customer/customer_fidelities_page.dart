@@ -57,6 +57,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
     if (customerController.customerProgress.value.length > 0) {
       customerController.customerProgress.value.forEach((Checkpoint progress) {
         if (progress.fidelity != null) {
+          progress.customerId = customerController.customer.value.id;
           _selectedForCheckpoint.add(progress);
         }
       });
@@ -122,61 +123,70 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
           isLoading: fidelityController.loading.value,
           scrollOffset: 10,
           onEndOfPage: () => fidelityController.getFidelitiesNextPage(),
-          child: ListView(
-            shrinkWrap: true,
-            padding: EdgeInsets.zero,
-            controller: scrollController,
-            physics: AlwaysScrollableScrollPhysics(),
-            children: [
-              if (!fidelityController.status.isError && fidelityController.fidelitiesList.length > 0)... [
-                  ...fidelityController.fidelitiesList.map(
-                    (Fidelity fidelity) {
-                      fidelity.products = null;
-                      return FidelityLinkItem(
-                        id: fidelity.id ?? 1,
-                        label: fidelity.name ?? '',
-                        description: fidelity.description ?? '',
-                        selected: containsFidelityId(fidelity.id),
-                        active: fidelity.status ?? true,
-                        onPressed: () {
-                          if (containsFidelityId(fidelity.id)) {
+          child: RefreshIndicator(
+            onRefresh: () => _refresh(),
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              controller: scrollController,
+              physics: AlwaysScrollableScrollPhysics(),
+              children: [
+                if (!fidelityController.status.isError && fidelityController.fidelitiesList.length > 0)... [
+                    ...fidelityController.fidelitiesList.map(
+                      (Fidelity fidelity) {
+                        fidelity.products = null;
+                        return FidelityLinkItem(
+                          id: fidelity.id ?? 1,
+                          label: fidelity.name ?? '',
+                          description: fidelity.description ?? '',
+                          selected: containsFidelityId(fidelity.id),
+                          active: fidelity.status ?? true,
+                          onPressed: () {
+                            if (containsFidelityId(fidelity.id)) {
+                              setState(() {
+                                _selectedForCheckpoint.removeWhere((Checkpoint progress) => progress.fidelity!.id == fidelity.id);
+                              });
+                              return;
+                            }
                             setState(() {
-                              _selectedForCheckpoint.removeWhere((Checkpoint progress) => progress.fidelity!.id == fidelity.id);
+                              _selectedForCheckpoint.add(new Checkpoint(
+                                customerId: customerController.customer.value.id,
+                                fidelity: fidelity,
+                                score: 0,
+                              ));
                             });
-                            return;
-                          }
-                          setState(() {
-                            _selectedForCheckpoint.add(new Checkpoint(
-                              fidelity: fidelity,
-                              score: 0,
-                            ));
-                          });
-                        },
-                      );
-                    },
-                  ),
-                ],
-                if (fidelityController.status.isLoading)... [
-                  FidelityLoading(
-                    loading: fidelityController.loading.value,
-                    text: 'Carregando fidelidades...',
-                  ),
-                ],
-                if (fidelityController.status.isEmpty)... [
-                  FidelityEmpty(
-                    text: 'Nenhuma fidelidade encontrada',
-                  ),
-                ],
-                if (fidelityController.status.isError)... [
-                  FidelityEmpty(
-                    text: fidelityController.status.errorMessage ?? '500',
-                  ),
-                ],
-            ],
+                          },
+                        );
+                      },
+                    ),
+                  ],
+                  if (fidelityController.status.isLoading)... [
+                    FidelityLoading(
+                      loading: fidelityController.loading.value,
+                      text: 'Carregando fidelidades...',
+                    ),
+                  ],
+                  if (fidelityController.status.isEmpty)... [
+                    FidelityEmpty(
+                      text: 'Nenhuma fidelidade encontrada',
+                    ),
+                  ],
+                  if (fidelityController.status.isError)... [
+                    FidelityEmpty(
+                      text: fidelityController.status.errorMessage ?? '500',
+                    ),
+                  ],
+              ],
+            ),
           ),
         ),
       ),
     );
+  }
+
+  Future<void> _refresh() async {
+    fidelityController.page.value = 1;
+    await fidelityController.getFidelities();
   }
 
   bool containsFidelityId(int? id) {
