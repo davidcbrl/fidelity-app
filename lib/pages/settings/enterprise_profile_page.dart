@@ -56,9 +56,8 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
 
   @override
   void initState() {
-    _selectedImage = authController.user.value.image != null
-      ? base64Decode(authController.user.value.image ?? '')
-      : null;
+    _selectedImage =
+        authController.user.value.image != null ? base64Decode(authController.user.value.image ?? '') : null;
     Get.find<AuthController>().user.value.type == "E" ? startEnterprise() : startCustomer();
 
     super.initState();
@@ -72,6 +71,10 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
 
   startEnterprise() {
     enterpriseController.profileEnterprise.value.enterprise = Enterprise();
+    enterpriseController.getPlans();
+    enterpriseController.plan.value = enterpriseController.plansList.elementAt(
+        Get.find<AuthController>().user.value.enterprise!.membershipId! -
+            (Get.find<AuthController>().user.value.enterprise!.membershipId! > 1 ? 2 : 1));
     _emailController.text = authController.user.value.email ?? "";
     _nameController.text = authController.user.value.enterprise?.name ?? "";
     _cnpjController.text = authController.user.value.enterprise?.cnpj ?? "";
@@ -87,223 +90,229 @@ class _EnterpriseProfileBodyState extends State<EnterpriseProfileBody> {
   Widget build(BuildContext context) {
     return Obx(
       () => enterpriseController.loading.value
-      ? FidelityLoading(
-          loading: enterpriseController.loading.value,
-        )
-      : Column(
-        children: [
-          Expanded(
-            child: SingleChildScrollView(
-              child: Form(
-                child: _formFields(),
-                key: _formEnterpriseSignupKey,
-              ),
+          ? FidelityLoading(
+              loading: enterpriseController.loading.value,
+            )
+          : Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Form(
+                      child: _formFields(),
+                      key: _formEnterpriseSignupKey,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ),
-        ],
-      ),
     );
   }
 
   Widget _formFields() {
-    return Column(
-      children: [
-        SizedBox(
-          height: 25,
-        ),
-        FidelitySelectItem(
-            label: 'Plano Avancado',
-            description: 'Todas as vantagens do plano Simples + destaque para clientes e cadastros ilimitados',
-            onPressed: () {}),
-        SizedBox(
-          height: 10,
-        ),
-        FidelityImagePicker(
-          size: 100,
-          image: enterpriseController.selectedImage.length > 0
-              ? Uint8List.fromList(enterpriseController.selectedImage)
-              : _selectedImage,
-          label: 'Toque para trocar a foto',
-          emptyImagePath: 'assets/img/enterprise.png',
-          onSelect: () async {
-            XFile? picked = await _picker.pickImage(source: ImageSource.gallery);
-            enterpriseController.selectedImage.value = await picked!.readAsBytes();
-          },
-        ),
-        SizedBox(
-          height: 10,
-        ),
-        FidelityTextFieldMasked(
-          controller: _emailController,
-          label: 'Email',
-          readOnly: true,
-          placeholder: 'chewie@wookie.com',
-          icon: Icon(Icons.email_outlined),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo vazio';
-            }
-            return null;
-          },
-          onChanged: (value) {
-            if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        FidelityTextFieldMasked(
-          controller: _nameController,
-          label: 'Empresa',
-          placeholder: 'Chewie',
-          icon: Icon(Icons.person_outline),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo vazio';
-            }
-            return null;
-          },
-          onChanged: (value) {
-            if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        FidelityTextFieldMasked(
-          controller: _cnpjController,
-          label: 'CNPJ',
-          placeholder: '00.000.000/0000-00',
-          icon: Icon(Icons.tag),
-          mask: '##.###.###/####-##',
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo vazio';
-            }
-            return null;
-          },
-          onChanged: (value) {
-            if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        FidelityTextFieldMasked(
-          controller: _contactController,
-          label: 'Contato',
-          mask: '(##)# ####-####',
-          placeholder: '(99)9 9999-9999',
-          icon: Icon(Icons.phone),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo vazio';
-            }
-            return null;
-          },
-          onChanged: (value) {
-            if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        FidelityTextFieldMasked(
-          controller: _addressController,
-          label: 'Endereco',
-          placeholder: 'The force street',
-          icon: Icon(Icons.phone),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo vazio';
-            }
-            return null;
-          },
-          onChanged: (value) {
-            if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        FidelityTextFieldMasked(
-          controller: _addressNumberController,
-          label: 'Número',
-          placeholder: '123',
-          icon: Icon(Icons.house),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo vazio';
-            }
-            return null;
-          },
-          onChanged: (value) {
-            if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        FidelityTextFieldMasked(
-          controller: _cityController,
-          label: 'Cidade',
-          placeholder: 'Arkanis',
-          icon: Icon(Icons.house),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo vazio';
-            }
-            return null;
-          },
-          onChanged: (value) {
-            if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        FidelityTextFieldMasked(
-          controller: _ufController,
-          label: 'Estado',
-          placeholder: 'Tatooine',
-          icon: Icon(Icons.house),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo vazio';
-            }
-            return null;
-          },
-          onChanged: (value) {
-            if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        FidelityTextFieldMasked(
-          controller: _branchController,
-          label: 'Ramo',
-          placeholder: 'Jedi',
-          icon: Icon(Icons.edit_road),
-          validator: (value) {
-            if (value == null || value.isEmpty) {
-              return 'Campo vazio';
-            }
-            return null;
-          },
-          onChanged: (value) {
-            if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
-          },
-        ),
-        SizedBox(
-          height: 20,
-        ),
-        FidelityButton(label: 'Salvar', onPressed: () => _saveEnterpriseProfile(context)),
-        FidelityTextButton(label: 'Voltar', onPressed: () => Get.back()),
-        SizedBox(
-          height: 10,
-        )
-      ],
+    return Obx(
+      () => Column(
+        children: [
+          SizedBox(
+            height: 25,
+          ),
+          FidelitySelectItem(
+              label: enterpriseController.plan.value.name!,
+              description: enterpriseController.plan.value.description!,
+              onPressed: () {
+                Get.toNamed('/signup/enterprise/third_step')?.whenComplete(() {
+                  print("olar");
+                });
+              }),
+          SizedBox(
+            height: 10,
+          ),
+          FidelityImagePicker(
+            size: 100,
+            image: enterpriseController.selectedImage.length > 0
+                ? Uint8List.fromList(enterpriseController.selectedImage)
+                : _selectedImage,
+            label: 'Toque para trocar a foto',
+            emptyImagePath: 'assets/img/enterprise.png',
+            onSelect: () async {
+              XFile? picked = await _picker.pickImage(source: ImageSource.gallery);
+              enterpriseController.selectedImage.value = await picked!.readAsBytes();
+            },
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          FidelityTextFieldMasked(
+            controller: _emailController,
+            label: 'Email',
+            readOnly: true,
+            placeholder: 'chewie@wookie.com',
+            icon: Icon(Icons.email_outlined),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FidelityTextFieldMasked(
+            controller: _nameController,
+            label: 'Empresa',
+            placeholder: 'Chewie',
+            icon: Icon(Icons.person_outline),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FidelityTextFieldMasked(
+            controller: _cnpjController,
+            label: 'CNPJ',
+            placeholder: '00.000.000/0000-00',
+            icon: Icon(Icons.tag),
+            mask: '##.###.###/####-##',
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FidelityTextFieldMasked(
+            controller: _contactController,
+            label: 'Contato',
+            mask: '(##)# ####-####',
+            placeholder: '(99)9 9999-9999',
+            icon: Icon(Icons.phone),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FidelityTextFieldMasked(
+            controller: _addressController,
+            label: 'Endereco',
+            placeholder: 'The force street',
+            icon: Icon(Icons.phone),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FidelityTextFieldMasked(
+            controller: _addressNumberController,
+            label: 'Número',
+            placeholder: '123',
+            icon: Icon(Icons.house),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FidelityTextFieldMasked(
+            controller: _cityController,
+            label: 'Cidade',
+            placeholder: 'Arkanis',
+            icon: Icon(Icons.house),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FidelityTextFieldMasked(
+            controller: _ufController,
+            label: 'Estado',
+            placeholder: 'Tatooine',
+            icon: Icon(Icons.house),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FidelityTextFieldMasked(
+            controller: _branchController,
+            label: 'Ramo',
+            placeholder: 'Jedi',
+            icon: Icon(Icons.edit_road),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Campo vazio';
+              }
+              return null;
+            },
+            onChanged: (value) {
+              if (value.isNotEmpty) _formEnterpriseSignupKey.currentState!.validate();
+            },
+          ),
+          SizedBox(
+            height: 20,
+          ),
+          FidelityButton(label: 'Salvar', onPressed: () => _saveEnterpriseProfile(context)),
+          FidelityTextButton(label: 'Voltar', onPressed: () => Get.back()),
+          SizedBox(
+            height: 10,
+          )
+        ],
+      ),
     );
   }
 

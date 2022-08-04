@@ -1,3 +1,4 @@
+import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/models/plan.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
@@ -29,13 +30,22 @@ class ThirdStepBody extends StatefulWidget {
   _ThirdStepBodyState createState() => _ThirdStepBodyState();
 }
 
+AuthController? authController = Get.find<AuthController>();
+
 class _ThirdStepBodyState extends State<ThirdStepBody> {
   EnterpriseController enterpriseController = Get.find();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
     enterpriseController.getPlans();
+    if (Get.isRegistered<AuthController>()) {
+      enterpriseController.plan.value.id = Get.find<AuthController>().user.value.enterprise!.membershipId!;
+    }
+    super.initState();
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Obx(
       () => enterpriseController.plansLoading.value
           ? FidelityLoading(
@@ -127,6 +137,12 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
   }
 
   Future<void> saveEnterprise(BuildContext context) async {
+    if (authController != null) {
+      Get.find<AuthController>().user.value.enterprise!.membershipId = enterpriseController.plan.value.id;
+      Get.back();
+      return;
+    }
+
     enterpriseController.loading.value = true;
     enterpriseController.signupEnterprise.value.membershipId = enterpriseController.plan.value.id;
     enterpriseController.signupEnterprise.value.employeeName = enterpriseController.signupEnterprise.value.name;

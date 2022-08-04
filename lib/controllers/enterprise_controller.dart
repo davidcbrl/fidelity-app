@@ -25,7 +25,6 @@ class EnterpriseController extends GetxController with StateMixin {
   var plan = Plan().obs;
   var plansList = <Plan>[].obs;
   var plansLoading = false.obs;
-
   @override
   void onInit() {
     ever(filter, (_) async {
