@@ -101,7 +101,12 @@ class FidelityController extends GetxController with StateMixin {
         return;
       }
       List<dynamic> list = response.result;
-      fidelitiesList.value += list.map((e) => Fidelity.fromJson(e)).toList();
+      if (page.value == 1) {
+        fidelitiesList.value = list.map((e) => Fidelity.fromJson(e)).toList();
+      }
+      if (page.value > 1 && list.length > 0) {
+        fidelitiesList.value.addAll(list.map((e) => Fidelity.fromJson(e)).toList());
+      }
       change([], status: RxStatus.success());
       loading.value = false;
     } on RequestException catch (error) {

@@ -65,6 +65,7 @@ class _ProductListBodyState extends State<ProductListBody> {
         FidelityButton(
           onPressed: () {
             productController.product.value = Product();
+            productController.selectedImage.value = <int>[];
             Get.toNamed('/product/add');
           },
           label: 'Novo produto',

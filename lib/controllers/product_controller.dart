@@ -21,7 +21,6 @@ class ProductController extends GetxController with StateMixin {
   void onInit() {
     enterpriseId.value = box.read('enterpriseId');
     getProducts();
-
     ever(filter, (_) async {
       if (filter.value.length == 0) {
         getProducts();
@@ -37,7 +36,6 @@ class ProductController extends GetxController with StateMixin {
       productsList.clear();
       await getProducts();
     });
-
     super.onInit();
   }
 
