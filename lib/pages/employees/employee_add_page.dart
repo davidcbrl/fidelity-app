@@ -162,7 +162,7 @@ class _EmployeePageBodyState extends State<EmployeePageBody> {
           image: employeeController.selectedImage.length > 0
               ? Uint8List.fromList(employeeController.selectedImage)
               : _selectedImage,
-          label: 'Foto do produto',
+          label: 'Foto do funcionário',
           emptyImagePath: 'assets/img/user.jpg',
           onSelect: () async {
             XFile? picked = await _picker.pickImage(source: ImageSource.gallery);

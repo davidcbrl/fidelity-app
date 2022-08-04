@@ -145,6 +145,7 @@ class _CheckpointBodyState extends State<CheckpointBody> {
   Future<void> getCustomerProgress(String cpf) async {
     if (cpf.isNotEmpty) {
       fidelityController.filter.value = '';
+      fidelityController.fidelitiesList.clear();
       customerController.customerCPF.value = cpf;
       await customerController.getCustomerProgress();
       if (customerController.status.isSuccess) {

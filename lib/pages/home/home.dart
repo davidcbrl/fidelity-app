@@ -90,11 +90,19 @@ class _HomePageState extends State<HomePage> {
     authController.user.value = user is User ? user : User.fromJson(user);
     pageController = new PageController(initialPage: widget.pageIndex ?? 0);
     routeController.pageIndex.value = widget.pageIndex ?? 0;
+    bool isEmployee = false;
+    if (authController.user.value.type == 'F') {
+      isEmployee = true;
+      authController.user.value.type = 'E';
+    }
     userMenu = navigationMenu.where(
       (NavigationItem item) => (item.access == null) || (item.access == authController.user.value.type)
     ).toList();
     if (authController.user.value.type == 'C') {
       _oneSignalSubscription();
+    }
+    if (isEmployee) {
+      authController.user.value.type = 'F';
     }
     super.initState();
   }
