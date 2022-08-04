@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
@@ -81,10 +82,11 @@ class _SecondStepBodyState extends State<SecondStepBody> {
               if (value == null || value.isEmpty) {
                 return 'Campo vazio';
               }
+              if (!EmailValidator.validate(value)) return 'email inválido';
               return null;
             },
             onChanged: (value) {
-              if (value.isNotEmpty) _formKey.currentState!.validate();
+              // if (value.isNotEmpty) _formKey.currentState!.validate();
             },
           ),
           SizedBox(
@@ -103,7 +105,7 @@ class _SecondStepBodyState extends State<SecondStepBody> {
               return null;
             },
             onChanged: (value) {
-              if (value.isNotEmpty) _formKey.currentState!.validate();
+              //if (value.isNotEmpty) _formKey.currentState!.validate();
             },
           ),
           SizedBox(
@@ -119,10 +121,11 @@ class _SecondStepBodyState extends State<SecondStepBody> {
               if (value == null || value.isEmpty) {
                 return 'Campo vazio';
               }
+              if (value != _passwordController.text) return 'confirmação diferente da senha';
               return null;
             },
             onChanged: (value) {
-              if (value.isNotEmpty) _formKey.currentState!.validate();
+              // if (value.isNotEmpty) _formKey.currentState!.validate();
             },
           ),
         ],
