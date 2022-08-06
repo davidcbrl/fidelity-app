@@ -215,7 +215,7 @@ class FidelityAddBody extends StatelessWidget {
                                       ),
                                       FidelitySelectItem(
                                         label:
-                                            "Cupom de desconto: R\$ ${fidelity?.couponValue == null ? 0 : fidelity?.couponValue}",
+                                            "${fidelity?.promotionTypeId != null ? fidelity!.promotionTypeId!.isOdd ? 'Cupom de desconto' : 'Vale produto' : ''} R\$ ${fidelity?.couponValue == null ? 0 : fidelity?.couponValue}",
                                         description: "Clique aqui para editar a promocao",
                                         onPressed: () {
                                           Get.toNamed("/fidelity/promotion");
