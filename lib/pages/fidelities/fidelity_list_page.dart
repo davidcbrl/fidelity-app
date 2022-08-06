@@ -79,7 +79,7 @@ class FidelityListBody extends StatelessWidget {
               controller: scrollController,
               physics: AlwaysScrollableScrollPhysics(),
               children: [
-                if (fidelityController.fidelitiesList.isEmpty && fidelityController.status.isError) ...[
+                if (fidelityController.fidelitiesList.isEmpty || fidelityController.status.isError) ...[
                   FidelityEmpty(
                     text: 'Nenhuma fidelidade encontrada',
                   ),

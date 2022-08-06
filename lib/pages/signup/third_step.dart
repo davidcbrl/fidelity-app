@@ -37,11 +37,11 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
 
   @override
   void initState() {
+    super.initState();
     enterpriseController.getPlans();
-    if (Get.isRegistered<AuthController>()) {
+    if (Get.isRegistered<AuthController>() && Get.find<AuthController>().user.value.enterprise != null) {
       enterpriseController.plan.value.id = Get.find<AuthController>().user.value.enterprise!.membershipId!;
     }
-    super.initState();
   }
 
   @override
@@ -137,7 +137,7 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
   }
 
   Future<void> saveEnterprise(BuildContext context) async {
-    if (authController != null) {
+    if (authController != null && authController?.user.value.enterprise != null) {
       Get.find<AuthController>().user.value.enterprise!.membershipId = enterpriseController.plan.value.id;
       Get.back();
       return;
