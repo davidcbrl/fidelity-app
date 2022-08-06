@@ -10,6 +10,7 @@ import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_text_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:lazy_load_scrollview/lazy_load_scrollview.dart';
 
 class FidelityProductsPage extends StatelessWidget {
   @override
@@ -118,45 +119,56 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
   Widget _productsList() {
     return Expanded(
       child: Obx(
-        () => productController.loading.value
-            ? FidelityLoading(
-                loading: productController.loading.value,
-                text: 'Carregando produtos...',
-              )
-            : ListView(
-                shrinkWrap: true,
-                padding: EdgeInsets.zero,
-                controller: scrollController,
-                physics: AlwaysScrollableScrollPhysics(),
-                children: [
-                  if (productController.status.isSuccess) ...[
-                    ...productController.productsList.map(
-                      (Product product) => FidelityLinkItem(
-                        id: product.id ?? 1,
-                        label: product.name ?? '',
-                        selected: product.id == _selectedItem,
-                        active: product.status ?? true,
-                        onPressed: () {
-                          if (_selectedItem != product.id)
-                            setState(() {
-                              _selectedItem = product.id!;
-                            });
-                          else
-                            setState(() {
-                              _selectedItem = -99;
-                            });
-                          return;
-                        },
-                      ),
+        () => LazyLoadScrollView(
+          isLoading: productController.loading.value,
+          scrollOffset: 10,
+          onEndOfPage: () => productController.getProductsNextPage(),
+          child: RefreshIndicator(
+            onRefresh: () => _refresh(),
+            child: ListView(
+              shrinkWrap: true,
+              padding: EdgeInsets.zero,
+              controller: scrollController,
+              physics: AlwaysScrollableScrollPhysics(),
+              children: [
+                if (!productController.status.isError && productController.productsList.length > 0) ...[
+                  ...productController.productsList.map(
+                    (Product product) => FidelityLinkItem(
+                      id: product.id ?? 1,
+                      label: product.name ?? '',
+                      selected: product.id == _selectedItem,
+                      active: product.status ?? true,
+                      onPressed: () {
+                        if (_selectedItem != product.id)
+                          setState(() {
+                            _selectedItem = product.id!;
+                          });
+                        else
+                          setState(() {
+                            _selectedItem = -99;
+                          });
+                        return;
+                      },
                     ),
-                  ],
-                  if (productController.status.isEmpty || productController.status.isError) ...[
-                    FidelityEmpty(
-                      text: 'Nenhum produto encontrado',
-                    ),
-                  ],
+                  ),
                 ],
-              ),
+                if (productController.status.isLoading)
+                  FidelityLoading(
+                    loading: productController.loading.value,
+                    text: 'Carregando produtos...',
+                  ),
+                if (productController.status.isEmpty)
+                  FidelityEmpty(
+                    text: 'Nenhum produto encontrado',
+                  ),
+                if (productController.status.isError)
+                  FidelityEmpty(
+                    text: productController.status.errorMessage ?? '500',
+                  ),
+              ],
+            ),
+          ),
+        ),
       ),
     );
   }
@@ -194,6 +206,11 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
         ],
       ),
     );
+  }
+
+  Future<void> _refresh() async {
+    productController.page.value = 1;
+    await productController.getProducts();
   }
 
   Future<void> saveFidelity(BuildContext context) async {
