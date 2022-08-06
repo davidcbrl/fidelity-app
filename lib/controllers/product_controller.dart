@@ -16,7 +16,7 @@ class ProductController extends GetxController with StateMixin {
   var product = Product().obs;
   var productsList = <Product>[].obs;
   var selectedImage = <int>[].obs;
-
+  var isCreatingFidelity = false.obs;
   @override
   void onInit() {
     enterpriseId.value = box.read('enterpriseId');

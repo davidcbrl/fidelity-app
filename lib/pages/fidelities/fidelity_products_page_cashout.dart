@@ -76,7 +76,15 @@ class _FidelityProductsCashoutBodyState extends State<FidelityProductsCashoutBod
                 FidelityButton(
                   label: 'Novo produto',
                   onPressed: () {
-                    print('CLICOU');
+                    ProductController productController;
+
+                    productController =
+                        Get.isRegistered<ProductController>() ? Get.find<ProductController>() : ProductController();
+                    Get.put(productController);
+                    productController.product.value = Product();
+                    productController.selectedImage.value = <int>[];
+                    productController.isCreatingFidelity.value = true;
+                    Get.toNamed('/product/add')?.whenComplete(() => productController.getProducts());
                   },
                 ),
                 SizedBox(

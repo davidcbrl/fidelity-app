@@ -32,6 +32,8 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
   FidelityController fidelityController = Get.find();
   ProductController productController = Get.put(ProductController());
   int _selectedItem = -99;
+  late ScrollController scrollController;
+
   @override
   void initState() {
     WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
@@ -39,7 +41,13 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
       if (fidelityController.fidelity.value.productId != null)
         _selectedItem = fidelityController.fidelity.value.productId!;
     });
+    scrollController = new ScrollController();
+    scrollController.addListener(_scrollListener);
     super.initState();
+  }
+
+  dynamic _scrollListener() {
+    FocusScope.of(context).requestFocus(new FocusNode());
   }
 
   @override
@@ -69,7 +77,15 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
                 FidelityButton(
                   label: 'Novo produto',
                   onPressed: () {
-                    print('CLICOU');
+                    ProductController productController;
+
+                    productController =
+                        Get.isRegistered<ProductController>() ? Get.find<ProductController>() : ProductController();
+                    Get.put(productController);
+                    productController.product.value = Product();
+                    productController.selectedImage.value = <int>[];
+                    productController.isCreatingFidelity.value = true;
+                    Get.toNamed('/product/add')?.whenComplete(() => productController.getProducts());
                   },
                 ),
                 SizedBox(
@@ -107,8 +123,12 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
                 loading: productController.loading.value,
                 text: 'Carregando produtos...',
               )
-            : SingleChildScrollView(
-                child: Column(children: [
+            : ListView(
+                shrinkWrap: true,
+                padding: EdgeInsets.zero,
+                controller: scrollController,
+                physics: AlwaysScrollableScrollPhysics(),
+                children: [
                   if (productController.status.isSuccess) ...[
                     ...productController.productsList.map(
                       (Product product) => FidelityLinkItem(
@@ -135,7 +155,7 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
                       text: 'Nenhum produto encontrado',
                     ),
                   ],
-                ]),
+                ],
               ),
       ),
     );

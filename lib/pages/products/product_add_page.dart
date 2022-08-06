@@ -295,7 +295,52 @@ class _ProductAddBodyState extends State<ProductAddBody> {
       productController.product.value.categoryId = _categoryController.id ?? 1;
       productController.product.value.status = _activeController;
       productController.product.value.image = _imageController.isNotEmpty ? _imageController : null;
+
+      if (productController.isCreatingFidelity.value) {
+        await saveProduct(context);
+        return;
+      }
       Get.toNamed('/product/fidelities');
     }
+  }
+
+  Future<void> saveProduct(BuildContext context) async {
+    productController.loading.value = true;
+    await productController.saveProduct();
+    if (productController.status.isSuccess) {
+      productController.loading.value = false;
+      Get.back();
+      return;
+    }
+    productController.loading.value = false;
+    _showErrorDialog(context);
+  }
+
+  Future<dynamic> _showErrorDialog(BuildContext context) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(
+          'Produtos',
+          style: Theme.of(context).textTheme.headline1,
+        ),
+        content: Text(
+          productController.status.errorMessage ?? 'Erro ao salvar produto',
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FidelityButton(
+              label: 'OK',
+              width: double.maxFinite,
+              onPressed: () {
+                Get.back();
+              },
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
