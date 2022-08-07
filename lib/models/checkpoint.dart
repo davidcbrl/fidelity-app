@@ -23,6 +23,7 @@ class Checkpoint {
   Fidelity? fidelity;
   double? value;
   double? score;
+  double? originalScore;
   bool? completed;
 
   Checkpoint({
@@ -33,6 +34,7 @@ class Checkpoint {
     this.fidelity,
     this.value,
     this.score,
+    this.originalScore,
     this.completed,
   });
 

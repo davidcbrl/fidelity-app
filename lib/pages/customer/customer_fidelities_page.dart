@@ -317,7 +317,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                         label: progress.fidelity!.name ?? '',
                         description: '$type - $promotion',
                         typeId: progress.fidelity!.fidelityTypeId ?? 1,
-                        progress: progress.score ?? 0.0,
+                        progress: (progress.originalScore ?? 0.0) + (progress.score ?? 0.0),
                         target: progress.fidelity!.quantity ?? 0.0,
                         onPressed: () {
                           Get.back();

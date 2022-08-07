@@ -36,14 +36,14 @@ class CheckpointProgressBody extends StatefulWidget {
 
 class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
   TextEditingController linearController = TextEditingController(text: '');
-  double originalScore = 0;
 
   @override
   void initState() {
-    originalScore = widget.progress.score ?? 0;
+    widget.progress.originalScore = widget.progress.score ?? 0;
+    widget.progress.score = 0;
     if (widget.progress.fidelity!.fidelityTypeId != 1) {
-      widget.progress.score = widget.progress.score! / widget.progress.fidelity!.quantity!.toInt();
-      linearController.text = widget.progress.score.toString();
+      widget.progress.score = widget.progress.originalScore! / widget.progress.fidelity!.quantity!.toInt();
+      linearController.text = widget.progress.originalScore.toString();
     }
     super.initState();
   }
@@ -119,7 +119,7 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
         FidelityTextButton(
           label: 'Cancelar',
           onPressed: () {
-            widget.progress.score = originalScore;
+            widget.progress.score = widget.progress.originalScore;
             Get.back();
           },
         ),
@@ -167,12 +167,12 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
           ),
           if (widget.progress.fidelity!.fidelityTypeId == 1)
             Text(
-              widget.progress.score!.toInt().toString() + '/' + widget.progress.fidelity!.quantity!.toInt().toString(),
+              (widget.progress.originalScore!.toInt() + widget.progress.score!.toInt()).toString() + '/' + widget.progress.fidelity!.quantity!.toInt().toString(),
               style: Theme.of(context).textTheme.headline1,
             ),
           if (widget.progress.fidelity!.fidelityTypeId != 1)
             Text(
-              widget.progress.score!.toInt().toString() + '/' + widget.progress.fidelity!.quantity!.toInt().toString(),
+              (widget.progress.originalScore!.toInt() + widget.progress.score!.toInt()).toString() + '/' + widget.progress.fidelity!.quantity!.toInt().toString(),
               style: Theme.of(context).textTheme.headline1,
             ),
           SizedBox(
@@ -182,7 +182,16 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
             Wrap(
               alignment: WrapAlignment.center,
               children: [
-                ...List.generate(widget.progress.fidelity!.quantity!.toInt(), (index) {
+                if (widget.progress.originalScore! > 0)
+                  ...List.generate(widget.progress.originalScore!.toInt(), (index) {
+                    index = index + 1;
+                    return Icon(
+                      Icons.check_circle_rounded,
+                      color: Theme.of(context).colorScheme.secondary,
+                      size: 50,
+                    );
+                  }).toList(),
+                ...List.generate(widget.progress.fidelity!.quantity!.toInt() - widget.progress.originalScore!.toInt(), (index) {
                   index = index + 1;
                   return InkWell(
                     onTap: () {
@@ -196,7 +205,7 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
                     },
                     child: Icon(
                       widget.progress.score! < index ? Icons.circle : Icons.check_circle_rounded,
-                      color: widget.progress.score! < index ? Theme.of(context).colorScheme.tertiaryContainer : Theme.of(context).colorScheme.secondary,
+                      color: widget.progress.score! < index ? Theme.of(context).colorScheme.tertiaryContainer : Theme.of(context).colorScheme.primary,
                       size: 50,
                     ),
                   );

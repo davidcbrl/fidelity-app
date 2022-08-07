@@ -146,6 +146,7 @@ class _CheckpointBodyState extends State<CheckpointBody> {
     if (cpf.isNotEmpty) {
       fidelityController.filter.value = '';
       fidelityController.fidelitiesList.clear();
+      fidelityController.getFidelities();
       customerController.customerCPF.value = cpf;
       await customerController.getCustomerProgress();
       if (customerController.status.isSuccess) {
