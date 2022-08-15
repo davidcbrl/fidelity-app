@@ -1,3 +1,4 @@
+import 'package:fidelity/controllers/category_controller.dart';
 import 'package:fidelity/controllers/checkpoint_controller.dart';
 import 'package:fidelity/controllers/customer_controller.dart';
 import 'package:fidelity/controllers/employee_controller.dart';
@@ -8,6 +9,9 @@ import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/pages/auth/login_page.dart';
 import 'package:fidelity/pages/auth/password_reset_page.dart';
 import 'package:fidelity/pages/auth/reset_success_page.dart';
+import 'package:fidelity/pages/categories/category_add_page.dart';
+import 'package:fidelity/pages/categories/category_list_page.dart';
+import 'package:fidelity/pages/categories/category_success_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_completed_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_page.dart';
 import 'package:fidelity/pages/checkpoint/checkpoint_progress_page.dart';
@@ -151,6 +155,15 @@ final routes = [
     children: [
       GetPage(name: '/add', page: () => EmployeeAddPage(), transition: Transition.cupertino),
       GetPage(name: '/success', page: () => EmployeeSuccessPage(), transition: Transition.cupertino),
+    ],
+  ),
+  GetPage(
+    name: '/category',
+    page: () => CategoryListPage(),
+    binding: BindingsBuilder(() => Get.put<CategoryController>(new CategoryController())),
+    children: [
+      GetPage(name: '/add', page: () => CategoryAddPage(), transition: Transition.cupertino),
+      GetPage(name: '/success', page: () => CategorySuccessPage(), transition: Transition.cupertino),
     ],
   ),
 ];

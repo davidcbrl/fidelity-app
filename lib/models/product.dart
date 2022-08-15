@@ -1,11 +1,11 @@
-import 'package:fidelity/models/product_category.dart';
+import 'package:fidelity/models/category.dart';
 
 class Product {
   int? id;
   int? enterpriseId;
   String? name;
   double? value;
-  ProductCategory? category;
+  Category? category;
   int? categoryId;
   String? image;
   bool? status;
@@ -31,7 +31,7 @@ class Product {
     name = json['Name'],
     value = json['Value'],
     image = json['Image'],
-    category = json['Category'] != null ? ProductCategory.fromJson(json['Category']) : null,
+    category = json['Category'] != null ? Category.fromJson(json['Category']) : null,
     categoryId = json['CategoryId'],
     status = json['Status'],
     fidelities = json['Loyalts'],

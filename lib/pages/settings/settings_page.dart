@@ -35,8 +35,8 @@ class SettingsBody extends StatelessWidget {
           ),
           FidelitySelectItem(
             icon: Icons.list,
-            label: 'Perfil',
-            description: 'Edite os dados do seu cadastro',
+            label: 'Perfil' + (authController.user.value.type == 'E' ? ' da Empresa' : ''),
+            description: 'Edite os dados' + (authController.user.value.type == 'E' ? ' da Empresa' : ' do seu cadastro'),
             onPressed: () {
               if (authController.user.value.type == 'E') {
                 Get.toNamed('/settings/enterprise_profile');
@@ -61,10 +61,12 @@ class SettingsBody extends StatelessWidget {
               height: 10,
             ),
             FidelitySelectItem(
-              icon: Icons.color_lens_outlined,
-              label: 'Tema',
-              description: 'Customize a aparência do app',
-              onPressed: () {},
+              icon: Icons.category_outlined,
+              label: 'Categorias',
+              description: 'Cadastre categorias de produtos',
+              onPressed: () {
+                Get.toNamed('/category');
+              },
             ),
             SizedBox(
               height: 10,

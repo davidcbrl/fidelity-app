@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
-import 'package:fidelity/controllers/product_category_controller.dart';
+import 'package:fidelity/controllers/category_controller.dart';
 import 'package:fidelity/controllers/product_controller.dart';
-import 'package:fidelity/models/product_category.dart';
+import 'package:fidelity/models/category.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
 import 'package:fidelity/widgets/fidelity_button.dart';
 import 'package:fidelity/widgets/fidelity_empty.dart';
@@ -37,11 +37,11 @@ class ProductAddBody extends StatefulWidget {
 
 class _ProductAddBodyState extends State<ProductAddBody> {
   ProductController productController = Get.find<ProductController>();
-  ProductCategoryController productCategoryController = Get.put(ProductCategoryController());
+  CategoryController categoryController = Get.put(CategoryController());
   GlobalKey<FormState> _formProductAddKey = new GlobalKey<FormState>();
   TextEditingController _nameController = new TextEditingController();
   TextEditingController _valueController = new TextEditingController();
-  ProductCategory _categoryController = new ProductCategory();
+  Category _categoryController = new Category();
   bool _activeController = true;
   ImagePicker _picker = ImagePicker();
   var _selectedImage;
@@ -51,7 +51,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
     if (productController.product.value.id != null) {
       _nameController.text = productController.product.value.name ?? '';
       _valueController.text = productController.product.value.value.toString();
-      _categoryController = productController.product.value.category ?? new ProductCategory();
+      _categoryController = productController.product.value.category ?? new Category();
       _activeController = productController.product.value.status ?? false;
       _selectedImage = productController.product.value.image != null
           ? base64Decode(productController.product.value.image ?? '')
@@ -236,16 +236,16 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Obx(
-                        () => productCategoryController.loading.value
+                        () => categoryController.loading.value
                             ? FidelityLoading(
-                                loading: productCategoryController.loading.value,
+                                loading: categoryController.loading.value,
                                 text: 'Carregando categorias...',
                               )
                             : Column(
                                 children: [
-                                  if (productCategoryController.status.isSuccess) ...[
-                                    ...productCategoryController.categoriesList.map(
-                                      (ProductCategory category) => FidelitySelectItem(
+                                  if (categoryController.status.isSuccess) ...[
+                                    ...categoryController.categoriesList.map(
+                                      (Category category) => FidelitySelectItem(
                                         id: category.id,
                                         label: category.name ?? '',
                                         onPressed: () {
@@ -258,8 +258,8 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                                       ),
                                     ),
                                   ],
-                                  if (productCategoryController.status.isEmpty ||
-                                      productCategoryController.status.isError) ...[
+                                  if (categoryController.status.isEmpty ||
+                                      categoryController.status.isError) ...[
                                     FidelityEmpty(
                                       text: 'Nenhuma categoria encontrada',
                                       iconSize: 100,
