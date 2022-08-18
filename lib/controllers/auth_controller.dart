@@ -48,6 +48,7 @@ class AuthController extends GetxController with StateMixin {
       box.write('user', user.value);
       box.write('enterpriseId', user.value.enterpriseId);
       box.write('jwt', response.result['Token']['data']);
+      box.write('jwtDate', DateTime.now().add(Duration(days: 1)));
       change([], status: RxStatus.success());
     } on RequestException catch (error) {
       print(error);

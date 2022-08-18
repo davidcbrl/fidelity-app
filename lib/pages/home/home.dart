@@ -86,6 +86,17 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
+    if (!box.hasData('jwt')) {
+      authController.logout();
+      return;
+    }
+    if (box.hasData('jwtDate')) {
+      DateTime jwtDate = box.read('jwtDate');
+      if (jwtDate.isBefore(DateTime.now())) {
+        authController.logout();
+        return ;
+      }
+    }
     var user = box.hasData('user') ? box.read('user') : User();
     authController.user.value = user is User ? user : User.fromJson(user);
     pageController = new PageController(initialPage: widget.pageIndex ?? 0);
