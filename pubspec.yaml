@@ -22,7 +22,7 @@ dependencies:
   platform: ^3.1.0
   image_picker: any
   percent_indicator: ^3.4.0
-  qr_code_scanner: ^0.7.0
+  qr_code_scanner: ^1.0.0
   flutter_native_splash: any
   flutter_launcher_icons: any
   qr_flutter: ^4.0.0

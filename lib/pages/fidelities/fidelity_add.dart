@@ -105,6 +105,7 @@ class FidelityAddBody extends StatelessWidget {
                               controller: _nameController,
                               label: 'Nome',
                               placeholder: 'Nome da fidelidade',
+                              readOnly: fidelity != null,
                               icon: Icon(Icons.label_important_outline),
                               validator: (value) {
                                 if (value == null || value.isEmpty) {
@@ -118,6 +119,7 @@ class FidelityAddBody extends StatelessWidget {
                             ),
                             FidelityTextFieldMasked(
                               controller: _descriptionController,
+                              readOnly: fidelity != null,
                               label: 'Descrição',
                               placeholder: 'Detalhes da fidelidade',
                               icon: Icon(Icons.list_alt_outlined),
@@ -135,6 +137,7 @@ class FidelityAddBody extends StatelessWidget {
                             FidelityTextFieldMasked(
                               controller: _initDateController,
                               label: 'Data de inicio',
+                              readOnly: fidelity != null,
                               placeholder: 'dd/mm/aaaa',
                               icon: Icon(Icons.calendar_month),
                               mask: '##/##/####',
@@ -153,6 +156,7 @@ class FidelityAddBody extends StatelessWidget {
                             FidelityTextFieldMasked(
                               controller: _endDateController,
                               label: 'Data de vencimento',
+                              readOnly: fidelity != null,
                               placeholder: 'dd/mm/aaaa',
                               icon: Icon(Icons.calendar_month),
                               mask: '##/##/####',
@@ -192,9 +196,10 @@ class FidelityAddBody extends StatelessWidget {
                                         ),
                                         FidelitySelectItem(
                                           label: "Quantidade: ${fidelity?.quantity}",
-                                          description: "Clique aqui para editar a fidelizacao",
+                                          //description: "Clique aqui para editar a fidelizacao",
                                           onPressed: () {
-                                            Get.toNamed("/fidelity/condition");
+                                            return;
+                                            //Get.toNamed("/fidelity/condition");
                                           },
                                         ),
                                         SizedBox(
@@ -216,9 +221,10 @@ class FidelityAddBody extends StatelessWidget {
                                       FidelitySelectItem(
                                         label:
                                             "${fidelity?.promotionTypeId != null ? fidelity!.promotionTypeId!.isOdd ? 'Cupom de desconto' : 'Vale produto' : ''} R\$ ${fidelity?.couponValue == null ? 0 : fidelity?.couponValue}",
-                                        description: "Clique aqui para editar a promocao",
+                                        // description: "Clique aqui para editar a promocao",
                                         onPressed: () {
-                                          Get.toNamed("/fidelity/promotion");
+                                          return;
+                                          // Get.toNamed("/fidelity/promotion");
                                         },
                                       ),
                                       SizedBox(
@@ -240,9 +246,10 @@ class FidelityAddBody extends StatelessWidget {
                                         ),
                                         FidelitySelectItem(
                                           label: "${fidelity?.products?.length} Produtos",
-                                          description: "Clique aqui para editar os produtos vinculados",
+                                          //description: "Clique aqui para editar os produtos vinculados",
                                           onPressed: () {
-                                            Get.toNamed("/fidelity/cashout", arguments: fidelity?.products);
+                                            return;
+                                            // Get.toNamed("/fidelity/cashout", arguments: fidelity?.products);
                                           },
                                         ),
                                       ],
@@ -254,29 +261,34 @@ class FidelityAddBody extends StatelessWidget {
                       ),
                     ),
                   ),
-                  FidelityButton(
-                    label: 'Próximo',
-                    onPressed: () {
-                      _formFidelityAddKey.currentState!.validate();
-                      if (DateTime.parse(_dateTransform(_initDateController.text)!)
-                              .difference(DateTime.parse(_dateTransform(_endDateController.text)!)) >
-                          Duration.zero) {
-                        fidelityController.isInvalid.value = true;
-                        return;
-                      }
-                      fidelityController.isInvalid.value = false;
-                      _firstSaveFidelity(context);
-                    },
-                  ),
-                  FidelityTextButton(
-                    label: 'Voltar',
-                    onPressed: () {
-                      Get.back();
-                    },
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
+                  if (fidelity == null)
+                    Column(
+                      children: [
+                        FidelityButton(
+                          label: 'Próximo',
+                          onPressed: () {
+                            _formFidelityAddKey.currentState!.validate();
+                            if (DateTime.parse(_dateTransform(_initDateController.text)!)
+                                    .difference(DateTime.parse(_dateTransform(_endDateController.text)!)) >
+                                Duration.zero) {
+                              fidelityController.isInvalid.value = true;
+                              return;
+                            }
+                            fidelityController.isInvalid.value = false;
+                            _firstSaveFidelity(context);
+                          },
+                        ),
+                        FidelityTextButton(
+                          label: 'Voltar',
+                          onPressed: () {
+                            Get.back();
+                          },
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                      ],
+                    ),
                 ],
               ),
             ),

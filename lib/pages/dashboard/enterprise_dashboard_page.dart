@@ -76,36 +76,65 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                             SizedBox(
                               height: 20,
                             ),
-                            Row(
-                              children: [
-                                Container(
-                                  width: 160,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20), color: Colors.lightBlueAccent),
-                                  child: Column(
-                                    children: [
-                                      Text("Qtd de clientes",
-                                          textScaleFactor: 2, style: TextStyle(fontSize: 9, color: Colors.white)),
-                                      Text(enterpriseController.dashboard.value.totalClients.toString(),
-                                          textScaleFactor: 2, style: TextStyle(color: Colors.white)),
-                                    ],
+                            Container(
+                              padding: EdgeInsets.all(20),
+                              decoration: BoxDecoration(
+                                border: Border.all(),
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.lightBlueAccent,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.1),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(0, 3), // changes position of shadow
+                                        )
+                                      ],
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Text("Clientes",
+                                            textScaleFactor: 2, style: TextStyle(fontSize: 8, color: Colors.white)),
+                                        Text(enterpriseController.dashboard.value.totalClients.toString(),
+                                            textScaleFactor: 2, style: TextStyle(fontSize: 13, color: Colors.white)),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Spacer(),
-                                Container(
-                                  width: 160,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20), color: Colors.lightBlueAccent),
-                                  child: Column(
-                                    children: [
-                                      Text("Qtd de Fidelidades",
-                                          textScaleFactor: 2, style: TextStyle(fontSize: 9, color: Colors.white)),
-                                      Text(enterpriseController.dashboard.value.totalLoyaltAchieved.toString(),
-                                          textScaleFactor: 2, style: TextStyle(color: Colors.white)),
-                                    ],
-                                  ),
-                                )
-                              ],
+                                  Spacer(),
+                                  Container(
+                                    width: 120,
+                                    decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.lightBlueAccent,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Colors.grey.withOpacity(0.1),
+                                          spreadRadius: 5,
+                                          blurRadius: 7,
+                                          offset: Offset(0, 3), // changes position of shadow
+                                        )
+                                      ],
+                                    ),
+                                    child: Column(
+                                      children: [
+                                        Text("Fidelidades",
+                                            textAlign: TextAlign.center,
+                                            textScaleFactor: 2,
+                                            style: TextStyle(fontSize: 8, color: Colors.white)),
+                                        Text(enterpriseController.dashboard.value.totalLoyaltAchieved.toString(),
+                                            textScaleFactor: 2, style: TextStyle(fontSize: 13, color: Colors.white)),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                             Container(
                               padding: EdgeInsets.only(top: 80),
