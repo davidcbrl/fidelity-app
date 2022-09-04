@@ -94,7 +94,8 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                                   ),
                                   FidelityItemDash(
                                     label: "Total de fidelidades cadastradas",
-                                    description: "São os clientes que completaram a fidelidade e receberam promoção",
+                                    description:
+                                        "Incentive os clientes a participarem das fidelidades para mante-los fidelizados",
                                     valueNumber: enterpriseController.dashboard.value.totalLoyaltAchieved != null
                                         ? enterpriseController.dashboard.value.totalLoyaltAchieved.toString()
                                         : 0.toString(),
