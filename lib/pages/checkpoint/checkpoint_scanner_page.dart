@@ -47,10 +47,7 @@ class _CheckpointScannerBodyState extends State<CheckpointScannerBody> {
             borderRadius: BorderRadius.circular(40),
             child: Stack(
               children: [
-                Expanded(
-                  flex: 5,
-                  child: _buildQrView(context),
-                ),
+                _buildQrView(context),
                 if (result != null) ...[
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
@@ -82,7 +79,6 @@ class _CheckpointScannerBodyState extends State<CheckpointScannerBody> {
   Widget _buildQrView(BuildContext context) {
     var scanArea =
         (MediaQuery.of(context).size.width < 400 || MediaQuery.of(context).size.height < 400) ? 150.0 : 200.0;
-
     return QRView(
       key: qrKey,
       cameraFacing: CameraFacing.back,
@@ -101,6 +97,7 @@ class _CheckpointScannerBodyState extends State<CheckpointScannerBody> {
   void _onQRViewCreated(QRViewController controller) {
     setState(() {
       this.qrController = controller;
+      this.qrController?.resumeCamera();
     });
     controller.scannedDataStream.listen((scanData) {
       setState(() {
@@ -164,6 +161,7 @@ class _CheckpointScannerBodyState extends State<CheckpointScannerBody> {
 
   @override
   void dispose() {
+    print("disposed");
     qrController?.dispose();
     super.dispose();
   }

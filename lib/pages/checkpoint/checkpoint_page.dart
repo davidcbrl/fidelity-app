@@ -48,97 +48,95 @@ class _CheckpointBodyState extends State<CheckpointBody> {
   Widget build(BuildContext context) {
     return Obx(
       () => customerController.loading.value
-      ? FidelityLoading(
-          loading: customerController.loading.value,
-          text: 'Carregando...',
-        )
-      : Container(
-          padding: EdgeInsets.only(top: 15),
-          child: Form(
-            key: _formCodeKey,
-            child: Column(
-              children: [
-                if (authController.user.value.type == 'E') ...[
-                  FidelityTextFieldMasked(
-                    controller: _cpfController,
-                    label: "Verificar por CPF",
-                    placeholder: "000.000.000-00",
-                    icon: Icon(Icons.person_outline),
-                    mask: '###.###.###-##',
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Campo vazio';
-                      }
-                      if (value.isNotEmpty && value.length < 14) {
-                        return 'Digite um CPF valido';
-                      }
-                      return null;
-                    },
-                    onChanged: (value) {
-                      value = value.length > 0 ? value.replaceAll(new RegExp(r'[^0-9]'), '') : value;
-                      if (_formCodeKey.currentState!.validate()) {
-                        getCustomerProgress(value);
-                      }
-                    },
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Expanded(
-                    child: Stack(
-                      children: [
-                        Image.asset(
-                          'assets/img/qr-code.gif',
-                        ),
-                        Positioned(
-                          right: 0,
-                          top: 150,
-                          child: Container(
-                            width: 175,
-                            child: FidelityButton(
-                              label: 'Escanear QR Code do cliente',
-                              labelAlignment: TextAlign.center,
-                              onPressed: () {
-                                Get.toNamed('/checkpoint/scan');
-                              },
+          ? FidelityLoading(
+              loading: customerController.loading.value,
+              text: 'Carregando...',
+            )
+          : Container(
+              padding: EdgeInsets.only(top: 15),
+              child: Form(
+                key: _formCodeKey,
+                child: Column(
+                  children: [
+                    if (authController.user.value.type == 'E') ...[
+                      FidelityTextFieldMasked(
+                        controller: _cpfController,
+                        label: "Verificar por CPF",
+                        placeholder: "000.000.000-00",
+                        icon: Icon(Icons.person_outline),
+                        mask: '###.###.###-##',
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return 'Campo vazio';
+                          }
+                          if (value.isNotEmpty && value.length < 14) {
+                            return 'Digite um CPF valido';
+                          }
+                          return null;
+                        },
+                        onChanged: (value) {
+                          value = value.length > 0 ? value.replaceAll(new RegExp(r'[^0-9]'), '') : value;
+                          if (_formCodeKey.currentState!.validate()) {
+                            getCustomerProgress(value);
+                          }
+                        },
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Stack(
+                        children: [
+                          Image.asset(
+                            'assets/img/qr-code.gif',
+                          ),
+                          Positioned(
+                            right: 0,
+                            top: 150,
+                            child: Container(
+                              width: 175,
+                              child: FidelityButton(
+                                label: 'Escanear QR Code do cliente',
+                                labelAlignment: TextAlign.center,
+                                onPressed: () {
+                                  Get.toNamed('/checkpoint/scan');
+                                },
+                              ),
                             ),
                           ),
+                        ],
+                      ),
+                    ],
+                    if (authController.user.value.type == 'C') ...[
+                      Expanded(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              authController.user.value.customer?.cpf ?? '',
+                              style: Theme.of(context).textTheme.headline1,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Center(
+                              child: QrImage(
+                                data: authController.user.value.customer?.cpf ?? '',
+                                version: QrVersions.isSupportedVersion(3) ? 3 : QrVersions.auto,
+                                size: 250.0,
+                                embeddedImage: AssetImage('assets/img/logo.png'),
+                              ),
+                            ),
+                          ],
                         ),
-                      ],
+                      ),
+                    ],
+                    SizedBox(
+                      height: 40,
                     ),
-                  ),
-                ],
-                if (authController.user.value.type == 'C') ...[
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          authController.user.value.customer?.cpf ?? '',
-                          style: Theme.of(context).textTheme.headline1,
-                        ),
-                        SizedBox(
-                          height: 20,
-                        ),
-                        Center(
-                          child: QrImage(
-                            data: authController.user.value.customer?.cpf ?? '',
-                            version: QrVersions.isSupportedVersion(3) ? 3 : QrVersions.auto,
-                            size: 250.0,
-                            embeddedImage: AssetImage('assets/img/logo.png'),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-                SizedBox(
-                  height: 40,
+                  ],
                 ),
-              ],
+              ),
             ),
-          ),
-        ),
     );
   }
 
