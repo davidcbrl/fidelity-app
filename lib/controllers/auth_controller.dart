@@ -87,9 +87,11 @@ class AuthController extends GetxController with StateMixin {
       box.remove('jwt');
     }
     if (box.hasData('enterpriseId')) {
+      this.user.value.enterprise = null;
       box.remove('enterpriseId');
     }
     if (box.hasData('user')) {
+      this.user.value = User();
       box.remove('user');
     }
     Get.offAllNamed('/auth');

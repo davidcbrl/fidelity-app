@@ -36,7 +36,8 @@ class SettingsBody extends StatelessWidget {
           FidelitySelectItem(
             icon: Icons.list,
             label: 'Perfil' + (authController.user.value.type == 'E' ? ' da Empresa' : ''),
-            description: 'Edite os dados' + (authController.user.value.type == 'E' ? ' da Empresa' : ' do seu cadastro'),
+            description:
+                'Edite os dados' + (authController.user.value.type == 'E' ? ' da Empresa' : ' do seu cadastro'),
             onPressed: () {
               if (authController.user.value.type == 'E') {
                 Get.toNamed('/settings/enterprise_profile');
