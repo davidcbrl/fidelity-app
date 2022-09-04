@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:fidelity/controllers/auth_controller.dart';
 import 'package:fidelity/controllers/enterprise_controller.dart';
 import 'package:fidelity/widgets/fidelity_appbar.dart';
+import 'package:fidelity/widgets/fidelity_item_dash.dart';
 import 'package:fidelity/widgets/fidelity_loading.dart';
 import 'package:fidelity/widgets/fidelity_page.dart';
 import 'package:fidelity/widgets/fidelity_user_header.dart';
@@ -77,76 +78,46 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                               height: 20,
                             ),
                             Container(
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                border: Border.all(),
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              child: Row(
+                              child: Column(
                                 children: [
-                                  Container(
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.lightBlueAccent,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.1),
-                                          spreadRadius: 5,
-                                          blurRadius: 7,
-                                          offset: Offset(0, 3), // changes position of shadow
-                                        )
-                                      ],
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Text("Clientes",
-                                            textScaleFactor: 2, style: TextStyle(fontSize: 8, color: Colors.white)),
-                                        Text(enterpriseController.dashboard.value.totalClients.toString(),
-                                            textScaleFactor: 2, style: TextStyle(fontSize: 13, color: Colors.white)),
-                                      ],
-                                    ),
+                                  FidelityItemDash(
+                                    label: "Total de clientes fidelizados",
+                                    description: "São os clientes que completaram a fidelidade e receberam promoção",
+                                    valueNumber: enterpriseController.dashboard.value.totalClients != null
+                                        ? enterpriseController.dashboard.value.totalClients.toString()
+                                        : 0.toString(),
+                                    icon: Icons.person_outline,
+                                    onPressed: () {},
                                   ),
-                                  Spacer(),
-                                  Container(
-                                    width: 120,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Colors.lightBlueAccent,
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: Colors.grey.withOpacity(0.1),
-                                          spreadRadius: 5,
-                                          blurRadius: 7,
-                                          offset: Offset(0, 3), // changes position of shadow
-                                        )
-                                      ],
-                                    ),
-                                    child: Column(
-                                      children: [
-                                        Text("Fidelidades",
-                                            textAlign: TextAlign.center,
-                                            textScaleFactor: 2,
-                                            style: TextStyle(fontSize: 8, color: Colors.white)),
-                                        Text(enterpriseController.dashboard.value.totalLoyaltAchieved.toString(),
-                                            textScaleFactor: 2, style: TextStyle(fontSize: 13, color: Colors.white)),
-                                      ],
-                                    ),
-                                  )
+                                  SizedBox(
+                                    height: 10,
+                                  ),
+                                  FidelityItemDash(
+                                    label: "Total de fidelidades cadastradas",
+                                    description: "São os clientes que completaram a fidelidade e receberam promoção",
+                                    valueNumber: enterpriseController.dashboard.value.totalLoyaltAchieved != null
+                                        ? enterpriseController.dashboard.value.totalLoyaltAchieved.toString()
+                                        : 0.toString(),
+                                    icon: Icons.star_border,
+                                    onPressed: () {},
+                                  ),
                                 ],
                               ),
                             ),
                             Container(
-                              padding: EdgeInsets.only(top: 80),
+                              padding: EdgeInsets.only(top: 30),
                               child: PieChart(
                                 dataMap: enterpriseController.dashboard.value.convertedList!,
                                 animationDuration: Duration(milliseconds: 800),
                                 chartLegendSpacing: 60,
-                                chartRadius: MediaQuery.of(context).size.width / 3.2,
+                                chartRadius: MediaQuery.of(context).size.width / 2.2,
                                 colorList: colorList,
+                                centerText: "Top 3 fidelidades",
+                                centerTextStyle:
+                                    TextStyle(fontSize: 13, color: Colors.blueAccent, fontWeight: FontWeight.bold),
                                 initialAngleInDegree: 0,
                                 chartType: ChartType.ring,
-                                ringStrokeWidth: 120,
+                                ringStrokeWidth: 25,
                                 legendOptions: LegendOptions(
                                   showLegendsInRow: true,
                                   legendPosition: LegendPosition.bottom,
@@ -158,8 +129,7 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                                 ),
                                 chartValuesOptions: ChartValuesOptions(
                                   showChartValueBackground: false,
-                                  showChartValues: true,
-                                  showChartValuesInPercentage: true,
+                                  showChartValues: false,
                                   showChartValuesOutside: true,
                                   decimalPlaces: 2,
                                 ),
