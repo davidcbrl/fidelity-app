@@ -29,8 +29,8 @@ class FidelityItemDash extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: Colors.lightBlueAccent,
-            border: Border.all(
+            color: Theme.of(context).colorScheme.surface,
+          border: Border.all(
               width: active ? 2 : 4,
               color: Theme.of(context).colorScheme.surface,
             ),

@@ -8,6 +8,7 @@ class FidelityProgressItem extends StatelessWidget {
   final double progress;
   final double target;
   final Function() onPressed;
+  final bool icon;
 
   FidelityProgressItem({
     required this.label,
@@ -16,6 +17,7 @@ class FidelityProgressItem extends StatelessWidget {
     required this.progress,
     required this.target,
     required this.onPressed,
+    this.icon = true,
   });
 
   @override
@@ -115,10 +117,11 @@ class FidelityProgressItem extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Icon(
-                    Icons.chevron_right_outlined,
-                    color: Theme.of(context).colorScheme.tertiary,
-                  ),
+                  if (icon)
+                    Icon(
+                      Icons.chevron_right_outlined,
+                      color: Theme.of(context).colorScheme.tertiary,
+                    ),
                 ],
               ),
             ),

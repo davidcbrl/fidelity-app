@@ -114,8 +114,11 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                                 chartRadius: MediaQuery.of(context).size.width / 2.2,
                                 colorList: colorList,
                                 centerText: "Top 3 fidelidades",
-                                centerTextStyle:
-                                    TextStyle(fontSize: 13, color: Colors.blueAccent, fontWeight: FontWeight.bold),
+                                centerTextStyle: TextStyle(
+                                  fontSize: 13,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  fontWeight: FontWeight.bold,
+                                ),
                                 initialAngleInDegree: 0,
                                 chartType: ChartType.ring,
                                 ringStrokeWidth: 25,

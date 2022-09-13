@@ -89,6 +89,7 @@ class _CustomerDashboardBodyState extends State<CustomerDashboardBody> {
                             progress: progress.score ?? 0.0,
                             target: progress.fidelity!.quantity ?? 0.0,
                             onPressed: () {},
+                            icon: false,
                           );
                         },
                       ),

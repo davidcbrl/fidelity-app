@@ -35,7 +35,7 @@ class _FidelityProductsCashoutBodyState extends State<FidelityProductsCashoutBod
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       listProducts().whenComplete(() {
         fidelityController.loading.value = false;
         if (fidelityController.fidelity.value.id != null) if (fidelityController.fidelity.value.products!.length > 0) {

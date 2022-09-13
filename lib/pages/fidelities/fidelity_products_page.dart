@@ -37,7 +37,7 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
 
   @override
   void initState() {
-    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       listProducts();
       if (fidelityController.fidelity.value.productId != null)
         _selectedItem = fidelityController.fidelity.value.productId!;
