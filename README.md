@@ -39,6 +39,10 @@ flutter packages pub run build_runner build --delete-conflicting-outputs
 - Android Studio versions 2.2 and higher come with a JDK, so this should already be done.
 - Open an elevated console window and run the following command to begin signing licenses 'flutter doctor --android-licenses'
 - If you choose IntelliJ, at the start screen, select File > Settings > Android SDK > Edit Android SDK Location. And install the android SDK and set the folder
- 
+- To create a emulator, with IDE opened: Tools > Android > Device Manager > Create a virtual device choosing the configurations you want with Android higher than API 25
 
+## 3 - Installing the Fidelify project
+- clone the project running 'git clone https://github.com/davidcbrl/fidelity-app.git' in a repo
+- Open IDE > Open project > Select the project
+- Run the project with the emulator opened. 
  
