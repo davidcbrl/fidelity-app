@@ -28,7 +28,7 @@ flutter packages pub run build_runner build --delete-conflicting-outputs
 - If the entry exists, append the full path to flutter\bin using ; as a separator from existing values.
 - If the entry doesn’t exist, create a new user variable named Path with the full path to flutter\bin as its value.
 - You have to close and reopen any existing console windows for these changes to take effect.\n
-- Then run the command 'flutter doctor' to check 
+- Then run the command 'flutter doctor' to check the flutter version and if it's higher than 3.0.5, run 'flutter downgrade' to go to 3.0.5
 
 ## 2 - Installing IDE (Android Studio or IntelliJ)
 
@@ -38,4 +38,7 @@ flutter packages pub run build_runner build --delete-conflicting-outputs
 - Make sure that you have a version of Java 8 installed and that your JAVA_HOME environment variable is set to the JDK’s folder.
 - Android Studio versions 2.2 and higher come with a JDK, so this should already be done.
 - Open an elevated console window and run the following command to begin signing licenses 'flutter doctor --android-licenses'
+- If you choose IntelliJ, at the start screen, select File > Settings > Android SDK > Edit Android SDK Location. And install the android SDK and set the folder
+ 
+
  
