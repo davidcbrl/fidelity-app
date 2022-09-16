@@ -24,12 +24,12 @@ flutter packages pub run build_runner build --delete-conflicting-outputs
 # clone flutter repo in a folder using the command: 
 git clone https://github.com/flutter/flutter.git -b stable
 
-From the Start search bar, enter ‘env’ and select Edit environment variables for your account.\n
-Under User variables check if there is an entry called Path:\n
-If the entry exists, append the full path to flutter\bin using ; as a separator from existing values.\n
-If the entry doesn’t exist, create a new user variable named Path with the full path to flutter\bin as its value.\n
-You have to close and reopen any existing console windows for these changes to take effect.\n
-Then run the command 'flutter doctor' to check 
+- From the Start search bar, enter ‘env’ and select Edit environment variables for your account.
+- Under User variables check if there is an entry called Path:
+- If the entry exists, append the full path to flutter\bin using ; as a separator from existing values.
+- If the entry doesn’t exist, create a new user variable named Path with the full path to flutter\bin as its value.
+- You have to close and reopen any existing console windows for these changes to take effect.\n
+- Then run the command 'flutter doctor' to check 
 
 ##2 - Installing IDE 
 #Android Studio or IntelliJ
