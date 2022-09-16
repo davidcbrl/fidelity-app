@@ -44,5 +44,6 @@ flutter packages pub run build_runner build --delete-conflicting-outputs
 ## 3 - Installing the Fidelify project
 - clone the project running 'git clone https://github.com/davidcbrl/fidelity-app.git' in a repo
 - Open IDE > Open project > Select the project
+- Run the command 'flutter pub get' to get the dependencies of project
 - Run the project with the emulator opened. 
  
