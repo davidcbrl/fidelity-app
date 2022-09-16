@@ -20,7 +20,7 @@ samples, guidance on mobile development, and a full API reference.
 flutter packages pub run build_runner build --delete-conflicting-outputs
 
 
-##1 - Installing Flutter
+## 1 - Installing Flutter
 
 - git clone https://github.com/flutter/flutter.git -b stable
 - From the Start search bar, enter ‘env’ and select Edit environment variables for your account.
@@ -30,8 +30,12 @@ flutter packages pub run build_runner build --delete-conflicting-outputs
 - You have to close and reopen any existing console windows for these changes to take effect.\n
 - Then run the command 'flutter doctor' to check 
 
-##2 - Installing IDE (Android Studio or IntelliJ)
+## 2 - Installing IDE (Android Studio or IntelliJ)
 
 - Download and install Android Studio.
 - Start Android Studio, and go through the ‘Android Studio Setup Wizard’. This installs the latest Android SDK, Android SDK Command-line Tools, and Android SDK Build-Tools, which are required by Flutter when developing for Android.
 - Run flutter doctor to confirm that Flutter has located your installation of Android Studio. If Flutter cannot locate it, run flutter config --android-studio-dir <directory> to set the directory that Android Studio is installed to.
+- Make sure that you have a version of Java 8 installed and that your JAVA_HOME environment variable is set to the JDK’s folder.
+- Android Studio versions 2.2 and higher come with a JDK, so this should already be done.
+- Open an elevated console window and run the following command to begin signing licenses 'flutter doctor --android-licenses'
+ 
