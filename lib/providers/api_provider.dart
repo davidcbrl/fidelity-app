@@ -9,7 +9,7 @@ class ApiProvider {
     try {
       Response response = await DioProvider(baseUrl: baseUrl).get(path);
       return response.data;
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       print(error.response);
       var errorMessage = error.response?.data['Message'] != null ? error.response?.data['Message'] : error.error;
       return throw RequestException(
@@ -28,7 +28,7 @@ class ApiProvider {
     try {
       Response response = await DioProvider(baseUrl: baseUrl).put(path, data);
       return response.data;
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       print(error.response);
       return throw RequestException(
         message: 'Request error',
@@ -44,7 +44,7 @@ class ApiProvider {
     try {
       Response response = await DioProvider(baseUrl: baseUrl).post(path, data);
       return response.data;
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       print(error.response);
       return throw RequestException(
         message: 'Request error',
@@ -60,7 +60,7 @@ class ApiProvider {
     try {
       Response response = await DioProvider(baseUrl: baseUrl).delete(path);
       return response;
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       print(error.response);
       return throw RequestException(
         message: 'Request error',

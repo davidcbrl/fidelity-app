@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class FidelityImagePicker extends StatelessWidget {
-  var image;
+  final dynamic image;
   final String label;
   final String emptyImagePath;
   final Function() onSelect;
@@ -21,7 +21,7 @@ class FidelityImagePicker extends StatelessWidget {
       height: size != null ? size! + (size! * 0.25) : null,
       padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(30),
         border: Border.all(
           width: 2,
@@ -58,7 +58,7 @@ class FidelityImagePicker extends StatelessWidget {
                 ),
                 Text(
                   label,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ],
             ),

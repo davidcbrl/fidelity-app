@@ -50,7 +50,7 @@ class _SecondStepBodyState extends State<SecondStepBody> {
                 ),
                 Text(
                   'Agora, informe seu e-mail e uma senha, serão os dados utilizados para acessar o app',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.labelMedium,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(

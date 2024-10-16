@@ -54,8 +54,8 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
 
   @override
   void initState() {
-    if (customerController.customerProgress.value.length > 0) {
-      customerController.customerProgress.value.forEach((Checkpoint progress) {
+    if (customerController.customerProgress.length > 0) {
+      customerController.customerProgress.forEach((Checkpoint progress) {
         if (progress.fidelity != null) {
           progress.customerId = customerController.customer.value.id;
           _selectedForCheckpoint.add(progress);
@@ -96,7 +96,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                     ),
                     Text(
                       'Fidelidades disponíveis',
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.labelMedium,
                       textAlign: TextAlign.center,
                     ),
                     SizedBox(
@@ -224,12 +224,12 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
           ? Text(
               'Fidelidades selecionadas para checkpoint: ${_selectedForCheckpoint.length}',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.button,
+              style: Theme.of(context).textTheme.displayMedium,
             )
           : Text(
               'Selecione as fidelidades que deseja atualizar o progresso do cliente',
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
         ),
       ),
@@ -245,7 +245,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
         return Container(
           height: Get.height - Get.height * 0.5,
           padding: EdgeInsets.symmetric(horizontal: 20),
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           child: Column(
             children: [
               SizedBox(
@@ -254,7 +254,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
               if (_selectedForCheckpoint.length > 0) ...[
                 Text(
                   'Fidelidades selecionadas para checkpoint: ${_selectedForCheckpoint.length}',
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.titleMedium,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
@@ -262,7 +262,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
                 ),
                 Text(
                   'Clique sobre cada fidelidade para editar o progresso individualmente',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.labelMedium,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
@@ -353,7 +353,7 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
     await checkpointController.saveCheckpoint();
     if (checkpointController.status.isSuccess) {
       checkpointController.loading.value = false;
-      List<Checkpoint> completed = checkpointController.checkpoints.value.where(
+      List<Checkpoint> completed = checkpointController.checkpoints.where(
         (check) => check.completed ?? false,
       ).toList();
       if (completed.length > 0) {
@@ -387,11 +387,11 @@ class _CustomerFidelitiesBodyState extends State<CustomerFidelitiesBody> {
       builder: (_) => AlertDialog(
         title: Text(
           'Produtos',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           checkpointController.status.errorMessage ?? 'Erro ao realizar checkpoint',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

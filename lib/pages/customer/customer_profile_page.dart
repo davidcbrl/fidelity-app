@@ -74,7 +74,7 @@ class _CustomerProfileBodyState extends State<CustomerProfileBody> {
           Center(
             child: Text(
               'Edite os dados do seu cadastro',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
           ),
           SizedBox(
@@ -183,7 +183,7 @@ class _CustomerProfileBodyState extends State<CustomerProfileBody> {
               ),
               Text(
                 'Redefinir senha?',
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.labelMedium,
               ),
               SizedBox(
                 height: 20,
@@ -248,11 +248,11 @@ class _CustomerProfileBodyState extends State<CustomerProfileBody> {
       builder: (_) => AlertDialog(
         title: Text(
           'Perfil',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           authController.status.errorMessage ?? 'Erro ao salvar perfil',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

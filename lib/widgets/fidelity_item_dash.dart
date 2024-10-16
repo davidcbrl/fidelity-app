@@ -53,7 +53,7 @@ class FidelityItemDash extends StatelessWidget {
                       if (id != null) ...[
                         Text(
                           id.toString(),
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.labelMedium,
                         ),
                         SizedBox(
                           width: 20,

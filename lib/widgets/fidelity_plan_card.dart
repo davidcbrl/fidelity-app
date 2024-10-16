@@ -41,21 +41,21 @@ class _FidelityPlanCardState extends State<FidelityPlanCard> {
               children: [
                 Text(
                   widget.title,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Row(
                   children: [
                     Text(
                       'R\$',
-                      style: Theme.of(context).textTheme.headline1,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(
                       widget.value,
-                      style: Theme.of(context).textTheme.headline1,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                     Text(
                       '/mes',
-                      style: Theme.of(context).textTheme.headline1,
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
                   ],
                 ),
@@ -66,7 +66,7 @@ class _FidelityPlanCardState extends State<FidelityPlanCard> {
             ),
             Text(
               widget.description,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
             SizedBox(
               height: 20,

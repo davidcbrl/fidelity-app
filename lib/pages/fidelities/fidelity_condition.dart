@@ -22,10 +22,11 @@ class FidelityConditionPage extends StatelessWidget {
 }
 
 class FidelityConditionBody extends StatelessWidget {
+  final TextEditingController _quantityController = new TextEditingController();
+  final GlobalKey<FormState> _formFidelityConditionKey = new GlobalKey<FormState>();
+  final FidelityController fidelityController = Get.find();
+
   FidelityConditionBody({Key? key}) : super(key: key);
-  TextEditingController _quantityController = new TextEditingController();
-  GlobalKey<FormState> _formFidelityConditionKey = new GlobalKey<FormState>();
-  FidelityController fidelityController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +47,7 @@ class FidelityConditionBody extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: Text(
                       'Informe qual será a condição para que o cliente complete a fidelidade e conquiste a promoção',
-                      style: Theme.of(context).textTheme.bodyText1,
+                      style: Theme.of(context).textTheme.labelMedium,
                       textAlign: TextAlign.center,
                     ),
                   ),

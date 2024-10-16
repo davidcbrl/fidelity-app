@@ -124,12 +124,12 @@ class _CustomerDashboardBodyState extends State<CustomerDashboardBody> {
                 Text(
                   'Esta é sua dashboard',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.headline1,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 Text(
                   'Aqui você acompanha o progresso de suas fidelidades e muito mais!',
                   textAlign: TextAlign.center,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ],
             ),

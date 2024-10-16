@@ -23,8 +23,9 @@ class FidelityConditionTypePage extends StatelessWidget {
 }
 
 class FidelityConditionTypeBody extends StatelessWidget {
+  final FidelityController fidelityController = Get.find();
+  
   FidelityConditionTypeBody({Key? key}) : super(key: key);
-  FidelityController fidelityController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +39,7 @@ class FidelityConditionTypeBody extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Text(
               'É a forma como o progresso do cliente será contabilizado para alcançar a promoção',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.labelMedium,
               textAlign: TextAlign.center,
             ),
           ),

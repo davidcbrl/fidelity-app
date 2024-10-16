@@ -1,39 +1,41 @@
 name: fidelity
-description: Our tcc project
+description: A new Flutter project.
 
 publish_to: 'none'
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.19.0 <3.24.2"
 
 dependencies:
   flutter:
     sdk: flutter
-  get: 4.0.0
-  dio: any
-  date_field: any
-  get_storage: any
-  intl: any
-  cupertino_icons: ^1.0.2
-  mask_text_input_formatter: ^2.0.0
-  lazy_load_scrollview: any
-  platform: ^3.1.0
-  image_picker: any
-  percent_indicator: ^3.4.0
+
+  get: ^4.6.6
+  get_storage: ^2.1.1
+  dio: ^5.7.0
+  intl: ^0.19.0
+  platform: ^3.1.5
+  cupertino_icons: ^1.0.8
+  flutter_native_splash: ^2.4.1
+  flutter_launcher_icons: ^0.14.1
+  date_field: ^5.3.0
+  email_validator: ^3.0.0
+  mask_text_input_formatter: ^2.9.0
+  lazy_load_scrollview: ^1.3.0
+  image_picker: ^1.0.0
+  percent_indicator: ^4.2.3
+  pie_chart: ^5.4.0
+  onesignal_flutter: ^5.2.6
+  qr_flutter: ^4.1.0
   qr_code_scanner: ^1.0.0
-  flutter_native_splash: any
-  flutter_launcher_icons: any
-  qr_flutter: ^4.0.0
-  onesignal_flutter: ^3.0.0
-  pie_chart: ^5.3.2
-  email_validator: ^2.1.17
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: any
+
+  flutter_lints: ^3.0.1
 
 flutter:
 
@@ -48,11 +50,20 @@ flutter:
   uses-material-design: true
 
 flutter_native_splash:
-  color: "#FFFFFF"
-  color_dark: "#282828"
-  image: assets/img/logo-text.png
-
-flutter_icons:
-  android: "launcher_icon"
+  color: "#002E83"
+  image: "assets/img/logo-white-transparent.png"
+  android: true
   ios: true
-  image_path: "assets/img/logo-icon.png"
+  web: false
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: "assets/img/icon-white-transparent.png"
+  adaptive_icon_background: "#002E83"
+  adaptive_icon_foreground: "assets/img/icon-white-transparent.png"
+  web:
+    generate: true
+    image_path: "assets/img/icon-white-transparent.png"
+    background_color: "#002E83"

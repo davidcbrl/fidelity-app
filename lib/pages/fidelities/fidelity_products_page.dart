@@ -68,7 +68,7 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     'Informe qual produto será a considerado como a promoção do cliente',
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.labelMedium,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -186,11 +186,11 @@ class _FidelityProductsBodyState extends State<FidelityProductsBody> {
       builder: (_) => AlertDialog(
         title: Text(
           'Produtos',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           productController.status.errorMessage ?? 'Erro ao listar produtos',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

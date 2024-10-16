@@ -65,7 +65,7 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
                 ),
                 Text(
                   'Quase lá... Escolha um de nossos planos, cada plano possui recursos diferentes, portanto, escolha o plano que for a cara do seu negócio!',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.labelMedium,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
@@ -163,11 +163,11 @@ class _ThirdStepBodyState extends State<ThirdStepBody> {
       builder: (_) => AlertDialog(
         title: Text(
           'Cadastrar-se como empresa',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           enterpriseController.status.errorMessage ?? 'Erro ao cadastrar',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

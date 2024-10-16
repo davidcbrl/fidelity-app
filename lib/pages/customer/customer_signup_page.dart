@@ -24,12 +24,12 @@ class CustomerSignupPage extends StatelessWidget {
 }
 
 class CustomerSignupBody extends StatelessWidget {
-  CustomerController customerController = Get.put(CustomerController());
-  TextEditingController _cpfController = new TextEditingController();
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _passwordController = new TextEditingController();
-  TextEditingController _confirmPasswordController = new TextEditingController();
-  TextEditingController _emailController = new TextEditingController();
+  final CustomerController customerController = Get.put(CustomerController());
+  final TextEditingController _cpfController = new TextEditingController();
+  final TextEditingController _nameController = new TextEditingController();
+  final TextEditingController _passwordController = new TextEditingController();
+  final TextEditingController _confirmPasswordController = new TextEditingController();
+  final TextEditingController _emailController = new TextEditingController();
   final _formCustomerSignupKey = GlobalKey<FormState>();
 
   @override
@@ -48,7 +48,7 @@ class CustomerSignupBody extends StatelessWidget {
                 Center(
                   child: Text(
                     'Insira seus dados para criar uma conta',
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ),
                 SizedBox(
@@ -209,11 +209,11 @@ class CustomerSignupBody extends StatelessWidget {
         builder: (_) => AlertDialog(
           title: Text(
             'Cadastrar-se como cliente',
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           content: Text(
             customerController.status.errorMessage ?? 'Erro ao cadastrar',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           actions: [
             Padding(

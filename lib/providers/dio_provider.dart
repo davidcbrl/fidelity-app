@@ -10,8 +10,8 @@ class DioProvider {
   DioProvider({required String baseUrl}) {
     _dio.options = BaseOptions(
       baseUrl: baseUrl,
-      connectTimeout: 10000,
-      receiveTimeout: 10000,
+      connectTimeout: const Duration(seconds: 10),
+      receiveTimeout: const Duration(seconds: 10),
     );
     _setupInterceptor();
   }
@@ -50,7 +50,7 @@ class DioProvider {
     }, onResponse: (response, handler) {
       print('RESPONSE[${response.statusCode}]');
       return handler.next(response);
-    }, onError: (DioError error, handler) {
+    }, onError: (DioException error, handler) {
       print('ERROR\n[\n$error]');
       return handler.next(error);
     }));

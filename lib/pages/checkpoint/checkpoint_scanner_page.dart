@@ -137,11 +137,11 @@ class _CheckpointScannerBodyState extends State<CheckpointScannerBody> {
       builder: (_) => AlertDialog(
         title: Text(
           'Checkpoint',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           customerController.status.errorMessage ?? 'Erro ao buscar progresso do cliente',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

@@ -21,16 +21,16 @@ class FidelityTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
-      style: Theme.of(context).textTheme.bodyText1,
+      style: Theme.of(context).textTheme.labelMedium,
       obscureText: hideText,
       onChanged: onChanged,
       decoration: InputDecoration(
         contentPadding: EdgeInsets.only(left: 20),
         labelText: label,
         hintText: placeholder,
-        hintStyle: Theme.of(context).textTheme.bodyText2,
+        hintStyle: Theme.of(context).textTheme.bodyMedium,
         filled: true,
-        fillColor: Theme.of(context).colorScheme.background,
+        fillColor: Theme.of(context).colorScheme.surface,
         suffixIcon: Padding(
           padding: const EdgeInsets.only(right: 10),
           child: icon,

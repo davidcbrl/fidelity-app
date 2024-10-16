@@ -130,11 +130,11 @@ class _CategoryPageBodyState extends State<CategoryPageBody> {
       builder: (_) => AlertDialog(
         title: Text(
           'Categorias',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           categoryController.status.errorMessage ?? 'Erro ao salvar categoria',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

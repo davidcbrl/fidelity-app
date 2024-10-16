@@ -66,7 +66,7 @@ class _FidelityProductsCashoutBodyState extends State<FidelityProductsCashoutBod
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: Text(
                     'Selecione os produtos que desejar vincular à esta fidelidade ou crie um novo produto',
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.labelMedium,
                     textAlign: TextAlign.center,
                   ),
                 ),
@@ -169,11 +169,11 @@ class _FidelityProductsCashoutBodyState extends State<FidelityProductsCashoutBod
       builder: (_) => AlertDialog(
         title: Text(
           'Produtos',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           productController.status.errorMessage ?? 'Erro ao listar produtos',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(
@@ -210,11 +210,11 @@ class _FidelityProductsCashoutBodyState extends State<FidelityProductsCashoutBod
       builder: (_) => AlertDialog(
         title: Text(
           'Fidelidades',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           fidelityController.status.errorMessage ?? 'Erro ao salvar fidelidade',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

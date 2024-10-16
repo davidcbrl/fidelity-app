@@ -30,11 +30,11 @@ class FidelityUserHeader extends StatelessWidget {
           children: [
             Text(
               name,
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
             Text(
               description,
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),

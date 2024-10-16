@@ -20,9 +20,9 @@ class FidelityPromotionPage extends StatelessWidget {
 }
 
 class FidelityPromotionBody extends StatelessWidget {
-  FidelityController fidelityController = Get.find();
-  GlobalKey<FormState> formKey = new GlobalKey<FormState>();
-  TextEditingController promotionController = new TextEditingController();
+  final FidelityController fidelityController = Get.find();
+  final GlobalKey<FormState> formKey = new GlobalKey<FormState>();
+  final TextEditingController promotionController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +35,7 @@ class FidelityPromotionBody extends StatelessWidget {
         ),
         Text(
           'Informe qual será a promoção do cliente',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         SizedBox(
           height: 20,

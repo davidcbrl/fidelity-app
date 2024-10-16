@@ -45,7 +45,7 @@ class FidelityProgressItem extends StatelessWidget {
                             width: Get.width - Get.width * 0.4,
                             child: Text(
                               label,
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.labelMedium,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -62,7 +62,7 @@ class FidelityProgressItem extends StatelessWidget {
                                     description,
                                     maxLines: 5,
                                     overflow: TextOverflow.ellipsis,
-                                    style: Theme.of(context).textTheme.bodyText2,
+                                    style: Theme.of(context).textTheme.bodyMedium,
                                   ),
                                 ),
                               ],
@@ -77,7 +77,7 @@ class FidelityProgressItem extends StatelessWidget {
                               children: [
                                 Text(
                                   '${progress.toInt()}/${target.toInt()}',
-                                  style: Theme.of(context).textTheme.bodyText1,
+                                  style: Theme.of(context).textTheme.labelMedium,
                                 ),
                                 SizedBox(
                                   width: 5,

@@ -67,7 +67,7 @@ class ProductController extends GetxController with StateMixin {
         productsList.value = list.map((e) => Product.fromJson(e)).toList();
       }
       if (page.value > 1 && list.length > 0) {
-        productsList.value.addAll(list.map((e) => Product.fromJson(e)).toList());
+        productsList.addAll(list.map((e) => Product.fromJson(e)).toList());
       }
       change([], status: RxStatus.success());
       loading.value = false;

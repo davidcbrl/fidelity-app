@@ -12,8 +12,9 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class FidelityAddPage extends StatelessWidget {
+  final Fidelity? fidelity;
+
   FidelityAddPage(this.fidelity, {Key? key}) : super(key: key);
-  Fidelity? fidelity;
 
   @override
   Widget build(BuildContext context) {
@@ -31,14 +32,15 @@ class FidelityAddPage extends StatelessWidget {
 }
 
 class FidelityAddBody extends StatelessWidget {
+  final Fidelity? fidelity;
+  final FidelityController fidelityController = Get.find<FidelityController>();
+  final GlobalKey<FormState> _formFidelityAddKey = new GlobalKey<FormState>();
+  final TextEditingController _nameController = new TextEditingController();
+  final TextEditingController _descriptionController = new TextEditingController();
+  final TextEditingController _initDateController = new TextEditingController();
+  final TextEditingController _endDateController = new TextEditingController();
+
   FidelityAddBody({this.fidelity, Key? key}) : super(key: key);
-  Fidelity? fidelity;
-  FidelityController fidelityController = Get.find<FidelityController>();
-  GlobalKey<FormState> _formFidelityAddKey = new GlobalKey<FormState>();
-  TextEditingController _nameController = new TextEditingController();
-  TextEditingController _descriptionController = new TextEditingController();
-  TextEditingController _initDateController = new TextEditingController();
-  TextEditingController _endDateController = new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +131,7 @@ class FidelityAddBody extends StatelessWidget {
                             ),
                             Text(
                               'Periodo de vigência',
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.labelMedium,
                             ),
                             SizedBox(
                               height: 10,
@@ -175,7 +177,7 @@ class FidelityAddBody extends StatelessWidget {
                                 ? Center(
                                     child: Text(
                                       "A data final deve ser maior que a inicial",
-                                      style: TextStyle(color: Theme.of(context).errorColor),
+                                      style: TextStyle(color: Theme.of(context).colorScheme.error),
                                     ),
                                   )
                                 : Container()),
@@ -189,7 +191,7 @@ class FidelityAddBody extends StatelessWidget {
                                       children: [
                                         Text(
                                           "Fidelizacao",
-                                          style: Theme.of(context).textTheme.bodyText1,
+                                          style: Theme.of(context).textTheme.labelMedium,
                                         ),
                                         SizedBox(
                                           height: 5,
@@ -213,7 +215,7 @@ class FidelityAddBody extends StatelessWidget {
                                     children: [
                                       Text(
                                         "Promocao",
-                                        style: Theme.of(context).textTheme.bodyText1,
+                                        style: Theme.of(context).textTheme.labelMedium,
                                       ),
                                       SizedBox(
                                         height: 5,
@@ -239,7 +241,7 @@ class FidelityAddBody extends StatelessWidget {
                                       children: [
                                         Text(
                                           "Produtos Vinculados",
-                                          style: Theme.of(context).textTheme.bodyText1,
+                                          style: Theme.of(context).textTheme.labelMedium,
                                         ),
                                         SizedBox(
                                           height: 10,

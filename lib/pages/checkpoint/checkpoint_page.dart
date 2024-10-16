@@ -9,7 +9,7 @@ import 'package:fidelity/widgets/fidelity_text_field_masked.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+// import 'package:qr_flutter/qr_flutter.dart';
 
 class CheckpointPage extends StatelessWidget {
   @override
@@ -113,19 +113,19 @@ class _CheckpointBodyState extends State<CheckpointBody> {
                           children: [
                             Text(
                               authController.user.value.customer?.cpf ?? '',
-                              style: Theme.of(context).textTheme.headline1,
+                              style: Theme.of(context).textTheme.titleLarge,
                             ),
                             SizedBox(
                               height: 20,
                             ),
-                            Center(
-                              child: QrImage(
-                                data: authController.user.value.customer?.cpf ?? '',
-                                version: QrVersions.isSupportedVersion(3) ? 3 : QrVersions.auto,
-                                size: 250.0,
-                                embeddedImage: AssetImage('assets/img/logo.png'),
-                              ),
-                            ),
+                            // Center(
+                            //   child: QrImage(
+                            //     data: authController.user.value.customer?.cpf ?? '',
+                            //     version: QrVersions.isSupportedVersion(3) ? 3 : QrVersions.auto,
+                            //     size: 250.0,
+                            //     embeddedImage: AssetImage('assets/img/logo.png'),
+                            //   ),
+                            // ),
                           ],
                         ),
                       ),
@@ -163,11 +163,11 @@ class _CheckpointBodyState extends State<CheckpointBody> {
       builder: (_) => AlertDialog(
         title: Text(
           'Checkpoint',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           customerController.status.errorMessage ?? 'Erro ao buscar progresso do cliente',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

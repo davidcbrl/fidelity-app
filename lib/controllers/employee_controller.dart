@@ -69,7 +69,7 @@ class EmployeeController extends GetxController with StateMixin {
         employeesList.value = list.map((e) => User.fromJson(e)).toList();
       }
       if (page.value > 1 && list.length > 0) {
-        employeesList.value.addAll(list.map((e) => User.fromJson(e)).toList());
+        employeesList.addAll(list.map((e) => User.fromJson(e)).toList());
       }
       change([], status: RxStatus.success());
       loading.value = false;

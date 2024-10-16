@@ -20,9 +20,9 @@ class FidelityPromotionTypePage extends StatelessWidget {
 }
 
 class FidelityPromotionTypeBody extends StatelessWidget {
-  FidelityController fidelityController = Get.find();
+  final FidelityController fidelityController = Get.find();
 
-  List<FidelityPromotion> promotions = [
+  final List<FidelityPromotion> promotions = [
     FidelityPromotion(
       id: 1,
       name: 'Cupom de desconto',
@@ -46,7 +46,7 @@ class FidelityPromotionTypeBody extends StatelessWidget {
         ),
         Text(
           'É a forma como o cliente receberá a promoção',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         SizedBox(
           height: 20,

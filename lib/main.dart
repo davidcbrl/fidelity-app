@@ -1,13 +1,18 @@
 import 'package:fidelity/controllers/route_controller.dart';
 import 'package:fidelity/routes/routes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async {
+  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
   await GetStorage.init();
-  await oneSignalSetup();
+  await OneSignal.Debug.setLogLevel(OSLogLevel.verbose);
+  OneSignal.initialize('f5fb5ded-0185-4984-8024-53f233218894');
+  await OneSignal.Notifications.requestPermission(true);
   runApp(MyApp());
 }
 
@@ -16,48 +21,43 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future.delayed(const Duration(seconds: 2), () => FlutterNativeSplash.remove());
     return GetMaterialApp(
       title: 'Fidelify',
       theme: ThemeData(
         fontFamily: 'Manrope',
-        colorScheme: ColorScheme(
+        colorScheme: const ColorScheme.light(
           primary: Color(0xFF2167E8),
-          onPrimary: Color(0xFF2167E8),
+          primaryContainer: Color(0xFF2167E8),
           secondary: Color(0xFF23D09A),
-          onSecondary: Color(0xFF23D09A),
+          secondaryContainer: Color(0xFF23D09A),
           tertiary: Color(0xFF828282),
-          onTertiary: Color(0xFF828282),
           tertiaryContainer: Color(0xFFBDBDBD),
+          surface: Color(0xFFFFFFFF),
           error: Color(0xFFEB5757),
-          onError: Color(0xFFEB5757),
-          background: Color(0xFFFFFFFF),
-          onBackground: Color(0xFFFFFFFF),
-          surface: Color(0xFFF5F5F5),
-          onSurface: Color(0xFFF5F5F5),
-          brightness: Brightness.light,
         ),
         textTheme: TextTheme(
-          headline1: TextStyle(
+          titleLarge: TextStyle(
             color: Color(0xFF2167E8),
             fontSize: 20,
             fontWeight: FontWeight.bold,
           ),
-          headline2: TextStyle(
+          titleMedium: TextStyle(
             color: Color(0xFF2167E8),
             fontSize: 14,
             fontWeight: FontWeight.bold,
           ),
-          bodyText1: TextStyle(
+          labelMedium: TextStyle(
             color: Color(0xFF828282),
             fontSize: 14,
             fontWeight: FontWeight.bold,
           ),
-          bodyText2: TextStyle(
+          bodyMedium: TextStyle(
             color: Color(0xFF828282),
             fontSize: 14,
             fontWeight: FontWeight.normal,
           ),
-          button: TextStyle(
+          displayMedium: TextStyle(
             color: Color(0xFFFFFFFF),
             fontSize: 14,
             fontWeight: FontWeight.bold,
@@ -69,9 +69,4 @@ class MyApp extends StatelessWidget {
       getPages: getRoutes(),
     );
   }
-}
-
-Future<void> oneSignalSetup() async {
-  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
-  OneSignal.shared.setAppId('f5fb5ded-0185-4984-8024-53f233218894');
 }

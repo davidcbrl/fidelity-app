@@ -9,7 +9,7 @@ class OneSignalProvider {
     try {
       Response response = await DioProvider(baseUrl: baseUrl).post(path, data);
       return response.data;
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       print(error.response);
       return throw RequestException(
         message: 'Request error',

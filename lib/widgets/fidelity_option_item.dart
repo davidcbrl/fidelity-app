@@ -16,7 +16,7 @@ class FidelityOptionItem extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         borderRadius: BorderRadius.circular(30),
         border: Border.all(
           width: 2,
@@ -33,7 +33,7 @@ class FidelityOptionItem extends StatelessWidget {
                 if (selectedLabel != null) ...[
                   Text(
                     label,
-                    style: Theme.of(context).textTheme.bodyText2,
+                    style: Theme.of(context).textTheme.bodyMedium,
                   ),
                   SizedBox(
                     height: 5,
@@ -41,7 +41,7 @@ class FidelityOptionItem extends StatelessWidget {
                 ],
                 Text(
                   selectedLabel ?? label,
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.labelMedium,
                 ),
               ],
             ),

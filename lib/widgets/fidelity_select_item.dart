@@ -27,7 +27,7 @@ class FidelitySelectItem extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: active ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.background,
+            color: active ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.surface,
             border: Border.all(
               width: active ? 2 : 4,
               color: Theme.of(context).colorScheme.surface,
@@ -51,7 +51,7 @@ class FidelitySelectItem extends StatelessWidget {
                       if (id != null) ...[
                         Text(
                           id.toString(),
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.labelMedium,
                         ),
                         SizedBox(
                           width: 20,
@@ -76,7 +76,7 @@ class FidelitySelectItem extends StatelessWidget {
                                 width: Get.width - Get.width * 0.6,
                                 child: Text(
                                   '${active ? "" : "(inativo) "}' + label,
-                                  style: Theme.of(context).textTheme.bodyText1,
+                                  style: Theme.of(context).textTheme.labelMedium,
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
@@ -96,7 +96,7 @@ class FidelitySelectItem extends StatelessWidget {
                                       description ?? '',
                                       maxLines: 5,
                                       overflow: TextOverflow.ellipsis,
-                                      style: Theme.of(context).textTheme.bodyText2,
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                     ),
                                   ),
                                 ],

@@ -169,7 +169,7 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                   Text(
                     'Esta é sua dashboard',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.headline1,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   SizedBox(
                     height: 20,
@@ -177,7 +177,7 @@ class _EnterpriseDashboardBodyState extends State<EnterpriseDashboardBody> {
                   Text(
                     'Aqui serão exibidas estatísticas sobre produtos, fidelidades e checkpoints para auxiliar o seu negócio!',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ],
               ),

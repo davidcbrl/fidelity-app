@@ -31,7 +31,7 @@ class FidelitySuccess extends StatelessWidget {
         Text(
           title,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         SizedBox(
           height: 20,
@@ -39,7 +39,7 @@ class FidelitySuccess extends StatelessWidget {
         Text(
           description,
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         SizedBox(
           height: 20,

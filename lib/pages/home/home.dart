@@ -135,7 +135,7 @@ class _HomePageState extends State<HomePage> {
         ),
         bottomBar: Obx(
           () => BottomNavigationBar(
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             elevation: 10,
             currentIndex: routeController.pageIndex.value,
             type: BottomNavigationBarType.fixed,
@@ -163,7 +163,7 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
                 padding: const EdgeInsets.only(right: 10),
                 child: Drawer(
-                  backgroundColor: Theme.of(context).colorScheme.background,
+                  backgroundColor: Theme.of(context).colorScheme.surface,
                   elevation: 10,
                   child: Column(
                     children: [
@@ -171,7 +171,8 @@ class _HomePageState extends State<HomePage> {
                         child: Padding(
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           child: Image.asset(
-                            'assets/img/logo-text.png',
+                            'assets/img/logo-blue-transparent.png',
+                            height: 40,
                           ),
                         ),
                       ),
@@ -195,7 +196,7 @@ class _HomePageState extends State<HomePage> {
                               ),
                               title: Text(
                                 item.label,
-                                style: routeController.pageIndex.value == index ? Theme.of(context).textTheme.headline2 : Theme.of(context).textTheme.bodyText1,
+                                style: routeController.pageIndex.value == index ? Theme.of(context).textTheme.titleMedium : Theme.of(context).textTheme.labelMedium,
                               ),
                               onTap: () {
                                 routeController.pageIndex.value = index;
@@ -234,11 +235,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   void _oneSignalSubscription() {
-    OneSignal.shared.setExternalUserId(
+    OneSignal.login(
       authController.user.value.customer!.cpf.toString(),
-    ).then((results) {
-      print('External id result: ${results.toString()}');
-    }).catchError((error) {
+    ).catchError((error) {
       print('External id error: ${error.toString()}');
     });
   }
@@ -249,11 +248,11 @@ class _HomePageState extends State<HomePage> {
       builder: (_) => AlertDialog(
         title: Text(
           'Sair',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           'Tem certeza que deseja sair?',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

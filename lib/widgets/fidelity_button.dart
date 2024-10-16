@@ -20,10 +20,10 @@ class FidelityButton extends StatelessWidget {
       height: 40,
       child: ElevatedButton(
         style: ButtonStyle(
-          backgroundColor: MaterialStateProperty.all<Color>(
+          backgroundColor: WidgetStateProperty.all<Color>(
             Theme.of(context).colorScheme.primary,
           ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          shape: WidgetStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -32,7 +32,7 @@ class FidelityButton extends StatelessWidget {
         onPressed: onPressed,
         child: Text(
           label,
-          style: Theme.of(context).textTheme.button,
+          style: Theme.of(context).textTheme.displayMedium,
           textAlign: labelAlignment ?? TextAlign.start,
         ),
       ),

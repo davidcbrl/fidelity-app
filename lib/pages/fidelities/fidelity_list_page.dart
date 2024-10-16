@@ -27,10 +27,11 @@ class FidelityListPage extends StatelessWidget {
 }
 
 class FidelityListBody extends StatelessWidget {
-  FidelityController fidelityController = Get.put(FidelityController());
-  TextEditingController _textEditingController = new TextEditingController();
+  final FidelityController fidelityController = Get.put(FidelityController());
+  final TextEditingController _textEditingController = new TextEditingController();
+  final ScrollController scrollController = new ScrollController();
+
   FidelityListBody({Key? key}) : super(key: key);
-  ScrollController scrollController = new ScrollController();
 
   @override
   Widget build(BuildContext context) {

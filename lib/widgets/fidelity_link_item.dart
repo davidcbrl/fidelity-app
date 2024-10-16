@@ -25,7 +25,7 @@ class FidelityLinkItem extends StatelessWidget {
         Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(20),
-            color: active ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.background,
+            color: active ? Theme.of(context).colorScheme.surface : Theme.of(context).colorScheme.surface,
             border: Border.all(
               width: active ? 2 : 4,
               color: selected ? Theme.of(context).colorScheme.primary : Theme.of(context).colorScheme.surface,
@@ -43,7 +43,7 @@ class FidelityLinkItem extends StatelessWidget {
                       if (id != null) ...[
                         Text(
                           id.toString(),
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.labelMedium,
                         ),
                       ],
                       SizedBox(
@@ -56,7 +56,7 @@ class FidelityLinkItem extends StatelessWidget {
                             width: Get.width - Get.width * 0.5,
                             child: Text(
                               '${active ? "" : "(inativo) "}' + label,
-                              style: Theme.of(context).textTheme.bodyText1,
+                              style: Theme.of(context).textTheme.labelMedium,
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -74,7 +74,7 @@ class FidelityLinkItem extends StatelessWidget {
                                       description ?? '',
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 5,
-                                      style: Theme.of(context).textTheme.bodyText2,
+                                      style: Theme.of(context).textTheme.bodyMedium,
                                     ),
                                   ),
                                 ],

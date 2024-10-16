@@ -38,28 +38,28 @@ class FidelityEnterpriseHeader extends StatelessWidget {
           children: [
             Text(
               enterprise.name ?? '',
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
             SizedBox(
               height: 5,
             ),
             Text(
               enterprise.branch ?? '',
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             SizedBox(
               height: 5,
             ),
             Text(
               '${enterprise.address}, ${enterprise.addressNum} - ${enterprise.city}, ${enterprise.state}',
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
             SizedBox(
               height: 5,
             ),
             Text(
               enterprise.tel ?? '',
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
             ),
           ],
         ),

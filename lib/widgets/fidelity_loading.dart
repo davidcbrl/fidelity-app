@@ -19,7 +19,7 @@ class _FidelityLoadingState extends State<FidelityLoading> {
     return (widget.loading)
       ? Container(
           alignment: Alignment.center,
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -37,7 +37,7 @@ class _FidelityLoadingState extends State<FidelityLoading> {
                   padding: EdgeInsets.all(20),
                   child: Text(
                     widget.text,
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.labelMedium,
                   ),
                 ),
             ],

@@ -62,7 +62,7 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Selecione as fidelidades que desejar vincular à este produto ou crie uma nova fidelidade',
-                style: Theme.of(context).textTheme.bodyText1,
+                style: Theme.of(context).textTheme.labelMedium,
                 textAlign: TextAlign.center,
               ),
             ),
@@ -204,11 +204,11 @@ class _ProductFidelitiesBodyState extends State<ProductFidelitiesBody> {
       builder: (_) => AlertDialog(
         title: Text(
           'Produtos',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           productController.status.errorMessage ?? 'Erro ao salvar produto',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

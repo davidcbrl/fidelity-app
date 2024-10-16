@@ -154,7 +154,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                                 ),
                                 Text(
                                   "Produto ativo",
-                                  style: Theme.of(context).textTheme.bodyText1,
+                                  style: Theme.of(context).textTheme.labelMedium,
                                 ),
                               ],
                             ),
@@ -164,7 +164,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
                               ),
                               Text(
                                 "Fidelidades vinculadas",
-                                style: Theme.of(context).textTheme.bodyText1,
+                                style: Theme.of(context).textTheme.labelMedium,
                               ),
                               SizedBox(
                                 height: 10,
@@ -215,7 +215,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
         return Container(
           height: Get.height - Get.height * 0.5,
           padding: EdgeInsets.symmetric(horizontal: 20),
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           child: Column(
             children: [
               SizedBox(
@@ -223,7 +223,7 @@ class _ProductAddBodyState extends State<ProductAddBody> {
               ),
               Text(
                 'Categorias',
-                style: Theme.of(context).textTheme.headline2,
+                style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(
                 height: 20,
@@ -322,11 +322,11 @@ class _ProductAddBodyState extends State<ProductAddBody> {
       builder: (_) => AlertDialog(
         title: Text(
           'Produtos',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           productController.status.errorMessage ?? 'Erro ao salvar produto',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

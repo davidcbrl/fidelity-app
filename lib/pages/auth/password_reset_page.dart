@@ -21,9 +21,9 @@ class PasswordResetPage extends StatelessWidget {
 }
 
 class PasswordResetBody extends StatelessWidget {
-  AuthController authController = Get.find();
-  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  TextEditingController _emailController = TextEditingController();
+  final AuthController authController = Get.find();
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +44,7 @@ class PasswordResetBody extends StatelessWidget {
                   Text(
                     'Insira o e-mail vinculado à sua conta, enviaremos uma nova senha',
                     textAlign: TextAlign.center,
-                    style: Theme.of(context).textTheme.bodyText1,
+                    style: Theme.of(context).textTheme.labelMedium,
                   ),
                   SizedBox(
                     height: 10,
@@ -105,11 +105,11 @@ class PasswordResetBody extends StatelessWidget {
         builder: (_) => AlertDialog(
           title: Text(
             'Redefinir senha',
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           content: Text(
             authController.status.errorMessage ?? 'Erro ao redefinir senha',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           actions: [
             Padding(

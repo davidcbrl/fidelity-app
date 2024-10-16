@@ -10,7 +10,7 @@ import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class CheckpointProgressPage extends StatelessWidget {
-  Checkpoint? progress;
+  final Checkpoint? progress;
 
   CheckpointProgressPage({this.progress});
 
@@ -26,7 +26,7 @@ class CheckpointProgressPage extends StatelessWidget {
 }
 
 class CheckpointProgressBody extends StatefulWidget {
-  Checkpoint progress;
+  final Checkpoint progress;
 
   CheckpointProgressBody({required this.progress});
 
@@ -62,7 +62,7 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
                 ),
                 Text(
                   'Defina o progresso que o cliente está alcançando com essa fidelidade',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.labelMedium,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
@@ -139,28 +139,28 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
         children: [
           Text(
             widget.progress.fidelity!.id.toString() + ' ' + widget.progress.fidelity!.name.toString(),
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           SizedBox(
             height: 5,
           ),
           Text(
             'Fidelização: ' + FidelityUtils.types[widget.progress.fidelity!.fidelityTypeId ?? 0],
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           SizedBox(
             height: 5,
           ),
           Text(
             'Promoção: ' + FidelityUtils.promotions[widget.progress.fidelity!.promotionTypeId ?? 0],
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           SizedBox(
             height: 5,
           ),
           Text(
             'Vigência: ' + _buildValidityDescription(widget.progress),
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           SizedBox(
             height: 20,
@@ -168,12 +168,12 @@ class _CheckpointProgressBodyState extends State<CheckpointProgressBody> {
           if (widget.progress.fidelity!.fidelityTypeId == 1)
             Text(
               (widget.progress.originalScore!.toInt() + widget.progress.score!.toInt()).toString() + '/' + widget.progress.fidelity!.quantity!.toInt().toString(),
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           if (widget.progress.fidelity!.fidelityTypeId != 1)
             Text(
               (widget.progress.originalScore!.toInt() + widget.progress.score!.toInt()).toString() + '/' + widget.progress.fidelity!.quantity!.toInt().toString(),
-              style: Theme.of(context).textTheme.headline1,
+              style: Theme.of(context).textTheme.titleLarge,
             ),
           SizedBox(
             height: 20,

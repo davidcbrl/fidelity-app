@@ -15,10 +15,10 @@ class FidelityAppbarWidget extends StatelessWidget implements PreferredSizeWidge
     return AppBar(
       title: Text(
         title,
-        style: Theme.of(context).textTheme.headline1,
+        style: Theme.of(context).textTheme.titleLarge,
       ),
       centerTitle: true,
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       elevation: 0,
       leading: hasBackButton
         ? IconButton(

@@ -184,7 +184,7 @@ class _EmployeePageBodyState extends State<EmployeePageBody> {
             ),
             Text(
               "Funcionário ativo",
-              style: Theme.of(context).textTheme.bodyText1,
+              style: Theme.of(context).textTheme.labelMedium,
             ),
           ],
         ),
@@ -227,11 +227,11 @@ class _EmployeePageBodyState extends State<EmployeePageBody> {
       builder: (_) => AlertDialog(
         title: Text(
           'Funcionários',
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         content: Text(
           employeeController.status.errorMessage ?? 'Erro ao salvar funcionário',
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         actions: [
           Padding(

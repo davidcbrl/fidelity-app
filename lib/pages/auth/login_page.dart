@@ -26,10 +26,10 @@ class LoginPage extends StatelessWidget {
 }
 
 class LoginBody extends StatelessWidget {
-  AuthController authController = Get.put(AuthController());
-  GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final AuthController authController = Get.put(AuthController());
+  final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -51,8 +51,8 @@ class LoginBody extends StatelessWidget {
                     ),
                     Center(
                       child: Image.asset(
-                        'assets/img/logo-text.png',
-                        width: 125,
+                        'assets/img/logo-blue-transparent.png',
+                        height: 80,
                       ),
                     ),
                     SizedBox(
@@ -114,7 +114,7 @@ class LoginBody extends StatelessWidget {
                         ),
                         Text(
                           'Não possui conta?',
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context).textTheme.labelMedium,
                         ),
                         SizedBox(
                           height: 10,
@@ -159,11 +159,11 @@ class LoginBody extends StatelessWidget {
         builder: (_) => AlertDialog(
           title: Text(
             'Autenticação',
-            style: Theme.of(context).textTheme.headline1,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
           content: Text(
             authController.status.errorMessage ?? 'Erro ao autenticar',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.labelMedium,
           ),
           actions: [
             Padding(

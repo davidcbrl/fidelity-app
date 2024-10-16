@@ -42,7 +42,7 @@ class CheckpointCompletedBody extends StatelessWidget {
         Text(
           'Fidelidade completa!',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.headline1,
+          style: Theme.of(context).textTheme.titleLarge,
         ),
         SizedBox(
           height: 20,
@@ -50,12 +50,12 @@ class CheckpointCompletedBody extends StatelessWidget {
         Text(
           'Este cliente já pode receber as promoções das seguintes fidelidades:',
           textAlign: TextAlign.center,
-          style: Theme.of(context).textTheme.bodyText1,
+          style: Theme.of(context).textTheme.labelMedium,
         ),
         ...List.generate(completedCheckpoints!.length, (index) {
           return Text(
             'ID: ' + completedCheckpoints![index].fidelityId.toString(),
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.labelMedium,
           );
         }).toList(),
         SizedBox(

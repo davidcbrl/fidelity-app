@@ -49,7 +49,7 @@ class _FirstStepBodyState extends State<FirstStepBody> {
                 ),
                 Text(
                   'Vamos começar com alguns dados essenciais sobre sua empresa, você poderá completar os dados posteriormente',
-                  style: Theme.of(context).textTheme.bodyText1,
+                  style: Theme.of(context).textTheme.labelMedium,
                   textAlign: TextAlign.center,
                 ),
                 SizedBox(
